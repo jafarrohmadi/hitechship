@@ -69,6 +69,7 @@ return [
             'new_password'             => 'New Password',
             'confirm_password'         => 'Confirm Password',
             'change_password'          => 'Change Password',
+            'destinasion-email'        => 'Email Destination',
         ],
     ],
     'manager'        => [

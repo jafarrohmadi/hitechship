@@ -111,6 +111,7 @@
 <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
 <script src="{{ asset('js/select2.full.min.js') }}"></script>
 <script src="{{ asset('js/dropzone.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap-tagsinput.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
 <script>
     $(function () {
@@ -276,7 +277,6 @@
             window.location = url;
         });
     });
-
 </script>
 @yield('scripts')
 </body>

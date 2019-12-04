@@ -15,7 +15,11 @@ class CreateEmailUser extends Migration
     {
         Schema::create('email_user', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('email')->unique();
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         }
         );
     }

@@ -1,9 +1,10 @@
 <?php
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
-class HomeController
+class HomeController extends BaseController
 {
     public function index ()
     {
@@ -49,15 +50,30 @@ class HomeController
         return view('home', compact('settings1', 'chart2'));
     }
 
-    public function Authentication($user, $pass)
+    public function Authentication ($user, $pass)
     {
         $this->accessId = $user;
-        $this->passw = $pass;
+        $this->passw    = $pass;
     }
 
-    public function gateway ()
+    public function getInfoUtcTime ()
     {
+        return parent::getInfoUtcTime();
+    }
 
+    public function getInfoErrors ()
+    {
+        return parent::getInfoErrors();
+    }
+
+    public function getInfoVersion ()
+    {
+        return parent::getInfoVersion();
+    }
+
+    public function getSubAccountInfos ()
+    {
+        return parent::getSubAccountInfos();
     }
 
 }

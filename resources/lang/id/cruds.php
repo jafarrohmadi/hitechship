@@ -69,6 +69,7 @@ return [
             'new_password'             => 'Password Baru',
             'confirm_password'         => 'Konfirmasi Password',
             'change_password'          => 'Ubah Password',
+            'destinasion-email'        => 'Email Tujuan',
         ],
     ],
     'manager'        => [

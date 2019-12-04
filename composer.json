@@ -9,10 +9,12 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "ext-json": "*",
+        "artisaninweb/laravel-soap": "0.3.0.9",
         "bugsnag/bugsnag-laravel": "^2.17",
         "doctrine/dbal": "^2.9",
-        "econea/nusoap": "^0.9.7",
         "fideloper/proxy": "^4.0",
+        "guzzlehttp/guzzle": "^6.4",
         "laravel/framework": "^6.2",
         "laravel/passport": "^7.4",
         "laravel/tinker": "^1.0",

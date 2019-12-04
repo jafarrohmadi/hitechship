@@ -46,6 +46,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Manager::class);
     }
 
+    public function email ()
+    {
+        return $this->hasMany(EmailUser::class);
+    }
 
     public function setPasswordAttribute ($input)
     {

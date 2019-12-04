@@ -59,6 +59,32 @@
                 <span class="help-block">{{ trans('cruds.user.fields.roles_helper') }}</span>
             </div>
             <div class="form-group">
+                <label class="required" for="email">{{ trans('cruds.user.fields.destinasion-email') }}</label>
+                <?php $i = 0; ?>
+                @foreach($user->email as $email)
+                <div class="clone-email">
+                    <div class="form-inline">
+                        <input class="form-control col-md-8 {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                               type="email" name="email[]" id="email" value="{{ old('email[]', $email->email) }}" required>
+                        <span class="col-md-1"></span>
+                        <div class="btn btn-warning col-md-2 delete-clone-email" @if($i == 0) style="display: none" @endif>- Delete Email</div>
+                    </div>
+                    @if($errors->has('email'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('email') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.user.fields.roles_helper') }}</span>
+                    <br>
+                </div>
+                    <?php $i++ ;?>
+                @endforeach
+                <span class="clone-last"></span>
+            </div>
+            <div class="form-group">
+                <div class="btn btn-info add-clone-email">+ Add New Email</div>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>
@@ -68,4 +94,30 @@
 
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        var count = {{ $i ? $i : 1 }};
+        $(document).ready(function () {
+            $(".add-clone-email").on('click', function () {
+                if(count >= 9 ){
+                    $(".add-clone-email").hide();
+                }
+
+                var clone = $('.clone-email:last').clone();
+                // clone.removeClass('clone-email').addClass('clone-email'+count);
+                clone.find("#email").attr({ name: "email[]"});
+                clone.find("#email").val("");
+                clone.find(".delete-clone-email").show();
+                clone.appendTo('.clone-last');
+                count++;
+            });
+        });
+
+        $(document).on('click', ".delete-clone-email", function () {
+            $(this).closest(".clone-email").remove();
+            count--;
+        });
+    </script>
 @endsection
