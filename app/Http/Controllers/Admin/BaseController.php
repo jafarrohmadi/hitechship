@@ -17,7 +17,7 @@ class BaseController extends Controller
         $this->errorCodes      = [];
         $this->mobiles         = [];
         $this->returnMsgFromId = 0;
-        $this->sinceMobile     = 0;
+        $this->sinceMobile     = 'IDP690';
         $this->pageSize        = 100;
         $this->client          = new Client(['base_uri' => $this->url]);
     }
@@ -74,7 +74,92 @@ class BaseController extends Controller
             $response = $this->client->request('GET', 'get_broadcast_infos.json/', [
                     'query' => [
                         'access_id' => $this->accessId, 'password' => $this->passw,
-                        'subaccount_id' => $subAccount,
+                        'subaccount_id' => $subAccount[0],
+                    ],
+                ]
+            );
+            return $response->getBody()->getContents();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getMobilesPaged ()
+    {
+        $subAccount = $this->getSubAccount();
+        try {
+            $response = $this->client->request('GET', 'get_mobiles_paged.json/', [
+                    'query' => [
+                        'access_id' => $this->accessId, 'password' => $this->passw,
+                        'since_mobile' => $this->sinceMobile, 'page_size' => $this->pageSize,
+                        'subaccount_id' => $subAccount[0],
+                    ],
+                ]
+            );
+            return $response->getBody()->getContents();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getReturnMessages ()
+    {
+        try {
+            $response = $this->client->request('GET', 'get_return_messages.json/', [
+                    'query' => [
+                        'access_id' => $this->accessId, 'password' => $this->passw,
+                        'start_utc' => json_decode($this->getInfoUtcTime(), true),
+                    ],
+                ]
+            );
+            return $response->getBody()->getContents();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getForwardStatus ()
+    {
+        try {
+            $response = $this->client->request('GET', 'get_forward_statuses.json/', [
+                    'query' => [
+                        'access_id' => $this->accessId, 'password' => $this->passw,
+                        'start_utc' => json_decode($this->getInfoUtcTime(), true),
+                    ],
+                ]
+            );
+            return $response->getBody()->getContents();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getForwardMessages ()
+    {
+        try {
+            $response = $this->client->request('GET', 'get_forward_messages.json/', [
+                    'query' => [
+                        'access_id' => $this->accessId, 'password' => $this->passw,
+                        'fwIDs' => '1153034,1151791',
+                    ],
+                ]
+            );
+            return $response->getBody()->getContents();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function submitMessages ()
+    {
+        $data = [
+            'form_params' => [
+            ],
+        ];
+        try {
+            $response = $this->client->request('GET', 'submit_messages.json/', [
+                    'query' => [
+                        'access_id' => $this->accessId, 'password' => $this->passw,
                     ],
                 ]
             );
@@ -95,3 +180,4 @@ class BaseController extends Controller
     }
 
 }
+

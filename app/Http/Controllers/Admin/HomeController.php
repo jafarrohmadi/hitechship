@@ -76,4 +76,29 @@ class HomeController extends BaseController
         return parent::getSubAccountInfos();
     }
 
+    public function getBroadcastInfos ()
+    {
+        return parent::getBroadcastInfos();
+    }
+
+    public function getMobilesPaged ()
+    {
+        return parent::getMobilesPaged();
+    }
+
+    public function getReturnMessages ()
+    {
+        return parent::getReturnMessages();
+    }
+
+    public function getForwardStatus ()
+    {
+        return parent::getForwardStatus();
+    }
+
+    public function getForwardMessages ()
+    {
+        return parent::getForwardMessages();
+    }
+
 }

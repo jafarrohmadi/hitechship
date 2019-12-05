@@ -41,7 +41,7 @@ class DropTables extends Command
         if (!$this->confirm('CONFIRM DROP AL TABLES IN THE CURRENT DATABASE? [y|N]')) {
             exit('Drop Tables command aborted');
         }
-        $colname = 'Tables_in_d6v3qhno4vtvb4' ;
+        $colname = 'Tables_in_' . env('DB_DATABASE');
         $tables = DB::select('SHOW TABLES');
         foreach ($tables as $table) {
             $droplist[] = $table->$colname;
