@@ -2,35 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Helpers/CronData.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/HistoryShip.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/HistoryShip.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/BaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/BaseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/HistoryShipController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/HistoryShipController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ShipController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ShipController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/StoreHistoryShipRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/StoreHistoryShipRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/StoreShipRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/StoreShipRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/UpdateHistoryShipRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/UpdateHistoryShipRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/UpdateShipRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/UpdateShipRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ship.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ship.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_03_000005_create_ships_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_12_03_000005_create_ships_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_03_000007_create_history_ships_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_12_03_000007_create_history_ships_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_03_000012_create_history_ship_ship_pivot_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/cruds.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/cruds.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/global.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/global.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/id/cruds.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/id/cruds.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/id/global.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/id/global.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/historyShips/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/historyShips/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/historyShips/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/historyShips/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/historyShips/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/historyShips/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/historyShips/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/historyShips/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/ships/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ships/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/ships/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ships/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/ships/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ships/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/ships/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ships/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -216,7 +189,7 @@
       <workItem from="1575428101749" duration="35561000" />
       <workItem from="1575523986958" duration="6346000" />
       <workItem from="1575549235409" duration="11722000" />
-      <workItem from="1575619340547" duration="13673000" />
+      <workItem from="1575619340547" duration="13960000" />
     </task>
     <servers />
   </component>

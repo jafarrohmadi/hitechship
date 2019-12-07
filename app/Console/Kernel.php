@@ -28,6 +28,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command('getShip:data')->hourly();
+        $schedule->command('getHistoryShip:data')->hourly();
     }
 
     /**
