@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -16,19 +17,10 @@ class Ship extends Model
     ];
 
     protected $dates = [
-        'created_at',
         'updated_at',
-        'deleted_at',
-    ];
-
-    protected $fillable = [
-        'name',
-        'type',
-        'long',
-        'owner',
         'created_at',
-        'updated_at',
         'deleted_at',
+        'last_registration_utc',
     ];
 
     const TYPE_SELECT = [
@@ -37,13 +29,36 @@ class Ship extends Model
         'ferryShip'        => 'Ferry Ship',
     ];
 
-    public function historyShips()
+    protected $fillable = [
+        'name',
+        'long',
+        'type',
+        'owner',
+        'ship_ids',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'region_name',
+        'last_registration_utc',
+    ];
+
+    public function shipHistoryShips()
     {
         return $this->belongsToMany(HistoryShip::class);
     }
 
-    public function terminalShips()
+    public function shipTerminalShips()
     {
         return $this->belongsToMany(TerminalShip::class);
+    }
+
+    public function getLastRegistrationUtcAttribute($value)
+    {
+        return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
+    }
+
+    public function setLastRegistrationUtcAttribute($value)
+    {
+        $this->attributes['last_registration_utc'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
     }
 }

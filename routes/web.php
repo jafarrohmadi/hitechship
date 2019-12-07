@@ -18,6 +18,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('/getReturnMessages', 'HomeController@getReturnMessages');
     Route::get('/getForwardStatus', 'HomeController@getForwardStatus');
     Route::get('/getForwardMessages', 'HomeController@getForwardMessages');
+    Route::get('/submitMessages', 'HomeController@submitMessages');
     Route::get('/', 'HomeController@index')->name('home');
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');

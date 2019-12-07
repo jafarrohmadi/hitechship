@@ -1,50 +1,40 @@
-@extends('layouts.admin')
-@section('content')
-@can('ship_create')
+@can('terminal_ship_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.ships.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.ship.title_singular') }}
+            <a class="btn btn-success" href="{{ route("admin.terminal-ships.create") }}">
+                {{ trans('global.add') }} {{ trans('cruds.terminalShip.title_singular') }}
             </a>
         </div>
     </div>
 @endcan
+
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.ship.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.terminalShip.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Ship">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-TerminalShip">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.ship.fields.id') }}
+                            {{ trans('cruds.terminalShip.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.ship.fields.ship_ids') }}
+                            {{ trans('cruds.terminalShip.fields.ship') }}
                         </th>
                         <th>
-                            {{ trans('cruds.ship.fields.name') }}
+                            {{ trans('cruds.terminalShip.fields.terminal') }}
                         </th>
                         <th>
-                            {{ trans('cruds.ship.fields.owner') }}
+                            {{ trans('cruds.terminalShip.fields.arrive_time') }}
                         </th>
                         <th>
-                            {{ trans('cruds.ship.fields.region_name') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.ship.fields.last_registration_utc') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.ship.fields.long') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.ship.fields.type') }}
+                            {{ trans('cruds.terminalShip.fields.departure_time') }}
                         </th>
                         <th>
                             &nbsp;
@@ -52,50 +42,45 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($ships as $key => $ship)
-                        <tr data-entry-id="{{ $ship->id }}">
+                    @foreach($terminalShips as $key => $terminalShip)
+                        <tr data-entry-id="{{ $terminalShip->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $ship->id ?? '' }}
+                                {{ $terminalShip->id ?? '' }}
                             </td>
                             <td>
-                                {{ $ship->ship_ids ?? '' }}
+                                @foreach($terminalShip->ships as $key => $item)
+                                    <span class="badge badge-info">{{ $item->name }}</span>
+                                @endforeach
                             </td>
                             <td>
-                                {{ $ship->name ?? '' }}
+                                @foreach($terminalShip->terminals as $key => $item)
+                                    <span class="badge badge-info">{{ $item->name }}</span>
+                                @endforeach
                             </td>
                             <td>
-                                {{ $ship->owner ?? '' }}
+                                {{ $terminalShip->arrive_time ?? '' }}
                             </td>
                             <td>
-                                {{ $ship->region_name ?? '' }}
+                                {{ $terminalShip->departure_time ?? '' }}
                             </td>
                             <td>
-                                {{ $ship->last_registration_utc ?? '' }}
-                            </td>
-                            <td>
-                                {{ $ship->long ?? '' }}
-                            </td>
-                            <td>
-                                {{ App\Ship::TYPE_SELECT[$ship->type] ?? '' }}
-                            </td>
-                            <td>
-                                @can('ship_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.ships.show', $ship->id) }}">
+                                @can('terminal_ship_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.terminal-ships.show', $terminalShip->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
-                                @can('ship_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.ships.edit', $ship->id) }}">
+                                @can('terminal_ship_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.terminal-ships.edit', $terminalShip->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('ship_delete')
-                                    <form action="{{ route('admin.ships.destroy', $ship->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('terminal_ship_delete')
+                                    <form action="{{ route('admin.terminal-ships.destroy', $terminalShip->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -112,19 +97,16 @@
     </div>
 </div>
 
-
-
-@endsection
 @section('scripts')
 @parent
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('ship_delete')
+@can('terminal_ship_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.ships.massDestroy') }}",
+    url: "{{ route('admin.terminal-ships.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -152,9 +134,9 @@
 
   $.extend(true, $.fn.dataTable.defaults, {
     order: [[ 1, 'desc' ]],
-    pageLength: 10,
+    pageLength: 100,
   });
-  $('.datatable-Ship:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  $('.datatable-TerminalShip:not(.ajaxTable)').DataTable({ buttons: dtButtons })
     $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
         $($.fn.dataTable.tables(true)).DataTable()
             .columns.adjust();

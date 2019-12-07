@@ -25,26 +25,42 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.historyShip.fields.latitute') }}
+                            {{ trans('cruds.historyShip.fields.history_ids') }}
                         </th>
                         <td>
-                            {{ $historyShip->latitute }}
+                            {{ $historyShip->history_ids }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.historyShip.fields.logitude') }}
+                            {{ trans('cruds.historyShip.fields.sin') }}
                         </th>
                         <td>
-                            {{ $historyShip->logitude }}
+                            {{ $historyShip->sin }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.historyShip.fields.time_ship') }}
+                            {{ trans('cruds.historyShip.fields.region_name') }}
                         </th>
                         <td>
-                            {{ $historyShip->time_ship }}
+                            {{ $historyShip->region_name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.historyShip.fields.receive_utc') }}
+                        </th>
+                        <td>
+                            {{ $historyShip->receive_utc }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.historyShip.fields.message_utc') }}
+                        </th>
+                        <td>
+                            {{ $historyShip->message_utc }}
                         </td>
                     </tr>
                     <tr>
@@ -52,9 +68,23 @@
                             {{ trans('cruds.historyShip.fields.ship') }}
                         </th>
                         <td>
-                            @foreach($historyShip->ships as $key => $ship)
-                                <span class="label label-info">{{ $ship->name }}</span>
-                            @endforeach
+                            {{ $historyShip->ship->ship_ids ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.historyShip.fields.payload') }}
+                        </th>
+                        <td>
+                            {{ $historyShip->payload }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.historyShip.fields.ota_message_size') }}
+                        </th>
+                        <td>
+                            {{ $historyShip->ota_message_size }}
                         </td>
                     </tr>
                 </tbody>
@@ -65,8 +95,9 @@
                 </a>
             </div>
         </div>
-
-
     </div>
 </div>
+
+
+
 @endsection

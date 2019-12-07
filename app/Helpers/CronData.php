@@ -1,11 +1,9 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Helpers;
 
-use Illuminate\Http\Request;
-use Artisaninweb\SoapWrapper\SoapWrapper;
 use GuzzleHttp\Client;
 
-class BaseController extends Controller
+class CronData
 {
     protected $url, $accessId, $passw, $errorCodes, $mobiles, $returnMsgFromId, $sinceMobile, $pageSize, $client;
 
@@ -193,5 +191,6 @@ class BaseController extends Controller
         }
         return $subAccount;
     }
+
 }
 

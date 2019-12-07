@@ -150,6 +150,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Artisaninweb\SoapWrapper\ServiceProvider::class,
+        App\Providers\CronDataServiceProvider::class,
     ],
     /*
     |--------------------------------------------------------------------------
@@ -199,5 +200,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
         'SoapWrapper' => Artisaninweb\SoapWrapper\SoapWrapper::class,
+        'CronDataHelp' => App\Helpers\CronData::class,
     ],
 ];

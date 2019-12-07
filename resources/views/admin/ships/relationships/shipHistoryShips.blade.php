@@ -1,50 +1,52 @@
-@extends('layouts.admin')
-@section('content')
-@can('ship_create')
+@can('history_ship_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.ships.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.ship.title_singular') }}
+            <a class="btn btn-success" href="{{ route("admin.history-ships.create") }}">
+                {{ trans('global.add') }} {{ trans('cruds.historyShip.title_singular') }}
             </a>
         </div>
     </div>
 @endcan
+
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.ship.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.historyShip.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Ship">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-HistoryShip">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.ship.fields.id') }}
+                            {{ trans('cruds.historyShip.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.ship.fields.ship_ids') }}
+                            {{ trans('cruds.historyShip.fields.history_ids') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.historyShip.fields.sin') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.historyShip.fields.region_name') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.historyShip.fields.receive_utc') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.historyShip.fields.message_utc') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.historyShip.fields.ship') }}
                         </th>
                         <th>
                             {{ trans('cruds.ship.fields.name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.ship.fields.owner') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.ship.fields.region_name') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.ship.fields.last_registration_utc') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.ship.fields.long') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.ship.fields.type') }}
+                            {{ trans('cruds.historyShip.fields.payload') }}
                         </th>
                         <th>
                             &nbsp;
@@ -52,50 +54,53 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($ships as $key => $ship)
-                        <tr data-entry-id="{{ $ship->id }}">
+                    @foreach($historyShips as $key => $historyShip)
+                        <tr data-entry-id="{{ $historyShip->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $ship->id ?? '' }}
+                                {{ $historyShip->id ?? '' }}
                             </td>
                             <td>
-                                {{ $ship->ship_ids ?? '' }}
+                                {{ $historyShip->history_ids ?? '' }}
                             </td>
                             <td>
-                                {{ $ship->name ?? '' }}
+                                {{ $historyShip->sin ?? '' }}
                             </td>
                             <td>
-                                {{ $ship->owner ?? '' }}
+                                {{ $historyShip->region_name ?? '' }}
                             </td>
                             <td>
-                                {{ $ship->region_name ?? '' }}
+                                {{ $historyShip->receive_utc ?? '' }}
                             </td>
                             <td>
-                                {{ $ship->last_registration_utc ?? '' }}
+                                {{ $historyShip->message_utc ?? '' }}
                             </td>
                             <td>
-                                {{ $ship->long ?? '' }}
+                                {{ $historyShip->ship->ship_ids ?? '' }}
                             </td>
                             <td>
-                                {{ App\Ship::TYPE_SELECT[$ship->type] ?? '' }}
+                                {{ $historyShip->ship->name ?? '' }}
                             </td>
                             <td>
-                                @can('ship_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.ships.show', $ship->id) }}">
+                                {{ $historyShip->payload ?? '' }}
+                            </td>
+                            <td>
+                                @can('history_ship_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.history-ships.show', $historyShip->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
-                                @can('ship_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.ships.edit', $ship->id) }}">
+                                @can('history_ship_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.history-ships.edit', $historyShip->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('ship_delete')
-                                    <form action="{{ route('admin.ships.destroy', $ship->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('history_ship_delete')
+                                    <form action="{{ route('admin.history-ships.destroy', $historyShip->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -112,19 +117,16 @@
     </div>
 </div>
 
-
-
-@endsection
 @section('scripts')
 @parent
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('ship_delete')
+@can('history_ship_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.ships.massDestroy') }}",
+    url: "{{ route('admin.history-ships.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -154,7 +156,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 10,
   });
-  $('.datatable-Ship:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  $('.datatable-HistoryShip:not(.ajaxTable)').DataTable({ buttons: dtButtons })
     $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
         $($.fn.dataTable.tables(true)).DataTable()
             .columns.adjust();

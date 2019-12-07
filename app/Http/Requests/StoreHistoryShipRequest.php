@@ -19,20 +19,16 @@ class StoreHistoryShipRequest extends FormRequest
     public function rules()
     {
         return [
-            'latitute'  => [
+            'history_ids' => [
                 'required',
             ],
-            'logitude'  => [
-                'required',
+            'receive_utc' => [
+                'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
+                'nullable',
             ],
-            'time_ship' => [
-                'required',
-            ],
-            'ships.*'   => [
-                'integer',
-            ],
-            'ships'     => [
-                'array',
+            'message_utc' => [
+                'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
+                'nullable',
             ],
         ];
     }

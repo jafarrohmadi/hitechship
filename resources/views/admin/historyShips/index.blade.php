@@ -25,16 +25,31 @@
                         {{ trans('cruds.historyShip.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.historyShip.fields.latitute') }}
+                        {{ trans('cruds.historyShip.fields.history_ids') }}
                     </th>
                     <th>
-                        {{ trans('cruds.historyShip.fields.logitude') }}
+                        {{ trans('cruds.historyShip.fields.sin') }}
                     </th>
                     <th>
-                        {{ trans('cruds.historyShip.fields.time_ship') }}
+                        {{ trans('cruds.historyShip.fields.region_name') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.historyShip.fields.receive_utc') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.historyShip.fields.message_utc') }}
                     </th>
                     <th>
                         {{ trans('cruds.historyShip.fields.ship') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.ship.fields.name') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.historyShip.fields.payload') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.historyShip.fields.ota_message_size') }}
                     </th>
                     <th>
                         &nbsp;
@@ -42,10 +57,11 @@
                 </tr>
             </thead>
         </table>
-
-
     </div>
 </div>
+
+
+
 @endsection
 @section('scripts')
 @parent
@@ -92,10 +108,15 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
-{ data: 'latitute', name: 'latitute' },
-{ data: 'logitude', name: 'logitude' },
-{ data: 'time_ship', name: 'time_ship' },
-{ data: 'ship', name: 'ships.name' },
+{ data: 'history_ids', name: 'history_ids' },
+{ data: 'sin', name: 'sin' },
+{ data: 'region_name', name: 'region_name' },
+{ data: 'receive_utc', name: 'receive_utc' },
+{ data: 'message_utc', name: 'message_utc' },
+{ data: 'ship_ship_ids', name: 'ship.ship_ids' },
+{ data: 'ship.name', name: 'ship.name' },
+{ data: 'payload', name: 'payload' },
+{ data: 'ota_message_size', name: 'ota_message_size' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     order: [[ 1, 'desc' ]],

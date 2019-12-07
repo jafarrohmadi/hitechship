@@ -19,11 +19,15 @@ class UpdateShipRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [
+            'ship_ids'              => [
                 'required',
             ],
-            'type' => [
+            'name'                  => [
                 'required',
+            ],
+            'last_registration_utc' => [
+                'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
+                'nullable',
             ],
         ];
     }

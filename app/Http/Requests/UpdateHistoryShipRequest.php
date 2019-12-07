@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use App\HistoryShip;
@@ -9,31 +8,27 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UpdateHistoryShipRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize ()
     {
         abort_if(Gate::denies('history_ship_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         return true;
     }
 
-    public function rules()
+    public function rules ()
     {
         return [
-            'latitute'  => [
+            'history_ids' => [
                 'required',
             ],
-            'logitude'  => [
-                'required',
+            'receive_utc' => [
+                'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
+                'nullable',
             ],
-            'time_ship' => [
-                'required',
-            ],
-            'ships.*'   => [
-                'integer',
-            ],
-            'ships'     => [
-                'array',
+            'message_utc' => [
+                'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
+                'nullable',
             ],
         ];
     }
+
 }

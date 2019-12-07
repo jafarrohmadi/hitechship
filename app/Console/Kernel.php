@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\DropTables::class,
+        \App\Console\Commands\getShipData::class,
+        \App\Console\Commands\getHistoryShipData::class,
     ];
 
     /**

@@ -25,6 +25,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.ship.fields.ship_ids') }}
+                        </th>
+                        <td>
+                            {{ $ship->ship_ids }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.ship.fields.name') }}
                         </th>
                         <td>
@@ -33,10 +41,26 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.ship.fields.type') }}
+                            {{ trans('cruds.ship.fields.owner') }}
                         </th>
                         <td>
-                            {{ App\Ship::TYPE_SELECT[$ship->type] ?? '' }}
+                            {{ $ship->owner }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.ship.fields.region_name') }}
+                        </th>
+                        <td>
+                            {{ $ship->region_name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.ship.fields.last_registration_utc') }}
+                        </th>
+                        <td>
+                            {{ $ship->last_registration_utc }}
                         </td>
                     </tr>
                     <tr>
@@ -49,10 +73,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.ship.fields.owner') }}
+                            {{ trans('cruds.ship.fields.type') }}
                         </th>
                         <td>
-                            {{ $ship->owner }}
+                            {{ App\Ship::TYPE_SELECT[$ship->type] ?? '' }}
                         </td>
                     </tr>
                 </tbody>
@@ -63,8 +87,33 @@
                 </a>
             </div>
         </div>
-
-
     </div>
 </div>
+
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#ship_history_ships" role="tab" data-toggle="tab">
+                {{ trans('cruds.historyShip.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#ship_terminal_ships" role="tab" data-toggle="tab">
+                {{ trans('cruds.terminalShip.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="ship_history_ships">
+            @includeIf('admin.ships.relationships.shipHistoryShips', ['historyShips' => $ship->shipHistoryShips])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="ship_terminal_ships">
+            @includeIf('admin.ships.relationships.shipTerminalShips', ['terminalShips' => $ship->shipTerminalShips])
+        </div>
+    </div>
+</div>
+
 @endsection

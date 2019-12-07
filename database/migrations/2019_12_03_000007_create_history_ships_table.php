@@ -10,12 +10,18 @@ class CreateHistoryShipsTable extends Migration
     {
         Schema::create('history_ships', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('latitute');
-            $table->string('logitude');
-            $table->string('time_ship');
+            $table->string('history_ids');
+            $table->string('sin')->nullable();
+            $table->string('region_name')->nullable();
+            $table->datetime('receive_utc')->nullable();
+            $table->datetime('message_utc')->nullable();
+            $table->text('payload')->nullable();
+            $table->string('ota_message_size')->nullable();
+            $table->string('ship_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         }
         );
     }
+
 }

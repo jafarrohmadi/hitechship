@@ -19,7 +19,6 @@ return [
     'list'                                 => 'Daftar',
     'login'                                => 'Masuk',
     'login_email'                          => 'Email',
-    'login_username'                       => 'Username',
     'login_password'                       => 'Kata Sandi',
     'login_password_confirmation'          => 'Password baru lagi',
     'logout'                               => 'Keluar',
@@ -52,6 +51,7 @@ return [
     'youAreLoggedIn'                       => 'Anda sudah masuk',
     'yourAccountNeedsAdminApproval'        => 'Your accounts needs an administrator approval in order to log in',
     'submit'                               => 'Submit',
+    'relatedData'                          => 'Related Data',
     'datatables'                           => [
         'copy'          => 'Copy',
         'csv'           => 'CSV',

@@ -10,13 +10,17 @@ class CreateShipsTable extends Migration
     {
         Schema::create('ships', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('type');
+            $table->string('name')->nullable();
+            $table->string('type')->nullable();
             $table->string('long')->nullable();
             $table->string('owner')->nullable();
+            $table->string('ship_ids')->nullable();
+            $table->string('region_name')->nullable();
+            $table->datetime('last_registration_utc')->nullable();
             $table->timestamps();
             $table->softDeletes();
         }
         );
     }
+
 }
