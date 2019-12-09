@@ -22,7 +22,7 @@ class UsersController extends Controller
     public function index (Request $request)
     {
         if ($request->ajax()) {
-            $query = User::with(['roles', 'email', 'terminals'])->where('id', '!=', '1')->select(sprintf('%s.*', (new User)->table));
+            $query = User::with(['roles', 'email', 'terminals'])->join('role_user', 'users.id', '=', 'role_user.user_id')->where('role_user.role_id', 3)->select(sprintf('%s.*', (new User)->table));
             $table = Datatables::of($query);
             $table->addColumn('placeholder', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
@@ -111,7 +111,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $roles     = Role::where('id', '!=', 2)->get()->pluck('title', 'id');
-        $terminals = Terminal::where('id', '!=', 2)->all()->pluck('name', 'id');
+        $terminals = Terminal::all()->pluck('name', 'id');
         $user->load('roles', 'terminals', 'email');
         return view('admin.users.edit', compact('roles', 'user', 'terminals'));
     }
