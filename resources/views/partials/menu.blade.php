@@ -47,6 +47,16 @@
                     </a>
                 </li>
             @endcan
+            @can('setting_access')
+                <li class="nav-item">
+                    <a href="{{ route("admin.settings.index") }}" class="nav-link {{ request()->is('admin/settings') || request()->is('admin/settings/*') ? 'active' : '' }}">
+                        <i class="fa fa-cogs nav-icon">
+
+                        </i>
+                        {{ trans('cruds.setting.title') }}
+                    </a>
+                </li>
+            @endcan
             @can('user_management_access')
                 <li class="nav-item nav-dropdown">
                     <a class="nav-link  nav-dropdown-toggle" href="#">

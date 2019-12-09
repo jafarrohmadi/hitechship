@@ -43,7 +43,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // History Ships
     Route::delete('history-ships/destroy', 'HistoryShipController@massDestroy')->name('history-ships.massDestroy');
     Route::resource('history-ships', 'HistoryShipController');
-
+    // Settings
+    Route::delete('settings/destroy', 'SettingsController@massDestroy')->name('settings.massDestroy');
+    Route::resource('settings', 'SettingsController');
+    
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
 }
 );

@@ -152,6 +152,10 @@ class PermissionsTableSeeder extends Seeder
                 'id'    => '36',
                 'title' => 'history_ship_access',
             ],
+            [
+                'id'    => '37',
+                'title' => 'setting_access',
+            ],
         ];
 
         Permission::insert($permissions);
