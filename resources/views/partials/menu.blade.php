@@ -14,28 +14,6 @@
                     {{ trans('global.dashboard') }}
                 </a>
             </li>
-            @can('history_ship_access')
-                <li class="nav-item">
-                    <a href="{{ route("admin.history-ships.index") }}"
-                       class="nav-link {{ request()->is('admin/history-ships') || request()->is('admin/history-ships/*') ? 'active' : '' }}">
-                        <i class="fa fa-cogs nav-icon">
-
-                        </i>
-                        {{ trans('cruds.historyShip.title') }}
-                    </a>
-                </li>
-            @endcan
-            @can('manager_access')
-                <li class="nav-item">
-                    <a href="{{ route("admin.managers.index") }}"
-                       class="nav-link {{ request()->is('admin/managers') || request()->is('admin/managers/*') ? 'active' : '' }}">
-                        <i class="fa fa-cogs nav-icon">
-
-                        </i>
-                        {{ trans('cruds.manager.title') }}
-                    </a>
-                </li>
-            @endcan
             @can('ship_access')
                 <li class="nav-item">
                     <a href="{{ route("admin.ships.index") }}"
@@ -47,6 +25,17 @@
                     </a>
                 </li>
             @endcan
+            @can('history_ship_access')
+                <li class="nav-item">
+                    <a href="{{ route("admin.history-ships.index") }}"
+                       class="nav-link {{ request()->is('admin/history-ships') || request()->is('admin/history-ships/*') ? 'active' : '' }}">
+                        <i class="fa fa-cogs nav-icon">
+
+                        </i>
+                        {{ trans('cruds.historyShip.title') }}
+                    </a>
+                </li>
+            @endcan
             @can('terminal_access')
                 <li class="nav-item">
                     <a href="{{ route("admin.terminals.index") }}"
@@ -55,17 +44,6 @@
 
                         </i>
                         {{ trans('cruds.terminal.title') }}
-                    </a>
-                </li>
-            @endcan
-            @can('terminal_ship_access')
-                <li class="nav-item">
-                    <a href="{{ route("admin.terminal-ships.index") }}"
-                       class="nav-link {{ request()->is('admin/terminal-ships') || request()->is('admin/terminal-ships/*') ? 'active' : '' }}">
-                        <i class="fa fa-cogs nav-icon">
-
-                        </i>
-                        {{ trans('cruds.terminalShip.title') }}
                     </a>
                 </li>
             @endcan
@@ -108,6 +86,17 @@
 
                                     </i>
                                     {{ trans('cruds.user.title') }}
+                                </a>
+                            </li>
+                        @endcan
+                        @can('manager_access')
+                            <li class="nav-item">
+                                <a href="{{ route("admin.managers.index") }}"
+                                   class="nav-link {{ request()->is('admin/managers') || request()->is('admin/managers/*') ? 'active' : '' }}">
+                                    <i class="fa fa-user nav-icon">
+
+                                    </i>
+                                    {{ trans('cruds.manager.title') }}
                                 </a>
                             </li>
                         @endcan

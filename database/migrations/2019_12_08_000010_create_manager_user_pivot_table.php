@@ -16,4 +16,5 @@ class CreateManagerUserPivotTable extends Migration
         }
         );
     }
+
 }

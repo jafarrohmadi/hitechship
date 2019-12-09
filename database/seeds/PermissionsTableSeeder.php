@@ -152,26 +152,6 @@ class PermissionsTableSeeder extends Seeder
                 'id'    => '36',
                 'title' => 'history_ship_access',
             ],
-            [
-                'id'    => '37',
-                'title' => 'terminal_ship_create',
-            ],
-            [
-                'id'    => '38',
-                'title' => 'terminal_ship_edit',
-            ],
-            [
-                'id'    => '39',
-                'title' => 'terminal_ship_show',
-            ],
-            [
-                'id'    => '40',
-                'title' => 'terminal_ship_delete',
-            ],
-            [
-                'id'    => '41',
-                'title' => 'terminal_ship_access',
-            ],
         ];
 
         Permission::insert($permissions);

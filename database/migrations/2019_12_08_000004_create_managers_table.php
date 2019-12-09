@@ -6,14 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateManagersTable extends Migration
 {
-    public function up ()
+    public function up()
     {
         Schema::create('managers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+
             $table->timestamps();
+
             $table->softDeletes();
-        }
-        );
+        });
     }
 }

@@ -26,4 +26,5 @@ class CreateTerminalsTable extends Migration
         }
         );
     }
+
 }

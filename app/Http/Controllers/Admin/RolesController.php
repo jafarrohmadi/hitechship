@@ -18,7 +18,7 @@ class RolesController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = Role::with(['permissions'])->select(sprintf('%s.*', (new Role)->table));
+            $query = Role::with(['permissions'])->where('id', '!=', 2)->select(sprintf('%s.*', (new Role)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');

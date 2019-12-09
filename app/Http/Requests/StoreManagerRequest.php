@@ -19,7 +19,14 @@ class StoreManagerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'    => [
+            'name' => [
+                'required',
+            ],
+            'username' => [
+                'required',
+                'unique:users',
+            ],
+            'password' => [
                 'required',
             ],
             'users.*' => [

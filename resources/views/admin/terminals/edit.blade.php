@@ -21,6 +21,24 @@
                 <span class="help-block">{{ trans('cruds.terminal.fields.name_helper') }}</span>
             </div>
             <div class="form-group">
+                <label class="required" for="ships">{{ trans('cruds.terminal.fields.ship') }}</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('ships') ? 'is-invalid' : '' }}" name="ships[]" id="ships" multiple required>
+                    @foreach($ships as $id => $ship)
+                        <option value="{{ $id }}" {{ (in_array($id, old('ships', [])) || $terminal->ships->contains($id)) ? 'selected' : '' }}>{{ $ship }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('ships'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('ships') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.terminal.fields.ship_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <div class="form-check {{ $errors->has('air_comm_blocked') ? 'is-invalid' : '' }}">
                     <input type="hidden" name="air_comm_blocked" value="0">
                     <input class="form-check-input" type="checkbox" name="air_comm_blocked" id="air_comm_blocked" value="1" {{ $terminal->air_comm_blocked || old('air_comm_blocked', 0) === 1 ? 'checked' : '' }}>
@@ -156,8 +174,9 @@
                 </button>
             </div>
         </form>
-
-
     </div>
 </div>
+
+
+
 @endsection

@@ -7,6 +7,7 @@ use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Role;
+use App\Terminal;
 use App\User;
 use Gate;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class UsersController extends Controller
     public function index (Request $request)
     {
         if ($request->ajax()) {
-            $query = User::with(['roles', 'email'])->where('id', '!=', '1')->select(sprintf('%s.*', (new User)->table));
+            $query = User::with(['roles', 'email', 'terminals'])->where('id', '!=', '1')->select(sprintf('%s.*', (new User)->table));
             $table = Datatables::of($query);
             $table->addColumn('placeholder', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
@@ -68,7 +69,15 @@ class UsersController extends Controller
                 return implode(', ', $labels);
             }
             );
-            $table->rawColumns(['actions', 'placeholder', 'roles']);
+            $table->editColumn('terminal', function ($row) {
+                $labels = [];
+                foreach ($row->terminals as $terminal) {
+                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $terminal->name);
+                }
+                return implode(' ', $labels);
+            }
+            );
+            $table->rawColumns(['actions', 'placeholder', 'roles', 'terminal']);
             return $table->make(true);
         }
         return view('admin.users.index');
@@ -77,8 +86,9 @@ class UsersController extends Controller
     public function create ()
     {
         abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $roles = Role::all()->pluck('title', 'id');
-        return view('admin.users.create', compact('roles'));
+        $roles     = Role::where('id', '!=', 2)->get()->pluck('title', 'id');
+        $terminals = Terminal::all()->pluck('name', 'id');
+        return view('admin.users.create', compact('roles', 'terminals'));
     }
 
     public function store (StoreUserRequest $request)
@@ -93,22 +103,24 @@ class UsersController extends Controller
             }
         }
         $user->roles()->sync($request->input('roles', []));
+        $user->terminals()->sync($request->input('terminals', []));
         return redirect()->route('admin.users.index');
     }
 
     public function edit (User $user)
     {
         abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $roles = Role::all()->pluck('title', 'id');
-        $user->load('roles');
-        $user->load('email');
-        return view('admin.users.edit', compact('roles', 'user'));
+        $roles     = Role::where('id', '!=', 2)->get()->pluck('title', 'id');
+        $terminals = Terminal::where('id', '!=', 2)->all()->pluck('name', 'id');
+        $user->load('roles', 'terminals', 'email');
+        return view('admin.users.edit', compact('roles', 'user', 'terminals'));
     }
 
     public function update (UpdateUserRequest $request, User $user)
     {
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));
+        $user->terminals()->sync($request->input('terminals', []));
         if ($request->email) {
             EmailUser::where('user_id', $user->id)->delete();
             foreach ($request->email as $email) {
@@ -124,8 +136,7 @@ class UsersController extends Controller
     public function show (User $user)
     {
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $user->load('roles');
-        $user->load('email');
+        $user->load('roles', 'email', 'terminals', 'managerManagers', 'userManagers');
         return view('admin.users.show', compact('user'));
     }
 

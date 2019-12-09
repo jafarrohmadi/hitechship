@@ -17,7 +17,7 @@
                 <tbody>
                     <tr>
                         <th>
-                            {{ trans('cruds.manager.fields.id') }}
+                            {{ trans('cruds.user.fields.id') }}
                         </th>
                         <td>
                             {{ $manager->id }}
@@ -25,10 +25,18 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.manager.fields.name') }}
+                            {{ trans('cruds.user.fields.name') }}
                         </th>
                         <td>
-                            {{ $manager->name }}
+                            {{ $user->name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.username') }}
+                        </th>
+                        <td>
+                            {{ $user->username }}
                         </td>
                     </tr>
                     <tr>
@@ -49,8 +57,9 @@
                 </a>
             </div>
         </div>
-
-
     </div>
 </div>
+
+
+
 @endsection

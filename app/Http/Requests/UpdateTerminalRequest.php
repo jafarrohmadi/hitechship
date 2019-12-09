@@ -22,6 +22,13 @@ class UpdateTerminalRequest extends FormRequest
             'name' => [
                 'required',
             ],
+            'ships.*' => [
+                'integer',
+            ],
+            'ships'   => [
+                'required',
+                'array',
+            ],
         ];
     }
 }

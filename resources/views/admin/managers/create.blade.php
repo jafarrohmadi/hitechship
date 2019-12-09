@@ -10,14 +10,37 @@
         <form method="POST" action="{{ route("admin.managers.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label class="required" for="name">{{ trans('cruds.manager.fields.name') }}</label>
-                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', '') }}" required>
+                <label class="required" for="name">{{ trans('cruds.user.fields.name') }}</label>
+                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name"
+                       id="name" value="{{ old('name', '') }}" required>
                 @if($errors->has('name'))
                     <div class="invalid-feedback">
                         {{ $errors->first('name') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.manager.fields.name_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.user.fields.name_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="username">{{ trans('cruds.user.fields.username') }}</label>
+                <input class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" type="text"
+                       name="username" id="username" value="{{ old('username') }}" required>
+                @if($errors->has('username'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('username') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.username_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="password">{{ trans('cruds.user.fields.password') }}</label>
+                <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" type="password"
+                       name="password" id="password" required>
+                @if($errors->has('password'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('password') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.password_helper') }}</span>
             </div>
             <div class="form-group">
                 <label class="required" for="users">{{ trans('cruds.manager.fields.user') }}</label>
@@ -43,8 +66,9 @@
                 </button>
             </div>
         </form>
-
-
     </div>
 </div>
+
+
+
 @endsection

@@ -33,6 +33,16 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.terminal.fields.ship') }}
+                        </th>
+                        <td>
+                            @foreach($terminal->ships as $key => $ship)
+                                <span class="label label-info">{{ $ship->name }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.terminal.fields.air_comm_blocked') }}
                         </th>
                         <td>
@@ -119,8 +129,9 @@
                 </a>
             </div>
         </div>
-
-
     </div>
 </div>
+
+
+
 @endsection

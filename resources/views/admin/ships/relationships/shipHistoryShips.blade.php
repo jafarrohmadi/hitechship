@@ -49,6 +49,9 @@
                             {{ trans('cruds.historyShip.fields.payload') }}
                         </th>
                         <th>
+                            {{ trans('cruds.historyShip.fields.ota_message_size') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -85,6 +88,9 @@
                             </td>
                             <td>
                                 {{ $historyShip->payload ?? '' }}
+                            </td>
+                            <td>
+                                {{ $historyShip->ota_message_size ?? '' }}
                             </td>
                             <td>
                                 @can('history_ship_show')

@@ -34,8 +34,13 @@ class Terminal extends Model
         'modem_registration',
     ];
 
-    public function terminalShips()
+    public function ships()
     {
-        return $this->belongsToMany(TerminalShip::class);
+        return $this->belongsToMany(Ship::class);
+    }
+
+    public function terminalUsers()
+    {
+        return $this->belongsToMany(User::class);
     }
 }

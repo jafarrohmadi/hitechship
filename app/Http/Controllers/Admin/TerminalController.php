@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyTerminalRequest;
 use App\Http\Requests\StoreTerminalRequest;
 use App\Http\Requests\UpdateTerminalRequest;
+use App\Ship;
 use App\Terminal;
 use Gate;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class TerminalController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = Terminal::query()->select(sprintf('%s.*', (new Terminal)->table));
+            $query = Terminal::with(['ships'])->select(sprintf('%s.*', (new Terminal)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -43,6 +44,15 @@ class TerminalController extends Controller
             });
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : "";
+            });
+            $table->editColumn('ship', function ($row) {
+                $labels = [];
+
+                foreach ($row->ships as $ship) {
+                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $ship->name);
+                }
+
+                return implode(' ', $labels);
             });
             $table->editColumn('air_comm_blocked', function ($row) {
                 return '<input type="checkbox" disabled ' . ($row->air_comm_blocked ? 'checked' : null) . '>';
@@ -75,7 +85,7 @@ class TerminalController extends Controller
                 return '<input type="checkbox" disabled ' . ($row->geofence_out ? 'checked' : null) . '>';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'air_comm_blocked', 'power_backup', 'power_main', 'sleep_schedule', 'battery_low', 'speeding_start', 'speeding_end', 'modem_registration', 'geofence_in', 'geofence_out']);
+            $table->rawColumns(['actions', 'placeholder', 'ship', 'air_comm_blocked', 'power_backup', 'power_main', 'sleep_schedule', 'battery_low', 'speeding_start', 'speeding_end', 'modem_registration', 'geofence_in', 'geofence_out']);
 
             return $table->make(true);
         }
@@ -87,12 +97,15 @@ class TerminalController extends Controller
     {
         abort_if(Gate::denies('terminal_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.terminals.create');
+        $ships = Ship::all()->pluck('name', 'id');
+
+        return view('admin.terminals.create', compact('ships'));
     }
 
     public function store(StoreTerminalRequest $request)
     {
         $terminal = Terminal::create($request->all());
+        $terminal->ships()->sync($request->input('ships', []));
 
         return redirect()->route('admin.terminals.index');
     }
@@ -101,12 +114,17 @@ class TerminalController extends Controller
     {
         abort_if(Gate::denies('terminal_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.terminals.edit', compact('terminal'));
+        $ships = Ship::all()->pluck('name', 'id');
+
+        $terminal->load('ships');
+
+        return view('admin.terminals.edit', compact('ships', 'terminal'));
     }
 
     public function update(UpdateTerminalRequest $request, Terminal $terminal)
     {
         $terminal->update($request->all());
+        $terminal->ships()->sync($request->input('ships', []));
 
         return redirect()->route('admin.terminals.index');
     }
@@ -114,6 +132,8 @@ class TerminalController extends Controller
     public function show(Terminal $terminal)
     {
         abort_if(Gate::denies('terminal_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $terminal->load('ships', 'terminalUsers');
 
         return view('admin.terminals.show', compact('terminal'));
     }

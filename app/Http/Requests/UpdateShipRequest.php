@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use App\Ship;
@@ -9,26 +8,32 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UpdateShipRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize ()
     {
         abort_if(Gate::denies('ship_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         return true;
     }
 
-    public function rules()
+    public function rules ()
     {
         return [
-            'ship_ids'              => [
+            'ship_ids' => [
                 'required',
             ],
-            'name'                  => [
+            'name' => [
                 'required',
             ],
             'last_registration_utc' => [
                 'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
                 'nullable',
             ],
+            'terminals.*' => [
+                'integer',
+            ],
+            'terminals' => [
+                'array',
+            ],
         ];
     }
+
 }

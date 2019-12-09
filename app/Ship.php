@@ -44,12 +44,12 @@ class Ship extends Model
 
     public function shipHistoryShips()
     {
-        return $this->belongsToMany(HistoryShip::class);
+        return $this->hasMany(HistoryShip::class, 'ship_id', 'id');
     }
 
-    public function shipTerminalShips()
+    public function shipTerminals()
     {
-        return $this->belongsToMany(TerminalShip::class);
+        return $this->belongsToMany(Terminal::class);
     }
 
     public function getLastRegistrationUtcAttribute($value)

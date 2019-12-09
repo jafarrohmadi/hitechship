@@ -25,7 +25,7 @@
                         {{ trans('cruds.manager.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.manager.fields.name') }}
+                        {{ trans('cruds.user.fields.name') }}
                     </th>
                     <th>
                         {{ trans('cruds.manager.fields.user') }}
@@ -36,10 +36,11 @@
                 </tr>
             </thead>
         </table>
-
-
     </div>
 </div>
+
+
+
 @endsection
 @section('scripts')
 @parent
@@ -86,7 +87,7 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
-{ data: 'name', name: 'name' },
+{ data: 'manager_name', name: 'manager.name' },
 { data: 'user', name: 'users.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],

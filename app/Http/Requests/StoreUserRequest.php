@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use App\User;
@@ -9,33 +8,39 @@ use Symfony\Component\HttpFoundation\Response;
 
 class StoreUserRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize ()
     {
         abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         return true;
     }
 
-    public function rules()
+    public function rules ()
     {
         return [
-            'name'     => [
+            'name' => [
                 'required',
             ],
-            'username'    => [
+            'username' => [
                 'required',
                 'unique:users',
             ],
             'password' => [
                 'required',
             ],
-            'roles.*'  => [
+            'roles.*' => [
                 'integer',
             ],
-            'roles'    => [
+            'roles' => [
                 'required',
+                'array',
+            ],
+            'terminals.*' => [
+                'integer',
+            ],
+            'terminals' => [
                 'array',
             ],
         ];
     }
+
 }

@@ -19,8 +19,12 @@ class UpdateManagerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'    => [
+            'name' => [
                 'required',
+            ],
+            'username' => [
+                'required',
+                'unique:users',
             ],
             'users.*' => [
                 'integer',

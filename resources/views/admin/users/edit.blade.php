@@ -59,6 +59,24 @@
                 <span class="help-block">{{ trans('cruds.user.fields.roles_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="terminals">{{ trans('cruds.user.fields.terminal') }}</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('terminals') ? 'is-invalid' : '' }}" name="terminals[]" id="terminals" multiple>
+                    @foreach($terminals as $id => $terminal)
+                        <option value="{{ $id }}" {{ (in_array($id, old('terminals', [])) || $user->terminals->contains($id)) ? 'selected' : '' }}>{{ $terminal }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('terminals'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('terminals') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.terminal_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label class="required" for="email">{{ trans('cruds.user.fields.destinasion-email') }}</label>
                 <?php $i = 0; ?>
                 @foreach($user->email as $email)

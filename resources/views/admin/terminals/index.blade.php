@@ -28,6 +28,9 @@
                         {{ trans('cruds.terminal.fields.name') }}
                     </th>
                     <th>
+                        {{ trans('cruds.terminal.fields.ship') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.terminal.fields.air_comm_blocked') }}
                     </th>
                     <th>
@@ -63,10 +66,11 @@
                 </tr>
             </thead>
         </table>
-
-
     </div>
 </div>
+
+
+
 @endsection
 @section('scripts')
 @parent
@@ -114,6 +118,7 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
+{ data: 'ship', name: 'ships.name' },
 { data: 'air_comm_blocked', name: 'air_comm_blocked' },
 { data: 'power_backup', name: 'power_backup' },
 { data: 'power_main', name: 'power_main' },
@@ -127,7 +132,7 @@
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     order: [[ 1, 'desc' ]],
-    pageLength: 100,
+    pageLength: 10,
   };
   $('.datatable-Terminal').DataTable(dtOverrideGlobals);
     $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){

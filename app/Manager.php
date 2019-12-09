@@ -11,10 +11,6 @@ class Manager extends Model
 
     public $table = 'managers';
 
-    public static $searchable = [
-        'name',
-    ];
-
     protected $dates = [
         'created_at',
         'updated_at',
@@ -22,11 +18,16 @@ class Manager extends Model
     ];
 
     protected $fillable = [
-        'name',
+        'manager_id',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    public function manager()
+    {
+        return $this->belongsTo(User::class, 'manager_id');
+    }
 
     public function users()
     {

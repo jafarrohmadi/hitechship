@@ -41,7 +41,12 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function managers ()
+    public function managerManagers()
+    {
+        return $this->hasMany(Manager::class, 'manager_id', 'id');
+    }
+
+    public function userManagers()
     {
         return $this->belongsToMany(Manager::class);
     }
@@ -61,6 +66,11 @@ class User extends Authenticatable
     public function roles ()
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function terminals()
+    {
+        return $this->belongsToMany(Terminal::class);
     }
 
 }

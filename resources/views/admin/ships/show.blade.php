@@ -101,8 +101,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#ship_terminal_ships" role="tab" data-toggle="tab">
-                {{ trans('cruds.terminalShip.title') }}
+            <a class="nav-link" href="#ship_terminals" role="tab" data-toggle="tab">
+                {{ trans('cruds.terminal.title') }}
             </a>
         </li>
     </ul>
@@ -110,8 +110,8 @@
         <div class="tab-pane" role="tabpanel" id="ship_history_ships">
             @includeIf('admin.ships.relationships.shipHistoryShips', ['historyShips' => $ship->shipHistoryShips])
         </div>
-        <div class="tab-pane" role="tabpanel" id="ship_terminal_ships">
-            @includeIf('admin.ships.relationships.shipTerminalShips', ['terminalShips' => $ship->shipTerminalShips])
+        <div class="tab-pane" role="tabpanel" id="ship_terminals">
+            @includeIf('admin.ships.relationships.shipTerminals', ['terminals' => $ship->shipTerminals])
         </div>
     </div>
 </div>
