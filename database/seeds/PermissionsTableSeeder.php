@@ -69,7 +69,6 @@ class PermissionsTableSeeder extends Seeder
                 'title' => 'manager_delete',
             ],
             [
-                'id' => '21',
                 'title' => 'manager_access',
             ],
             [
@@ -79,7 +78,6 @@ class PermissionsTableSeeder extends Seeder
                 'title' => 'ship_edit',
             ],
             [
-                'id' => '24',
                 'title' => 'ship_show',
             ],
             [
