@@ -101,4 +101,9 @@ class HomeController extends BaseController
         return parent::getForwardMessages();
     }
 
+    public function getDashboard()
+    {
+        return view('admin.dashboard.index');
+    }
+
 }

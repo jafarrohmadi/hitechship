@@ -47,5 +47,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('settings', 'SettingsController');
 
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
+    Route::get('getDashboard', 'HomeController@getDashboard');
 }
 );
