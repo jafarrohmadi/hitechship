@@ -61,19 +61,22 @@ $(document).ready(function(){
 	});
 
 	
-	    var map = L.map('googleMap',{
-    center: [43.64701, -79.39425],
-    zoom: 15
-    });
+	var map = L.map('googleMap',{ center: [0, 118.8230631], zoom: 5});
 
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors and develop by jafar'
     }).addTo(map);
 
+	var LeafIcon = L.Icon.extend({
+	    options: {
+	        iconSize:     [15, 15],
+	        shadowSize:   [10, 12],
+	        iconAnchor:   [22, 94],
+	        shadowAnchor: [4, 62],
+	        popupAnchor:  [-3, -76]
+	    }
+	});
 	
-	
-	var infowindow = new google.maps.InfoWindow();
-	var bounds = new google.maps.LatLngBounds();
 	var zIndex = 0;
 	
 	$("#checkAll").click(function() {
@@ -110,31 +113,22 @@ $(document).ready(function(){
 		infowindow.open(map, marker? marker: message.marker);
 	}
 	
-	function getVesselIcon(message) {
+	function getIcon(message) {
 		var yesterday = new Date();
 		yesterday.setDate(yesterday.getDate() - 1);
-		var olderThan24h = message.eventTime <= yesterday.getTime();
+
+		var oneHoursBefore = new Date();
+		oneHoursBefore.setHours(oneHoursBefore.getHours() -1);
+
+		var notActivityMoreThan24h = message.eventTime <= yesterday.getTime();
+		var notActivityMoreThan1h = message.eventTime <= yesterday.getTime();
 		
-		var moving_vessel = { 
-			path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-			scale: 3,
-			fillColor: olderThan24h? "#FFA07A": "#69FD92",
-			strokeColor: "#000000",
-			fillOpacity: 1,
-			strokeWeight: 2,
-			rotation: message.speed > 0 ? Math.round(message.heading * 0.1): 0,
-		};
+		var speedMoreThen05 = notActivityMoreThan24h ? '/images/0.5red-ship.png' : notActivityMoreThan1h ? '/images/0.5orange-ship' : '/images/0.5green-ship';
+//			rotation: message.speed > 0 ? Math.round(message.heading * 0.1): 0
+		var speedLessThen05 = notActivityMoreThan24h ? '/images/0.05red-ship.png' : notActivityMoreThan1h ? '/images/0.05orange-ship' : '/images/0.05green-ship';
 		
-		var vessel = { 
-			path: "M24-8c0 4.4-3.6 8-8 8h-32c-4.4 0-8-3.6-8-8v-32c0-4.4 3.6-8 8-8h32c4.4 0 8 3.6 8 8v32z", 
-			scale: 0.25,
-			fillColor: olderThan24h? "#FFA07A": "#69FD92",
-			strokeColor: "#000000",
-			fillOpacity: 1,
-			strokeWeight: 2
-		};
 		
-		return message.speed > 0 ? moving_vessel: vessel;
+		return message.speed > 0.5 ? speedMoreThen05: speedLessThen05;
 	}
 	
 	$("#tracking_table tbody tr.row").click(function() {
@@ -176,27 +170,11 @@ $(document).ready(function(){
 	
 	for (var terminalId in locations) {
 		var message = locations[terminalId]; 
-		
-		var marker = new google.maps.Marker({
-			position: new google.maps.LatLng(message.latitude, message.longitude),
-			icon: getVesselIcon(message),
-			map: map,
-			zIndex: 0
-		});
-		
-		bounds.extend(marker.position);
-				
-		google.maps.event.addListener(marker, 'click', (function (marker, terminalId) {
-			return function () {
-				showInfoWindow(terminalId, marker);
-			}
-		})(marker, terminalId));
-		
-		message.marker = marker;
+
+		var greenIcon = new LeafIcon({iconUrl: getIcon(message)});
+		L.marker([message.latitude, message.longitude], {icon: greenIcon}).addTo(map).bindPopup("I am an orange leaf.");
 	}
-	map.fitBounds(bounds);
-	mapHistory.fitBounds(bounds);
-	
+
 	$("#tab-track").click(function() {
 		$("#googleMap").show();
 		$("#googleMapHistory").hide();

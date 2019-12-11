@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
+use App\Ship;
 
 class HomeController extends BaseController
 {
@@ -103,7 +104,11 @@ class HomeController extends BaseController
 
     public function getDashboard()
     {
-        return view('admin.dashboard.index');
+        $ship = Ship::with(['shipHistoryShips' =>function ($query) {
+            $query->orderBy('message_utc', 'desc');
+        }])->orderBy('owner', 'desc')->get()->groupBy('owner');
+ 
+        return view('admin.dashboard.index', compact('ship'));
     }
 
 }

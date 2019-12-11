@@ -57,27 +57,21 @@
                         </tr>
                         </thead>
                         <tbody>
-
+                        @foreach($ship as $key => $ships)
                         <tr class="header">
                             <td><input type="checkbox" name="3" checked="checked"/></td>
-                            <td colspan="3">Sentek Marine & Trading Pte Ltd</td>
+                            <td colspan="3">{{ $key }}</td>
                         </tr>
-
-
+                        @foreach($ships as $data => $dataShips)
                         <tr class="row">
                             <td><input type="checkbox" name="3" value="01162082SKY1F27" checked="checked"/></td>
-                            <td>STK PRIMA 6</td>
+                            <td>{{ $dataShips->name }}</td>
                             <td id="01162082SKY1F27-last">-</td>
                             <td id="01162082SKY1F27-speed">0</td>
                         </tr>
+                        @endforeach
 
-
-                        <tr class="row">
-                            <td><input type="checkbox" name="3" value="01229667SKYCB2C" checked="checked"/></td>
-                            <td>STK MERLION 111</td>
-                            <td id="01229667SKYCB2C-last">37m26s</td>
-                            <td id="01229667SKYCB2C-speed">0</td>
-                        </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </section>
