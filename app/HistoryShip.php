@@ -56,6 +56,6 @@ class HistoryShip extends Model
 
     public function ship()
     {
-        return $this->belongsTo(Ship::class);
+        return $this->belongsTo(Ship::class, 'ship_id');
     }
 }

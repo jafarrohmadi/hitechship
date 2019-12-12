@@ -17,7 +17,7 @@ class CreateHistoryShipsTable extends Migration
             $table->datetime('message_utc')->nullable();
             $table->text('payload')->nullable();
             $table->string('ota_message_size')->nullable();
-            $table->string('ship_id')->nullable();
+            $table->unsignedInteger('ship_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         }
