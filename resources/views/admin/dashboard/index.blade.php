@@ -16,20 +16,6 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/tabs.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/tabstyles.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/skysatu.css') }}"/>
-
-    <script>
-        var locations = {
-            "01035506SKYB6F7": {
-                id: 5420605146,
-                name: "GLORIA SENTOSA",
-                eventTime: 1575985126000,
-                heading: 3236,
-                speed: 0,
-                latitude: -7.17835,
-                longitude: 112.72058333333334
-            },
-        };
-    </script>
 </head>
 <body>
 <div id="googleMap"></div>
@@ -56,22 +42,8 @@
                             <td>Speed (knots)</td>
                         </tr>
                         </thead>
-                        <tbody>
-                        @foreach($ship as $key => $ships)
-                        <tr class="header">
-                            <td><input type="checkbox" name="3" checked="checked"/></td>
-                            <td colspan="3">{{ $key }}</td>
-                        </tr>
-                        @foreach($ships as $data => $dataShips)
-                        <tr class="row">
-                            <td><input type="checkbox" name="3" value="01162082SKY1F27" checked="checked"/></td>
-                            <td>{{ $dataShips->name }}</td>
-                            <td id="01162082SKY1F27-last">-</td>
-                            <td id="01162082SKY1F27-speed">0</td>
-                        </tr>
-                        @endforeach
-
-                        @endforeach
+                        <tbody id="shipData">
+                        
                         </tbody>
                     </table>
                 </section>
@@ -90,23 +62,7 @@
                             <td></td>
                         </tr>
                         </thead>
-                        <tbody>
-
-                        <tr class="header">
-                            <td></td>
-                            <td>Sentek Marine & Trading Pte Ltd</td>
-                        </tr>
-
-                        <tr class="row">
-                            <td><input type="checkbox" name="3" value="01162082SKY1F27"/></td>
-                            <td>STK PRIMA 6</td>
-                        </tr>
-
-                        <tr class="row">
-                            <td><input type="checkbox" name="3" value="01229667SKYCB2C"/></td>
-                            <td>STK MERLION 111</td>
-                        </tr>
-
+                        <tbody id='historyShipData'>
                         </tbody>
                     </table>
                 </section>
@@ -114,10 +70,10 @@
         </div><!-- /tabs -->
     </section>
 </div>
+
     <script>
 
-
-</script>
+    </script>
 
 </body>
 </html>

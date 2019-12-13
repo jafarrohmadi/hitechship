@@ -48,5 +48,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('getDashboard', 'HomeController@getDashboard');
+    Route::get('getDataShip', 'HomeController@getDataShip');
+    Route::get('getDataShipById/{id}', 'HomeController@getDataShipById');
 }
 );

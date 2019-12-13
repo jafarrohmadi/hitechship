@@ -104,11 +104,21 @@ class HomeController extends BaseController
 
     public function getDashboard()
     {
-        $ship = Ship::with(['shipHistoryShips' =>function ($query) {
-            $query->orderBy('message_utc', 'desc');
-        }])->orderBy('owner', 'desc')->get()->groupBy('owner');
- 
-        return view('admin.dashboard.index', compact('ship'));
+        return view('admin.dashboard.index');
+    }
+
+    public function getDataShip()
+    {
+        $ship = Ship::with('shipHistoryShipsLatest')->orderBy('owner', 'desc')->get()->groupBy('owner');
+        
+        return $ship;
+    }
+
+    public function getDataShipById($id)
+    {
+        $ship = Ship::with('shipHistoryShipsLatest')->where('ships.id' , $id)->orderBy('owner', 'desc')->get()->groupBy('owner');
+        
+        return $ship;
     }
 
 }

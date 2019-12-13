@@ -47,6 +47,11 @@ class Ship extends Model
         return $this->hasMany(HistoryShip::class, 'ship_id', 'id');
     }
 
+    public function shipHistoryShipsLatest()
+    {
+        return $this->shipHistoryShips()->latest();
+    }
+
     public function shipTerminals()
     {
         return $this->belongsToMany(Terminal::class);

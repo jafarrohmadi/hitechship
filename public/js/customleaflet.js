@@ -1,4 +1,81 @@
 $(document).ready(function(){
+    let locations = {};
+    function getDataShip() {
+            $.ajax({
+                type: 'get',
+                url: "/admin/getDataShip",
+                success: function (data) {
+                    let getDataShip = '';
+                    let getDataHistoryShip = '';
+
+                    for (var i in data) {
+                        let datas = '';
+                        if(i == "")
+                        {
+                            datass = 'Unassigned terminals';
+                        }else
+                        {
+                            datass = i;
+                        }
+
+                        getDataShip = getDataShip + '<tr class="header"><td><input type="checkbox" name="'+ i +'" checked="checked"/></td> <td colspan="3">'+ datass +'</td> </tr>';
+
+                        getDataHistoryShip = getDataHistoryShip +'<tr class="header">td></td><td>'+ datass +'</td></tr>';
+
+                        for(var j in data[i]){
+                            if(data[i][j]['ship_history_ships_latest'].length > 0){
+                                lastSeeShip = getTimeDifference(Date.parse(data[i][j]['ship_history_ships_latest'][0]['message_utc']));
+                            	timeShip = Date.parse(data[i][j]['ship_history_ships_latest'][0]['message_utc']);
+                            	jsonParse = JSON.parse(data[i][j]['ship_history_ships_latest'][0]['payload']);
+								for(var k in jsonParse['Fields']){
+									if(jsonParse['Fields'][k]['Name'].toLowerCase() == 'speed')
+									{
+										speed = (jsonParse['Fields'][k]['Value']* 0.1).toFixed(1);
+									}
+
+									if(jsonParse['Fields'][k]['Name'].toLowerCase() == 'latitude')
+									{
+										latitude = (jsonParse['Fields'][k]['Value']* 0.00001).toFixed(5);
+									}
+
+									if(jsonParse['Fields'][k]['Name'].toLowerCase() == 'longitude')
+									{
+										longitude = (jsonParse['Fields'][k]['Value']* 0.00001).toFixed(5);
+									}
+
+									if(jsonParse['Fields'][k]['Name'].toLowerCase() == 'heading')
+									{
+										heading = (jsonParse['Fields'][k]['Value']* 0.1).toFixed(1);
+									}
+								}                            	
+                            } else{
+                                lastSeeShip = '-';
+                                speed = 0;
+                            }
+                            key = data[i][j]['ship_ids'];
+                            locations[key] = {};
+                            locations[key]['id'] =  data[i][j]['id'];
+                            locations[key]['name'] =  data[i][j]['name'];
+                        	locations[key]['eventTime'] = timeShip;
+                            locations[key]['heading'] = heading;
+                            locations[key]['speed'] =  speed;
+                            locations[key]['latitude'] =  latitude;
+                            locations[key]['longitude'] =  longitude;
+
+                            getDataShip = getDataShip + '<tr class="row"><td><input type="checkbox" name="'+ i +'" value="'+ data[i][j]['ship_ids'] +'" checked="checked"/></td><td>'+ data[i][j]['name'] +' </td><td id="'+ data[i][j]['ship_ids'] +'-last">'+lastSeeShip +'</td><td id="'+ data[i][j]['ship_ids'] +'-speed">'+ speed +'</td></tr>';
+                            getDataHistoryShip = getDataHistoryShip +'<tr class="row"><td><input type="checkbox" name="'+ i +'" value="'+ data[i][j]['ship_ids'] +'"/></td><td>'+ data[i][j]['name'] +'</td></tr>';
+                       }
+                    }
+
+                    $('#shipData').html(getDataShip);
+                    $('#historyShipData').html(getDataHistoryShip);
+                    getMarker();
+                },
+            });
+        }
+
+        getDataShip();
+
 	$('#floating-panel div.close').on('click', function(){
 			var $this = $("#floating-panel");
 			if ($this.hasClass('open')) {
@@ -85,13 +162,14 @@ $(document).ready(function(){
 		infowindow.close();
 	});
 	
-	$("#tracking_table tbody tr.header input:checkbox").click(function() {
-		var checkbox_selector = "#tracking_table input[name=" + $(this).attr("name") + "]";
-		$(checkbox_selector).not(this).prop("checked", this.checked);
-		$(checkbox_selector).trigger("change");
-		infowindow.close();
-	});
-	
+	$(document).on("click", "#tracking_table tbody tr.header input:checkbox", function () {
+        console.log('here');
+        var checkbox_selector = "#tracking_table input[name=" + $(this).attr("name") + "]";
+        $(checkbox_selector).not(this).prop("checked", this.checked);
+        $(checkbox_selector).trigger("change");
+        infowindow.close();
+    });
+    
 	function focusAndShowInfoWindow(terminalId) {
 		showInfoWindow(terminalId);
 		
@@ -168,12 +246,15 @@ $(document).ready(function(){
 		}
 	});
 	
+	function getMarker(){
 	for (var terminalId in locations) {
-		var message = locations[terminalId]; 
 
+		var message = locations[terminalId]; 
+				console.log(message.latitude+ ' herw'+ message.longitude);
 		var greenIcon = new LeafIcon({iconUrl: getIcon(message)});
 		L.marker([message.latitude, message.longitude], {icon: greenIcon}).addTo(map).bindPopup("I am an orange leaf.");
 	}
+}
 
 	$("#tab-track").click(function() {
 		$("#googleMap").show();
