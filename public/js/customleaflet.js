@@ -201,9 +201,9 @@ $(document).ready(function(){
 		var notActivityMoreThan24h = message.eventTime <= yesterday.getTime();
 		var notActivityMoreThan1h = message.eventTime <= yesterday.getTime();
 		
-		var speedMoreThen05 = notActivityMoreThan24h ? '/images/0.5red-ship.png' : notActivityMoreThan1h ? '/images/0.5orange-ship' : '/images/0.5green-ship';
+		var speedMoreThen05 = notActivityMoreThan24h ? '/images/0.5red-ship.png' : notActivityMoreThan1h ? '/images/0.5orange-ship.png' : '/images/0.5green-ship.png';
 //			rotation: message.speed > 0 ? Math.round(message.heading * 0.1): 0
-		var speedLessThen05 = notActivityMoreThan24h ? '/images/0.05red-ship.png' : notActivityMoreThan1h ? '/images/0.05orange-ship' : '/images/0.05green-ship';
+		var speedLessThen05 = notActivityMoreThan24h ? '/images/0.05red-ship.png' : notActivityMoreThan1h ? '/images/0.05orange-ship.png' : '/images/0.05green-ship.png';
 		
 		
 		return message.speed > 0.5 ? speedMoreThen05: speedLessThen05;
