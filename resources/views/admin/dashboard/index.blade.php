@@ -10,7 +10,7 @@
 </head>
 <body>
 <div id="googleMap"></div>
-<div id="googleMapHistory"></div>
+<div id="googleMapHistory" style="display: none"></div>
 <div id="floating-panel">
     <div class="close">
         <i class="fa fa-angle-double-left"></i>

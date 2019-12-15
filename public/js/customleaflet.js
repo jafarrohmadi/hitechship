@@ -29,7 +29,6 @@ $(document).ready(function () {
     $("#tab-history").click(function () {
         $("#googleMapHistory").show();
         $("#googleMap").hide();
-        getDataMapHistory();
     });
 
 
@@ -91,21 +90,18 @@ $(document).ready(function () {
 
     function getDataMap() {
         map = L.map('googleMap', {center: [0, 118.8230631], zoom: 5});
+        mapHistory = L.map('googleMapHistory', {center: [0, 118.8230631], zoom: 5});
 
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-    }
-
-    function getDataMapHistory() {
-        mapHistory = L.map('googleMapHistory', {center: [0, 118.8230631], zoom: 5});
-        
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mapHistory);
 
     }
+
 //TRACK
     function getDataShip() {
         $.ajax({
@@ -192,7 +188,7 @@ $(document).ready(function () {
         for (let terminalId in locations) {
             let message = locations[terminalId];
             let greenIcon = new LeafIcon({iconUrl: getIcon(message)});
-            let rotation = message.speed > 0 ? Math.round(message.heading * 0.1) : 0;
+            let rotation = message.speed > 0.49 ? Math.round(message.heading * 0.1) : 0;
             let popup = showInfoPopUp(message);
             let marker = L.marker([message.latitude, message.longitude],
                 {rotationAngle: rotation, icon: greenIcon});
