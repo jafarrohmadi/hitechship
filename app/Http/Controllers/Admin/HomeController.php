@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\BaseController;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 use App\Ship;
+use App\HistoryShip;
 
 class HomeController extends BaseController
 {
@@ -109,20 +110,21 @@ class HomeController extends BaseController
 
     public function getDataShip()
     {
-        $ship = Ship::with('shipHistoryShipsLatest')->orderBy('owner', 'desc')->get()->groupBy('owner');
+        $ship = Ship::with('shipHistoryShipsLatest')->orderBy('owner', 'asc')->get()->groupBy('owner');
         return $ship;
     }
 
     public function getDataShipById($id)
     {
-        $ship = Ship::with('shipHistoryShipsLatest')->where('ships.id' , $id)->orderBy('owner', 'desc')->get()->groupBy('owner');
+        $ship = Ship::with('shipHistoryShipsLatest')->where('ships.id' , $id)->orderBy('owner', 'asc')->get()->groupBy('owner');
 
         return $ship;
     }
 
     public function getDataHistoryShipById($id)
     {
-        $shipHistory = HistoryShip::where('ship_id', $id)->orderBy('owner', 'desc')->get();
+        $shipHistory = HistoryShip::where('ship_id', $id)->get();
+        return $shipHistory;
     }
 
 }
