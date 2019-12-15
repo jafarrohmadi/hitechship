@@ -44,22 +44,37 @@ class getHistoryShipData extends Command
             if ($data->ErrorID === 0) {
                 foreach ($data->Messages as $message) {
                     $countShip = HistoryShip::where(['history_ids' => $message->ID, 'message_utc' => $message->MessageUTC, 'receive_utc' => $message->ReceiveUTC])->count();
-                    $ship = Ship::where('ship_ids', $message->MobileID)->first();
-                    if($countShip === 0 && !empty($ship)) {
-                        $historyShip = new HistoryShip();
-                        $historyShip->history_ids = $message->ID;
-                        $historyShip->sin = $message->SIN;
-                        $historyShip->region_name = $message->RegionName;
-                        $historyShip->receive_utc = $message->ReceiveUTC;
-                        $historyShip->message_utc = $message->MessageUTC;
-                        $historyShip->payload = json_encode($message->Payload);
-                        $historyShip->ota_message_size =$message->OTAMessageSize;
-                        $historyShip->ship_id = $ship->id;
-                        $historyShip->save();
+                    $ship      = Ship::where('ship_ids', $message->MobileID)->first();
+                    $payload   = [];
+                    foreach ($message->Payload->Fields as $field) {
+                        $field->Name = strtolower($field->Name);
+                        if ($field->Name === 'latitude' || $field->Name === 'longitude') {
+                            $field->Value = ($field->Value / 6) * 0.0001;
+                        }
 
-                        echo 'Insert History Ship Id' . $message->ID ."\n";
+                        if ($field->Name === 'speed') {
+                            $field->Value = ($field->Value) * 0.1;
+                        }
+
+                        $payload[] = [
+                            'Name' => $field->Name,
+                            'Value' => $field->Value,
+                        ];
                     }
-
+                    $message->Payload->Fields = $payload;
+                    if ($countShip === 0 && !empty($ship)) {
+                        $historyShip                   = new HistoryShip();
+                        $historyShip->history_ids      = $message->ID;
+                        $historyShip->sin              = $message->SIN;
+                        $historyShip->region_name      = $message->RegionName;
+                        $historyShip->receive_utc      = $message->ReceiveUTC;
+                        $historyShip->message_utc      = $message->MessageUTC;
+                        $historyShip->payload          = json_encode($message->Payload);
+                        $historyShip->ota_message_size = $message->OTAMessageSize;
+                        $historyShip->ship_id          = $ship->id;
+                        $historyShip->save();
+                        echo 'Insert History Ship Id ' . $message->ID . "\n";
+                    }
                 }
             }
         }

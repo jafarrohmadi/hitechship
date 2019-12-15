@@ -33,6 +33,7 @@ class Ship extends Model
         'name',
         'long',
         'type',
+        'call_sign',
         'owner',
         'ship_ids',
         'created_at',

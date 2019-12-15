@@ -1,17 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script src="{{asset('js/MeasureTool.min.js') }}"></script>
-    <script src="{{ asset('js/cbpFWTabs.js') }}"></script>
-    <script src="{{asset('js/jquery-dateFormat.min.js') }}"></script>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-        <script src="{{asset('js/leaflet.js')}}"></script>
-            <script src="{{asset('js/customleaflet.js')}}"></script>
-<!--       <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzPsrAS2Wg_xEdvr1uVc0fIhy0U99yOkU&callback=initMap"
-  type="text/javascript"></script> -->
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="{{asset('css/leaflet.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/tabs.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/tabstyles.css') }}"/>
@@ -19,6 +10,7 @@
 </head>
 <body>
 <div id="googleMap"></div>
+<div id="googleMapHistory"></div>
 <div id="floating-panel">
     <div class="close">
         <i class="fa fa-angle-double-left"></i>
@@ -43,14 +35,14 @@
                         </tr>
                         </thead>
                         <tbody id="shipData">
-                        
+
                         </tbody>
                     </table>
                 </section>
                 <section id="section-linebox-2">
                     <div style="text-align: right;">
-                        <input type="text" class="datepicker startDate">&nbsp;<input type="text"
-                                                                                     class="datepicker endDate">
+                        <input type="text" class="datepicker startDate">&nbsp;
+                        <input type="text" class="datepicker endDate">
                         <button id="setDate"><i class="fa fa-search"></i>&nbsp;Search</button>
                         <button id="downloadCSV"><i class="fa fa-download"></i></button>
                     </div>
@@ -70,10 +62,16 @@
         </div><!-- /tabs -->
     </section>
 </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{asset('js/MeasureTool.min.js') }}"></script>
+    <script src="{{ asset('js/cbpFWTabs.js') }}"></script>
+    <script src="{{asset('js/jquery-dateFormat.min.js') }}"></script>
 
-    <script>
+    <script src="{{asset('js/leaflet.js')}}"></script>
+    <script src="{{asset('js/leaflet.rotatedMarker.js')}}"></script>
 
-    </script>
+    <script src="{{asset('js/customleaflet.js')}}"></script>
 
 </body>
 </html>

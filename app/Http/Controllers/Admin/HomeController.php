@@ -110,15 +110,19 @@ class HomeController extends BaseController
     public function getDataShip()
     {
         $ship = Ship::with('shipHistoryShipsLatest')->orderBy('owner', 'desc')->get()->groupBy('owner');
-        
         return $ship;
     }
 
     public function getDataShipById($id)
     {
         $ship = Ship::with('shipHistoryShipsLatest')->where('ships.id' , $id)->orderBy('owner', 'desc')->get()->groupBy('owner');
-        
+
         return $ship;
+    }
+
+    public function getDataHistoryShipById($id)
+    {
+        $shipHistory = HistoryShip::where('ship_id', $id)->orderBy('owner', 'desc')->get();
     }
 
 }

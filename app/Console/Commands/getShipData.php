@@ -50,9 +50,9 @@ class getShipData extends Command
                         else {
                             $ship = new Ship();
                         }
-                        $ship->ship_ids                = $mobile->ID ?? '';
+                        $ship->ship_ids              = $mobile->ID ?? '';
                         $ship->region_name           = $mobile->RegionName ?? '';
-                        $ship->last_registration_utc = $mobile->LastRegistrationUTC ?? '';
+                        $ship->last_registration_utc = $mobile->LastRegistrationUTC ;
                         if (isset($mobile->Description)) {
                             $explodeDescription = explode('-', $mobile->Description);
                             $ship->name         = trim($explodeDescription[0]);
@@ -65,7 +65,7 @@ class getShipData extends Command
                         }
                         $ship->save();
 
-                        echo 'Insert Ship Id' . $mobile->ID ."\n";
+                        echo 'Insert Ship Id ' . $mobile->ID ."\n";
                     }
                 }
             }

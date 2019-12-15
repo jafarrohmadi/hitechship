@@ -106,6 +106,8 @@ return [
             'long_helper'                  => '',
             'owner'                        => 'Owner',
             'owner_helper'                 => '',
+            'call_sign'                    => 'Call Sign',
+            'call_sign_helper'             => '',
             'created_at'                   => 'Created at',
             'created_at_helper'            => '',
             'updated_at'                   => 'Updated at',

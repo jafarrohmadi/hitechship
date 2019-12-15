@@ -31,6 +31,16 @@
                 <span class="help-block">{{ trans('cruds.ship.fields.name_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="name">{{ trans('cruds.ship.fields.call_sign') }}</label>
+                <input class="form-control {{ $errors->has('call_sign') ? 'is-invalid' : '' }}" type="text" name="call_sign" id="call_sign" value="{{ old('call_sign', $ship->call_sign) }}" required>
+                @if($errors->has('call_sign'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('call_sign') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.ship.fields.call_sign_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label for="owner">{{ trans('cruds.ship.fields.owner') }}</label>
                 <input class="form-control {{ $errors->has('owner') ? 'is-invalid' : '' }}" type="text" name="owner" id="owner" value="{{ old('owner', $ship->owner) }}">
                 @if($errors->has('owner'))
@@ -72,7 +82,7 @@
             </div>
             <div class="form-group">
                 <label class="required">{{ trans('cruds.ship.fields.type') }}</label>
-                <select class="form-control {{ $errors->has('type') ? 'is-invalid' : '' }}" name="type" id="type" required>
+                <select class="form-control {{ $errors->has('type') ? 'is-invalid' : '' }}" name="type" id="type">
                     <option value disabled {{ old('type', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
                     @foreach(App\Ship::TYPE_SELECT as $key => $label)
                         <option value="{{ $key }}" {{ old('type', $ship->type) === (string) $key ? 'selected' : '' }}>{{ $label }}</option>

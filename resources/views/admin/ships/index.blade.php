@@ -32,6 +32,9 @@
                             {{ trans('cruds.ship.fields.name') }}
                         </th>
                         <th>
+                            {{ trans('cruds.ship.fields.call_sign') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.ship.fields.owner') }}
                         </th>
                         <th>
@@ -65,6 +68,9 @@
                             </td>
                             <td>
                                 {{ $ship->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $ship->call_sign ?? '' }}
                             </td>
                             <td>
                                 {{ $ship->owner ?? '' }}
