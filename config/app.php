@@ -149,7 +149,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Artisaninweb\SoapWrapper\ServiceProvider::class,
         App\Providers\CronDataServiceProvider::class,
     ],
     /*
@@ -199,7 +198,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
-        'SoapWrapper' => Artisaninweb\SoapWrapper\SoapWrapper::class,
         'CronDataHelp' => App\Helpers\CronData::class,
     ],
 ];

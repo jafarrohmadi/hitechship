@@ -499,9 +499,11 @@ $(document).ready(function(){
 						location.latitude = msg.position.latitude;
 						location.longitude = msg.position.longitude;
 					}
-				    location.marker.setPosition(new google.maps.LatLng(location.latitude, location.longitude));
-				    location.marker.setIcon(getVesselIcon(location));
-
+					let getChecked = $('#checkAll:checked').length;
+					if(getChecked > 0) {
+                        location.marker.setPosition(new google.maps.LatLng(location.latitude, location.longitude));
+                        location.marker.setIcon(getVesselIcon(location));
+                    }
 				    updateTrackingInfo(msg.terminalId, msg.eventTime, msg.speed);
 				});
 			});

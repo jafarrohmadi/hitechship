@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Artisaninweb\SoapWrapper\SoapWrapper;
 use GuzzleHttp\Client;
 
 class BaseController extends Controller

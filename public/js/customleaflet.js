@@ -243,6 +243,12 @@ $(document).ready(function () {
             let marker = L.marker([message.latitude, message.longitude],
                 {rotationAngle: rotation, icon: greenIcon});
             marker.bindPopup(popup);
+            marker.on('mouseover', function (e) {
+                this.openPopup();
+            });
+            marker.on('mouseout', function (e) {
+                this.closePopup();
+            });
             filterMarkers[terminalId] = marker;
             markers.addLayer(marker);
         }
@@ -313,7 +319,7 @@ $(document).ready(function () {
         if (typeof locations[id] != "undefined") {
             filterMarkers[id].openPopup();
         } else {
-            $(document).on("click", "#tracking_table tbody  input:checkbox[value=" + id + "]").trigger("click");
+            $("#tracking_table tbody  input:checkbox[value=" + id + "]").trigger("click");
         }
     });
 
@@ -347,14 +353,14 @@ $(document).ready(function () {
 
 //History
     $("#downloadCSV").click(function () {
-        var data = [["id",
-            "event time",
-            "Ship id",
-            "vessel name",
-            "latitude",
-            "longitude",
-            "speed",
-            "heading"]];
+        var data = [["ID",
+            "Event Time",
+            "Ship Id",
+            "Ship Name",
+            "Latitude",
+            "Longitude",
+            "Speed",
+            "Heading"]];
 
         for (var terminalId in locations) {
             var message = locations[terminalId];
@@ -366,14 +372,33 @@ $(document).ready(function () {
                     nextDay.setDate(endDate.getDate() + 1);
                     let timeShip = Date.parse(history['message_utc']) + 7 * 60 * 60 * 1000;
                     if (timeShip > startDate.getTime() && timeShip < nextDay.getTime()) {
-                        data.push([history.id,
+                        let jsonParse = JSON.parse(history['payload']);
+                        let speed, latitude, longitude, heading;
+                        for (const k in jsonParse['Fields']) {
+                            if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'speed') {
+                                speed = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
+                            }
+
+                            if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'latitude') {
+                                latitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                            }
+
+                            if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'longitude') {
+                                longitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                            }
+
+                            if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'heading') {
+                                heading = (jsonParse['Fields'][k]['Value'] * 0.1).toFixed(1);
+                            }
+                        }
+                        data.push([history['id'],
                             '"' + $.format.date(new Date(timeShip), "dd.MM.yyyy HH:mm:ss") + '"',
-                            '"' + history.terminalId + '"',
-                            '"' + (history.vesselName ? history.vesselName : '') + '"',
-                            history.latitude,
-                            history.longitude,
-                            history.speed,
-                            history.heading
+                            '"' + history['ship_ids'] + '"',
+                            '"' + (history['name'] ? history['name'] : '') + '"',
+                            latitude,
+                            longitude,
+                            speed,
+                            heading
                         ]);
                     }
                 });
@@ -419,8 +444,10 @@ $(document).ready(function () {
                     speed = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
                 }
             }
+
             if (timeShip > startDate.getTime() && timeShip < nextDay.getTime()) {
                 histories_html += "<div class=\"inner-table-row\">";
+                histories_html += '<div class="inner-table-icon-cell"><input type="checkbox" name="' + i + '" value="' + history['ship_ids'] + '"/></div>';
                 histories_html += "<div class=\"inner-table-icon-cell\"><i class=\"fa fa-compass\"></i></div>";
                 histories_html += "<div class=\"inner-table-date-cell\">" + $.format.date(new Date(timeShip), "dd.MM.yyyy HH:mm:ss") + "</div>";
                 histories_html += "<div>" + (speed * 0.1).toFixed(1) + " knots</div>";
@@ -576,8 +603,23 @@ $(document).ready(function () {
         if (selectedMessage) {
             if (selectedMessage.path) {
                 selectedMessage.historiesMarkers[selectedMessage.historiesMarkers.length - 1].openPopup();
-            } else {
-                $(document).on("click", "#history_table tbody input:checkbox[value=" + id + "]").trigger("click");
+            }
+        }
+    });
+
+    $(document).on("click", "#history_table tbody tr .inner-table .inner-table-row .inner-table-icon-cell input:checkbox", function () {
+        let id = $(this).val();
+        let name = $(this).attr("name");
+        let selectedMessage = locations[id];
+        let checked = $(this).is(":checked");
+
+        if (selectedMessage) {
+            if (selectedMessage.path) {
+                if (checked) {
+                    selectedMessage.historiesMarkers[name].openPopup();
+                } else {
+                    selectedMessage.historiesMarkers[name].closePopup();
+                }
             }
         }
     });
@@ -596,76 +638,92 @@ $(document).ready(function () {
     setInterval(function () {
         (function () {
             $.getJSON("/admin/getDataShip/", function (data) {
-                $.each(data, function (i, msg) {
-                    console.log(msg);
-                    let timeShip = Date.parse(msg['ship_history_ships_latest'][0]['message_utc']) + 7 * 60 * 60 * 1000;
-                    let location = locations[msg.ship_ids];
-                    let jsonParse = JSON.parse(msg['ship_history_ships_latest'][0]['payload']);
-                    let speed , latitude , longitude , heading;
-                    for (const k in jsonParse['Fields']) {
-                        if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'speed') {
-                            speed = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
-                        }
+                markers.clearLayers();
+                for (let i in data) {
+                    for (const j in data[i]) {
+                        if (data[i][j]['ship_history_ships_latest'].length > 0) {
+                            let timeShip = Date.parse(data[i][j]['ship_history_ships_latest'][0]['message_utc']) + 7 * 60 * 60 * 1000;
+                            let location = locations[data[i][j].ship_ids];
+                            let jsonParse = JSON.parse(data[i][j]['ship_history_ships_latest'][0]['payload']);
+                            let speed, latitude, longitude, heading;
+                            for (const k in jsonParse['Fields']) {
+                                if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'speed') {
+                                    speed = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
+                                }
 
-                        if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'latitude') {
-                            latitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
-                        }
+                                if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'latitude') {
+                                    latitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                                }
 
-                        if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'longitude') {
-                            longitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
-                        }
+                                if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'longitude') {
+                                    longitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                                }
 
-                        if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'heading') {
-                            heading = (jsonParse['Fields'][k]['Value'] * 0.1).toFixed(1);
+                                if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'heading') {
+                                    heading = (jsonParse['Fields'][k]['Value'] * 0.1).toFixed(1);
+                                }
+                            }
+
+                            if (location['id'] != data[i][j]['id']) {
+                                location['id'] = data[i][j]['id'];
+                                location['name'] = data[i][j]['name'];
+                                location['eventTime'] = timeShip;
+                                location['heading'] = heading ? heading : 0;
+                                location['speed'] = speed;
+                                location['latitude'] = latitude;
+                                location['longitude'] = longitude;
+                            }
+                            let getChecked = $('#checkAll:checked').length;
+
+                            let greenIcon = new LeafIcon({iconUrl: getIcon(locations[data[i][j].ship_ids])});
+                            let rotation = speed > 0.49 ? Math.round(heading * 0.7) : 0;
+                            let popup = showInfoPopUp(location);
+
+                            let marker = L.marker([latitude, longitude],
+                                {rotationAngle: rotation, icon: greenIcon});
+                            marker.bindPopup(popup);
+                            filterMarkers[data[i][j].ship_ids] = marker;
+                            let checked =[];
+                            $('#tracking_table tbody tr.row input:checkbox:checked').each(function(){
+                                checked.push($(this).val());
+                            });
+
+                            if (getChecked > 0 || checked.includes(data[i][j].ship_ids)) {
+                                getMarkerWithIds(data[i][j].ship_ids);
+                            }
+                            updateTrackingInfo(data[i][j].ship_ids, timeShip, speed);
                         }
                     }
-                    if (location.id != msg.id) {
-                        location.id = msg.id;
-                        location.name = msg.name;
-                        location.eventTime = timeShip;
-                        location.heading = heading ? heading : 0;
-                        location.speed = speed;
-                        location.latitude = latitude;
-                        location.longitude = longitude;
-                    }
-                    let newLatLng = new L.LatLng(latitude, longitude);
-                    filterMarkers[id].setLatLng(newLatLng);
-                    filterMarkers[id].setIcon(getIcon(location));
-
-                    updateTrackingInfo(msg.ship_ids, timeShip, speed);
-                });
+                }
             });
 
-            // $.each(locations, function (id, location) {
-            //     if (location.histories) {
-            //         $.getJSON("/app/terminal/" + id + "/terminal_messages/", function (data) {
-            //             if (data.length > 0) {
-            //                 let thisId = data[0].terminalId;
-            //                 let thisLocation = locations[thisId];
-            //                 let maxIdNew = Math.max.apply(Math, data.map(function (msg) {
-            //                     return msg.id;
-            //                 }));
-            //                 let maxIdOld = Math.max.apply(Math, thisLocation.histories.map(function (msg) {
-            //                     return msg.id;
-            //                 }));
-            //                 if (maxIdNew != maxIdOld) {
-            //                     thisLocation.histories = data;
-            //                     let path = thisLocation.path;
-            //                     if (path) {
-            //                         path.setMap(null);
-            //                         delete thisLocation.path;
-            //
-            //                         if (path.getVisible()) {
-            //                             createPath(thisId);
-            //                             removeHistories(thisId);
-            //                             showHistories(thisId);
-            //                         }
-            //                     }
-            //                 }
-            //             }
-            //         });
-            //     }
-            // });
+            $.each(locations, function (id, location) {
+                if (location.histories) {
+                    $.getJSON("/admin/getDataHistoryShipById/" + id, function (data) {
+                        if (data.length > 0) {
+                            let thisId = data[0]['ship_ids'];
+                            let thisLocation = locations[thisId];
+                            let maxIdNew = Math.max.apply(Math, data.map(function (msg) {
+                                return msg.id;
+                            }));
+                            let maxIdOld = Math.max.apply(Math, thisLocation.histories.map(function (msg) {
+                                return msg.id;
+                            }));
+                            if (maxIdNew != maxIdOld) {
+                                thisLocation.histories = data;
+                                let path = thisLocation.path;
+                                if (path) {
+                                    markersHistory.removeLayer(path);
+                                    delete thisLocation.path;
+                                    createPath(thisId);
+                                    removeHistories(thisId);
+                                    showHistories(thisId);
+                                }
+                            }
+                        }
+                    });
+                }
+            });
         })();
-    }, 1000000);
+    }, 10000);
 });
