@@ -4,15 +4,18 @@ $(document).ready(function () {
         options: {
             iconSize: [17, 17],
             shadowSize: [10, 12],
-            iconAnchor: [22, 94],
             shadowAnchor: [4, 62],
-            popupAnchor: [-3, -76]
+            iconAnchor: [10, 10],//changed marker icon position
+            popupAnchor: [0, -16]//changed popup position
         }
     });
 
     let map, mapHistory;
     let markers = new L.FeatureGroup();
+    let markersHistory = new L.FeatureGroup();
     let filterMarkers = [];
+    let path = [];
+    let filterHistoryMarkers = [];
 
 //Set Awal
     (function () {
@@ -29,19 +32,24 @@ $(document).ready(function () {
     $("#tab-history").click(function () {
         $("#googleMapHistory").show();
         $("#googleMap").hide();
+        getDataMapHistory();
     });
 
+    let minDatePicker = new Date();
+    minDatePicker.setFullYear(minDatePicker.getFullYear() - 1);
 
     $(".datepicker").datepicker({
         dateFormat: 'dd.mm.yy',
         autoSize: true,
         firstDay: 1,
-        constrainInput: true
+        constrainInput: true,
+        maxDate: '0',
+        minDate: minDatePicker
     });
 
-    var endDate = new Date();
+    let endDate = new Date();
     endDate.setHours(0, 0, 0, 0);
-    var startDate = endDate;
+    let startDate = endDate;
 
     $(".datepicker.startDate").datepicker("setDate", startDate);
     $(".datepicker.endDate").datepicker("setDate", endDate);
@@ -50,29 +58,68 @@ $(document).ready(function () {
         endDate = $(".datepicker.endDate").datepicker("getDate");
         startDate = $(".datepicker.startDate").datepicker("getDate");
         $("div.inner-table").closest("tr").remove();
-        for (var terminalId in locations) {
-            var message = locations[terminalId];
+        for (let terminalId in locations) {
+            let message = locations[terminalId];
             if (message.path) {
-                message.path.setMap(null);
-
+                message.path.remove();
                 $.each(message.historiesMarkers, function (i, marker) {
-                    marker.setMap(null);
+                    markersHistory.removeLayer(marker);
                 });
                 delete message.historiesMarkers;
-
-                if (message.path.getVisible()) {
-                    createPath(terminalId);
-                    showHistories(terminalId);
-                } else {
-                    delete message.path;
-                }
+                delete message.path;
             }
         }
     });
 
+    function getTimeDifference(fromDate) {
+        if (!fromDate) {
+            return "-";
+        }
+
+        let toDate = new Date().getTime();
+
+        let seconds = Math.round((toDate - fromDate) / 1000);
+        let minutes = 0, hours = 0, days = 0, weeks = 0, months = 0, years = 0;
+
+        let result = seconds + "s";
+
+        if (seconds >= 60) {
+            minutes = Math.floor(seconds / 60);
+            seconds = seconds % 60;
+            result = minutes + "m" + seconds + "s";
+        }
+
+        if (minutes >= 60) {
+            hours = Math.floor(minutes / 60);
+            minutes = minutes % 60;
+            result = hours + "h" + minutes + "m";
+        }
+
+        if (hours >= 24) {
+            days = Math.floor(hours / 24);
+            hours = hours % 24;
+            result = days + "d" + hours + "h";
+        }
+
+        if (days >= 7 && days < 30) {
+            weeks = Math.floor(days / 7);
+            days = days % 7;
+            result = weeks + "w" + days + "d";
+        } else if (days >= 30 && days < 365) {
+            months = Math.floor(days / 30);
+            weeks = Math.floor(days % 30 / 7);
+            result = months + "m" + weeks + "w";
+        } else if (days >= 365) {
+            years = Math.floor(days / 365);
+            months = Math.floor(days % 365 / 30);
+            result = years + "y" + months + "m";
+        }
+
+        return result;
+    }
 
     $('#floating-panel div.close').on('click', function () {
-        var $this = $("#floating-panel");
+        let $this = $("#floating-panel");
         if ($this.hasClass('open')) {
             $this.animate({
                 left: 0
@@ -90,16 +137,19 @@ $(document).ready(function () {
 
     function getDataMap() {
         map = L.map('googleMap', {center: [0, 118.8230631], zoom: 5});
-        mapHistory = L.map('googleMapHistory', {center: [0, 118.8230631], zoom: 5});
+
 
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+    }
+
+    function getDataMapHistory() {
+        mapHistory = L.map('googleMapHistory', {center: [0, 118.8230631], zoom: 5});
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mapHistory);
-
     }
 
 //TRACK
@@ -113,7 +163,7 @@ $(document).ready(function () {
                 let damask, jsonParse, lastSeeShip = '';
                 let timeShip, speed, latitude, longitude, key = '';
                 let k = 0;
-                for (var i in data) {
+                for (let i in data) {
                     if (i === "") {
                         damask = 'Unassigned terminals';
                     } else {
@@ -126,9 +176,9 @@ $(document).ready(function () {
 
                     for (const j in data[i]) {
                         if (data[i][j]['ship_history_ships_latest'].length > 0) {
-                            timeShip = Date.parse(data[i][j]['ship_history_ships_latest'][0]['message_utc']) + 7*60*60*1000;
+                            timeShip = Date.parse(data[i][j]['ship_history_ships_latest'][0]['message_utc']) + 7 * 60 * 60 * 1000;
                             lastSeeShip = getTimeDifference(timeShip);
-                           
+
                             jsonParse = JSON.parse(data[i][j]['ship_history_ships_latest'][0]['payload']);
                             for (const k in jsonParse['Fields']) {
                                 if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'speed') {
@@ -152,8 +202,8 @@ $(document).ready(function () {
                             locations[key]['id'] = data[i][j]['id'];
                             locations[key]['name'] = data[i][j]['name'];
                             locations[key]['eventTime'] = timeShip;
-                            locations[key]['heading'] = heading;
-                            locations[key]['speed'] = speed;
+                            locations[key]['heading'] = heading ? heading : 0;
+                            locations[key]['speed'] = speed ? speed : 0;
                             locations[key]['latitude'] = latitude;
                             locations[key]['longitude'] = longitude;
                         } else {
@@ -168,8 +218,8 @@ $(document).ready(function () {
                             '<td id="' + data[i][j]['ship_ids'] + '-speed">' + speed + '</td></tr>';
                         getDataHistoryShip = getDataHistoryShip +
                             '<tr class="row">' +
-                                '<td><input type="checkbox" name="' + i + '" value="' + data[i][j]['ship_ids'] + '"/></td>' +
-                                '<td>' + data[i][j]['name'] + '</td>' +
+                            '<td><input type="checkbox" name="' + i + '" value="' + data[i][j]['ship_ids'] + '"/></td>' +
+                            '<td>' + data[i][j]['name'] + '</td>' +
                             '</tr>';
                     }
                     k++;
@@ -188,7 +238,7 @@ $(document).ready(function () {
         for (let terminalId in locations) {
             let message = locations[terminalId];
             let greenIcon = new LeafIcon({iconUrl: getIcon(message)});
-            let rotation = message.speed > 0.49 ? Math.round(message.heading * 0.1) : 0;
+            let rotation = message.speed > 0.49 ? Math.round(message.heading * 0.7) : 0;
             let popup = showInfoPopUp(message);
             let marker = L.marker([message.latitude, message.longitude],
                 {rotationAngle: rotation, icon: greenIcon});
@@ -199,8 +249,8 @@ $(document).ready(function () {
     }
 
     function showInfoPopUp(message) {
-        var name = message.name ? message.name : message.id;
-        var content = "<p><strong><u>" + name + "</u></strong></p>" +
+        let name = message.name ? message.name : message.id;
+        let content = "<p><strong><u>" + name + "</u></strong></p>" +
             "<p><strong>Last:</strong> " + $.format.date(new Date(message.eventTime), "dd.MM.yyyy HH:mm:ss") + "</p>" +
             "<p><strong>Position:</strong> " + (message.latitude * 1).toFixed(4) + " S&nbsp;&nbsp;" + (message.longitude * 1).toFixed(4) + " E</p>" +
             "<p><strong>Speed:</strong> " + (message.speed * 1).toFixed(1) + " knots</p>" +
@@ -213,8 +263,8 @@ $(document).ready(function () {
         x = x || 0;
         x = (typeof x != 'undefined' && x instanceof Array) ? x : [x];
         map.addLayer(markers);
-        for(let n in x) {
-            if(typeof locations[x[n]] != 'undefined') {
+        for (let n in x) {
+            if (typeof locations[x[n]] != 'undefined') {
                 markers.addLayer(filterMarkers[x[n]]);
             }
         }
@@ -223,8 +273,8 @@ $(document).ready(function () {
     function deleteMarkerWithIds(x) {
         x = x || 0;
         x = (typeof x != 'undefined' && x instanceof Array) ? x : [x];
-        for(let n in x) {
-            if(typeof locations[x[n]] != 'undefined') {
+        for (let n in x) {
+            if (typeof locations[x[n]] != 'undefined') {
                 markers.removeLayer(filterMarkers[x[n]]);
             }
         }
@@ -278,17 +328,17 @@ $(document).ready(function () {
     });
 
     function getIcon(message) {
-        var yesterday = new Date();
+        let yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
 
-        var oneHoursBefore = new Date();
+        let oneHoursBefore = new Date();
         oneHoursBefore.setHours(oneHoursBefore.getHours() - 1);
 
-        var notActivityMoreThan24h = message.eventTime <= yesterday.getTime();
-        var notActivityMoreThan1h = message.eventTime <= oneHoursBefore.getTime();
+        let notActivityMoreThan24h = message.eventTime <= yesterday.getTime();
+        let notActivityMoreThan1h = message.eventTime <= oneHoursBefore.getTime();
 
-        var speedMoreThen05 = notActivityMoreThan24h ? '/images/0.5red-ship.png' : notActivityMoreThan1h ? '/images/0.5orange-ship.png' : '/images/0.5green-ship.png';
-        var speedLessThen05 = notActivityMoreThan24h ? '/images/0.05red-ship.png' : notActivityMoreThan1h ? '/images/0.05orange-ship.png' : '/images/0.05green-ship.png';
+        let speedMoreThen05 = notActivityMoreThan24h ? '/images/0.5red-ship.png' : notActivityMoreThan1h ? '/images/0.5orange-ship.png' : '/images/0.5green-ship.png';
+        let speedLessThen05 = notActivityMoreThan24h ? '/images/0.05red-ship.png' : notActivityMoreThan1h ? '/images/0.05orange-ship.png' : '/images/0.05green-ship.png';
 
         return message.speed > 0.5 ? speedMoreThen05 : speedLessThen05;
     }
@@ -296,94 +346,84 @@ $(document).ready(function () {
     getDataShip();
 
 //History
-    function createPath(terminalId) {
-        var histories = locations[terminalId].histories;
+    $("#downloadCSV").click(function () {
+        var data = [["id",
+            "event time",
+            "Ship id",
+            "vessel name",
+            "latitude",
+            "longitude",
+            "speed",
+            "heading"]];
 
-        var path = [];
-        var historiesMarkers = [];
-        $.each(histories, function (i, history) {
-            var nextDay = new Date(endDate);
-            nextDay.setDate(endDate.getDate() + 1);
-            if (history.eventTime > startDate.getTime() && history.eventTime < nextDay.getTime()) {
-                var latLng = new google.maps.LatLng(history.position.latitude, history.position.longitude);
-                path[path.length] = latLng;
-
-                var historyMarker = new google.maps.Marker({
-                    position: new google.maps.LatLng(history.position.latitude, history.position.longitude),
-                    icon: {
-                        path: google.maps.SymbolPath.CIRCLE,
-                        scale: 4,
-                        fillColor: "#ff0000",
-                        strokeColor: "#000000",
-                        fillOpacity: 1,
-                        strokeWeight: 2
-                    },
-                    map: mapHistory
+        for (var terminalId in locations) {
+            var message = locations[terminalId];
+            if (message.path) {
+                var histories = message.histories;
+                var path = [];
+                $.each(histories, function (i, history) {
+                    var nextDay = new Date(endDate);
+                    nextDay.setDate(endDate.getDate() + 1);
+                    let timeShip = Date.parse(history['message_utc']) + 7 * 60 * 60 * 1000;
+                    if (timeShip > startDate.getTime() && timeShip < nextDay.getTime()) {
+                        data.push([history.id,
+                            '"' + $.format.date(new Date(timeShip), "dd.MM.yyyy HH:mm:ss") + '"',
+                            '"' + history.terminalId + '"',
+                            '"' + (history.vesselName ? history.vesselName : '') + '"',
+                            history.latitude,
+                            history.longitude,
+                            history.speed,
+                            history.heading
+                        ]);
+                    }
                 });
-
-                var historyInfoWindow = new google.maps.InfoWindow({
-                    content: "<p><strong>Time:</strong> " + $.format.date(new Date(history.eventTime), "dd.MM.yyyy HH:mm:ss") + "</p>" +
-                        "<p><strong>Position:</strong> " + history.position.latitude.toFixed(4) + " S&nbsp;&nbsp;" + history.position.longitude.toFixed(4) + " E</p>" +
-                        "<p><strong>Speed:</strong> " + (history.speed * 0.1).toFixed(1) + " knots</p>" +
-                        "<p><strong>Heading</strong>: " + (history.heading * 0.1).toFixed(1) + "&deg;</p>"
-                });
-
-                google.maps.event.addListener(historyMarker, 'mouseover', function () {
-                    historyInfoWindow.open(mapHistory, historyMarker);
-                });
-                google.maps.event.addListener(historyMarker, 'mouseout', function () {
-                    historyInfoWindow.close();
-                });
-
-                historiesMarkers[historiesMarkers.length] = historyMarker;
             }
-        });
-        locations[terminalId].historiesMarkers = historiesMarkers;
-
-        if (historiesMarkers.length > 0) {
-            historiesMarkers[0].setIcon({
-                path: google.maps.SymbolPath.CIRCLE,
-                scale: 6,
-                fillColor: "#0000FF",
-                strokeColor: "#000000",
-                fillOpacity: 1,
-                strokeWeight: 2
-            });
         }
 
-        if (historiesMarkers.length > 1) {
-            historiesMarkers[historiesMarkers.length - 1].setIcon(
-                getVesselIcon(locations[terminalId])
-            );
-        }
-
-        locations[terminalId].path = new google.maps.Polyline({
-            path: path,
-            strokeColor: "#0000FF",
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            map: mapHistory
+        var csvContent = "";
+        data.forEach(function (infoArray, index) {
+            var dataString = infoArray.join(",");
+            csvContent += index < data.length ? dataString + "\n" : dataString;
         });
-        mapHistory.setCenter(path[path.length - 1]);
-    }
+
+        if (window.navigator.msSaveOrOpenBlob) {
+            var blobObject = new Blob(["\ufeff" + csvContent]);
+            window.navigator.msSaveOrOpenBlob(blobObject, "terminal-messages.csv");
+        } else {
+            var link = document.createElement("a");
+            link.setAttribute("href", encodeURI("data:text/csv;charset=utf-8," + csvContent));
+            link.setAttribute("download", "terminal-messages.csv");
+            document.body.appendChild(link); // Required for FF
+
+            link.click();
+        }
+    });
 
     function showHistories(terminalId) {
-        var selectedTR = $("#history_table tr.row").has("input:checkbox[value=" + terminalId + "]");
+        let selectedTR = $("#history_table tr.row").has("input:checkbox[value=" + terminalId + "]");
 
         if (selectedTR.next().length > 0 && !(selectedTR.next().hasClass("row") || selectedTR.next().hasClass("header"))) {
             return;
         }
 
         selectedTR.addClass("checked");
-        var histories_html = "<tr><td></td><td><div class=\"inner-table\">";
+        let histories_html = "<tr><td></td><td><div class=\"inner-table\">";
         $.each(locations[terminalId].histories, function (i, history) {
-            var nextDay = new Date(endDate);
+            let nextDay = new Date(endDate);
             nextDay.setDate(endDate.getDate() + 1);
-            if (history.eventTime > startDate.getTime() && history.eventTime < nextDay.getTime()) {
+            let timeShip = Date.parse(history['message_utc']) + 7 * 60 * 60 * 1000;
+            let speed;
+            let jsonParse = JSON.parse(history['payload']);
+            for (const k in jsonParse['Fields']) {
+                if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'speed') {
+                    speed = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
+                }
+            }
+            if (timeShip > startDate.getTime() && timeShip < nextDay.getTime()) {
                 histories_html += "<div class=\"inner-table-row\">";
                 histories_html += "<div class=\"inner-table-icon-cell\"><i class=\"fa fa-compass\"></i></div>";
-                histories_html += "<div class=\"inner-table-date-cell\">" + $.format.date(new Date(history.eventTime), "dd.MM.yyyy HH:mm:ss") + "</div>";
-                histories_html += "<div>" + (history.speed * 0.1).toFixed(1) + " knots</div>";
+                histories_html += "<div class=\"inner-table-date-cell\">" + $.format.date(new Date(timeShip), "dd.MM.yyyy HH:mm:ss") + "</div>";
+                histories_html += "<div>" + (speed * 0.1).toFixed(1) + " knots</div>";
                 histories_html += "</div>";
             }
         });
@@ -392,8 +432,95 @@ $(document).ready(function () {
         selectedTR.after(histories_html);
     }
 
+    function createPath(terminalId) {
+        let histories = locations[terminalId].histories;
+        let path = [];
+        let historiesMarkers = [];
+        let poliline = [];
+
+        mapHistory.addLayer(markersHistory);
+        $.each(histories, function (i, history) {
+            let nextDay = new Date(endDate);
+            nextDay.setDate(endDate.getDate() + 1);
+            let timeShip = Date.parse(history['message_utc']) + 7 * 60 * 60 * 1000;
+            let speed, latitude, longitude, heading;
+            if (timeShip > startDate.getTime() && timeShip < nextDay.getTime()) {
+                let jsonParse = JSON.parse(history['payload']);
+                for (const k in jsonParse['Fields']) {
+                    if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'speed') {
+                        speed = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
+                    }
+
+                    if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'latitude') {
+                        latitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                    }
+
+                    if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'longitude') {
+                        longitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                    }
+
+                    if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'heading') {
+                        heading = (jsonParse['Fields'][k]['Value'] * 0.1).toFixed(1);
+                    }
+                }
+
+                path = {};
+                path['id'] = history['id'];
+                path['name'] = history['name'];
+                path['eventTime'] = timeShip;
+                path['heading'] = heading ? heading : 0;
+                path['speed'] = speed;
+                path['latitude'] = latitude;
+                path['longitude'] = longitude;
+
+                let greenIcon = new LeafIcon({iconUrl: getIcon(path)});
+                let rotation = speed > 0.49 ? Math.round(heading * 0.7) : 0;
+                let popup = showInfoPopUp(path);
+                let markerHistory;
+                poliline[poliline.length] = new L.LatLng(latitude, longitude);
+                if (histories.length > 0 && i === 0) {
+                    markerHistory = L.circle([latitude, longitude], {
+                        color: '#000000',
+                        fillColor: '#0000FF',
+                        fillOpacity: 1,
+                        radius: 30000
+                    });
+                } else if (histories.length > 1 && histories.length === i + 1) {
+                    markerHistory = L.marker([latitude, longitude], {
+                        rotationAngle: rotation, icon: greenIcon
+                    });
+                } else {
+                    markerHistory = L.circle([latitude, longitude], {
+                        color: '#000000',
+                        fillColor: '#ff0000',
+                        fillOpacity: 1,
+                        radius: 30000
+                    });
+                }
+
+                markerHistory.bindPopup(popup);
+                markerHistory.on('mouseover', function (e) {
+                    this.openPopup();
+                });
+                markerHistory.on('mouseout', function (e) {
+                    this.closePopup();
+                });
+                markersHistory.addLayer(markerHistory);
+                historiesMarkers[historiesMarkers.length] = markerHistory;
+            }
+        });
+
+        locations[terminalId].historiesMarkers = historiesMarkers;
+        locations[terminalId].path = new L.polyline(poliline, {
+            color: "#0000FF",
+            weight: 2,
+            opacity: 0.8
+        }).addTo(mapHistory);
+
+    }
+
     function removeHistories(terminalId) {
-        var selectedTR = $("#history_table tr.row").has("input:checkbox[value=" + terminalId + "]");
+        let selectedTR = $("#history_table tr.row").has("input:checkbox[value=" + terminalId + "]");
 
         if (selectedTR.next().hasClass("row")) {
             return;
@@ -404,13 +531,9 @@ $(document).ready(function () {
         selectedTR.next().remove();
     }
 
-    function setCenter(loc) {
-        var lastPosition = loc.path.getPath().getArray()[loc.path.getPath().getArray().length - 1];
-        mapHistory.setCenter(lastPosition);
-    }
     $(document).on("click", "#history_table tbody tr.row input:checkbox", function () {
-        var id = $(this).val();
-        var selectedMessage = locations[id];
+        let id = $(this).val();
+        let selectedMessage = locations[id];
 
         if (selectedMessage) {
             if (!selectedMessage.path) {
@@ -418,10 +541,10 @@ $(document).ready(function () {
                     createPath(id);
                     showHistories(id);
                 } else {
-                    var terminal_messages_url = "/app/terminal/" + id + "/terminal_messages/";
+                    let terminal_messages_url = "/admin/getDataHistoryShipById/" + id;
                     $.getJSON(terminal_messages_url, function (data) {
                         if (data.length > 0) {
-                            var terminalId = data[0].terminalId;
+                            let terminalId = data[0].ship_ids;
                             locations[terminalId].histories = data;
                             createPath(terminalId);
                             showHistories(id);
@@ -429,15 +552,16 @@ $(document).ready(function () {
                     });
                 }
             } else {
-                var checked = $(this).is(":checked");
-                selectedMessage.path.setVisible(checked);
+                let checked = $(this).is(":checked");
+                selectedMessage.path.remove(checked);
                 $.each(selectedMessage.historiesMarkers, function (i, marker) {
-                    if (checked) marker.setMap(mapHistory);
-                    else marker.setMap(null);
+                    if (checked)
+                        markersHistory.addLayer(marker);
+                    else
+                        markersHistory.removeLayer(marker);
                 });
 
                 if (checked) {
-                    setCenter(selectedMessage);
                     showHistories(id);
                 } else {
                     removeHistories(id);
@@ -446,69 +570,22 @@ $(document).ready(function () {
         }
     });
 
-    $("#history_table tbody tr.row").click(function () {
-        var id = $("input:checkbox", this).val();
-        var selectedMessage = locations[id];
+    $(document).on("click", "#history_table tbody tr.row", function () {
+        let id = $("input:checkbox", this).val();
+        let selectedMessage = locations[id];
         if (selectedMessage) {
-            if (selectedMessage.path && selectedMessage.path.getVisible()) {
-                setCenter(selectedMessage);
+            if (selectedMessage.path) {
+                selectedMessage.historiesMarkers[selectedMessage.historiesMarkers.length - 1].openPopup();
             } else {
-                $("#history_table tbody input:checkbox[value=" + id + "]").trigger("click");
+                $(document).on("click", "#history_table tbody input:checkbox[value=" + id + "]").trigger("click");
             }
         }
     });
 
-    function getTimeDifference(fromDate) {
-        if (!fromDate) {
-            return "-";
-        }
-
-        var toDate = new Date().getTime();
-
-        var seconds = Math.round((toDate - fromDate) / 1000);
-        var minutes = 0, hours = 0, days = 0, weeks = 0, months = 0, years = 0;
-
-        var result = seconds + "s";
-
-        if (seconds >= 60) {
-            minutes = Math.floor(seconds / 60);
-            seconds = seconds % 60;
-            result = minutes + "m" + seconds + "s";
-        }
-
-        if (minutes >= 60) {
-            hours = Math.floor(minutes / 60);
-            minutes = minutes % 60;
-            result = hours + "h" + minutes + "m";
-        }
-
-        if (hours >= 24) {
-            days = Math.floor(hours / 24);
-            hours = hours % 24;
-            result = days + "d" + hours + "h";
-        }
-
-        if (days >= 7 && days < 30) {
-            weeks = Math.floor(days / 7);
-            days = days % 7;
-            result = weeks + "w" + days + "d";
-        } else if (days >= 30 && days < 365) {
-            months = Math.floor(days / 30);
-            weeks = Math.floor(days % 30 / 7);
-            result = months + "m" + weeks + "w";
-        } else if (days >= 365) {
-            years = Math.floor(days / 365);
-            months = Math.floor(days % 365 / 30);
-            result = years + "y" + months + "m";
-        }
-
-        return result;
-    }
-
     function updateTrackingInfo(terminalId, lastUpdate, speed) {
         $("#" + terminalId + "-last").text(getTimeDifference(lastUpdate));
 
-        var speedInfo = $("#" + terminalId + "-speed");
+        let speedInfo = $("#" + terminalId + "-speed");
         if (speed == 0) {
             speedInfo.text(0);
         } else {
@@ -518,55 +595,77 @@ $(document).ready(function () {
 
     setInterval(function () {
         (function () {
-            $.getJSON("/app/terminal_messages/", function (data) {
+            $.getJSON("/admin/getDataShip/", function (data) {
                 $.each(data, function (i, msg) {
-                    var location = locations[msg.terminalId];
+                    console.log(msg);
+                    let timeShip = Date.parse(msg['ship_history_ships_latest'][0]['message_utc']) + 7 * 60 * 60 * 1000;
+                    let location = locations[msg.ship_ids];
+                    let jsonParse = JSON.parse(msg['ship_history_ships_latest'][0]['payload']);
+                    let speed , latitude , longitude , heading;
+                    for (const k in jsonParse['Fields']) {
+                        if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'speed') {
+                            speed = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
+                        }
+
+                        if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'latitude') {
+                            latitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                        }
+
+                        if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'longitude') {
+                            longitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                        }
+
+                        if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'heading') {
+                            heading = (jsonParse['Fields'][k]['Value'] * 0.1).toFixed(1);
+                        }
+                    }
                     if (location.id != msg.id) {
                         location.id = msg.id;
-                        location.name = msg.vesselName;
-                        location.eventTime = msg.eventTime;
-                        location.heading = msg.heading;
-                        location.speed = msg.speed;
-                        location.latitude = msg.position.latitude;
-                        location.longitude = msg.position.longitude;
+                        location.name = msg.name;
+                        location.eventTime = timeShip;
+                        location.heading = heading ? heading : 0;
+                        location.speed = speed;
+                        location.latitude = latitude;
+                        location.longitude = longitude;
                     }
-                    location.marker.setPosition(new google.maps.LatLng(location.latitude, location.longitude));
-                    location.marker.setIcon(getVesselIcon(location));
+                    let newLatLng = new L.LatLng(latitude, longitude);
+                    filterMarkers[id].setLatLng(newLatLng);
+                    filterMarkers[id].setIcon(getIcon(location));
 
-                    updateTrackingInfo(msg.terminalId, msg.eventTime, msg.speed);
+                    updateTrackingInfo(msg.ship_ids, timeShip, speed);
                 });
             });
 
-            $.each(locations, function (id, location) {
-                if (location.histories) {
-                    $.getJSON("/app/terminal/" + id + "/terminal_messages/", function (data) {
-                        if (data.length > 0) {
-                            var thisId = data[0].terminalId;
-                            var thisLocation = locations[thisId];
-                            var maxIdNew = Math.max.apply(Math, data.map(function (msg) {
-                                return msg.id;
-                            }));
-                            var maxIdOld = Math.max.apply(Math, thisLocation.histories.map(function (msg) {
-                                return msg.id;
-                            }));
-                            if (maxIdNew != maxIdOld) {
-                                thisLocation.histories = data;
-                                var path = thisLocation.path;
-                                if (path) {
-                                    path.setMap(null);
-                                    delete thisLocation.path;
-
-                                    if (path.getVisible()) {
-                                        createPath(thisId);
-                                        removeHistories(thisId);
-                                        showHistories(thisId);
-                                    }
-                                }
-                            }
-                        }
-                    });
-                }
-            });
+            // $.each(locations, function (id, location) {
+            //     if (location.histories) {
+            //         $.getJSON("/app/terminal/" + id + "/terminal_messages/", function (data) {
+            //             if (data.length > 0) {
+            //                 let thisId = data[0].terminalId;
+            //                 let thisLocation = locations[thisId];
+            //                 let maxIdNew = Math.max.apply(Math, data.map(function (msg) {
+            //                     return msg.id;
+            //                 }));
+            //                 let maxIdOld = Math.max.apply(Math, thisLocation.histories.map(function (msg) {
+            //                     return msg.id;
+            //                 }));
+            //                 if (maxIdNew != maxIdOld) {
+            //                     thisLocation.histories = data;
+            //                     let path = thisLocation.path;
+            //                     if (path) {
+            //                         path.setMap(null);
+            //                         delete thisLocation.path;
+            //
+            //                         if (path.getVisible()) {
+            //                             createPath(thisId);
+            //                             removeHistories(thisId);
+            //                             showHistories(thisId);
+            //                         }
+            //                     }
+            //                 }
+            //             }
+            //         });
+            //     }
+            // });
         })();
-    }, 600000);
+    }, 1000000);
 });
