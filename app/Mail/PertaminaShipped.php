@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Helpers\CronData;
 use App\HistoryShip;
 use App\Ship;
 use Illuminate\Bus\Queueable;
@@ -27,11 +28,34 @@ class PertaminaShipped extends Mailable
         $this->historyShip = $historyShip;
     }
 
-    public function getFile(): string
+    private function getSubject()
     {
-      //  "YDXK","PELITA","$aims1,123644,A,0344.964,S,10617.813,E,11.7,186.5,101219,000.0,E*68"
-        return  '"'.$this->ship->call_sign.'","'.$this->ship->name.'","'.$this->ship->owner.'","'.date('His', $this->historyShip->message_utc).'"
-        ,"A",';
+        return 'GPS Hourly Report - '.date('ymdhis').'AIMS1';
+    }
+    private function setFormatPertamina(): string
+    {
+        foreach (json_decode($this->historyShip->payload)->Fields as $field) {
+            $field->Name = strtolower($field->Name);
+            if ($field->Name === 'latitude') {
+                $latitude = $field->Value;
+            }
+            if ($field->Name === 'longitude') {
+                $longitude = $field->Value;
+            }
+
+            if ($field->Name === 'speed') {
+                $speed = $field->Value;
+            }
+            if ($field->Name === 'heading') {
+                $heading = $field->Value*0.1;
+            }
+
+        }
+
+        $latitude  = (new CronData())->DDtoNme($latitude).',S';
+        $longitude = (new CronData())->DDtoNme($longitude).',E';
+        $callSign = $this->ship->call_sign ?? 'null';
+        return  '"'.$callSign.'","'.$this->ship->name.'","$aims1,'.date('His', strtotime($this->historyShip->message_utc)).',A,'.$latitude.','.$longitude.','.$speed.','.$heading.','.date('dmy').',000.0,E*68"' ;
     }
 
     /**
@@ -41,8 +65,8 @@ class PertaminaShipped extends Mailable
      */
     public function build()
     {
-        return $this->attachData($this->pdf, 'name.pdf', [
-            'mime' => 'application/pdf',
+        return $this->subject($this->getSubject())->view([])->attachData($this->setFormatPertamina(), 'attachment.chr', [
+            'mime' => 'text/plain',
         ]);
     }
 }

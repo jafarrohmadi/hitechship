@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\CronData;
 use App\Http\Controllers\BaseController;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 use App\Ship;

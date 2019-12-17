@@ -192,5 +192,42 @@ class CronData
         return $subAccount;
     }
 
+    function DMStoDD($deg,$min,$sec)
+    {
+        return $deg+((($min*60)+($sec))/3600);
+    }
+
+    function DDtoDMS($dec)
+    {
+        $vars = explode(".",$dec);
+        $deg = $vars[0];
+        $tempma = "0.".$vars[1];
+
+        $tempma = $tempma * 3600;
+        $min = floor($tempma / 60);
+        $sec = $tempma - ($min*60);
+
+        return array("deg"=>$deg,"min"=>$min,"sec"=>$sec);
+    }
+
+    function NmetoDD($lng){
+        $brk = strpos($lng,".") - 2;
+        if($brk < 0){ $brk = 0; }
+
+        $minutes = substr($lng, $brk);
+        $degrees = substr($lng, 0,$brk);
+
+        return $degrees + $minutes/60;
+    }
+    function DDtoNme($lng)
+    {
+        $brk = strpos($lng,".");
+        if($brk < 0){ $brk = 0; }
+        $minus = $lng < 0 ? '-' : '';
+        $minutes = substr($lng, $brk) *60;
+        $minutes = number_format((float)$minutes, 3, '.', '');
+        $degrees = str_pad( abs(substr($lng, 0,$brk)), 2, "0", STR_PAD_LEFT );
+        return $minus.$degrees.$minutes;
+    }
 }
 

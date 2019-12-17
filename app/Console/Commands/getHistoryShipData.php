@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Console\Commands;
 
 use App\HistoryShip;
+use App\Jobs\SendEmailPertamina;
 use App\Ship;
 use Illuminate\Console\Command;
 
@@ -26,7 +28,7 @@ class getHistoryShipData extends Command
      *
      * @return void
      */
-    public function __construct ()
+    public function __construct()
     {
         parent::__construct();
     }
@@ -36,7 +38,7 @@ class getHistoryShipData extends Command
      *
      * @return mixed
      */
-    public function handle ()
+    public function handle()
     {
         $historyShip = (new \App\Helpers\CronData)->getReturnMessages();
         foreach ($historyShip as $key => $data) {
@@ -44,8 +46,8 @@ class getHistoryShipData extends Command
             if ($data->ErrorID === 0) {
                 foreach ($data->Messages as $message) {
                     $countShip = HistoryShip::where(['history_ids' => $message->ID, 'message_utc' => $message->MessageUTC, 'receive_utc' => $message->ReceiveUTC])->count();
-                    $ship      = Ship::where('ship_ids', $message->MobileID)->first();
-                    $payload   = [];
+                    $ship = Ship::where('ship_ids', $message->MobileID)->first();
+                    $payload = [];
                     foreach ($message->Payload->Fields as $field) {
                         $field->Name = strtolower($field->Name);
                         if ($field->Name === 'latitude' || $field->Name === 'longitude') {
@@ -63,16 +65,18 @@ class getHistoryShipData extends Command
                     }
                     $message->Payload->Fields = $payload;
                     if ($countShip === 0 && !empty($ship)) {
-                        $historyShip                   = new HistoryShip();
-                        $historyShip->history_ids      = $message->ID;
-                        $historyShip->sin              = $message->SIN;
-                        $historyShip->region_name      = $message->RegionName;
-                        $historyShip->receive_utc      = $message->ReceiveUTC;
-                        $historyShip->message_utc      = $message->MessageUTC;
-                        $historyShip->payload          = json_encode($message->Payload);
+                        $historyShip = new HistoryShip();
+                        $historyShip->history_ids = $message->ID;
+                        $historyShip->sin = $message->SIN;
+                        $historyShip->region_name = $message->RegionName;
+                        $historyShip->receive_utc = $message->ReceiveUTC;
+                        $historyShip->message_utc = $message->MessageUTC;
+                        $historyShip->payload = json_encode($message->Payload);
                         $historyShip->ota_message_size = $message->OTAMessageSize;
-                        $historyShip->ship_id          = $ship->id;
+                        $historyShip->ship_id = $ship->id;
                         $historyShip->save();
+
+                        dispatch(new SendEmailPertamina($historyShip, $ship));
                         echo 'Insert History Ship Id ' . $message->ID . "\n";
                     }
                 }
