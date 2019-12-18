@@ -89,9 +89,4 @@ class HomeController extends BaseController
         return $shipHistory;
     }
 
-    public function sendMail()
-    {
-
-    }
-
 }

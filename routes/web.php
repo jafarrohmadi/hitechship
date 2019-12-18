@@ -7,6 +7,10 @@ Route::get('/home', function () {
     return redirect()->route('admin.home');
 }
 );
+
+Route::get('/leafleat/{shipId}', 'HomeController@leafleat');
+Route::get('/printMapLeafleat/{shipId}', 'HomeController@printMapLeafleat');
+
 Auth::routes(['register' => false]);
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/getInfoVersion', 'HomeController@getInfoVersion');

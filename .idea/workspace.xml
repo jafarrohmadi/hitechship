@@ -4,7 +4,12 @@
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.env.production" beforeDir="false" afterPath="$PROJECT_DIR$/.env.production" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/dashboard/leaf.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/dashboard/leaf.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,7 +225,9 @@
       <workItem from="1576429811136" duration="3622000" />
       <workItem from="1576505731039" duration="15569000" />
       <workItem from="1576548377038" duration="626000" />
-      <workItem from="1576594696654" duration="14561000" />
+      <workItem from="1576594696654" duration="16250000" />
+      <workItem from="1576634909406" duration="625000" />
+      <workItem from="1576679175364" duration="7620000" />
     </task>
     <servers />
   </component>
@@ -245,30 +252,34 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="426" y="166" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728@0.0.1366.728" timestamp="1576608775406" />
-    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1576607955514">
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1576681215772">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1576607955514" />
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1576550098743">
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1576681215772" />
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1576635565342">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1576550098743" />
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1576635565342" />
     <state x="517" y="287" key="NewPhpFileDialog" timestamp="1576520022474">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="517" y="287" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1576520022474" />
-    <state x="384" y="187" key="com.intellij.ide.util.TipDialog" timestamp="1576550069648">
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1576685020636">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="384" y="187" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1576550069648" />
-    <state x="379" y="101" width="607" height="526" key="find.popup" timestamp="1576607859364">
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1576685020636" />
+    <state x="384" y="187" key="com.intellij.ide.util.TipDialog" timestamp="1576634909239">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="379" y="101" width="607" height="526" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1576607859364" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1576601311059">
+    <state x="384" y="187" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1576634909239" />
+    <state x="379" y="101" width="607" height="526" key="find.popup" timestamp="1576680301467">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1576601311059" />
+    <state x="379" y="101" width="607" height="526" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1576680301467" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1576684232553">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1576684232553" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
