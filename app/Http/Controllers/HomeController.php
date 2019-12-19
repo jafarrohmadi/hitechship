@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Ship;
 use Illuminate\Http\Request;
+use mikehaertl\wkhtmlto\Image;
 
 class HomeController extends Controller
 {
@@ -64,16 +65,12 @@ class HomeController extends Controller
 
     public function printMapLeafleat($id)
     {
-        $siteURL = url('/leafleat').'/'. $id;
-
-        $googlePagespeedData = file_get_contents("https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url=$siteURL&screenshot=true");
-
-        $googlePagespeedData = json_decode($googlePagespeedData, true);
-
-        $screenshot = $googlePagespeedData['screenshot']['data'];
-        $screenshot = str_replace(array('_','-'),array('/','+'),$screenshot);
-
-        echo "<img src=\"data:image/jpeg;base64,".$screenshot."\" />";
+        $siteURL = "http://hitechship.herokuapp.com/leafleat/01035506SKYB6F7";
+        $image = new Image($siteURL);
+        if (!$image->saveAs('laragon/reciept.png')) {
+            $error = $image->getError();
+            return $error;
+        }
     }
 
 }

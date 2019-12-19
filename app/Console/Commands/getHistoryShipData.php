@@ -75,8 +75,9 @@ class getHistoryShipData extends Command
                         $historyShip->ota_message_size = $message->OTAMessageSize;
                         $historyShip->ship_id = $ship->id;
                         $historyShip->save();
-
-                        dispatch(new SendEmailPertamina($historyShip, $ship));
+                        if($ship->call_sign !== null) {
+                            dispatch(new SendEmailPertamina($historyShip, $ship));
+                        }
                         echo 'Insert History Ship Id ' . $message->ID . "\n";
                     }
                 }
