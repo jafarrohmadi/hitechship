@@ -65,12 +65,15 @@ class HomeController extends Controller
 
     public function printMapLeafleat($id)
     {
-        $siteURL = "http://hitechship.herokuapp.com/leafleat/01035506SKYB6F7";
-        $image = new Image($siteURL);
-        if (!$image->saveAs('laragon/reciept.png')) {
-            $error = $image->getError();
-            return $error;
-        }
+        $siteURL = "http://hitechship.test/printMapLeafleat/01035506SKYB6F7";
+
+        $googlePagespeedData = file_get_contents("https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url=$siteURL&screenshot=true");
+
+        $googlePagespeedData = json_decode($googlePagespeedData, true);
+        $screenshot = $googlePagespeedData['screenshot']['data'];
+        $screenshot = str_replace(array('_','-'),array('/','+'),$screenshot);
+
+        echo "<img src=\"data:image/jpeg;base64,".$screenshot."\" />";
     }
 
 }

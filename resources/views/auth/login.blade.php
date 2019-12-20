@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('content')
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-6" style="padding: 90px; opacity: 0.8">
             <div class="card mx-4">
                 <div class="card-body p-4">
-                    <h1>{{ trans('panel.site_title') }}</h1>
-
-                    <p class="text-muted">{{ trans('global.login') }}</p>
+                    <h2 style="text-align: center">User Login</h2>
+                    <br>
+                    <p class="text-muted"></p>
 
                     @if(session('status'))
                         <div class="alert alert-success" role="alert">

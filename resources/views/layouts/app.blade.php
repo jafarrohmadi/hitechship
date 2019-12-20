@@ -22,7 +22,7 @@
     @yield('styles')
 </head>
 
-<body class="header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden login-page">
+<body class="header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden login-page" background=" {{ asset('images/bg.jpg')}}" style="background-size: cover">
 <div class="app flex-row align-items-center">
     <div class="container">
         @yield("content")
