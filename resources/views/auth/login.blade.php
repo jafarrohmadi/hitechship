@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
     <div class="row justify-content-center">
-        <div class="col-md-6" style="padding: 90px; opacity: 0.8">
-            <div class="card mx-4">
+        <div class="col-md-6" style="padding: 50px 50px 100px 20px;">
+            <div class="card mx-4" style="background-color: gainsboro">
                 <div class="card-body p-4">
-                    <h2 style="text-align: center">User Login</h2>
+                    <h1 style="text-align: center;">{{ trans('panel.site_title') }}</h1>
                     <br>
                     <p class="text-muted"></p>
 

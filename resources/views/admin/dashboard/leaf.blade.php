@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/skysatu.css') }}"/>
 </head>
 <body>
-<div id="googleMap" style="width: 600px; height: 400px; position: relative; outline: currentcolor none medium;"></div>
+<div id="googleMap"></div>
 
 <script src="{{asset('js/leaflet.js')}}"></script>
 <script src="{{asset('js/leaflet.rotatedMarker.js')}}"></script>

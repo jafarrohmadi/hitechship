@@ -65,7 +65,7 @@ class HomeController extends Controller
 
     public function printMapLeafleat($id)
     {
-        $siteURL = "http://hitechship.herokuapp.com/printMapLeafleat/01035506SKYB6F7";
+        $siteURL = "http://hitechship.herokuapp.com/leafleat/01035506SKYB6F7";
 
         $googlePagespeedData = file_get_contents("https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url=$siteURL&screenshot=true");
 
