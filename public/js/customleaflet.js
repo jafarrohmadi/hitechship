@@ -137,8 +137,7 @@ $(document).ready(function () {
 
     function getDataMap() {
         map = L.map('googleMap', {center: [0, 118.8230631], zoom: 5});
-
-
+        
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
