@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="row justify-content-center">
-        <div class="col-md-6" style="padding: 50px 50px 100px 20px;">
+        <div class="col-md-6" style="padding: 40px 40px 100px 40px;">
             <div class="card mx-4" style="background-color: gainsboro">
                 <div class="card-body p-4">
                     <h1 style="text-align: center;">{{ trans('panel.site_title') }}</h1>

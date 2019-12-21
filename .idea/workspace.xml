@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jafarrohmadi/hitechship&#10;&#10;# Conflicts:&#10;#&#9;public/images/bg.jpg&#10;#&#9;resources/views/auth/login.blade.php&#10;#&#9;resources/views/layouts/app.blade.php">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/skysatu.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/skysatu.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/customleaflet.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/customleaflet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/email/sendGpsToUser.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/email/sendGpsToUser.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -230,7 +227,7 @@
       <workItem from="1576765824409" duration="6360000" />
       <workItem from="1576809508036" duration="4655000" />
       <workItem from="1576835270742" duration="6070000" />
-      <workItem from="1576847848846" duration="11355000" />
+      <workItem from="1576847848846" duration="11767000" />
     </task>
     <servers />
   </component>
