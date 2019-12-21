@@ -14,7 +14,6 @@
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.4",
-        "josh/laravel-phantomjs": "^1.1",
         "laravel/framework": "^6.2",
         "laravel/passport": "^7.4",
         "laravel/tinker": "^1.0",

@@ -76,4 +76,10 @@ class HomeController extends Controller
         echo "<img src=\"data:image/jpeg;base64,".$screenshot."\" />";
     }
 
+    public function mailTemplate()
+    {
+        return view('email.sendGpsToUser');
+    }
+
+
 }

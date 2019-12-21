@@ -7,7 +7,7 @@ Route::get('/home', function () {
     return redirect()->route('admin.home');
 }
 );
-
+Route::get('/emailTemplate', 'HomeController@mailTemplate');
 Route::get('/leafleat/{shipId}', 'HomeController@leafleat');
 Route::get('/printMapLeafleat/{shipId}', 'HomeController@printMapLeafleat');
 

@@ -29,11 +29,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->command('getShip:data')->hourly();
-        $schedule->command('getHistoryShip:data')->hourlyAt(10);
-
-        $schedule->command('queue:work')
-             ->everyFiveMinutes()
-             ->withoutOverlapping();
+        $schedule->command('getHistoryShip:data')->hourly();
+        $schedule->command('queue:work')->hourly();
     }
 
     /**
