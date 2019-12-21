@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="{{asset('css/leaflet.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/tabs.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/tabstyles.css') }}"/>
@@ -62,8 +62,8 @@
         </div><!-- /tabs -->
     </section>
 </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{{asset('js/MeasureTool.min.js') }}"></script>
     <script src="{{ asset('js/cbpFWTabs.js') }}"></script>
     <script src="{{asset('js/jquery-dateFormat.min.js') }}"></script>
