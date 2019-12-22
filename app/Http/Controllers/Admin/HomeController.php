@@ -1,66 +1,68 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\CronData;
 use App\Http\Controllers\BaseController;
+use Illuminate\Support\Facades\Auth;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 use App\Ship;
 use App\HistoryShip;
 
 class HomeController extends BaseController
 {
-    public function index ()
+    public function index()
     {
         return view('home');
     }
 
-    public function Authentication ($user, $pass)
+    public function Authentication($user, $pass)
     {
         $this->accessId = $user;
-        $this->passw    = $pass;
+        $this->passw = $pass;
     }
 
-    public function getInfoUtcTime ()
+    public function getInfoUtcTime()
     {
         return parent::getInfoUtcTime();
     }
 
-    public function getInfoErrors ()
+    public function getInfoErrors()
     {
         return parent::getInfoErrors();
     }
 
-    public function getInfoVersion ()
+    public function getInfoVersion()
     {
         return parent::getInfoVersion();
     }
 
-    public function getSubAccountInfos ()
+    public function getSubAccountInfos()
     {
         return parent::getSubAccountInfos();
     }
 
-    public function getBroadcastInfos ()
+    public function getBroadcastInfos()
     {
         return parent::getBroadcastInfos();
     }
 
-    public function getMobilesPaged ()
+    public function getMobilesPaged()
     {
         return parent::getMobilesPaged();
     }
 
-    public function getReturnMessages ()
+    public function getReturnMessages()
     {
         return parent::getReturnMessages();
     }
 
-    public function getForwardStatus ()
+    public function getForwardStatus()
     {
         return parent::getForwardStatus();
     }
 
-    public function getForwardMessages ()
+    public function getForwardMessages()
     {
         return parent::getForwardMessages();
     }
@@ -72,24 +74,39 @@ class HomeController extends BaseController
 
     public function getDataShip()
     {
-        $ship = Ship::with('shipHistoryShipsLatest')->orderBy('owner', 'asc')->get()->groupBy('owner');
+        if (Auth::id() !== 1) {
+            $ship = Ship::with('shipHistoryShipsLatest')
+                ->join('ship_terminal', 'ships.id', '=', 'ship_terminal.ship_id')
+                ->join('terminals', 'ship_terminal.terminal_id', '=', 'terminals.id')
+                ->join('terminal_user', 'terminals.id', '=', 'terminal_user.terminal_id')
+                ->join('users', 'terminal_user.user_id', '=', 'users.id')
+                ->where('users.id', Auth::id())
+                ->orderBy('owner', 'asc')
+                ->get()->groupBy('owner');
+        }else {
+            $ship = Ship::with('shipHistoryShipsLatest')
+                ->orderBy('owner', 'asc')
+                ->get()->groupBy('owner');
+        }
+
         return $ship;
     }
 
     public function getDataShipById($id)
     {
-        $ship = Ship::with('shipHistoryShipsLatest')->where('ships.id' , $id)->orderBy('owner', 'asc')->get()->groupBy('owner');
+        $ship = Ship::with('shipHistoryShipsLatest')->where('ships.id', $id)->orderBy('owner', 'asc')->get()->groupBy('owner');
 
         return $ship;
     }
 
     public function getDataHistoryShipById($id)
     {
-        $shipHistory = HistoryShip::join('ships', 'ships.id' , '=', 'history_ships.ship_id')->where('ships.ship_ids', $id)->get();
+        $shipHistory = HistoryShip::join('ships', 'ships.id', '=', 'history_ships.ship_id')->where('ships.ship_ids', $id)->get();
         return $shipHistory;
     }
 
-    public function getAverangeSpped($ships,$dateStart , $dateEnd){
+    public function getAverangeSpped($ships, $dateStart, $dateEnd)
+    {
         $shipHistory = HistoryShip::whereIn('ship_id', $ships)->whereBetween('message_utc', [$dateStart, $dateEnd])->get();
     }
 }
