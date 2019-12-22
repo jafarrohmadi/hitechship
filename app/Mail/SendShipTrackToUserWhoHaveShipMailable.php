@@ -44,8 +44,13 @@ class SendShipTrackToUserWhoHaveShipMailable extends Mailable
 
     public function printMapLeafleat($id)
     {
+        $options = array(
+            'binary' => '/home/asatamat/wkhtmltox/bin/wkhtmltoimage'
+        );
+
         $siteURL = url("leafleat/". $id) ;
         $image = new Image(['crop-w' => 600, 'quality' => 30]);
+        $image->setOptions($options);
         $image->setPage($siteURL);
         $image->saveAs(public_path('/images/history/'.$this->ship->ship_ids.'.png'));
     }
