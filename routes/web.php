@@ -7,9 +7,10 @@ Route::get('/home', function () {
     return redirect()->route('admin.home');
 }
 );
-Route::get('/emailTemplate', 'HomeController@mailTemplate');
 Route::get('/leafleat/{shipId}', 'HomeController@leafleat');
 Route::get('/printMapLeafleat/{shipId}', 'HomeController@printMapLeafleat');
+Route::get('/send/email', 'HomeController@mail');
+Route::get('/printBlob', 'HomeController@printBlob');
 
 Auth::routes(['register' => false]);
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
@@ -55,5 +56,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('getDataShip', 'HomeController@getDataShip');
     Route::get('getDataShipById/{id}', 'HomeController@getDataShipById');
     Route::get('getDataHistoryShipById/{id}', 'HomeController@getDataHistoryShipById');
+
 }
 );

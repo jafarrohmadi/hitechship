@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jafarrohmadi/hitechship&#10;&#10;# Conflicts:&#10;#&#9;public/images/bg.jpg&#10;#&#9;resources/views/auth/login.blade.php&#10;#&#9;resources/views/layouts/app.blade.php">
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/getHistoryShipData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/getHistoryShipData.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/email/sendGpsToUser.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/email/sendShipTrackToUserWhoHaveShip.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,7 +231,7 @@
       <workItem from="1576765824409" duration="6360000" />
       <workItem from="1576809508036" duration="4655000" />
       <workItem from="1576835270742" duration="6070000" />
-      <workItem from="1576847848846" duration="11767000" />
+      <workItem from="1576847848846" duration="18823000" />
     </task>
     <servers />
   </component>
@@ -252,10 +256,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="426" y="166" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728@0.0.1366.728" timestamp="1576608775406" />
-    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1576681215772">
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1576968186620">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1576681215772" />
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1576968186620" />
     <state x="261" y="0" key="CommitChangelistDialog2" timestamp="1576847952999">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -292,10 +296,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="379" y="101" width="607" height="526" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1576680301467" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1576885739813">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1576969093660">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1576885739813" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1576969093660" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -50,9 +50,9 @@
                                 <td class="content-cell"
                                     style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; padding: 35px;">
                                     <h1 style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #2F3133; font-size: 19px; font-weight: bold; margin-top: 0; text-align: left;">
-                                        Hi Jafar</h1>
+                                        Hi {{ $userName }}</h1>
                                     <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">
-                                        Berikut ini terlampir informasi posisi terbaru dari kapal Jafar </p>
+                                        Berikut ini terlampir informasi posisi terbaru dari kapal {{$ship->name}} </p>
                                     <div class="table"
                                          style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
                                         <table
@@ -61,10 +61,42 @@
                                                 style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
                                             <tr>
                                                 <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 15px; line-height: 18px; padding: 10px 0;">
-                                                    <strong>Product 2</strong>
+                                                    <strong>Last</strong>
                                                 </td>
                                                 <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 15px; line-height: 18px; padding: 10px 0;">
-                                                    Lorem ipsum dolor sit amet.
+                                                    {{ $last }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 15px; line-height: 24px; padding: 10px 0;">
+                                                    <strong>Latitude</strong>
+                                                </td>
+                                                <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 15px; line-height: 18px; padding: 10px 0;">
+                                                    {{$latitude . ' S '}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 15px; line-height: 18px; padding: 10px 0;">
+                                                    <strong>Longitude &nbsp;&nbsp;&nbsp;</strong>
+                                                </td>
+                                                <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 15px; line-height: 18px; padding: 10px 0;">
+                                                    {{$longitude . ' E'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 15px; line-height: 18px; padding: 10px 0;">
+                                                    <strong>Speed</strong>
+                                                </td>
+                                                <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 15px; line-height: 18px; padding: 10px 0;">
+                                                    {{ $speed. ' knots' }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 15px; line-height: 18px; padding: 10px 0;">
+                                                    <strong>Heading</strong>
+                                                </td>
+                                                <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 15px; line-height: 18px; padding: 10px 0;">
+                                                    {{$heading}} &deg;
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -72,7 +104,8 @@
                                     </div>
                                     <h3 style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #2F3133; font-size: 14px; font-weight: bold; margin-top: 0; text-align: left;">
                                         Gambar Posisi Kapal Terbaru :</h3>
-                                    <a href="https://gps-tracking.asatamatek.com/leafleat/01076450SKY96A7"><img src="https://gps-tracking.asatamatek.com/leafleat/01076450SKY96A7"> </td>
+                                    <a href="https://gps-tracking.asatamatek.com">
+                                        <img src="data:image/jpg;base64,{!! $image !!}" alt="Logo" title="Logo" style="display:block" width="200" height="300"  /> </a>
                         </table>
                     </td>
                 </tr>

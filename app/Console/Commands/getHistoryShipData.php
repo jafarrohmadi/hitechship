@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\HistoryShip;
 use App\Jobs\SendEmailPertamina;
+use App\Jobs\SendEmailToUserWhoHaveShip;
 use App\Ship;
 use Illuminate\Console\Command;
 
@@ -76,9 +77,12 @@ class getHistoryShipData extends Command
                         $historyShip->ship_id = $ship->id;
                         $historyShip->save();
 
-                        if($ship->call_sign && $ship->call_sign !== null) {
-                            dispatch(new SendEmailPertamina($historyShip, $ship));
-                        }
+//                        if ($ship->call_sign && $ship->call_sign !== null) {
+//                            dispatch(new SendEmailPertamina($historyShip, $ship));
+//                        }
+
+                        dispatch(new SendEmailToUserWhoHaveShip($historyShip , $ship));
+
 
                         echo 'Insert History Ship Id ' . $message->ID . "\n";
                     }
