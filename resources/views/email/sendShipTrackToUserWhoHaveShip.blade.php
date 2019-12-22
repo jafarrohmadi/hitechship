@@ -104,8 +104,9 @@
                                     </div>
                                     <h3 style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #2F3133; font-size: 14px; font-weight: bold; margin-top: 0; text-align: left;">
                                         Gambar Posisi Kapal Terbaru :</h3>
+                                    <img src="{{ asset('images/bg.jpg') }}">
                                     <a href="https://gps-tracking.asatamatek.com">
-                                        <img src="data:image/jpg;base64,{!! $image !!}" alt="Logo" title="Logo" style="display:block" width="200" height="300"  /> </a>
+                                       </a>
                         </table>
                     </td>
                 </tr>
