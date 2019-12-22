@@ -64,7 +64,7 @@ class SendShipTrackToUserWhoHaveShipMailable extends Mailable
     public function build()
     {
         $this->printMapLeafleat($this->ship->ship_ids);
-        $this->image = asset('/images/history/'.$this->ship->ship_ids.'.png');
+        $this->image = public_path('/images/history/'.$this->ship->ship_ids.'.png');
         foreach (json_decode($this->historyShip->payload)->Fields as $field) {
             $field->Name = strtolower($field->Name);
             if ($field->Name === 'heading') {
