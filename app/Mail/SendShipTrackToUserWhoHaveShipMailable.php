@@ -44,10 +44,10 @@ class SendShipTrackToUserWhoHaveShipMailable extends Mailable
 
     public function printMapLeafleat($id)
     {
-        $siteURL ="https://gps-tracking.asatamatek.com/leafleat/" . $id;
-        $image = new Image(['crop-w' => 600]);
+        $siteURL = url("leafleat/". $id) ;
+        $image = new Image(['crop-w' => 600, 'quality' => 30]);
         $image->setPage($siteURL);
-        $image->saveAs(public_path().'/images/'.$this->ship->ship_ids.'.png');
+        $image->saveAs(public_path('/images/history/'.$this->ship->ship_ids.'.png'));
     }
 
 
@@ -59,7 +59,7 @@ class SendShipTrackToUserWhoHaveShipMailable extends Mailable
     public function build()
     {
         $this->printMapLeafleat($this->ship->ship_ids);
-        $this->image = asset('/images/'.$this->ship->ship_ids.'.png');
+        $this->image = asset('/images/history/'.$this->ship->ship_ids.'.png');
         foreach (json_decode($this->historyShip->payload)->Fields as $field) {
             $field->Name = strtolower($field->Name);
             if ($field->Name === 'heading') {

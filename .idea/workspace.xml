@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jafarrohmadi/hitechship&#10;&#10;# Conflicts:&#10;#&#9;public/images/bg.jpg&#10;#&#9;resources/views/auth/login.blade.php&#10;#&#9;resources/views/layouts/app.blade.php">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Mail/SendShipTrackToUserWhoHaveShipMailable.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Mail/SendShipTrackToUserWhoHaveShipMailable.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,7 +230,8 @@
       <workItem from="1576809508036" duration="4655000" />
       <workItem from="1576835270742" duration="6070000" />
       <workItem from="1576847848846" duration="29966000" />
-      <workItem from="1577011023924" duration="5101000" />
+      <workItem from="1577011023924" duration="5701000" />
+      <workItem from="1577022289962" duration="2487000" />
     </task>
     <servers />
   </component>
@@ -282,14 +284,14 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="530" y="74" key="RollbackChangesDialog/0.0.1366.728@0.0.1366.728" timestamp="1576883892143" />
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1576996497080">
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1577022436662">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1576996497080" />
-    <state x="384" y="187" key="com.intellij.ide.util.TipDialog" timestamp="1577011048541">
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1577022436662" />
+    <state x="384" y="187" key="com.intellij.ide.util.TipDialog" timestamp="1577022292180">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="384" y="187" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1577011048541" />
+    <state x="384" y="187" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1577022292180" />
     <state x="379" y="101" width="607" height="526" key="find.popup" timestamp="1577001193478">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

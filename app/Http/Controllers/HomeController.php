@@ -70,12 +70,22 @@ class HomeController extends Controller
 
     public function printMapLeafleat($id)
     {
-        $siteURL = "http://hitechship.test/leafleat/01035506SKYB6F7";
+        $siteURL = url("leafleat/". $id);
 
-        $image = new Image(['crop-w' => 600]);
+        $image = new Image(['crop-w' => 600, 'quality' => 30]);
         $image->setPage($siteURL);
-        $image->saveAs(public_path().'/images/page.png');
+        $image->saveAs(public_path('/images/history/page.png'));
 
+        if (!$image->send()) {
+            $error = $image->getError();
+            echo $error;
+        }
+
+// ... or send to client as file download
+        if (!$image->send('page.png')) {
+            $error = $image->getError();
+            echo $error;
+        }
     }
 
 }
