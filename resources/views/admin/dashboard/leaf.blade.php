@@ -22,7 +22,7 @@
         }
     });
 
-    var map = L.map('googleMap', {center: [locations.latitude, locations.longitude], zoom: 8});
+    var map = L.map('googleMap', {center: [locations.latitude, locations.longitude], zoom: 10});
 
 
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
