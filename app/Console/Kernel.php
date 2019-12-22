@@ -30,7 +30,6 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         $schedule->command('getShip:data')->hourly();
         $schedule->command('getHistoryShip:data')->hourly();
-        $schedule->command('queue:work')->hourly();
     }
 
     /**
