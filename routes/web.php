@@ -10,7 +10,6 @@ Route::get('/home', function () {
 Route::get('/leafleat/{shipId}', 'HomeController@leafleat');
 Route::get('/printMapLeafleat/{shipId}', 'HomeController@printMapLeafleat');
 Route::get('/send/email', 'HomeController@mail');
-Route::get('/printBlob', 'HomeController@printBlob');
 
 Auth::routes(['register' => false]);
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {

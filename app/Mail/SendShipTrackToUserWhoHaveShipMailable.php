@@ -43,15 +43,7 @@ class SendShipTrackToUserWhoHaveShipMailable extends Mailable
 
     public function printMapLeafleat($id)
     {
-        $siteURL = "https://gps-tracking.asatamatek.com/leafleat/" . $id;
-
-        $googlePagespeedData = file_get_contents("https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url=$siteURL&screenshot=true");
-
-        $googlePagespeedData = json_decode($googlePagespeedData, true);
-        $screenshot = $googlePagespeedData['screenshot']['data'];
-        $screenshot = str_replace(array('_','-'),array('/','+'),$screenshot);
-
-        return $screenshot;
+        return "https://gps-tracking.asatamatek.com/leafleat/" . $id;
     }
 
 

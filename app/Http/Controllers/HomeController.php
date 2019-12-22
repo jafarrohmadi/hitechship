@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\EmailUser;
 use App\HistoryShip;
 use App\Mail\SendShipTrackToUserWhoHaveShipMailable;
 use App\Ship;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use mikehaertl\wkhtmlto\Image;
@@ -78,22 +80,5 @@ class HomeController extends Controller
 
         echo "<img src=\"data:image/jpeg;base64,".$screenshot."\" />";
     }
-
-    public function printBlob()
-    {
-        return view('email.index');
-    }
-    public function mail()
-    {
-        $historyShip = HistoryShip::where('history_ids', 5471584126)->first();
-        $ship = Ship::where('id', 4)->first();
-        $userName = 'oyo';
-        $name = 'Krunal';
-        Mail::to('rohmadijafar@gmail.com')->send(new SendShipTrackToUserWhoHaveShipMailable($historyShip, $ship, $userName));
-
-        return 'Email was sent';
-       // return view('email.sendGpsToUser');
-    }
-
 
 }

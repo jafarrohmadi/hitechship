@@ -19,6 +19,8 @@ class SendEmailToUserWhoHaveShip implements ShouldQueue
 
     protected $historyShip;
     protected $ship;
+    protected $sendEmail;
+    protected $userName;
 
     /**
      * Create a new job instance.
@@ -26,10 +28,12 @@ class SendEmailToUserWhoHaveShip implements ShouldQueue
      * @param HistoryShip $historyShip
      * @param Ship $ship
      */
-    public function __construct(HistoryShip $historyShip, Ship $ship)
+    public function __construct(HistoryShip $historyShip, Ship $ship , $sendEmail, $userName)
     {
         $this->historyShip = $historyShip;
         $this->ship = $ship;
+        $this->sendEmail = $sendEmail;
+        $this->userName = $userName;
     }
 
     /**
@@ -39,6 +43,6 @@ class SendEmailToUserWhoHaveShip implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to('rohmadijafar@gmail.com')->send(new SendShipTrackToUserWhoHaveShipMailable($this->historyShip, $this->ship, 'slow down'));
+        Mail::to($this->sendEmail)->send(new SendShipTrackToUserWhoHaveShipMailable($this->historyShip, $this->ship, $this->userName));
     }
 }

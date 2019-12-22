@@ -2,9 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\EmailUser;
 use App\HistoryShip;
 use App\Jobs\SendEmailPertamina;
 use App\Jobs\SendEmailToUserWhoHaveShip;
+use App\Setting;
 use App\Ship;
 use Illuminate\Console\Command;
 
@@ -77,11 +79,23 @@ class getHistoryShipData extends Command
                         $historyShip->ship_id = $ship->id;
                         $historyShip->save();
 
-//                        if ($ship->call_sign && $ship->call_sign !== null) {
-//                            dispatch(new SendEmailPertamina($historyShip, $ship));
-//                        }
+                        if ($ship->call_sign && $ship->call_sign !== null) {
+                            dispatch(new SendEmailPertamina($historyShip, $ship));
+                        }
+                        $findHistoryShip = HistoryShip::where('ship_id', $ship->id)->count();
+                        $setSendEmail = Setting::find(1);
+                        if(isset($setSendEmail) && $findHistoryShip % $setSendEmail->simple_report === 0) {
+                            $email = EmailUser::join('users', 'email_user.user_id' , '=' , 'users.id')
+                                ->join('terminal_user', 'users.id' , '=' , 'terminal_user.user_id' )
+                                ->join('terminals', 'terminal_user.terminal_id', '=','terminals.id')
+                                ->join('ship_terminal', 'terminals.id', '=','ship_terminal.terminal_id' )
+                                ->join('ships', 'ship_terminal.ship_id', '=','ships.id')
+                                ->where('ships.id' , $ship->id)->get();
 
-                        dispatch(new SendEmailToUserWhoHaveShip($historyShip , $ship));
+                            foreach ($email as $datas ) {
+                                dispatch(new SendEmailToUserWhoHaveShip($historyShip, $ship, $datas->email , $datas->username));
+                            }
+                        }
 
 
                         echo 'Insert History Ship Id ' . $message->ID . "\n";

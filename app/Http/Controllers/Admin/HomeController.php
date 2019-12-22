@@ -89,4 +89,7 @@ class HomeController extends BaseController
         return $shipHistory;
     }
 
+    public function getAverangeSpped($ships,$dateStart , $dateEnd){
+        $shipHistory = HistoryShip::whereIn('ship_id', $ships)->whereBetween('message_utc', [$dateStart, $dateEnd])->get();
+    }
 }
