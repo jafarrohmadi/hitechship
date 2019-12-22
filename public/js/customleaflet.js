@@ -152,6 +152,7 @@ $(document).ready(function () {
     }
 
 //TRACK
+
     function getDataShip() {
         $.ajax({
             type: 'get',
@@ -284,6 +285,9 @@ $(document).ready(function () {
             }
         }
     }
+    $(".startPoint").click(function () {
+        $("#tracking_table thead  input:checkbox[id=checkAll]").trigger("click");
+    });
 
     $("#checkAll").click(function () {
         $("#tracking_table input:checkbox").not(this).prop("checked", this.checked);
