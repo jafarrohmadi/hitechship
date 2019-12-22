@@ -95,7 +95,7 @@ class HomeController extends Controller
 
     public function mail()
     {
-        $historyShip = HistoryShip::where('history_ids', 1186593289)->first();
+        $historyShip = HistoryShip::where('history_ids', 5471584127)->first();
         $ship = Ship::where('id', 4)->first();
         $userName = 'oyo';
         $name = 'Krunal';
