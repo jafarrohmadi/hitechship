@@ -8,6 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use mikehaertl\wkhtmlto\Image;
 
 class SendShipTrackToUserWhoHaveShipMailable extends Mailable
 {
@@ -43,7 +44,10 @@ class SendShipTrackToUserWhoHaveShipMailable extends Mailable
 
     public function printMapLeafleat($id)
     {
-        return "https://gps-tracking.asatamatek.com/leafleat/" . $id;
+        $siteURL ="https://gps-tracking.asatamatek.com/leafleat/" . $id;
+        $image = new Image(['crop-w' => 600]);
+        $image->setPage($siteURL);
+        $image->saveAs(public_path().'/images/'.$this->ship->ship_ids.'.png');
     }
 
 
@@ -54,7 +58,8 @@ class SendShipTrackToUserWhoHaveShipMailable extends Mailable
      */
     public function build()
     {
-        $this->image = $this->printMapLeafleat($this->ship->ship_ids);
+        $this->printMapLeafleat($this->ship->ship_ids);
+        $this->image = asset('/images/'.$this->ship->ship_ids.'.png');
         foreach (json_decode($this->historyShip->payload)->Fields as $field) {
             $field->Name = strtolower($field->Name);
             if ($field->Name === 'heading') {

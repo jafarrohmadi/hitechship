@@ -14,11 +14,11 @@
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.4",
-        "jonnyw/php-phantomjs": "4.*",
         "laravel/framework": "^6.2",
         "laravel/passport": "^7.4",
         "laravel/tinker": "^1.0",
         "laraveldaily/laravel-charts": "^0.1.10",
+        "mikehaertl/phpwkhtmltopdf": "^2.4",
         "yajra/laravel-datatables-oracle": "^9.7"
     },
     "require-dev": {
