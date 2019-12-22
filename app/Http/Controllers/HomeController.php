@@ -56,13 +56,13 @@ class HomeController extends Controller
                 }
             }
 
-            $data['id'] =  $ship->id;
-            $data['name'] =  $ship->name;
+            $data['id'] = $ship->id;
+            $data['name'] = $ship->name;
             $data['eventTime'] = strtotime($ship->shipHistoryShipsLatest[0]['message_utc']) + 7 * 60 * 60 * 1000;
-            $data['heading'] =  $heading ?? 0;
-            $data['speed'] =  $speed ?? 0;
-            $data['latitude'] =  $latitude ?? 0;
-            $data['longitude'] =  $longitude ?? 0;
+            $data['heading'] = $heading ?? 0;
+            $data['speed'] = $speed ?? 0;
+            $data['latitude'] = $latitude ?? 0;
+            $data['longitude'] = $longitude ?? 0;
         }
 
         return view('admin.dashboard.leaf', compact('data'));
@@ -70,9 +70,14 @@ class HomeController extends Controller
 
     public function printMapLeafleat($id)
     {
-        $siteURL = url("leafleat/". $id);
+        $siteURL = url("leafleat/" . $id);
+
+        $options = array(
+            'binary' => '/home/asatamat/wkhtmltox/bin/wkhtmltoimage'
+        );
 
         $image = new Image(['crop-w' => 600, 'quality' => 30]);
+        $image->setOptions($options);
         $image->setPage($siteURL);
         $image->saveAs(public_path('/images/history/page.png'));
 
@@ -86,6 +91,18 @@ class HomeController extends Controller
             $error = $image->getError();
             echo $error;
         }
+    }
+
+    public function mail()
+    {
+        $historyShip = HistoryShip::where('history_ids', 1186593289)->first();
+        $ship = Ship::where('id', 4)->first();
+        $userName = 'oyo';
+        $name = 'Krunal';
+        Mail::to('rohmadijafar@gmail.com')->send(new SendShipTrackToUserWhoHaveShipMailable($historyShip, $ship, $userName));
+
+        return 'Email was sent';
+        // return view('email.sendGpsToUser');
     }
 
 }
