@@ -58,12 +58,13 @@ class HomeController extends Controller
 
             $data['id'] = $ship->id;
             $data['name'] = $ship->name;
-            $data['eventTime'] = strtotime($ship->shipHistoryShipsLatest[0]['message_utc']) + 7 * 60 * 60 * 1000;
+            $data['eventTime'] = strtotime($ship->shipHistoryShipsLatest[0]['message_utc']. '+7 hours') * 1000;
             $data['heading'] = $heading ?? 0;
             $data['speed'] = $speed ?? 0;
             $data['latitude'] = $latitude ?? 0;
             $data['longitude'] = $longitude ?? 0;
         }
+
 
         return view('admin.dashboard.leaf', compact('data'));
     }
