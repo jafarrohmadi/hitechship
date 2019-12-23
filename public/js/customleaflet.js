@@ -142,6 +142,9 @@ $(document).ready(function () {
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+        map.on('contextmenu', function(e) {
+            alert('startDate');
+        });
     }
 
     function getDataMapHistory() {
@@ -152,7 +155,6 @@ $(document).ready(function () {
     }
 
 //TRACK
-
     function getDataShip() {
         $.ajax({
             type: 'get',
@@ -285,9 +287,6 @@ $(document).ready(function () {
             }
         }
     }
-    $(".startPoint").click(function () {
-        $("#tracking_table thead  input:checkbox[id=checkAll]").trigger("click");
-    });
 
     $("#checkAll").click(function () {
         $("#tracking_table input:checkbox").not(this).prop("checked", this.checked);

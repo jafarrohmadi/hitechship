@@ -28,11 +28,6 @@
                     <table class="fixed_headers" id="tracking_table">
                         <thead>
                         <tr>
-                            <td><button class="startPoint">Start Point</button></td>
-                            <td colspan="3"><input type="hidden" id="inputSpeed"></td>
-                        </tr>
-
-                        <tr>
                             <td><input id="checkAll" type="checkbox" checked="checked"/></td>
                             <td>Name</td>
                             <td>Last</td>
