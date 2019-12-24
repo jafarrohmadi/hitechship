@@ -495,11 +495,15 @@ $(document).ready(function () {
                     }
 
                     if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'latitude') {
-                        latitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                        if (typeof (jsonParse['Fields'][k]['Value']) !== 'undefined' ) {
+                            latitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                        }
                     }
 
                     if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'longitude') {
-                        longitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                        if (typeof (jsonParse['Fields'][k]['Value']) !== 'undefined' ) {
+                            longitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                        }
                     }
 
                     if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'heading') {
@@ -520,9 +524,9 @@ $(document).ready(function () {
                 let rotation = speed > 0.49 ? Math.round(heading * 0.7) : 0;
                 let popup = showInfoPopUp(path);
                 let markerHistory;
-                if (typeof (latitude) !== 'undefined' && typeof (longitude) !== 'undefined') {
-                    poliline[poliline.length] = new L.LatLng(latitude, longitude);
-                }
+
+                poliline[poliline.length] = new L.LatLng(latitude, longitude);
+
                 if (histories.length > 0 && i === 0) {
                     markerHistory = L.circle([latitude, longitude], {
                         color: '#000000',
