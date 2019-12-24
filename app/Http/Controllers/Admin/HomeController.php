@@ -19,7 +19,7 @@ class HomeController extends BaseController
     public function Authentication($user, $pass)
     {
         $this->accessId = $user;
-        $this->passw = $pass;
+        $this->passw    = $pass;
     }
 
     public function getInfoUtcTime()
@@ -83,7 +83,7 @@ class HomeController extends BaseController
                 ->where('users.id', Auth::id())
                 ->orderBy('owner', 'asc')
                 ->get()->groupBy('owner');
-        }else {
+        } else {
             $ship = Ship::with('shipHistoryShipsLatest')
                 ->orderBy('owner', 'asc')
                 ->get()->groupBy('owner');
@@ -94,19 +94,50 @@ class HomeController extends BaseController
 
     public function getDataShipById($id)
     {
-        $ship = Ship::with('shipHistoryShipsLatest')->where('ships.id', $id)->orderBy('owner', 'asc')->get()->groupBy('owner');
+        $ship =
+            Ship::with('shipHistoryShipsLatest')->where('ships.id', $id)->orderBy('owner', 'asc')->get()->groupBy('owner');
 
         return $ship;
     }
 
     public function getDataHistoryShipById($id)
     {
-        $shipHistory = HistoryShip::join('ships', 'ships.id', '=', 'history_ships.ship_id')->where('ships.ship_ids', $id)->get();
+        $shipHistory =
+            HistoryShip::join('ships', 'ships.id', '=', 'history_ships.ship_id')->where('ships.ship_ids', $id)->get();
         return $shipHistory;
     }
 
-    public function getAverangeSpped($ships, $dateStart, $dateEnd)
+    public function getAverageSpeed($data)
     {
-        $shipHistory = HistoryShip::whereIn('ship_id', $ships)->whereBetween('message_utc', [$dateStart, $dateEnd])->get();
+        $val      = [];
+        $sendData = [];
+
+        foreach (json_decode($data) as $datas) {
+            $val[$datas[1]][] = $datas[2];
+        }
+
+        foreach ($val as $ship_id => $date) {
+            $speed = [];
+
+            $shipName = Ship::select('name')->where('id', $ship_id)->first();
+
+            $shipHistory = HistoryShip::whereBetween('message_utc', [ min($date), max($date) ])
+                ->where('ship_id', $ship_id)
+                ->pluck('payload');
+
+            foreach ($shipHistory as $payload) {
+                foreach (json_decode($payload)->Fields as $fields)
+
+                    if (strtolower($fields->Name) === 'speed') {
+                        $speed[] = $fields->Value * 0.1;
+                    }
+
+            }
+
+            $speed      = array_sum($speed) / count($speed);
+            $sendData[] = [ 'name' => $shipName->name, 'speed' => round($speed, 4) ];
+        }
+
+        return $sendData;
     }
 }

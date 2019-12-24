@@ -55,6 +55,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('getDataShip', 'HomeController@getDataShip');
     Route::get('getDataShipById/{id}', 'HomeController@getDataShipById');
     Route::get('getDataHistoryShipById/{id}', 'HomeController@getDataHistoryShipById');
-
+    Route::get('getAverageSpeed/{data}', 'HomeController@getAverageSpeed');
 }
 );

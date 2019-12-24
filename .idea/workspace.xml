@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jafarrohmadi/hitechship&#10;&#10;# Conflicts:&#10;#&#9;public/images/bg.jpg&#10;#&#9;resources/views/auth/login.blade.php&#10;#&#9;resources/views/layouts/app.blade.php">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/customleaflet.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/customleaflet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/dashboard/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/dashboard/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,7 +235,8 @@
       <workItem from="1577011023924" duration="5701000" />
       <workItem from="1577022289962" duration="14436000" />
       <workItem from="1577043711090" duration="778000" />
-      <workItem from="1577065661275" duration="1390000" />
+      <workItem from="1577065661275" duration="1479000" />
+      <workItem from="1577148738366" duration="18900000" />
     </task>
     <servers />
   </component>
@@ -265,10 +269,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="261" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1576847952999" />
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1576808619540">
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1577067150265">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1576808619540" />
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1577067150265" />
     <state x="129" y="54" key="MergeDialog" timestamp="1576847919954">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -285,6 +289,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="530" y="74" key="RollbackChangesDialog/0.0.1366.728@0.0.1366.728" timestamp="1576883892143" />
+    <state x="184" y="6" key="SettingsEditor" timestamp="1577195639511">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="184" y="6" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1577195639511" />
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1577043869166">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -297,10 +305,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="379" y="101" width="607" height="526" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1577028928198" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1576969093660">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1577182594577">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1576969093660" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1577182594577" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

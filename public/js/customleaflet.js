@@ -14,8 +14,7 @@ $(document).ready(function () {
     let markers = new L.FeatureGroup();
     let markersHistory = new L.FeatureGroup();
     let filterMarkers = [];
-    let path = [];
-    let filterHistoryMarkers = [];
+    let average_speed = [];
 
 //Set Awal
     (function () {
@@ -136,15 +135,30 @@ $(document).ready(function () {
     });
 
     function getDataMap() {
-        map = L.map('googleMap', {center: [0, 118.8230631], zoom: 5});
+        map = L.map('googleMap', {
+            center: [0, 118.8230631], zoom: 5,
+            contextmenu: true,
+            contextmenuWidth: 140,
+            contextmenuItems: [{
+                text: 'Start Point',
+                callback: startPoint,
+                index: 1
+            }]
+        });
 
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
+    }
 
-        map.on('contextmenu', function(e) {
-            alert('startDate');
-        });
+    function startPoint(e) {
+        map.contextmenu.removeAllItems(1);
+        map.contextmenu.insertItem({text: 'End Point', callback: endPoint}, 2);
+    }
+
+    function endPoint(e) {
+        map.contextmenu.removeAllItems();
+        map.contextmenu.insertItem({text: 'Start Point', callback: startPoint}, 1);
     }
 
     function getDataMapHistory() {
@@ -410,7 +424,7 @@ $(document).ready(function () {
         var csvContent = "";
         data.forEach(function (infoArray, index) {
             var dataString = infoArray.join(",");
-            csvContent += index < data.length ? dataString + "\n" : dataString;
+            csvContent += index < data.length ? dataString + "" : dataString;
         });
 
         if (window.navigator.msSaveOrOpenBlob) {
@@ -609,6 +623,15 @@ $(document).ready(function () {
         }
     });
 
+    function searchForId(name, shipId, array) {
+        for (let i in array) {
+            if (array[i][0] === name && array[i][1] == shipId) {
+                return i;
+            }
+        }
+        return null;
+    }
+
     $(document).on("click", "#history_table tbody tr .inner-table .inner-table-row .inner-table-icon-cell input:checkbox", function () {
         let id = $(this).val();
         let name = $(this).attr("name");
@@ -618,11 +641,39 @@ $(document).ready(function () {
         if (selectedMessage) {
             if (selectedMessage.path) {
                 if (checked) {
+                    average_speed.push([name, selectedMessage.histories[name].id, selectedMessage.histories[name].message_utc]);
                     selectedMessage.historiesMarkers[name].openPopup();
                 } else {
+                    let findId = searchForId(name, selectedMessage.histories[name].id, average_speed);
+                    average_speed.splice(findId, 1);
                     selectedMessage.historiesMarkers[name].closePopup();
                 }
             }
+        }
+
+        if (average_speed.length % 2 === 0) {
+            $.ajax({
+                type: 'get',
+                url: "/admin/getAverageSpeed/" + JSON.stringify(average_speed),
+                success: function (data) {
+                    if (data) {
+                        let html = '<table class="table" align="center" style="text-align: left; font-size: 1em; min-width: 200px"><thead> <tr> <th width="50%">Name</th>' +
+                            '<th width="50%">Speed</th></tr></thead><tbody>';
+                        for (let i in data) {
+                            html = html + '<tr><td>' + data[i].name + '</td><td>' + data[i].speed + ' knots</td></tr>';
+                        }
+                        html = html + '</tbody>' + '</table>';
+
+                        Swal.fire({
+                            title: '<h3>Average Speed Of The Ship</h3>',
+                            html: html,
+                            showCloseButton: true,
+                            focusConfirm: false,
+                            confirmButtonText: 'Close',
+                        })
+                    }
+                }
+            });
         }
     });
 
@@ -685,8 +736,8 @@ $(document).ready(function () {
                                 {rotationAngle: rotation, icon: greenIcon});
                             marker.bindPopup(popup);
                             filterMarkers[data[i][j].ship_ids] = marker;
-                            let checked =[];
-                            $('#tracking_table tbody tr.row input:checkbox:checked').each(function(){
+                            let checked = [];
+                            $('#tracking_table tbody tr.row input:checkbox:checked').each(function () {
                                 checked.push($(this).val());
                             });
 
