@@ -459,9 +459,17 @@ $(document).ready(function () {
                 if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'speed') {
                     speed = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
                 }
+                if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'latitude') {
+                    latitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                }
+
+                if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'longitude') {
+                    longitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                }
             }
 
-            if (timeShip > startDate.getTime() && timeShip < nextDay.getTime()) {
+            if (timeShip > startDate.getTime() && timeShip < nextDay.getTime() && typeof (latitude) !== 'undefined'
+                && typeof (longitude) !== 'undefined') {
                 histories_html += "<div class=\"inner-table-row\">";
                 histories_html += '<div class="inner-table-icon-cell"><input type="checkbox" name="' + i + '" value="' + history['ship_ids'] + '"/></div>';
                 histories_html += "<div class=\"inner-table-icon-cell\"><i class=\"fa fa-compass\"></i></div>";
