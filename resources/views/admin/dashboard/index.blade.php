@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/tabstyles.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/skysatu.css') }}"/>
 </head>
-<body>
+<body style="height: inherit !important;">
 <div id="googleMap"></div>
 <div id="googleMapHistory" style="display: none"></div>
 <div id="floating-panel">

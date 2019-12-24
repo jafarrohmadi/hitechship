@@ -537,7 +537,6 @@ $(document).ready(function () {
                 if (typeof (latitude) !== 'undefined' && typeof (longitude) !== 'undefined') {
                     poliline[poliline.length] = new L.LatLng(latitude, longitude);
 
-
                     if (histories.length > 0 && i === 0) {
                         markerHistory = L.circle([latitude, longitude], {
                             color: '#000000',
@@ -690,8 +689,6 @@ $(document).ready(function () {
                         Swal.fire({
                             title: '<h3>Average Speed Of The Ship</h3>',
                             html: html,
-                            showCloseButton: true,
-                            focusConfirm: false,
                             confirmButtonText: 'Close',
                         })
                     }
