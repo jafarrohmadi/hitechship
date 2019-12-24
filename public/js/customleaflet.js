@@ -528,39 +528,40 @@ $(document).ready(function () {
                 let markerHistory;
                 if (typeof (latitude) !== 'undefined' && typeof (longitude) !== 'undefined') {
                     poliline[poliline.length] = new L.LatLng(latitude, longitude);
-                }
 
-                if (histories.length > 0 && i === 0) {
-                    markerHistory = L.circle([latitude, longitude], {
-                        color: '#000000',
-                        fillColor: '#0000FF',
-                        fillOpacity: 1,
-                        radius: 30000
-                    });
-                } else if (histories.length > 1 && histories.length === i + 1) {
-                    markerHistory = L.marker([latitude, longitude], {
-                        rotationAngle: rotation, icon: greenIcon
-                    });
-                } else {
-                    if (typeof (latitude) !== 'undefined' && typeof (longitude) !== 'undefined') {
+
+                    if (histories.length > 0 && i === 0) {
+                        markerHistory = L.circle([latitude, longitude], {
+                            color: '#000000',
+                            fillColor: '#0000FF',
+                            fillOpacity: 1,
+                            radius: 30000
+                        });
+                    } else if (histories.length > 1 && histories.length === i + 1) {
+                        markerHistory = L.marker([latitude, longitude], {
+                            rotationAngle: rotation, icon: greenIcon
+                        });
+                    } else {
+
                         markerHistory = L.circle([latitude, longitude], {
                             color: '#000000',
                             fillColor: '#ff0000',
                             fillOpacity: 1,
                             radius: 30000
                         });
-                    }
-                }
 
-                markerHistory.bindPopup(popup);
-                markerHistory.on('mouseover', function (e) {
-                    this.openPopup();
-                });
-                markerHistory.on('mouseout', function (e) {
-                    this.closePopup();
-                });
-                markersHistory.addLayer(markerHistory);
-                historiesMarkers[historiesMarkers.length] = markerHistory;
+                    }
+
+                    markerHistory.bindPopup(popup);
+                    markerHistory.on('mouseover', function (e) {
+                        this.openPopup();
+                    });
+                    markerHistory.on('mouseout', function (e) {
+                        this.closePopup();
+                    });
+                    markersHistory.addLayer(markerHistory);
+                    historiesMarkers[historiesMarkers.length] = markerHistory;
+                }
             }
         });
 
