@@ -569,6 +569,8 @@ $(document).ready(function () {
                     });
                     markersHistory.addLayer(markerHistory);
                     historiesMarkers[historiesMarkers.length] = markerHistory;
+                }else{
+                    historiesMarkers[historiesMarkers.length] = {};
                 }
             }
         });
@@ -662,6 +664,7 @@ $(document).ready(function () {
             if (selectedMessage.path) {
                 if (checked) {
                     average_speed.push([name, selectedMessage.histories[name].id, selectedMessage.histories[name].message_utc]);
+
                     selectedMessage.historiesMarkers[name].openPopup();
                 } else {
                     let findId = searchForId(name, selectedMessage.histories[name].id, average_speed);
