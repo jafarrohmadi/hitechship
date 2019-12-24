@@ -521,7 +521,7 @@ $(document).ready(function () {
                     path['latitude'] = latitude;
                     path['longitude'] = longitude;
                 }
-                
+
                 let greenIcon = new LeafIcon({iconUrl: getIcon(path)});
                 let rotation = speed > 0.49 ? Math.round(heading * 0.7) : 0;
                 let popup = showInfoPopUp(path);
@@ -542,12 +542,14 @@ $(document).ready(function () {
                         rotationAngle: rotation, icon: greenIcon
                     });
                 } else {
-                    markerHistory = L.circle([latitude, longitude], {
-                        color: '#000000',
-                        fillColor: '#ff0000',
-                        fillOpacity: 1,
-                        radius: 30000
-                    });
+                    if (typeof (latitude) !== 'undefined' && typeof (longitude) !== 'undefined') {
+                        markerHistory = L.circle([latitude, longitude], {
+                            color: '#000000',
+                            fillColor: '#ff0000',
+                            fillOpacity: 1,
+                            radius: 30000
+                        });
+                    }
                 }
 
                 markerHistory.bindPopup(popup);
