@@ -673,7 +673,7 @@ $(document).ready(function () {
             }
         }
 
-        if (average_speed.length % 2 === 0) {
+        if (average_speed.length > 1 && average_speed.length % 2 === 0) {
             $.ajax({
                 type: 'get',
                 url: "/admin/getAverageSpeed/" + JSON.stringify(average_speed),
