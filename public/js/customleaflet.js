@@ -520,7 +520,9 @@ $(document).ready(function () {
                 let rotation = speed > 0.49 ? Math.round(heading * 0.7) : 0;
                 let popup = showInfoPopUp(path);
                 let markerHistory;
-                poliline[poliline.length] = new L.LatLng(latitude, longitude);
+                if (typeof (latitude) !== 'undefined' && typeof (longitude) !== 'undefined') {
+                    poliline[poliline.length] = new L.LatLng(latitude, longitude);
+                }
                 if (histories.length > 0 && i === 0) {
                     markerHistory = L.circle([latitude, longitude], {
                         color: '#000000',
