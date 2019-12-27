@@ -3,11 +3,83 @@
 <head>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     <link rel="stylesheet" type="text/css" href="{{asset('css/leaflet.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/leaflet.contextmenu.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/leaflet.draw.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/tabs.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/tabstyles.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/skysatu.css') }}"/>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        input[type=number], input[type=text]{
+            width: 70%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        input[type=text]{
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        input[type=submit] {
+            background-color: #2CC185;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 50px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+            text-align: center;
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+        }
+
+        /* The Close Button */
+        .close {
+            opacity: 0.6;
+            float: right;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body style="height: inherit !important;">
 <div id="googleMap"></div>
@@ -28,6 +100,12 @@
                 <section id="section-linebox-1" class="content-current">
                     <table class="fixed_headers" id="tracking_table">
                         <thead>
+                        <tr>
+                            <td>
+                                <button class="startPoint">Start Point</button>
+                            </td>
+                        </tr>
+
                         <tr>
                             <td><input id="checkAll" type="checkbox" checked="checked"/></td>
                             <td>Name</td>
@@ -62,17 +140,48 @@
         </div><!-- /tabs -->
     </section>
 </div>
+
+<div id="speedCount" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div
+                    style="text-align: center;"><h1 class="modal-title">Enter the Number of Points to Be Calculated</h1>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form class="addPoints" id="addPoints" method="get" href="">
+                    <input type="number" class="countTitikPolyline" placeholder="Points"
+                           id="countTitikPolyline">
+                    <input type="submit" class="btn btn-default" value="Submit" id="submitPoint">
+                </form>
+
+                <form class="formSpeedValue"  id="formSpeedValue" style="display: none"  method="get" href="">
+                    <span class="speedValue"></span>
+                    <input type="submit" class="btn btn-default" value="Submit" id="submitSpeed">
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="{{asset('js/sweetalert2.all.min.js')}}"></script>
-<script src="{{asset('js/MeasureTool.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js')}}"></script>
+<script src="{{ asset('js/sweetalert2.all.min.js')}}"></script>
+<script src="{{ asset('js/MeasureTool.min.js') }}"></script>
 <script src="{{ asset('js/cbpFWTabs.js') }}"></script>
-<script src="{{asset('js/jquery-dateFormat.min.js') }}"></script>
+<script src="{{ asset('js/jquery-dateFormat.min.js') }}"></script>
 
-<script src="{{asset('js/leaflet.js')}}"></script>
-<script src="{{asset('js/leaflet.rotatedMarker.js')}}"></script>
-<script src="{{asset('js/leaflet.contextmenu.js')}}"></script>
-<script src="{{asset('js/customleaflet.js')}}"></script>
+<script src="{{ asset('js/leaflet.js') }}"></script>
+<script src="{{ asset('js/leaflet.rotatedMarker.js') }}"></script>
+<script src="{{ asset('js/leaflet.contextmenu.js') }}"></script>
+<script src="{{ asset('js/leaflet.draw.js') }}"></script>
+<script src="{{ asset('js/customleaflet.js') }}"></script>
 
 
 </body>

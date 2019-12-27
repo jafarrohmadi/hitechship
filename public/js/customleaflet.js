@@ -12,9 +12,14 @@ $(document).ready(function () {
 
     let map, mapHistory;
     let markers = new L.FeatureGroup();
+    let savePolyline = new L.FeatureGroup();
     let markersHistory = new L.FeatureGroup();
     let filterMarkers = [];
     let average_speed = [];
+    let drawPolylineStart = 0;
+    let drawLatLngInitial;
+    let drawPointsMarker;
+    let drawLatLng = [];
 
 //Set Awal
     (function () {
@@ -136,14 +141,7 @@ $(document).ready(function () {
 
     function getDataMap() {
         map = L.map('googleMap', {
-            center: [0, 118.8230631], zoom: 5,
-            contextmenu: true,
-            contextmenuWidth: 140,
-            contextmenuItems: [{
-                text: 'Start Point',
-                callback: startPoint,
-                index: 1
-            }]
+            center: [0, 118.8230631], zoom: 5
         });
 
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -151,15 +149,26 @@ $(document).ready(function () {
         }).addTo(map);
     }
 
+
     function startPoint(e) {
+        let countClick = 0;
+        map.addLayer(savePolyline);
         map.contextmenu.removeAllItems(1);
-        map.contextmenu.insertItem({text: 'End Point', callback: endPoint}, 2);
+
+        var polygonDrawer = new L.Draw.Polyline(map);
+
+// Assumming you have a Leaflet map accessible
+        map.on('draw:created', function (e) {
+            let type = e.layerType, layer = e.layer;
+            savePolyline.addLayer(layer);
+            latlng[latlng.length]  = layer.getLatLngs();
+        });
+
+        polygonDrawer.enable();
+        polygonDrawer.addVertex(drawLatLngInitial);
+
     }
 
-    function endPoint(e) {
-        map.contextmenu.removeAllItems();
-        map.contextmenu.insertItem({text: 'Start Point', callback: startPoint}, 1);
-    }
 
     function getDataMapHistory() {
         mapHistory = L.map('googleMapHistory', {center: [0, 118.8230631], zoom: 5});
@@ -302,6 +311,47 @@ $(document).ready(function () {
         }
     }
 
+    $(".startPoint").click(function () {
+        if ($('#checkAll').is(':checked')) {
+            $("#tracking_table thead  input:checkbox[id=checkAll]").trigger("click");
+        }
+        $("#tracking_table thead  input:checkbox[id=checkAll]").prop("disabled", true);
+
+        $('#tracking_table tbody tr.header input:checkbox').prop('disabled', true);
+
+        $(".startPoint").val(1);
+        drawPolylineStart = 1;
+    });
+
+    $("#addPoints").submit(function (e) {
+        e.preventDefault();
+        drawPointsMarker = $('#countTitikPolyline').val();
+
+        let html = '';
+        if (drawPointsMarker > 9) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Point cannot be more than 9',
+            })
+        }
+        if (drawPointsMarker > 0 && drawPointsMarker <= 9) {
+            $(".addPoints").hide();
+            for (let i = 1; i <= drawPointsMarker; i++) {
+                html = html + '<input type = "text" class= "speedTitikPolyline" placeholder = "Speed ' + i + ' (Knots)"  id = "Speed[' + i + ']" ><br>';
+            }
+            $('.speedValue').html(html);
+            $('.modal-title').html('Please Enter Your Expectation Speed For Each Point');
+            $(".formSpeedValue").show();
+        }
+    });
+
+    $("#formSpeedValue").submit(function (e) {
+        e.preventDefault();
+        $('#speedCount').modal('toggle');
+        startPoint();
+    });
+
     $("#checkAll").click(function () {
         $("#tracking_table input:checkbox").not(this).prop("checked", this.checked);
         $("#tracking_table tbody tr.row input:checkbox").trigger("change");
@@ -342,10 +392,21 @@ $(document).ready(function () {
     $(document).on("click", "#tracking_table tbody tr.row input:checkbox", function () {
         let id = $(this).val();
         let checked = $(this).is(":checked");
+
         if (checked) {
             getMarkerWithIds(id);
+            if (drawPolylineStart === 1) {
+                $('#tracking_table tbody tr.row input:checkbox').prop('disabled', true);
+                $('#tracking_table tbody tr.row input:checkbox[value="' + id + '"]').prop('disabled', false);
+                $("#floating-panel .close").trigger("click");
+                $('#speedCount').modal('toggle');
+                drawLatLngInitial = L.latLng(locations[id].latitude, locations[id].longitude);
+            }
         } else {
             deleteMarkerWithIds(id);
+            if (drawPolylineStart === 1) {
+                $('#tracking_table tbody tr.row input:checkbox').prop('disabled', false);
+            }
         }
     });
 
@@ -568,7 +629,7 @@ $(document).ready(function () {
                     });
                     markersHistory.addLayer(markerHistory);
                     historiesMarkers[historiesMarkers.length] = markerHistory;
-                }else{
+                } else {
                     historiesMarkers[historiesMarkers.length] = {};
                 }
             }

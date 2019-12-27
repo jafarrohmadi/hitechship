@@ -4,6 +4,8 @@
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jafarrohmadi/hitechship&#10;&#10;# Conflicts:&#10;#&#9;public/images/bg.jpg&#10;#&#9;resources/views/auth/login.blade.php&#10;#&#9;resources/views/layouts/app.blade.php">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/customleaflet.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/customleaflet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/dashboard/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/dashboard/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +165,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.last.introduce.type" value="LET" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../site" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.PHP" />
   </component>
@@ -233,7 +235,9 @@
       <workItem from="1577022289962" duration="14436000" />
       <workItem from="1577043711090" duration="778000" />
       <workItem from="1577065661275" duration="1479000" />
-      <workItem from="1577148738366" duration="25130000" />
+      <workItem from="1577148738366" duration="28777000" />
+      <workItem from="1577326496720" duration="12000" />
+      <workItem from="1577373926224" duration="14224000" />
     </task>
     <servers />
   </component>
@@ -266,10 +270,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="261" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1576847952999" />
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1577067150265">
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1577415059268">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1577067150265" />
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1577415059268" />
     <state x="129" y="54" key="MergeDialog" timestamp="1576847919954">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -290,22 +294,30 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="6" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1577195639511" />
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1577043869166">
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1577374616001">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1577043869166" />
-    <state x="384" y="187" key="com.intellij.ide.util.TipDialog" timestamp="1577065667464">
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1577374616001" />
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog" timestamp="1577374157611">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="384" y="187" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1577065667464" />
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1577374157611" />
+    <state x="384" y="187" key="com.intellij.ide.util.TipDialog" timestamp="1577373925543">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="384" y="187" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1577373925543" />
     <state x="379" y="101" width="607" height="526" key="find.popup" timestamp="1577028928198">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="379" y="101" width="607" height="526" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1577028928198" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1577227356501">
+    <state x="339" y="162" key="run.anything.popup" timestamp="1577398906588">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1577227356501" />
+    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1577398906588" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1577403488943">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1577403488943" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -314,6 +326,11 @@
           <url>file://$PROJECT_DIR$/database/migrations/2019_12_03_000010_create_role_user_pivot_table.php</url>
           <line>15</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/layouts/admin.blade.php</url>
+          <line>38</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
