@@ -100,7 +100,7 @@ class getHistoryShipData extends Command
                                 dispatch(new SendEmailToUserWhoHaveShip($historyShip, $ship, $datas->email , $datas->username));
                             }
                         }
-                        
+
                         echo 'Insert History Ship Id ' . $message->ID . "\n";
                     }
                 }

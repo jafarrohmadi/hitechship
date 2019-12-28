@@ -172,8 +172,9 @@ $(document).ready(function () {
             drawCountDistanceStartEndPoint = drawCountDistanceStartEndPoint + getDistance(drawLatLng[0][i].lat
                 , drawLatLng[0][i].lng, drawLatLng[0][i + 1].lat, drawLatLng[0][i + 1].lng, "N");
         }
-        let totalTime = drawCountDistanceStartEndPoint / drawSpeedValue;
-        let html = 'Total distance ' + (drawCountDistanceStartEndPoint * 1).toFixed(4) + ' Nautical Miles <br> ETA ' + (totalTime * 1).toFixed(4);
+
+        let totalTime = convertDecimalToDate(drawCountDistanceStartEndPoint / drawSpeedValue);
+        let html = 'Total distance ' + (drawCountDistanceStartEndPoint * 1).toFixed(4) + ' Nautical Miles <br> <br> ETA ' + totalTime;
 
         Swal.fire({
             title: '<h3>Expected Time Remaining</h3>',
@@ -206,6 +207,47 @@ $(document).ready(function () {
             }
             return dist;
         }
+    }
+
+    function convertDecimalToDate(decimalTimeString) {
+        let decimalTime = parseFloat(decimalTimeString);
+        decimalTime = decimalTime * 60 * 60;
+        let hours = Math.floor((decimalTime / (60 * 60)));
+        decimalTime = decimalTime - (hours * 60 * 60);
+        let minutes = Math.floor((decimalTime / 60));
+        decimalTime = decimalTime - (minutes * 60);
+        let seconds = Math.round(decimalTime);
+        if (hours < 10) {
+            hours = "0" + hours;
+        }
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
+
+        let monthNames = [
+            "January", "February", "March",
+            "April", "May", "June", "July",
+            "August", "September", "October",
+            "November", "December"
+        ];
+        const date = new Date();
+        date.setHours(date.getHours() + hours);
+        date.setMinutes(date.getMinutes() + minutes);
+        date.setSeconds(date.getSeconds() + seconds);
+
+
+        let dateStr =
+            ("00" + date.getDate()).slice(-2) + " " +
+            monthNames[(date.getMonth())] + " " +
+            date.getFullYear() + " " +
+            ("00" + date.getHours()).slice(-2) + ":" +
+            ("00" + date.getMinutes()).slice(-2) + ":" +
+            ("00" + date.getSeconds()).slice(-2);
+
+        return dateStr;
     }
 
     function getDataMapHistory() {
