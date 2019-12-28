@@ -257,7 +257,7 @@ $(document).ready(function () {
                                 }
 
                                 if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'heading') {
-                                    heading = (jsonParse['Fields'][k]['Value'] * 0.1).toFixed(1);
+                                    heading = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
                                 }
                             }
                             key = data[i][j]['ship_ids'];
@@ -323,7 +323,7 @@ $(document).ready(function () {
             "<p><strong>Last:</strong> " + $.format.date(new Date(message.eventTime), "dd.MM.yyyy HH:mm:ss") + "</p>" +
             "<p><strong>Position:</strong> " + (message.latitude * 1).toFixed(4) + " S&nbsp;&nbsp;" + (message.longitude * 1).toFixed(4) + " E</p>" +
             "<p><strong>Speed:</strong> " + (message.speed * 1).toFixed(1) + " knots</p>" +
-            "<p><strong>Heading</strong>: " + (message.heading * 0.1).toFixed(1) + "&deg;</p>";
+            "<p><strong>Heading</strong>: " + (message.heading * 1).toFixed(1) + "&deg;</p>";
 
         return content;
     }
@@ -481,7 +481,7 @@ $(document).ready(function () {
                             }
 
                             if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'heading') {
-                                heading = (jsonParse['Fields'][k]['Value'] * 0.1).toFixed(1);
+                                heading = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
                             }
                         }
                         data.push([history['id'],
@@ -592,7 +592,7 @@ $(document).ready(function () {
                     }
 
                     if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'heading') {
-                        heading = (jsonParse['Fields'][k]['Value'] * 0.1).toFixed(1);
+                        heading = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
                     }
                 }
 
@@ -810,7 +810,7 @@ $(document).ready(function () {
                                 }
 
                                 if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'heading') {
-                                    heading = (jsonParse['Fields'][k]['Value']).toFixed(1);
+                                    heading = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
                                 }
                             }
 

@@ -68,7 +68,7 @@ class SendShipTrackToUserWhoHaveShipMailable extends Mailable
         foreach (json_decode($this->historyShip->payload)->Fields as $field) {
             $field->Name = strtolower($field->Name);
             if ($field->Name === 'heading') {
-                $this->heading = $field->Value * 0.1;
+                $this->heading = $field->Value;
             }
 
             if ($field->Name === 'latitude') {

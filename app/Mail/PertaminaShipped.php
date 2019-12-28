@@ -47,7 +47,7 @@ class PertaminaShipped extends Mailable
                 $speed = $field->Value;
             }
             if ($field->Name === 'heading') {
-                $heading = $field->Value*0.1;
+                $heading = $field->Value;
             }
 
         }
