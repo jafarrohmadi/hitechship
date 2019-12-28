@@ -61,6 +61,10 @@ class getHistoryShipData extends Command
                             $field->Value = ($field->Value) * 0.1;
                         }
 
+                        if ($field->Name === 'heading') {
+                            $field->Value = ($field->Value) * 0.1;
+                        }
+
                         $payload[] = [
                             'Name' => $field->Name,
                             'Value' => $field->Value,
@@ -96,8 +100,7 @@ class getHistoryShipData extends Command
                                 dispatch(new SendEmailToUserWhoHaveShip($historyShip, $ship, $datas->email , $datas->username));
                             }
                         }
-
-
+                        
                         echo 'Insert History Ship Id ' . $message->ID . "\n";
                     }
                 }
