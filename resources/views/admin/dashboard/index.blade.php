@@ -16,7 +16,7 @@
             font-family: Arial, Helvetica, sans-serif;
         }
 
-        input[type=number], input[type=text]{
+        .input-modal{
             width: 70%;
             padding: 12px;
             border: 1px solid #ccc;
@@ -25,7 +25,7 @@
             resize: vertical;
         }
 
-        input[type=text]{
+        .input-modal-text{
             width: 100%;
             margin-bottom: 10px;
         }
@@ -154,16 +154,10 @@
             </div>
             <div class="modal-body">
                 <form class="addPoints" id="addPoints" method="get" href="">
-                    <input type="number" class="countTitikPolyline" placeholder="Points"
-                           id="countTitikPolyline">
+                    <input type="text" class="speedPolyline input-modal" placeholder="In Nautical Knots"
+                           id="speedPolyline">
                     <input type="submit" class="btn btn-default" value="Submit" id="submitPoint">
                 </form>
-
-                <form class="formSpeedValue"  id="formSpeedValue" style="display: none"  method="get" href="">
-                    <span class="speedValue"></span>
-                    <input type="submit" class="btn btn-default" value="Submit" id="submitSpeed">
-                </form>
-
             </div>
         </div>
 

@@ -18,8 +18,9 @@ $(document).ready(function () {
     let average_speed = [];
     let drawPolylineStart = 0;
     let drawLatLngInitial;
-    let drawPointsMarker;
+    let drawSpeedValue;
     let drawLatLng = [];
+    let drawCountDistanceStartEndPoint = 0;
 
 //Set Awal
     (function () {
@@ -151,17 +152,14 @@ $(document).ready(function () {
 
 
     function startPoint(e) {
-        let countClick = 0;
         map.addLayer(savePolyline);
-        map.contextmenu.removeAllItems(1);
+        let polygonDrawer = new L.Draw.Polyline(map);
 
-        var polygonDrawer = new L.Draw.Polyline(map);
-
-// Assumming you have a Leaflet map accessible
         map.on('draw:created', function (e) {
             let type = e.layerType, layer = e.layer;
             savePolyline.addLayer(layer);
-            latlng[latlng.length]  = layer.getLatLngs();
+            drawLatLng[drawLatLng.length] = layer.getLatLngs();
+            showPopUpSpeed();
         });
 
         polygonDrawer.enable();
@@ -169,6 +167,46 @@ $(document).ready(function () {
 
     }
 
+    function showPopUpSpeed() {
+        for (let i = 0; i < drawLatLng[0].length - 1; i++) {
+            drawCountDistanceStartEndPoint = drawCountDistanceStartEndPoint + getDistance(drawLatLng[0][i].lat
+                , drawLatLng[0][i].lng, drawLatLng[0][i + 1].lat, drawLatLng[0][i + 1].lng, "N");
+        }
+        let totalTime = drawCountDistanceStartEndPoint / drawSpeedValue;
+        let html = 'Total distance ' + (drawCountDistanceStartEndPoint * 1).toFixed(4) + ' Nautical Miles <br> ETA ' + (totalTime * 1).toFixed(4);
+
+        Swal.fire({
+            title: '<h3>Expected Time Remaining</h3>',
+            icon: 'info',
+            html: html,
+            confirmButtonText: 'Close',
+        });
+    }
+
+    function getDistance(lat1, lon1, lat2, lon2, unit) {
+        if ((lat1 == lat2) && (lon1 == lon2)) {
+            return 0;
+        } else {
+            let radlat1 = Math.PI * lat1 / 180;
+            let radlat2 = Math.PI * lat2 / 180;
+            let theta = lon1 - lon2;
+            let radtheta = Math.PI * theta / 180;
+            let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+            if (dist > 1) {
+                dist = 1;
+            }
+            dist = Math.acos(dist);
+            dist = dist * 180 / Math.PI;
+            dist = dist * 60 * 1.1515;
+            if (unit == "K") {
+                dist = dist * 1.609344
+            }
+            if (unit == "N") {
+                dist = dist * 0.8684
+            }
+            return dist;
+        }
+    }
 
     function getDataMapHistory() {
         mapHistory = L.map('googleMapHistory', {center: [0, 118.8230631], zoom: 5});
@@ -325,29 +363,7 @@ $(document).ready(function () {
 
     $("#addPoints").submit(function (e) {
         e.preventDefault();
-        drawPointsMarker = $('#countTitikPolyline').val();
-
-        let html = '';
-        if (drawPointsMarker > 9) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Point cannot be more than 9',
-            })
-        }
-        if (drawPointsMarker > 0 && drawPointsMarker <= 9) {
-            $(".addPoints").hide();
-            for (let i = 1; i <= drawPointsMarker; i++) {
-                html = html + '<input type = "text" class= "speedTitikPolyline" placeholder = "Speed ' + i + ' (Knots)"  id = "Speed[' + i + ']" ><br>';
-            }
-            $('.speedValue').html(html);
-            $('.modal-title').html('Please Enter Your Expectation Speed For Each Point');
-            $(".formSpeedValue").show();
-        }
-    });
-
-    $("#formSpeedValue").submit(function (e) {
-        e.preventDefault();
+        drawSpeedValue = $('#speedPolyline').val();
         $('#speedCount').modal('toggle');
         startPoint();
     });
@@ -430,7 +446,7 @@ $(document).ready(function () {
 
 //History
     $("#downloadCSV").click(function () {
-        var data = [["ID",
+        let data = [["ID",
             "Event Time",
             "Ship Id",
             "Ship Name",
@@ -439,13 +455,13 @@ $(document).ready(function () {
             "Speed",
             "Heading"]];
 
-        for (var terminalId in locations) {
-            var message = locations[terminalId];
+        for (let terminalId in locations) {
+            let message = locations[terminalId];
             if (message.path) {
-                var histories = message.histories;
-                var path = [];
+                let histories = message.histories;
+                let path = [];
                 $.each(histories, function (i, history) {
-                    var nextDay = new Date(endDate);
+                    let nextDay = new Date(endDate);
                     nextDay.setDate(endDate.getDate() + 1);
                     let timeShip = Date.parse(history['message_utc']) + 7 * 60 * 60 * 1000;
                     if (timeShip > startDate.getTime() && timeShip < nextDay.getTime()) {
@@ -482,17 +498,17 @@ $(document).ready(function () {
             }
         }
 
-        var csvContent = "";
+        let csvContent = "";
         data.forEach(function (infoArray, index) {
-            var dataString = infoArray.join(",");
+            let dataString = infoArray.join(",");
             csvContent += index < data.length ? dataString + "" : dataString;
         });
 
         if (window.navigator.msSaveOrOpenBlob) {
-            var blobObject = new Blob(["\ufeff" + csvContent]);
+            let blobObject = new Blob(["\ufeff" + csvContent]);
             window.navigator.msSaveOrOpenBlob(blobObject, "terminal-messages.csv");
         } else {
-            var link = document.createElement("a");
+            let link = document.createElement("a");
             link.setAttribute("href", encodeURI("data:text/csv;charset=utf-8," + csvContent));
             link.setAttribute("download", "terminal-messages.csv");
             document.body.appendChild(link); // Required for FF
@@ -751,7 +767,7 @@ $(document).ready(function () {
                             title: '<h3>Average Speed Of The Ship</h3>',
                             html: html,
                             confirmButtonText: 'Close',
-                        })
+                        });
                     }
                 }
             });
@@ -794,7 +810,7 @@ $(document).ready(function () {
                                 }
 
                                 if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'heading') {
-                                    heading = (jsonParse['Fields'][k]['Value'] * 0.1).toFixed(1);
+                                    heading = (jsonParse['Fields'][k]['Value']).toFixed(1);
                                 }
                             }
 
