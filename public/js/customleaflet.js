@@ -142,119 +142,39 @@ $(document).ready(function () {
 
     function getDataMap() {
         map = L.map('googleMap', {
+            zoomControl: false,
             center: [0, 118.8230631], zoom: 5
         });
 
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
+        
+        L.control.zoom({
+            position:'bottomright'
+        }).addTo(map);
     }
 
-
-    function startPoint(e) {
-        map.addLayer(savePolyline);
-        let polygonDrawer = new L.Draw.Polyline(map);
-
-        map.on('draw:created', function (e) {
-            let type = e.layerType, layer = e.layer;
-            savePolyline.addLayer(layer);
-            drawLatLng[drawLatLng.length] = layer.getLatLngs();
-            showPopUpSpeed();
-        });
-
-        polygonDrawer.enable();
-        polygonDrawer.addVertex(drawLatLngInitial);
-
-    }
-
-    function showPopUpSpeed() {
-        for (let i = 0; i < drawLatLng[0].length - 1; i++) {
-            drawCountDistanceStartEndPoint = drawCountDistanceStartEndPoint + getDistance(drawLatLng[0][i].lat
-                , drawLatLng[0][i].lng, drawLatLng[0][i + 1].lat, drawLatLng[0][i + 1].lng, "N");
-        }
-
-        let totalTime = convertDecimalToDate(drawCountDistanceStartEndPoint / drawSpeedValue);
-        let html = 'Total distance ' + (drawCountDistanceStartEndPoint * 1).toFixed(4) + ' Nautical Miles <br> <br> ETA ' + totalTime;
-
-        Swal.fire({
-            title: '<h3>Expected Time Remaining</h3>',
-            icon: 'info',
-            html: html,
-            confirmButtonText: 'Close',
-        });
-    }
-
-    function getDistance(lat1, lon1, lat2, lon2, unit) {
-        if ((lat1 == lat2) && (lon1 == lon2)) {
-            return 0;
-        } else {
-            let radlat1 = Math.PI * lat1 / 180;
-            let radlat2 = Math.PI * lat2 / 180;
-            let theta = lon1 - lon2;
-            let radtheta = Math.PI * theta / 180;
-            let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-            if (dist > 1) {
-                dist = 1;
-            }
-            dist = Math.acos(dist);
-            dist = dist * 180 / Math.PI;
-            dist = dist * 60 * 1.1515;
-            if (unit == "K") {
-                dist = dist * 1.609344
-            }
-            if (unit == "N") {
-                dist = dist * 0.8684
-            }
-            return dist;
-        }
-    }
-
-    function convertDecimalToDate(decimalTimeString) {
-        let decimalTime = parseFloat(decimalTimeString);
-        decimalTime = decimalTime * 60 * 60;
-        let hours = Math.floor((decimalTime / (60 * 60)));
-        decimalTime = decimalTime - (hours * 60 * 60);
-        let minutes = Math.floor((decimalTime / 60));
-        decimalTime = decimalTime - (minutes * 60);
-        let seconds = Math.round(decimalTime);
-        if (hours < 10) {
-            hours = "0" + hours;
-        }
-        if (minutes < 10) {
-            minutes = "0" + minutes;
-        }
-        if (seconds < 10) {
-            seconds = "0" + seconds;
-        }
-
-        let monthNames = [
-            "January", "February", "March",
-            "April", "May", "June", "July",
-            "August", "September", "October",
-            "November", "December"
-        ];
-        const date = new Date();
-        date.setHours(date.getHours() + hours);
-        date.setMinutes(date.getMinutes() + minutes);
-        date.setSeconds(date.getSeconds() + seconds);
-
-
-        let dateStr =
-            ("00" + date.getDate()).slice(-2) + " " +
-            monthNames[(date.getMonth())] + " " +
-            date.getFullYear() + " " +
-            ("00" + date.getHours()).slice(-2) + ":" +
-            ("00" + date.getMinutes()).slice(-2) + ":" +
-            ("00" + date.getSeconds()).slice(-2);
-
-        return dateStr;
+    function centerLeafletMapOnMarker(lat, lng) {
+        map.flyTo(new L.LatLng(lat, lng), 5);
     }
 
     function getDataMapHistory() {
-        mapHistory = L.map('googleMapHistory', {center: [0, 118.8230631], zoom: 5});
+        mapHistory = L.map('googleMapHistory', {
+            zoomControl: false,
+            center: [0, 118.8230631], zoom: 5
+        });
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mapHistory);
+
+        L.control.zoom({
+            position:'bottomright'
+        }).addTo(map);
+    }
+
+    function centerLeafletMapHistoriesOnMarker(lat, lng) {
+        mapHistory.flyTo(new L.LatLng(lat, lng), 5);
     }
 
 //TRACK
@@ -376,12 +296,14 @@ $(document).ready(function () {
         map.addLayer(markers);
         for (let n in x) {
             if (typeof locations[x[n]] != 'undefined') {
+                centerLeafletMapOnMarker(locations[x[n]].latitude, locations[x[n]].longitude);
                 markers.addLayer(filterMarkers[x[n]]);
             }
         }
     }
 
     function deleteMarkerWithIds(x) {
+        savePolyline.clearLayers();
         x = x || 0;
         x = (typeof x != 'undefined' && x instanceof Array) ? x : [x];
         for (let n in x) {
@@ -391,17 +313,132 @@ $(document).ready(function () {
         }
     }
 
+    $(".stopDrawing").click(function () {
+        if ($('#checkAll').is(':checked')) {
+            $("#tracking_table thead  input:checkbox[id=checkAll]").trigger("click");
+        }
+        $("#tracking_table thead  input:checkbox[id=checkAll]").prop("disabled", false);
+
+        $('#tracking_table tbody tr.header input:checkbox').prop('disabled', false);
+
+        $(".startPoint").show();
+        $(".stopDrawing").hide();
+        drawPolylineStart = 0;
+    });
+
     $(".startPoint").click(function () {
         if ($('#checkAll').is(':checked')) {
             $("#tracking_table thead  input:checkbox[id=checkAll]").trigger("click");
         }
         $("#tracking_table thead  input:checkbox[id=checkAll]").prop("disabled", true);
 
+        $("#tracking_table input:checkbox").not(this).prop("checked", false);
+        $("#tracking_table tbody tr.row input:checkbox").trigger("change");
+
         $('#tracking_table tbody tr.header input:checkbox').prop('disabled', true);
 
-        $(".startPoint").val(1);
+        $(".startPoint").hide();
+        $(".stopDrawing").show();
         drawPolylineStart = 1;
     });
+
+    function startPoint(e) {
+        map.addLayer(savePolyline);
+        let polygonDrawer = new L.Draw.Polyline(map);
+        map.on('draw:created', function (e) {
+            let type = e.layerType, layer = e.layer;
+            savePolyline.addLayer(layer);
+            drawLatLng[drawLatLng.length] = layer.getLatLngs();
+            showPopUpSpeed();
+        });
+
+        polygonDrawer.enable();
+        polygonDrawer.addVertex(drawLatLngInitial);
+
+    }
+
+    function showPopUpSpeed() {
+        for (let i = 0; i < drawLatLng[0].length - 1; i++) {
+            drawCountDistanceStartEndPoint = drawCountDistanceStartEndPoint + getDistance(drawLatLng[0][i].lat
+                , drawLatLng[0][i].lng, drawLatLng[0][i + 1].lat, drawLatLng[0][i + 1].lng, "N");
+        }
+
+        let totalTime = convertDecimalToDate(drawCountDistanceStartEndPoint / drawSpeedValue);
+        let html = 'Total distance ' + (drawCountDistanceStartEndPoint * 1).toFixed(4) + ' Nautical Miles <br> <br> ETA ' + totalTime;
+
+        Swal.fire({
+            title: '<h3>Expected Time Remaining</h3>',
+            icon: 'info',
+            html: html,
+            confirmButtonText: 'Close',
+        });
+    }
+
+    function getDistance(lat1, lon1, lat2, lon2, unit) {
+        if ((lat1 == lat2) && (lon1 == lon2)) {
+            return 0;
+        } else {
+            let radlat1 = Math.PI * lat1 / 180;
+            let radlat2 = Math.PI * lat2 / 180;
+            let theta = lon1 - lon2;
+            let radtheta = Math.PI * theta / 180;
+            let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+            if (dist > 1) {
+                dist = 1;
+            }
+            dist = Math.acos(dist);
+            dist = dist * 180 / Math.PI;
+            dist = dist * 60 * 1.1515;
+            if (unit == "K") {
+                dist = dist * 1.609344
+            }
+            if (unit == "N") {
+                dist = dist * 0.8684
+            }
+            return dist;
+        }
+    }
+
+    function convertDecimalToDate(decimalTimeString) {
+        let decimalTime = parseFloat(decimalTimeString);
+        decimalTime = decimalTime * 60 * 60;
+        let hours = Math.floor((decimalTime / (60 * 60)));
+        decimalTime = decimalTime - (hours * 60 * 60);
+        let minutes = Math.floor((decimalTime / 60));
+        decimalTime = decimalTime - (minutes * 60);
+        let seconds = Math.round(decimalTime);
+        if (hours < 10) {
+            hours = "0" + hours;
+        }
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
+
+        let monthNames = [
+            "January", "February", "March",
+            "April", "May", "June", "July",
+            "August", "September", "October",
+            "November", "December"
+        ];
+        const date = new Date();
+        date.setHours(date.getHours() + hours);
+        date.setMinutes(date.getMinutes() + minutes);
+        date.setSeconds(date.getSeconds() + seconds);
+
+
+        let dateStr =
+            ("00" + date.getDate()).slice(-2) + " " +
+            monthNames[(date.getMonth())] + " " +
+            date.getFullYear() + " " +
+            ("00" + date.getHours()).slice(-2) + ":" +
+            ("00" + date.getMinutes()).slice(-2) + ":" +
+            ("00" + date.getSeconds()).slice(-2);
+
+        return dateStr;
+    }
 
     $("#addPoints").submit(function (e) {
         e.preventDefault();
@@ -447,10 +484,10 @@ $(document).ready(function () {
         }
     });
 
+
     $(document).on("click", "#tracking_table tbody tr.row input:checkbox", function () {
         let id = $(this).val();
         let checked = $(this).is(":checked");
-
         if (checked) {
             getMarkerWithIds(id);
             if (drawPolylineStart === 1) {
@@ -572,7 +609,7 @@ $(document).ready(function () {
             let nextDay = new Date(endDate);
             nextDay.setDate(endDate.getDate() + 1);
             let timeShip = Date.parse(history['message_utc']) + 7 * 60 * 60 * 1000;
-            let speed;
+            let speed, latitude, longitude;
             let jsonParse = JSON.parse(history['payload']);
             for (const k in jsonParse['Fields']) {
                 if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'speed') {
@@ -758,6 +795,7 @@ $(document).ready(function () {
         let selectedMessage = locations[id];
         if (selectedMessage) {
             if (selectedMessage.path) {
+                centerLeafletMapHistoriesOnMarker(locations[id].latitude, locations[id].longitude);
                 selectedMessage.historiesMarkers[selectedMessage.historiesMarkers.length - 1].openPopup();
             }
         }
@@ -781,8 +819,8 @@ $(document).ready(function () {
         if (selectedMessage) {
             if (selectedMessage.path) {
                 if (checked) {
+                    centerLeafletMapHistoriesOnMarker(locations[id].latitude, locations[id].longitude);
                     average_speed.push([name, selectedMessage.histories[name].id, selectedMessage.histories[name].message_utc]);
-
                     selectedMessage.historiesMarkers[name].openPopup();
                 } else {
                     let findId = searchForId(name, selectedMessage.histories[name].id, average_speed);

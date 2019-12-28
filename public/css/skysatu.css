@@ -104,7 +104,6 @@ p { margin:0; padding:0}
 }
 .inner-table {
     font-size: 13px;
-    width: 250px;
     max-height: 120px;
     border: 2px solid #ccc;
     padding: 0 7px;

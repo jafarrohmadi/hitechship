@@ -103,6 +103,7 @@
                         <tr>
                             <td>
                                 <button class="startPoint">Start Point</button>
+                                <button class="stopDrawing" style="display: none">Stop Drawing</button>
                             </td>
                         </tr>
 
