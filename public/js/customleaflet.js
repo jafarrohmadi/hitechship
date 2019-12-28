@@ -687,7 +687,7 @@ $(document).ready(function () {
                 }
 
                 let greenIcon = new LeafIcon({iconUrl: getIcon(path)});
-                let rotation = speed > 0.49 ? Math.round(heading * 0.7) : 0;
+                let rotation = speed > 0.5 ? Math.round(heading * 0.7) : 0;
                 let popup = showInfoPopUp(path);
                 let markerHistory;
                 if (typeof (latitude) !== 'undefined' && typeof (longitude) !== 'undefined') {
@@ -906,7 +906,7 @@ $(document).ready(function () {
                             let getChecked = $('#checkAll:checked').length;
 
                             let greenIcon = new LeafIcon({iconUrl: getIcon(locations[data[i][j].ship_ids])});
-                            let rotation = speed > 0.49 ? Math.round(heading * 0.7) : 0;
+                            let rotation = speed > 0.5 ? Math.round(heading * 0.7) : 0;
                             let popup = showInfoPopUp(location);
 
                             let marker = L.marker([latitude, longitude],
