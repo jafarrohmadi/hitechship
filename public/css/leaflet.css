@@ -478,8 +478,15 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	line-height: 1.4;
 	}
 .leaflet-popup-content p {
-	margin: 18px 0;
+	margin: 0;
+    padding: 0;
+    font-weight: 300;
+    font-size: 13px;
+    font-family: Roboto, Arial, sans-serif;
 	}
+.leaflet-popup-content strong {
+    font-weight: bold;
+}
 .leaflet-popup-tip-container {
 	width: 40px;
 	height: 20px;

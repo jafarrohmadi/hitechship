@@ -280,7 +280,7 @@ $(document).ready(function () {
     }
 
     function showInfoPopUp(message) {
-        let name = message.name ? message.name : message.id;
+        let name = message.name ? message.name.toUpperCase() : message.id;
         let content = "<p><strong><u>" + name + "</u></strong></p>" +
             "<p><strong>Last:</strong> " + $.format.date(new Date(message.eventTime), "dd.MM.yyyy HH:mm:ss") + "</p>" +
             "<p><strong>Position:</strong> " + (message.latitude * 1).toFixed(4) + " S&nbsp;&nbsp;" + (message.longitude * 1).toFixed(4) + " E</p>" +

@@ -94,7 +94,7 @@ return [
     ],
     'ship'           => [
         'title'          => 'Anthena List',
-        'title_singular' => 'Anthena List',
+        'title_singular' => 'Anthena',
         'fields'         => [
             'id'                           => 'ID',
             'id_helper'                    => '',
