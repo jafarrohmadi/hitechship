@@ -176,6 +176,7 @@
 <script src="{{ asset('js/leaflet.rotatedMarker.js') }}"></script>
 <script src="{{ asset('js/leaflet.contextmenu.js') }}"></script>
 <script src="{{ asset('js/leaflet.draw.js') }}"></script>
+<script src="{{ asset('js/leaflet-providers.js') }}"></script>
 <script src="{{ asset('js/customleaflet.js') }}"></script>
 
 

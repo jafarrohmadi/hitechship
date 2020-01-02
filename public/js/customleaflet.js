@@ -186,7 +186,7 @@ $(document).ready(function () {
                 let getDataShip = '';
                 let getDataHistoryShip = '';
                 let damask, jsonParse, lastSeeShip = '';
-                let timeShip, speed, latitude, longitude, key = '';
+                let timeShip, speed, latitude, longitude, key , heading= '';
                 let k = 0;
                 for (let i in data) {
                     if (i === "") {
@@ -200,11 +200,11 @@ $(document).ready(function () {
                     getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td></td><td>' + damask + '</td></tr>';
 
                     for (const j in data[i]) {
-                        if (data[i][j]['ship_history_ships_latest'].length > 0) {
-                            timeShip = Date.parse(data[i][j]['ship_history_ships_latest'][0]['message_utc']) + 7 * 60 * 60 * 1000;
+                        if (data[i][j]['ship_history_ships_latest']) {
+                            timeShip = Date.parse(data[i][j]['ship_history_ships_latest']['message_utc']) + 7 * 60 * 60 * 1000;
                             lastSeeShip = getTimeDifference(timeShip);
 
-                            jsonParse = JSON.parse(data[i][j]['ship_history_ships_latest'][0]['payload']);
+                            jsonParse = JSON.parse(data[i][j]['ship_history_ships_latest']['payload']);
                             for (const k in jsonParse['Fields']) {
                                 if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'speed') {
                                     speed = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
@@ -235,7 +235,7 @@ $(document).ready(function () {
                             lastSeeShip = '-';
                             speed = 0;
                         }
-
+                        speed = speed === undefined ? 0 : speed;
                         getDataShip = getDataShip + '<tr class="row">' +
                             '<td><input type="checkbox" name="' + k + '" value="' + data[i][j]['ship_ids'] + '" checked="checked"/></td>' +
                             '<td>' + data[i][j]['name'] + ' </td>' +
@@ -262,20 +262,22 @@ $(document).ready(function () {
         map.addLayer(markers);
         for (let terminalId in locations) {
             let message = locations[terminalId];
-            let greenIcon = new LeafIcon({iconUrl: getIcon(message)});
-            let rotation = message.speed > 0.49 ? Math.round(message.heading * 0.7) : 0;
-            let popup = showInfoPopUp(message);
-            let marker = L.marker([message.latitude, message.longitude],
-                {rotationAngle: rotation, icon: greenIcon});
-            marker.bindPopup(popup);
-            marker.on('mouseover', function (e) {
-                this.openPopup();
-            });
-            marker.on('mouseout', function (e) {
-                this.closePopup();
-            });
-            filterMarkers[terminalId] = marker;
-            markers.addLayer(marker);
+            if(message.latitude != undefined && message.longitude != undefined) {
+                let greenIcon = new LeafIcon({iconUrl: getIcon(message)});
+                let rotation = message.speed > 0.49 ? Math.round(message.heading * 0.7) : 0;
+                let popup = showInfoPopUp(message);
+                let marker = L.marker([message.latitude, message.longitude],
+                    {rotationAngle: rotation, icon: greenIcon});
+                marker.bindPopup(popup, {"closeOnClick": null});
+                marker.on('click', function (e) {
+                    this.openPopup();
+                });
+                // marker.on('mouseout', function (e) {
+                //     this.closePopup();
+                // });
+                filterMarkers[terminalId] = marker;
+                markers.addLayer(marker);
+            }
         }
     }
 
@@ -715,13 +717,13 @@ $(document).ready(function () {
 
                     }
 
-                    markerHistory.bindPopup(popup);
-                    markerHistory.on('mouseover', function (e) {
+                    markerHistory.bindPopup(popup, {"closeOnClick": null});
+                    markerHistory.on('click', function (e) {
                         this.openPopup();
                     });
-                    markerHistory.on('mouseout', function (e) {
-                        this.closePopup();
-                    });
+                    // markerHistory.on('mouseout', function (e) {
+                    //     this.closePopup();
+                    // });
                     markersHistory.addLayer(markerHistory);
                     historiesMarkers[historiesMarkers.length] = markerHistory;
                 } else {
@@ -911,7 +913,7 @@ $(document).ready(function () {
 
                             let marker = L.marker([latitude, longitude],
                                 {rotationAngle: rotation, icon: greenIcon});
-                            marker.bindPopup(popup);
+                            marker.bindPopup(popup , {"autoClose": false, "closeOnClick": null});
                             filterMarkers[data[i][j].ship_ids] = marker;
                             let checked = [];
                             $('#tracking_table tbody tr.row input:checkbox:checked').each(function () {

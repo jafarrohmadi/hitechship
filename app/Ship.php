@@ -50,7 +50,7 @@ class Ship extends Model
 
     public function shipHistoryShipsLatest()
     {
-        return $this->shipHistoryShips()->whereDate('created_at', '>=', date('Y-m-d', strtotime('-1 year')))->latest();
+        return $this->hasOne(HistoryShip::class, 'ship_id', 'id')->whereDate('created_at', '>=', date('Y-m-d', strtotime('-1 year')))->latest();
     }
 
     public function shipTerminals()

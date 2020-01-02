@@ -81,6 +81,7 @@ class HomeController extends BaseController
                 ->join('terminal_user', 'terminals.id', '=', 'terminal_user.terminal_id')
                 ->join('users', 'terminal_user.user_id', '=', 'users.id')
                 ->where('users.id', Auth::id())
+                ->select('ships.*' )
                 ->orderBy('owner', 'asc')
                 ->get()->groupBy('owner');
         } else {
