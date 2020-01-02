@@ -236,8 +236,9 @@ $(document).ready(function () {
                             speed = 0;
                         }
                         speed = speed === undefined ? 0 : speed;
+                        let checkbox = lastSeeShip == '-' ? '' :'<input type="checkbox" name="' + k + '" value="' + data[i][j]['ship_ids'] + '" checked="checked"/>';
                         getDataShip = getDataShip + '<tr class="row">' +
-                            '<td><input type="checkbox" name="' + k + '" value="' + data[i][j]['ship_ids'] + '" checked="checked"/></td>' +
+                            '<td>'+ checkbox +'</td>' +
                             '<td>' + data[i][j]['name'] + ' </td>' +
                             '<td id="' + data[i][j]['ship_ids'] + '-last">' + lastSeeShip + '</td>' +
                             '<td id="' + data[i][j]['ship_ids'] + '-speed">' + speed + '</td></tr>';
