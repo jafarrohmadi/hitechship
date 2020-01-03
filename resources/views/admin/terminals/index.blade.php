@@ -64,6 +64,9 @@
                         {{ trans('cruds.terminal.fields.geofence_out') }}
                     </th>
                     <th>
+                        {{ trans('cruds.user.fields.destinasion-email') }}
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -136,6 +139,7 @@
                         {data: 'modem_registration', name: 'modem_registration'},
                         {data: 'geofence_in', name: 'geofence_in'},
                         {data: 'geofence_out', name: 'geofence_out'},
+                        {data: 'email', name: 'email.email'},
                         {data: 'actions', name: '{{ trans('global.actions') }}'}
                     ],
                     order: [[1, 'desc']],

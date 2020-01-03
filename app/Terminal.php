@@ -43,4 +43,10 @@ class Terminal extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function email ()
+    {
+        return $this->hasMany(EmailTerminal::class);
+    }
+
 }

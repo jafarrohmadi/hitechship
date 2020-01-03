@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\EmailTerminal;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyTerminalRequest;
 use App\Http\Requests\StoreTerminalRequest;
@@ -18,7 +19,7 @@ class TerminalController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = Terminal::with(['ships'])->select(sprintf('%s.*', (new Terminal)->table));
+            $query = Terminal::with(['ships', 'email'])->select(sprintf('%s.*', (new Terminal)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -63,7 +64,14 @@ class TerminalController extends Controller
 
                 return implode(' ', $labels);
             });
-
+            $table->editColumn('email', function ($row) {
+                $labels = [];
+                foreach ($row->email as $email) {
+                    $labels[] = $email->email;
+                }
+                return implode(', ', $labels);
+            }
+            );
             $table->editColumn('air_comm_blocked', function ($row) {
                 return '<input type="checkbox" disabled ' . ($row->air_comm_blocked ? 'checked' : null) . '>';
             });
@@ -115,6 +123,14 @@ class TerminalController extends Controller
     public function store(StoreTerminalRequest $request)
     {
         $terminal = Terminal::create($request->all());
+        if ($request->email) {
+            foreach ($request->email as $email) {
+                $emailUser          = new EmailTerminal();
+                $emailUser->email   = $email;
+                $emailUser->terminal_id = $terminal->id;
+                $emailUser->save();
+            }
+        }
         $terminal->ships()->sync($request->input('ships', []));
 
         return redirect()->route('admin.terminals.index');
@@ -136,6 +152,15 @@ class TerminalController extends Controller
         $terminal->update($request->all());
         $terminal->ships()->sync($request->input('ships', []));
 
+        if ($request->email) {
+            EmailTerminal::where('terminal_id', $terminal->id)->delete();
+            foreach ($request->email as $email) {
+                $emailUser          = new EmailTerminal();
+                $emailUser->email   = $email;
+                $emailUser->terminal_id = $terminal->id;
+                $emailUser->save();
+            }
+        }
         return redirect()->route('admin.terminals.index');
     }
 

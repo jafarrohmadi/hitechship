@@ -121,6 +121,16 @@
                             <input type="checkbox" disabled="disabled" {{ $terminal->geofence_out ? 'checked' : '' }}>
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.destinasion-email') }}
+                        </th>
+                        <td>
+                            @foreach($terminal->email as $key => $email)
+                                <span class="label label-info">{{ $email->email }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
