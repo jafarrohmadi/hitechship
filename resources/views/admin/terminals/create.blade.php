@@ -194,7 +194,22 @@
                     <span class="help-block">{{ trans('cruds.terminal.fields.geofence_out_helper') }}</span>
                 </div>
                 <div class="form-group">
-                    <label class="required" for="email">{{ trans('cruds.user.fields.destinasion-email') }}</label>
+                    <div class="form-check {{ $errors->has('email_destination') ? 'is-invalid' : '' }}">
+                        <input type="hidden" name="email_destination" value="0">
+                        <input class="form-check-input" type="checkbox" name="email_destination" id="email_destination"
+                               value="1" {{ old('email_destination', 0) == 1 || old('email_destination') === null ? 'checked' : '' }}>
+                        <label class="form-check-label"
+                               for="email_destination">{{ trans('cruds.terminal.fields.destinasion_email') }}</label>
+                    </div>
+                    @if($errors->has('email_destination'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('email_destination') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.terminal.fields.destinasion_email_helper') }}</span>
+                </div>
+                <div class="form-group">
+                    <label class="required" for="email">{{ trans('cruds.terminal.fields.destinasion_email_list') }}</label>
                     <div class="clone-email">
                         <div class="form-inline">
                             <input class="form-control col-md-8 {{ $errors->has('email') ? 'is-invalid' : '' }}"

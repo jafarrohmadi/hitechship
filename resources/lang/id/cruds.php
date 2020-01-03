@@ -160,6 +160,10 @@ return [
             'ship_helper'               => '',
             'ship_id'                   => 'Antenna ID',
             'ship_id_helper'            => '',
+            'destinasion_email'             => 'Email Destination',
+            'destinasion_email_helper'      => '',
+            'destinasion_email_list'        => 'Email Destination List',
+            'destinasion_email_list_helper' => '',
         ],
     ],
     'historyShip'    => [

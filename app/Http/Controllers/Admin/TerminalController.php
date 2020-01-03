@@ -102,8 +102,11 @@ class TerminalController extends Controller
             $table->editColumn('geofence_out', function ($row) {
                 return '<input type="checkbox" disabled ' . ($row->geofence_out ? 'checked' : null) . '>';
             });
+            $table->editColumn('email_destination', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->email_destination ? 'checked' : null) . '>';
+            });
 
-            $table->rawColumns(['actions', 'placeholder', 'ship', 'ship_id', 'air_comm_blocked', 'power_backup', 'power_main', 'sleep_schedule', 'battery_low', 'speeding_start', 'speeding_end', 'modem_registration', 'geofence_in', 'geofence_out']);
+            $table->rawColumns(['actions', 'placeholder', 'ship', 'ship_id', 'air_comm_blocked', 'power_backup', 'power_main', 'sleep_schedule', 'battery_low', 'speeding_start', 'speeding_end', 'modem_registration', 'geofence_in', 'geofence_out', 'email_destination']);
 
             return $table->make(true);
         }

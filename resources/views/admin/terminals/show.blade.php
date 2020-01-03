@@ -123,7 +123,15 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.user.fields.destinasion-email') }}
+                            {{ trans('cruds.terminal.fields.destinasion_email') }}
+                        </th>
+                        <td>
+                            <input type="checkbox" disabled="disabled" {{ $terminal->email_destination ? 'checked' : '' }}>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.terminal.fields.destinasion_email_list') }}
                         </th>
                         <td>
                             @foreach($terminal->email as $key => $email)

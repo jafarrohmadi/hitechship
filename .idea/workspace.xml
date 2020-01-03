@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jafarrohmadi/hitechship&#10;&#10;# Conflicts:&#10;#&#9;public/images/bg.jpg&#10;#&#9;resources/views/auth/login.blade.php&#10;#&#9;resources/views/layouts/app.blade.php">
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_03_183853_add_email_destination_check_to_terminals.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/TerminalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/TerminalController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/TerminalShipController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/TerminalShipController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Terminal.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Terminal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/cruds.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/cruds.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/id/cruds.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/id/cruds.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/terminals/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/terminals/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/terminals/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/terminals/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/terminals/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/terminals/index.blade.php" afterDir="false" />
@@ -250,7 +252,7 @@
       <workItem from="1577982304435" duration="11747000" />
       <workItem from="1578043123679" duration="1290000" />
       <workItem from="1578047061657" duration="2832000" />
-      <workItem from="1578065808558" duration="6369000" />
+      <workItem from="1578065808558" duration="8029000" />
     </task>
     <servers />
   </component>

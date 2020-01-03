@@ -32,6 +32,7 @@ class Terminal extends Model
         'speeding_start',
         'air_comm_blocked',
         'modem_registration',
+        'email_destination'
     ];
 
     public function ships()
