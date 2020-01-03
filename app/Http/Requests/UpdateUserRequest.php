@@ -21,6 +21,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'name'    => [
                 'required',
+                'unique:users,name,' . request()->route('user')->id,
             ],
             'username'   => [
                 'required',

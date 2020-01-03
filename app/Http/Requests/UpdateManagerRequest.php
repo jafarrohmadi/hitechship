@@ -21,6 +21,7 @@ class UpdateManagerRequest extends FormRequest
         return [
             'name' => [
                 'required',
+                'unique:users,name,'.$this->segment(3)
             ],
             'username' => [
                 'required',

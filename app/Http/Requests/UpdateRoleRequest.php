@@ -21,6 +21,7 @@ class UpdateRoleRequest extends FormRequest
         return [
             'title'         => [
                 'required',
+                'unique|roles,title,'.$this->segment(3)
             ],
             'permissions.*' => [
                 'integer',

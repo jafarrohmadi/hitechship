@@ -21,6 +21,7 @@ class StoreManagerRequest extends FormRequest
         return [
             'name' => [
                 'required',
+                'unique:users',
             ],
             'username' => [
                 'required',
