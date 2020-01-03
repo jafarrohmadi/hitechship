@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->command('getShip:data')->hourly();
+   //     $schedule->command('getShip:data')->hourly();
         $schedule->command('getHistoryShip:data')->hourly();
         $schedule->command('queue:work --stop-when-empty')->hourly()->withoutOverlapping();
     }
