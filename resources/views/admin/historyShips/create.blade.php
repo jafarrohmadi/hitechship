@@ -30,6 +30,16 @@
                 <span class="help-block">{{ trans('cruds.historyShip.fields.sin_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="min">{{ trans('cruds.historyShip.fields.min') }}</label>
+                <input class="form-control {{ $errors->has('min') ? 'is-invalid' : '' }}" type="text" name="min" id="min" value="{{ old('min', '') }}">
+                @if($errors->has('min'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('min') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.historyShip.fields.min_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label for="region_name">{{ trans('cruds.historyShip.fields.region_name') }}</label>
                 <input class="form-control {{ $errors->has('region_name') ? 'is-invalid' : '' }}" type="text" name="region_name" id="region_name" value="{{ old('region_name', '') }}">
                 @if($errors->has('region_name'))

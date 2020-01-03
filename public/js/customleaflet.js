@@ -2,7 +2,7 @@ $(document).ready(function () {
     let locations = {};
     let LeafIcon = L.Icon.extend({
         options: {
-            iconSize: [17, 17],
+            iconSize: [20, 20],
             shadowSize: [10, 12],
             shadowAnchor: [4, 62],
             iconAnchor: [10, 10],//changed marker icon position
@@ -265,7 +265,7 @@ $(document).ready(function () {
             let message = locations[terminalId];
             if(message.latitude != undefined && message.longitude != undefined) {
                 let greenIcon = new LeafIcon({iconUrl: getIcon(message)});
-                let rotation = message.speed > 0.49 ? Math.round(message.heading * 0.7) : 0;
+                let rotation = message.speed > 0.49 ? Math.round(message.heading * 15) : 0;
                 let popup = showInfoPopUp(message);
                 let marker = L.marker([message.latitude, message.longitude],
                     {rotationAngle: rotation, icon: greenIcon});

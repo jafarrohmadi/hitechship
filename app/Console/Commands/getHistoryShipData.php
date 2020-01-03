@@ -75,6 +75,7 @@ class getHistoryShipData extends Command
                         $historyShip = new HistoryShip();
                         $historyShip->history_ids = $message->ID;
                         $historyShip->sin = $message->SIN;
+                        $historyShip->min = $message->MIN ?? '';
                         $historyShip->region_name = $message->RegionName;
                         $historyShip->receive_utc = $message->ReceiveUTC;
                         $historyShip->message_utc = $message->MessageUTC;

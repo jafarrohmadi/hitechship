@@ -54,6 +54,16 @@ class TerminalController extends Controller
 
                 return implode(' ', $labels);
             });
+            $table->editColumn('ship_id', function ($row) {
+                $labels = [];
+
+                foreach ($row->ships as $ship) {
+                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $ship->ship_ids);
+                }
+
+                return implode(' ', $labels);
+            });
+
             $table->editColumn('air_comm_blocked', function ($row) {
                 return '<input type="checkbox" disabled ' . ($row->air_comm_blocked ? 'checked' : null) . '>';
             });
@@ -85,7 +95,7 @@ class TerminalController extends Controller
                 return '<input type="checkbox" disabled ' . ($row->geofence_out ? 'checked' : null) . '>';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'ship', 'air_comm_blocked', 'power_backup', 'power_main', 'sleep_schedule', 'battery_low', 'speeding_start', 'speeding_end', 'modem_registration', 'geofence_in', 'geofence_out']);
+            $table->rawColumns(['actions', 'placeholder', 'ship', 'ship_id', 'air_comm_blocked', 'power_backup', 'power_main', 'sleep_schedule', 'battery_low', 'speeding_start', 'speeding_end', 'modem_registration', 'geofence_in', 'geofence_out']);
 
             return $table->make(true);
         }

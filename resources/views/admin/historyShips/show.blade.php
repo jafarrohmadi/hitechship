@@ -41,6 +41,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.historyShip.fields.min') }}
+                        </th>
+                        <td>
+                            {{ $historyShip->min }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.historyShip.fields.region_name') }}
                         </th>
                         <td>

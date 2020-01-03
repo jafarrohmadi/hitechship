@@ -22,6 +22,7 @@ class HistoryShip extends Model
 
     protected $fillable = [
         'sin',
+        'min',
         'ship_id',
         'payload',
         'created_at',

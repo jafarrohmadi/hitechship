@@ -48,6 +48,10 @@ class HistoryShipController extends Controller
                 return $row->sin ? $row->sin : "";
             }
             );
+            $table->editColumn('min', function ($row) {
+                return $row->min ? $row->min : "";
+            }
+            );
             $table->editColumn('region_name', function ($row) {
                 return $row->region_name ? $row->region_name : "";
             }
