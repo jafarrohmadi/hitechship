@@ -3,25 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jafarrohmadi/hitechship&#10;&#10;# Conflicts:&#10;#&#9;public/images/bg.jpg&#10;#&#9;resources/views/auth/login.blade.php&#10;#&#9;resources/views/layouts/app.blade.php">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/getHistoryShipData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/getHistoryShipData.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/HistoryShip.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/HistoryShip.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/HistoryShipController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/HistoryShipController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/TerminalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/TerminalController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_29_165322_add_checkist_email_destination_to_terminal_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/0.05orange-ship.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/0.05orange-ship.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/0.05red-ship.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/0.05red-ship.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/0.5green-ship.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/0.5green-ship.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/0.5orange-ship.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/0.5orange-ship.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/0.5red-ship.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/0.5red-ship.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/customleaflet.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/customleaflet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/StoreTerminalRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/StoreTerminalRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/UpdateTerminalRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/UpdateTerminalRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/lang/en/cruds.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/cruds.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/lang/id/cruds.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/id/cruds.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/historyShips/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/historyShips/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/historyShips/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/historyShips/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/historyShips/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/historyShips/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/historyShips/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/historyShips/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/terminals/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/terminals/index.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -261,7 +247,8 @@
       <workItem from="1577879943380" duration="23000" />
       <workItem from="1577982304435" duration="11747000" />
       <workItem from="1578043123679" duration="1290000" />
-      <workItem from="1578047061657" duration="1387000" />
+      <workItem from="1578047061657" duration="2832000" />
+      <workItem from="1578065808558" duration="3046000" />
     </task>
     <servers />
   </component>
@@ -326,14 +313,14 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1577374157611" />
-    <state x="384" y="187" key="com.intellij.ide.util.TipDialog" timestamp="1578043160878">
+    <state x="384" y="187" key="com.intellij.ide.util.TipDialog" timestamp="1578066532463">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="384" y="187" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1578043160878" />
-    <state x="379" y="101" width="607" height="526" key="find.popup" timestamp="1577986797964">
+    <state x="384" y="187" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1578066532463" />
+    <state x="379" y="101" width="607" height="526" key="find.popup" timestamp="1578068524086">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="379" y="101" width="607" height="526" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1577986797964" />
+    <state x="379" y="101" width="607" height="526" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1578068524086" />
     <state x="339" y="162" key="run.anything.popup" timestamp="1577556314263">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

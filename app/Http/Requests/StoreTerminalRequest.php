@@ -19,6 +19,7 @@ class StoreTerminalRequest extends FormRequest
         return [
             'name' => [
                 'required',
+                'unique:terminals'
             ],
             'ships.*' => [
                 'integer',
@@ -27,6 +28,13 @@ class StoreTerminalRequest extends FormRequest
                 'required',
                 'array',
             ],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.unique' => 'Terminal Name has been used',
         ];
     }
 

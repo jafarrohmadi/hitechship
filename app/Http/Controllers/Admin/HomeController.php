@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\CronData;
 use App\Http\Controllers\BaseController;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 use App\Ship;
@@ -74,6 +75,8 @@ class HomeController extends BaseController
 
     public function getDataShip()
     {
+        $user = User::find(Auth::id());
+        
         if (Auth::id() !== 1) {
             $ship = Ship::with('shipHistoryShipsLatest')
                 ->join('ship_terminal', 'ships.id', '=', 'ship_terminal.ship_id')

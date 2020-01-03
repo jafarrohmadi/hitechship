@@ -19,8 +19,9 @@ class UpdateTerminalRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [
+            'name'    => [
                 'required',
+                'unique:terminals,name,'.$this->segment(3),
             ],
             'ships.*' => [
                 'integer',
@@ -29,6 +30,13 @@ class UpdateTerminalRequest extends FormRequest
                 'required',
                 'array',
             ],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.unique' => 'Terminal Name has been used',
         ];
     }
 }
