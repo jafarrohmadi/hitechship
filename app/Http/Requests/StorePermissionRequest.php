@@ -21,7 +21,7 @@ class StorePermissionRequest extends FormRequest
         return [
             'title' => [
                 'required',
-                'unique|permissions'
+                'unique:permissions'
             ],
         ];
     }

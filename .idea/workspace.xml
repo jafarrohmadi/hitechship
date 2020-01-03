@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jafarrohmadi/hitechship&#10;&#10;# Conflicts:&#10;#&#9;public/images/bg.jpg&#10;#&#9;resources/views/auth/login.blade.php&#10;#&#9;resources/views/layouts/app.blade.php">
-      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/StorePermissionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/StorePermissionRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/UpdatePermissionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/UpdatePermissionRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/UpdateRoleRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/UpdateRoleRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/UpdateShipRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/UpdateShipRequest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,7 +247,7 @@
       <workItem from="1577982304435" duration="11747000" />
       <workItem from="1578043123679" duration="1290000" />
       <workItem from="1578047061657" duration="2832000" />
-      <workItem from="1578065808558" duration="4031000" />
+      <workItem from="1578065808558" duration="4367000" />
     </task>
     <servers />
   </component>

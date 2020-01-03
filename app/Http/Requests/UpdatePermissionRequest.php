@@ -21,7 +21,7 @@ class UpdatePermissionRequest extends FormRequest
         return [
             'title' => [
                 'required',
-                'unique|permissions,title,'.$this->segment(3)
+                'unique:permissions,title,'.$this->segment(3)
             ],
         ];
     }

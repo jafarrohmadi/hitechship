@@ -22,7 +22,7 @@ class UpdateShipRequest extends FormRequest
             ],
             'name' => [
                 'required',
-                'unique|ships,name,'.$this->segment(3)
+                'unique:ships,name,'.$this->segment(3)
             ],
             'last_registration_utc' => [
                 'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
