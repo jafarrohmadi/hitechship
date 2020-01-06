@@ -21,11 +21,11 @@ class StoreManagerRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                'unique:users',
+                'unique:users,name,NULL,id,deleted_at,NULL',
             ],
             'username' => [
                 'required',
-                'unique:users',
+                'unique:users,username,NULL,id,deleted_at,NULL',
             ],
             'password' => [
                 'required',

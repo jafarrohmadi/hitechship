@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Manager;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UpdateManagerRequest extends FormRequest
@@ -16,16 +17,16 @@ class UpdateManagerRequest extends FormRequest
         return true;
     }
 
-    public function rules()
+    public function rules(Request $request, $id)
     {
         return [
             'name' => [
                 'required',
-                'unique:users,name,'.$this->segment(3)
+                'unique:users,name,'.$id.',id,deleted_at,NULL'
             ],
             'username' => [
                 'required',
-                'unique:users',
+                'unique:users,username,'.$id.',id,deleted_at,NULL'
             ],
             'users.*' => [
                 'integer',

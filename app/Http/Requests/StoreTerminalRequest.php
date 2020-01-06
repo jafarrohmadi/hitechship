@@ -19,7 +19,7 @@ class StoreTerminalRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                'unique:terminals'
+                'unique:terminals,name,NULL,id,deleted_at,NULL'
             ],
             'ships.*' => [
                 'integer',

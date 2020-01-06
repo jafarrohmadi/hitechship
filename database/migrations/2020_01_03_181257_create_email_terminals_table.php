@@ -15,7 +15,7 @@ class CreateEmailTerminalsTable extends Migration
     {
         Schema::create('email_terminal', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->unsignedInteger('terminal_id');
             $table->foreign('terminal_id')->references('id')->on('terminals')->onDelete('cascade');
             $table->timestamps();

@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Permission;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UpdatePermissionRequest extends FormRequest
@@ -16,12 +17,12 @@ class UpdatePermissionRequest extends FormRequest
         return true;
     }
 
-    public function rules()
+    public function rules(Request $request, $id)
     {
         return [
             'title' => [
                 'required',
-                'unique:permissions,title,'.$this->segment(3)
+                'unique:permissions,title,' . $id . ',id,deleted_at,NULL',
             ],
         ];
     }

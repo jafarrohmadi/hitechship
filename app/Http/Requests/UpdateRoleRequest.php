@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Role;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UpdateRoleRequest extends FormRequest
@@ -16,12 +17,12 @@ class UpdateRoleRequest extends FormRequest
         return true;
     }
 
-    public function rules()
+    public function rules(Request $request , $id)
     {
         return [
             'title'         => [
                 'required',
-                'unique:roles,title,'.$this->segment(3)
+                'unique:roles,title,'.$id.',id,deleted_at,NULL'
             ],
             'permissions.*' => [
                 'integer',

@@ -22,7 +22,7 @@ class StoreShipRequest extends FormRequest
             ],
             'name' => [
                 'required',
-                'unique:ships',
+                'unique:ships,name,NULL,id,deleted_at,NULL',
             ],
             'last_registration_utc' => [
                 'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),

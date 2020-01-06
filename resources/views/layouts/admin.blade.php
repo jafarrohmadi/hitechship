@@ -25,19 +25,18 @@
     @yield('styles')
 </head>
 
-<body class="app header-fixed sidebar-fixed aside-menu-fixed pace-done sidebar-lg-show">
-<header class="app-header navbar">
-    <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" href="#">
-        <span class="navbar-brand-full">{{ trans('panel.site_title') }}</span>
-        <span class="navbar-brand-minimized">{{ trans('panel.site_title') }}</span>
+{{--<body class="app header-fixed sidebar-fixed aside-menu-fixed pace-done sidebar-lg-show ">--}}
+<body class="app header-fixed aside-menu-fixed pace-done sidebar-hidden">
+
+<nav class="navbar  navbar-expand-lg navbar-light bg-white">
+    <a class="navbar-brand" href="#" style="padding-right: 130px; padding-left: 20px;">
+        {{ trans('panel.site_title') }}
     </a>
-    <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
+    <button class="navbar-toggler mr-auto mr-lg-auto mr-md-auto mr-xl-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
+    @include('partials.nav_menu')
     <ul class="nav navbar-nav ml-auto">
         @if(count(config('panel.available_languages', [])) > 1)
             <li class="nav-item dropdown d-md-down-none">
@@ -56,10 +55,9 @@
         @endif
 
     </ul>
-</header>
-
-<div class="app-body">
-    @include('partials.menu')
+</nav>
+<div>
+{{--    @include('partials.menu')--}}
     <main class="main">
 
 

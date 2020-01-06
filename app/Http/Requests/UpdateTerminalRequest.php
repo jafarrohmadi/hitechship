@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Terminal;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UpdateTerminalRequest extends FormRequest
@@ -16,12 +17,12 @@ class UpdateTerminalRequest extends FormRequest
         return true;
     }
 
-    public function rules()
+    public function rules(Request $request , $id)
     {
         return [
             'name'    => [
                 'required',
-                'unique:terminals,name,'.$this->segment(3),
+                'unique:terminals,name,'.$id.',id,deleted_at,NULL'
             ],
             'ships.*' => [
                 'integer',

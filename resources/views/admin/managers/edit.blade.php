@@ -48,7 +48,7 @@
                 </div>
                 <select class="form-control select2 {{ $errors->has('users') ? 'is-invalid' : '' }}" name="users[]" id="users" multiple required>
                     @foreach($users as $id => $user)
-                        <option value="{{ $id }}" {{ (in_array($id, old('users', [])) || $manager->users->contains($id)) ? 'selected' : '' }}>{{ $user }}</option>
+                        <option value="{{ $id }}" {{ (in_array($id, old('users', [])) || $manager->users->contains($id)) ? 'selected' : '' }}>{{ $id .' - '.$user }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('users'))

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 use App\User;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class StoreUserRequest extends FormRequest
@@ -14,16 +15,16 @@ class StoreUserRequest extends FormRequest
         return true;
     }
 
-    public function rules ()
+    public function rules (Request $request)
     {
         return [
             'name' => [
                 'required',
-                'unique:users',
+                'unique:users,name,NULL,id,deleted_at,NULL',
             ],
             'username' => [
                 'required',
-                'unique:users',
+                'unique:users,username,NULL,id,deleted_at,NULL',
             ],
             'password' => [
                 'required',

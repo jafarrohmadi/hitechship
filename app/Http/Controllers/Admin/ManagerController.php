@@ -67,7 +67,13 @@ class ManagerController extends Controller
     public function create ()
     {
         abort_if(Gate::denies('manager_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $users = User::join('role_user', 'users.id', '=', 'role_user.user_id')->where('role_user.role_id', 3)->get()->pluck('name', 'id');
+        $users = User::join('role_user', 'users.id', '=', 'role_user.user_id')
+            ->whereNotIn('users.id',function($query) {
+
+                $query->select('manager_user.user_id')->from('manager_user');
+
+            })
+            ->where('role_user.role_id', 3)->get()->pluck('name', 'id');
         return view('admin.managers.create', compact('users'));
     }
 
@@ -86,7 +92,10 @@ class ManagerController extends Controller
     {
         abort_if(Gate::denies('manager_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $managers = User::find($manager->manager_id);
-        $users = User::join('role_user', 'users.id', '=', 'role_user.user_id')->where('role_user.role_id', 3)->get()->pluck('name', 'id');
+        $users = User::join('role_user', 'users.id', '=', 'role_user.user_id')
+            ->whereNotIn('users.id',function($query) use ($manager){
+                $query->select('manager_user.user_id')->from('manager_user')->where('manager_id', '!=', $manager->id);
+            })->where('role_user.role_id', 3)->get()->pluck('name', 'id');
         $manager->load('manager', 'users');
         return view('admin.managers.edit', compact('managers', 'users', 'manager'));
     }

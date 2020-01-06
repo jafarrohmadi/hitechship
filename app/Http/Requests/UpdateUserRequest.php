@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\User;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UpdateUserRequest extends FormRequest
@@ -16,16 +17,16 @@ class UpdateUserRequest extends FormRequest
         return true;
     }
 
-    public function rules()
+    public function rules(Request $request, $id)
     {
         return [
             'name'    => [
                 'required',
-                'unique:users,name,' . request()->route('user')->id,
+                'unique:users,name,'.$id.',id,deleted_at,NULL',
             ],
             'username'   => [
                 'required',
-                'unique:users,username,' . request()->route('user')->id,
+                'unique:users,username,'.$id.',id,deleted_at,NULL',
             ],
             'roles.*' => [
                 'integer',

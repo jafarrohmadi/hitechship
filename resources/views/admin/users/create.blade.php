@@ -72,7 +72,7 @@
                     </div>
                     <select class="form-control select2 {{ $errors->has('terminals') ? 'is-invalid' : '' }}" name="terminals[]" id="terminals" multiple>
                         @foreach($terminals ?? '' as $id => $terminal)
-                            <option value="{{ $id }}" {{ in_array($id, old('terminals', [])) ? 'selected' : '' }}>{{ $terminal }}</option>
+                            <option value="{{ $id }}" {{ in_array($id, old('terminals', [])) ? 'selected' : '' }}>{{ $id .' - '.$terminal }}</option>
                         @endforeach
                     </select>
                     @if($errors->has('terminals'))

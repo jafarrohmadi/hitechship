@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 use App\Ship;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UpdateShipRequest extends FormRequest
@@ -14,7 +15,7 @@ class UpdateShipRequest extends FormRequest
         return true;
     }
 
-    public function rules ()
+    public function rules (Request $request, $id)
     {
         return [
             'ship_ids' => [
@@ -22,7 +23,7 @@ class UpdateShipRequest extends FormRequest
             ],
             'name' => [
                 'required',
-                'unique:ships,name,'.$this->segment(3)
+                'unique:ships,name,'.$id.',id,deleted_at,NULL'
             ],
             'last_registration_utc' => [
                 'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
