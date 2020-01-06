@@ -23,6 +23,11 @@
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet"/>
 
     @yield('styles')
+    <style>
+        .select2-results__option[aria-selected=true] {
+            display: none;
+        }
+    </style>
 </head>
 
 {{--<body class="app header-fixed sidebar-fixed aside-menu-fixed pace-done sidebar-lg-show ">--}}

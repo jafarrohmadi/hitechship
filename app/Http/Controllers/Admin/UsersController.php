@@ -87,11 +87,12 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $roles     = Role::where('id', '!=', 2)->get()->pluck('title', 'id');
-        $terminals = Terminal::whereNotIn('id',function($query) {
-
-            $query->select('terminal_id')->from('terminal_user');
-
-        })->get()->pluck('name', 'id');
+        $terminals = Terminal::all()->pluck('name', 'id');
+//        $terminals = Terminal::whereNotIn('id',function($query) {
+//
+//            $query->select('terminal_id')->from('terminal_user');
+//
+//        })->get()->pluck('name', 'id');
         return view('admin.users.create', compact('roles', 'terminals'));
     }
 
@@ -116,9 +117,11 @@ class UsersController extends Controller
         abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $roles     = Role::where('id', '!=', 2)->get()->pluck('title', 'id');
 
-        $terminals = Terminal::whereNotIn('id',function($query) use ($user){
-            $query->select('terminal_id')->from('terminal_user')->where('user_id', '!=',$user->id);
-        })->get()->pluck('name', 'id');
+//        $terminals = Terminal::whereNotIn('id',function($query) use ($user){
+//            $query->select('terminal_id')->from('terminal_user')->where('user_id', '!=',$user->id);
+//        })->get()->pluck('name', 'id');
+        $terminals = Terminal::all()->pluck('name', 'id');
+
         $user->load('roles', 'terminals', 'email');
         return view('admin.users.edit', compact('roles', 'user', 'terminals'));
     }

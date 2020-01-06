@@ -118,11 +118,12 @@ class TerminalController extends Controller
     {
         abort_if(Gate::denies('terminal_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $ships = Ship::whereNotIn('id',function($query) {
-
-                $query->select('ship_id')->from('ship_terminal');
-
-            })->get()->pluck('name', 'id');
+        $ships = Ship::all()->pluck('name', 'id');
+//        $ships = Ship::whereNotIn('id',function($query) {
+//
+//                $query->select('ship_id')->from('ship_terminal');
+//
+//            })->get()->pluck('name', 'id');
 
         return view('admin.terminals.create', compact('ships'));
     }
@@ -146,12 +147,12 @@ class TerminalController extends Controller
     public function edit(Terminal $terminal)
     {
         abort_if(Gate::denies('terminal_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $ships = Ship::whereNotIn('id',function($query) use ($terminal){
-
-            $query->select('ship_id')->from('ship_terminal')->where('terminal_id','!=', $terminal->id);
-
-        })->get()->pluck('name', 'id');
+        $ships = Ship::all()->pluck('name', 'id');
+//        $ships = Ship::whereNotIn('id',function($query) use ($terminal){
+//
+//            $query->select('ship_id')->from('ship_terminal')->where('terminal_id','!=', $terminal->id);
+//
+//        })->get()->pluck('name', 'id');
 
         $terminal->load('ships');
 
