@@ -76,7 +76,7 @@ class HomeController extends BaseController
     public function getDataShip()
     {
         $user = User::find(Auth::id());
-        
+
         if (Auth::id() !== 1) {
             $ship = Ship::with('shipHistoryShipsLatest')
                 ->join('ship_terminal', 'ships.id', '=', 'ship_terminal.ship_id')
@@ -89,6 +89,9 @@ class HomeController extends BaseController
                 ->get()->groupBy('owner');
         } else {
             $ship = Ship::with('shipHistoryShipsLatest')
+                ->join('ship_terminal', 'ships.id', '=', 'ship_terminal.ship_id')
+                ->join('terminals', 'ship_terminal.terminal_id', '=', 'terminals.id')
+                ->select('ships.*' )
                 ->orderBy('owner', 'asc')
                 ->get()->groupBy('owner');
         }
