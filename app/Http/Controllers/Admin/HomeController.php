@@ -98,9 +98,9 @@ class HomeController extends BaseController
                 ->rightjoin('terminals', 'ship_terminal.terminal_id', '=', 'terminals.id')
                 ->rightJoin('terminal_user', 'terminals.id', '=', 'terminal_user.terminal_id')
                 ->rightJoin('users', 'terminal_user.user_id', '=', 'users.id')
-                ->leftJoin('manager_user', 'users.id', '=', 'manager_user.user_id')
-                ->leftJoin('managers', 'manager_user.manager_id', '=', 'managers.id')
-                ->select('ships.*', 'terminals.name As name', 'users.name As owner', 'managers.id As manager_id')
+              //  ->leftJoin('manager_user', 'users.id', '=', 'manager_user.user_id')
+                //->leftJoin('managers', 'manager_user.manager_id', '=', 'managers.id')
+                ->select('ships.*', 'terminals.name As name', 'users.name As owner')
                // ->orderBy('manager_id', 'asc')
                 ;
 
@@ -109,9 +109,9 @@ class HomeController extends BaseController
                 ->rightjoin('terminals', 'ship_terminal.terminal_id', '=', 'terminals.id')
                 ->leftjoin('terminal_user', 'terminals.id', '=', 'terminal_user.terminal_id')
                 ->leftJoin('users', 'terminal_user.user_id', '=', 'users.id')
-                ->rightjoin('manager_user', 'users.id', '=', 'manager_user.user_id')
-                ->rightjoin('managers', 'manager_user.manager_id', '=', 'managers.id')
-                ->select('ships.*', 'terminals.name As name', 'users.name As owner', 'managers.id As manager_id')
+            //    ->rightjoin('manager_user', 'users.id', '=', 'manager_user.user_id')
+          //      ->rightjoin('managers', 'manager_user.manager_id', '=', 'managers.id')
+                ->select('ships.*', 'terminals.name As name', 'users.name As owner')
                 // ->orderBy('manager_id', 'asc')
                 ->union($shiptwo)
                 ->get()->groupBy('owner');

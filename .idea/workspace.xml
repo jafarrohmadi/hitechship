@@ -4,26 +4,6 @@
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jafarrohmadi/hitechship&#10;&#10;# Conflicts:&#10;#&#9;public/images/bg.jpg&#10;#&#9;resources/views/auth/login.blade.php&#10;#&#9;resources/views/layouts/app.blade.php">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/TerminalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/TerminalController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UsersController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/StoreManagerRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/StoreManagerRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/StoreTerminalRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/StoreTerminalRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/UpdateManagerRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/UpdateManagerRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/UpdatePermissionRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/UpdatePermissionRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/UpdateRoleRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/UpdateRoleRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/UpdateShipRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/UpdateShipRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/UpdateTerminalRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/UpdateTerminalRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/UpdateUserRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/UpdateUserRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/coreui.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/coreui.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/skysatu.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/skysatu.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/customleaflet.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/customleaflet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/dashboard/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/dashboard/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/managers/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/managers/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/managers/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/managers/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/terminals/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/terminals/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/terminals/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/terminals/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -274,6 +254,7 @@
       <workItem from="1579171868604" duration="1325000" />
       <workItem from="1579547188131" duration="7267000" />
       <workItem from="1579706915520" duration="11613000" />
+      <workItem from="1579745640920" duration="289000" />
     </task>
     <servers />
   </component>
@@ -338,10 +319,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1577374157611" />
-    <state x="384" y="187" key="com.intellij.ide.util.TipDialog" timestamp="1578450631422">
+    <state x="384" y="187" key="com.intellij.ide.util.TipDialog" timestamp="1579745658251">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="384" y="187" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1578450631422" />
+    <state x="384" y="187" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1579745658251" />
     <state x="379" y="101" width="607" height="526" key="find.popup" timestamp="1579720347150">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
