@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\CronData;
 use App\Http\Controllers\BaseController;
+use App\Manager;
+use App\Terminal;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
@@ -89,11 +91,48 @@ class HomeController extends BaseController
                 ->get()->groupBy('owner');
         } else {
             $ship = Ship::with('shipHistoryShipsLatest')
-                ->join('ship_terminal', 'ships.id', '=', 'ship_terminal.ship_id')
-                ->join('terminals', 'ship_terminal.terminal_id', '=', 'terminals.id')
-                ->select('ships.*' )
                 ->orderBy('owner', 'asc')
                 ->get()->groupBy('owner');
+            $shiptwo = Ship::with('shipHistoryShipsLatest')
+                ->rightjoin('ship_terminal', 'ships.id', '=', 'ship_terminal.ship_id')
+                ->rightjoin('terminals', 'ship_terminal.terminal_id', '=', 'terminals.id')
+                ->rightJoin('terminal_user', 'terminals.id', '=', 'terminal_user.terminal_id')
+                ->rightJoin('users', 'terminal_user.user_id', '=', 'users.id')
+                ->leftJoin('manager_user', 'users.id', '=', 'manager_user.user_id')
+                ->leftJoin('managers', 'manager_user.manager_id', '=', 'managers.id')
+                ->select('ships.*', 'terminals.name As name', 'users.name As owner', 'managers.id As manager_id')
+               // ->orderBy('manager_id', 'asc')
+                ;
+
+            $ship = Ship::with('shipHistoryShipsLatest')
+                ->rightjoin('ship_terminal', 'ships.id', '=', 'ship_terminal.ship_id')
+                ->rightjoin('terminals', 'ship_terminal.terminal_id', '=', 'terminals.id')
+                ->leftjoin('terminal_user', 'terminals.id', '=', 'terminal_user.terminal_id')
+                ->leftJoin('users', 'terminal_user.user_id', '=', 'users.id')
+                ->rightjoin('manager_user', 'users.id', '=', 'manager_user.user_id')
+                ->rightjoin('managers', 'manager_user.manager_id', '=', 'managers.id')
+                ->select('ships.*', 'terminals.name As name', 'users.name As owner', 'managers.id As manager_id')
+                // ->orderBy('manager_id', 'asc')
+                ->union($shiptwo)
+                ->get()->groupBy('owner');
+
+
+//            $ship = Manager::leftjoin('manager_user', 'managers.id', '=', 'manager_user.manager_id')
+//                ->rightjoin('users', 'manager_user.user_id', '=', 'users.id')
+//                ->leftjoin('terminal_user', 'users.id', '=', 'terminal_user.user_id')
+//                ->leftJoin('terminals', 'terminal_user.terminal_id', '=', 'terminals.id')
+//                ->where('users.id' ,'!=', 1)
+//                ->select('managers.id As managers', 'users.name as owner', 'terminals.name As name')
+//                ->get();
+//            $ship = User::rightjoin('managers', 'managers.manager_id', '=', 'users.id')
+//
+//                ->rightjoin('terminals', 'terminal_user.terminal_id', '=', 'terminals.id')
+//                ->rightjoin('ship_terminal', 'terminals.id', '=', 'ship_terminal.terminal_id')
+//                ->rightjoin('ships',  'ship_terminal.ship_id', '=','ships.id')
+//                ->select('users.name As user_name', 'managers.id As manager_id', 'terminals.name As terminal_name')
+//                ->get();
+
+
         }
 
         return $ship;

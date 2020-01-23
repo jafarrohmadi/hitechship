@@ -20,12 +20,13 @@ p { margin:0; padding:0}
 }
 #floating-panel {
     position: absolute;
-    top: 90px;
+    top: 0px;
     width: 425px;
     z-index: 5;
     background-color: #fff;
     text-align: center;
     line-height: 30px;
+    height: 100%;
 }
 #floating-panel div.close {
     background-color:#fff;
@@ -62,7 +63,7 @@ p { margin:0; padding:0}
 }
 .fixed_headers td:nth-child(2),
 .fixed_headers th:nth-child(2) {
-    min-width: 220px;
+    min-width: 185px;
 }
 .history td:nth-child(2),
 .history th:nth-child(2) {
@@ -70,11 +71,11 @@ p { margin:0; padding:0}
 }
 .fixed_headers td:nth-child(3),
 .fixed_headers th:nth-child(3) {
-    min-width: 70px;
+    min-width: 90px;
 }
 .fixed_headers td:nth-child(4),
 .fixed_headers th:nth-child(4) {
-    width: 80px;
+    width: 150px;
 }
 .fixed_headers tr.header {
     border-bottom: 1px solid #CCC;
@@ -86,7 +87,7 @@ p { margin:0; padding:0}
     word-wrap: break-word;
 }
 .fixed_headers tbody tr.row:hover {
-    background-color: #2CC185;
+    background-color: yellow;
 }
 .fixed_headers tbody tr.checked td {
     border-bottom: none;
@@ -95,12 +96,12 @@ p { margin:0; padding:0}
     display: block;
     position: relative;
     border-bottom: 1px solid #2CC185;
-    line-height: 1.3;
+    line-height: 1;
 }
 .fixed_headers tbody {
     display: block;
     overflow: auto;
-    height: 300px;
+    height: 100%;
 }
 .inner-table {
     font-size: 13px;

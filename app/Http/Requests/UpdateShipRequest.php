@@ -15,7 +15,7 @@ class UpdateShipRequest extends FormRequest
         return true;
     }
 
-    public function rules (Request $request, $id)
+    public function rules (Request $request)
     {
         return [
             'ship_ids' => [
@@ -23,7 +23,7 @@ class UpdateShipRequest extends FormRequest
             ],
             'name' => [
                 'required',
-                'unique:ships,name,'.$id.',id,deleted_at,NULL'
+                'unique:ships,name,'.$request->segment(3).',id,deleted_at,NULL'
             ],
             'last_registration_utc' => [
                 'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),

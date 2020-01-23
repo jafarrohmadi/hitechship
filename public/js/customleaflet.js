@@ -151,7 +151,7 @@ $(document).ready(function () {
         }).addTo(map);
 
         L.control.zoom({
-            position:'bottomright'
+            position: 'bottomright'
         }).addTo(map);
     }
 
@@ -169,8 +169,8 @@ $(document).ready(function () {
         }).addTo(mapHistory);
 
         L.control.zoom({
-            position:'bottomright'
-        }).addTo(map);
+            position: 'bottomright'
+        }).addTo(mapHistory);
     }
 
     function centerLeafletMapHistoriesOnMarker(lat, lng) {
@@ -186,7 +186,7 @@ $(document).ready(function () {
                 let getDataShip = '';
                 let getDataHistoryShip = '';
                 let damask, jsonParse, lastSeeShip = '';
-                let timeShip, speed, latitude, longitude, key , heading= '';
+                let timeShip, speed, latitude, longitude, key, heading = '';
                 let k = 0;
                 for (let i in data) {
                     if (i === "") {
@@ -236,17 +236,20 @@ $(document).ready(function () {
                             speed = 0;
                         }
                         speed = speed === undefined ? 0 : speed;
-                        let checkbox = lastSeeShip == '-' ? '' :'<input type="checkbox" name="' + k + '" value="' + data[i][j]['ship_ids'] + '" checked="checked"/>';
-                        getDataShip = getDataShip + '<tr class="row">' +
-                            '<td>'+ checkbox +'</td>' +
-                            '<td>' + data[i][j]['name'] + ' </td>' +
-                            '<td id="' + data[i][j]['ship_ids'] + '-last">' + lastSeeShip + '</td>' +
-                            '<td id="' + data[i][j]['ship_ids'] + '-speed">' + speed + '</td></tr>';
-                        getDataHistoryShip = getDataHistoryShip +
-                            '<tr class="row">' +
-                            '<td><input type="checkbox" name="' + i + '" value="' + data[i][j]['ship_ids'] + '"/></td>' +
-                            '<td>' + data[i][j]['name'] + '</td>' +
-                            '</tr>';
+                        let checkbox = lastSeeShip == '-' ? '' : '<input type="checkbox" name="' + k + '" value="' + data[i][j]['ship_ids'] + '" checked="checked"/>';
+                        if (data[i][j]['name'] != null) {
+                            getDataShip = getDataShip + '<tr class="row">' +
+                                '<td>' + checkbox + '</td>' +
+                                '<td>' + data[i][j]['name'] + ' </td>' +
+                                '<td id="' + data[i][j]['ship_ids'] + '-last">' + lastSeeShip + '</td>' +
+                                '<td id="' + data[i][j]['ship_ids'] + '-speed">' + speed + '</td></tr>';
+
+                            getDataHistoryShip = getDataHistoryShip +
+                                '<tr class="row">' +
+                                '<td><input type="checkbox" name="' + i + '" value="' + data[i][j]['ship_ids'] + '"/></td>' +
+                                '<td>' + data[i][j]['name'] + '</td>' +
+                                '</tr>';
+                        }
                     }
                     k++;
                 }
@@ -263,9 +266,9 @@ $(document).ready(function () {
         map.addLayer(markers);
         for (let terminalId in locations) {
             let message = locations[terminalId];
-            if(message.latitude != undefined && message.longitude != undefined) {
+            if (message.latitude != undefined && message.longitude != undefined) {
                 let greenIcon = new LeafIcon({iconUrl: getIcon(message)});
-                let rotation = message.speed > 0.49 ? Math.round(message.heading *1) : 0;
+                let rotation = message.speed > 0.49 ? Math.round(message.heading * 1) : 0;
                 let popup = showInfoPopUp(message);
                 let marker = L.marker([message.latitude, message.longitude],
                     {rotationAngle: rotation, icon: greenIcon});
@@ -701,21 +704,19 @@ $(document).ready(function () {
                             color: '#000000',
                             fillColor: '#0000FF',
                             fillOpacity: 1,
-                            radius: 30000
+                            radius: 500
                         });
                     } else if (histories.length > 1 && histories.length === i + 1) {
                         markerHistory = L.marker([latitude, longitude], {
                             rotationAngle: rotation, icon: greenIcon
                         });
                     } else {
-
                         markerHistory = L.circle([latitude, longitude], {
                             color: '#000000',
                             fillColor: '#ff0000',
                             fillOpacity: 1,
-                            radius: 30000
+                            radius: 500
                         });
-
                     }
 
                     markerHistory.bindPopup(popup, {"closeOnClick": null});
@@ -914,7 +915,7 @@ $(document).ready(function () {
 
                             let marker = L.marker([latitude, longitude],
                                 {rotationAngle: rotation, icon: greenIcon});
-                            marker.bindPopup(popup , {"autoClose": false, "closeOnClick": null});
+                            marker.bindPopup(popup, {"autoClose": false, "closeOnClick": null});
                             filterMarkers[data[i][j].ship_ids] = marker;
                             let checked = [];
                             $('#tracking_table tbody tr.row input:checkbox:checked').each(function () {

@@ -110,7 +110,7 @@
                         <tr>
                             <td><input id="checkAll" type="checkbox" checked="checked"/></td>
                             <td>Name</td>
-                            <td>Last</td>
+                            <td>Last Update</td>
                             <td>Speed (knots)</td>
                         </tr>
                         </thead>

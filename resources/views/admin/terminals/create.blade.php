@@ -29,7 +29,7 @@
                               style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
                     </div>
                     <select class="form-control select2 {{ $errors->has('ships') ? 'is-invalid' : '' }}" name="ships[]"
-                            id="ships" multiple required>
+                            id="ships" multiple>
                         @foreach($ships as $id => $ship)
                             <option
                                 value="{{ $id }}" {{ in_array($id, old('ships', [])) ? 'selected' : '' }}>{{ $ship }}</option>
@@ -213,7 +213,7 @@
                     <div class="clone-email">
                         <div class="form-inline">
                             <input class="form-control col-md-8 {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                                   type="email" name="email[]" id="email" required>
+                                   type="email" name="email[]" id="email">
                             <span class="col-md-1"></span>
                             <div class="btn btn-warning col-md-2 delete-clone-email" style="display: none">- Delete
                                 Email

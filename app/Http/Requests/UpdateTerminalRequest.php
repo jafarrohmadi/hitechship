@@ -17,18 +17,17 @@ class UpdateTerminalRequest extends FormRequest
         return true;
     }
 
-    public function rules(Request $request , $id)
+    public function rules(Request $request)
     {
         return [
             'name'    => [
                 'required',
-                'unique:terminals,name,'.$id.',id,deleted_at,NULL'
+                'unique:terminals,name,'.$request->segment(3).',id,deleted_at,NULL'
             ],
             'ships.*' => [
                 'integer',
             ],
             'ships'   => [
-                'required',
                 'array',
             ],
         ];

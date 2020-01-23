@@ -19,7 +19,7 @@ class TerminalController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = Terminal::with(['ships', 'email'])->select(sprintf('%s.*', (new Terminal)->table));
+            $query = Terminal::with([ 'ships', 'email' ])->select(sprintf('%s.*', (new Terminal)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -106,7 +106,7 @@ class TerminalController extends Controller
                 return '<input type="checkbox" disabled ' . ($row->email_destination ? 'checked' : null) . '>';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'ship', 'ship_id', 'air_comm_blocked', 'power_backup', 'power_main', 'sleep_schedule', 'battery_low', 'speeding_start', 'speeding_end', 'modem_registration', 'geofence_in', 'geofence_out', 'email_destination']);
+            $table->rawColumns([ 'actions', 'placeholder', 'ship', 'ship_id', 'air_comm_blocked', 'power_backup', 'power_main', 'sleep_schedule', 'battery_low', 'speeding_start', 'speeding_end', 'modem_registration', 'geofence_in', 'geofence_out', 'email_destination' ]);
 
             return $table->make(true);
         }
@@ -133,10 +133,12 @@ class TerminalController extends Controller
         $terminal = Terminal::create($request->all());
         if ($request->email) {
             foreach ($request->email as $email) {
-                $emailUser          = new EmailTerminal();
-                $emailUser->email   = $email;
-                $emailUser->terminal_id = $terminal->id;
-                $emailUser->save();
+                if ($email) {
+                    $emailUser              = new EmailTerminal();
+                    $emailUser->email       = $email;
+                    $emailUser->terminal_id = $terminal->id;
+                    $emailUser->save();
+                }
             }
         }
         $terminal->ships()->sync($request->input('ships', []));
@@ -167,10 +169,12 @@ class TerminalController extends Controller
         if ($request->email) {
             EmailTerminal::where('terminal_id', $terminal->id)->delete();
             foreach ($request->email as $email) {
-                $emailUser          = new EmailTerminal();
-                $emailUser->email   = $email;
-                $emailUser->terminal_id = $terminal->id;
-                $emailUser->save();
+                if ($email) {
+                    $emailUser              = new EmailTerminal();
+                    $emailUser->email       = $email;
+                    $emailUser->terminal_id = $terminal->id;
+                    $emailUser->save();
+                }
             }
         }
         return redirect()->route('admin.terminals.index');

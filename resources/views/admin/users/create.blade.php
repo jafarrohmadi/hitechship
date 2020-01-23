@@ -87,7 +87,7 @@
                     <div class="clone-email">
                         <div class="form-inline">
                             <input class="form-control col-md-8 {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                                   type="email" name="email[]" id="email" required>
+                                   type="email" name="email[]" id="email">
                             <span class="col-md-1"></span>
                             <div class="btn btn-warning col-md-2 delete-clone-email" style="display: none">- Delete Email</div>
                         </div>
