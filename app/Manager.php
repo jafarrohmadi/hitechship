@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Manager extends Model
 {
-    use SoftDeletes;
 
     public $table = 'managers';
 

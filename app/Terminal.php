@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Terminal extends Model
 {
-    use SoftDeletes;
-
     public $table = 'terminals';
 
     protected $dates = [

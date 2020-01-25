@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jafarrohmadi/hitechship&#10;&#10;# Conflicts:&#10;#&#9;public/images/bg.jpg&#10;#&#9;resources/views/auth/login.blade.php&#10;#&#9;resources/views/layouts/app.blade.php">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Manager.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Manager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ship.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ship.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Terminal.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Terminal.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/skysatu.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/skysatu.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/customleaflet.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/customleaflet.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -256,7 +259,7 @@
       <workItem from="1579547188131" duration="7267000" />
       <workItem from="1579706915520" duration="11613000" />
       <workItem from="1579745640920" duration="5532000" />
-      <workItem from="1579935054706" duration="16014000" />
+      <workItem from="1579935054706" duration="18522000" />
     </task>
     <servers />
   </component>
@@ -334,10 +337,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1577556314263" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1579980732243">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1579981960221">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1579980732243" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1579981960221" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
