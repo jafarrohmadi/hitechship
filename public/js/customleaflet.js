@@ -183,77 +183,87 @@ $(document).ready(function () {
             type: 'get',
             url: "/admin/getDataShip",
             success: function (data) {
-                console.log(data);
                 let getDataShip = '';
                 let getDataHistoryShip = '';
-                let damask, jsonParse, lastSeeShip = '';
+                let damask, jsonParse, lastSeeShip, damaskus = '';
                 let timeShip, speed, latitude, longitude, key, heading = '';
-                let k = 0;
+                let king = 0;
+                let topKing = 0;
+
                 for (let i in data) {
                     if (i === "") {
-//                        damask = 'Unassigned terminals';
                         damask = 'Unassigned Manager';
                     } else {
                         damask = i;
                     }
 
-                    getDataShip = getDataShip + '<tr class="header"><td><input type="checkbox" name="' + k + '" checked="checked"/></td> <td colspan="3">' + damask + '</td> </tr>';
+                    getDataShip = getDataShip + '<tr class="header2" style="background-color: #aad3df"><td><input type="checkbox" id="top' + topKing + '" name="top' + topKing + '" checked="checked"/></td> <td colspan="3">' + damask + '</td> </tr>';
 
-                    getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td></td><td>' + damask + '</td></tr>';
-
+                    getDataHistoryShip = getDataHistoryShip + '<tr class="header2" style="background-color: #aad3df"><td></td><td>' + damask + '</td></tr>';
                     for (const j in data[i]) {
-                        if (data[i][j]['ship_history_ships_latest']) {
-                            timeShip = Date.parse(data[i][j]['ship_history_ships_latest']['message_utc']) + 7 * 60 * 60 * 1000;
-                            lastSeeShip = getTimeDifference(timeShip);
-
-                            jsonParse = JSON.parse(data[i][j]['ship_history_ships_latest']['payload']);
-                            for (const k in jsonParse['Fields']) {
-                                if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'speed') {
-                                    speed = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
-                                }
-
-                                if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'latitude') {
-                                    latitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
-                                }
-
-                                if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'longitude') {
-                                    longitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
-                                }
-
-                                if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'heading') {
-                                    heading = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
-                                }
-                            }
-                            key = data[i][j]['ship_ids'];
-                            locations[key] = {};
-                            locations[key]['id'] = data[i][j]['id'];
-                            locations[key]['name'] = data[i][j]['name'];
-                            locations[key]['eventTime'] = timeShip;
-                            locations[key]['heading'] = heading ? heading : 0;
-                            locations[key]['speed'] = speed ? speed : 0;
-                            locations[key]['latitude'] = latitude;
-                            locations[key]['longitude'] = longitude;
+                        if (j === "") {
+                            damaskus = 'Unassigned terminals';
                         } else {
-                            lastSeeShip = '-';
-                            speed = 0;
+                            damaskus = j;
                         }
-                        speed = speed === undefined ? 0 : speed;
-                        let checkbox = lastSeeShip == '-' ? '' : '<input type="checkbox" name="' + k + '" value="' + data[i][j]['ship_ids'] + '" checked="checked"/>';
-                        if (data[i][j]['name'] != null) {
-                            getDataShip = getDataShip + '<tr class="row">' +
-                                '<td>' + checkbox + '</td>' +
-                                '<td>' + data[i][j]['name'] + ' </td>' +
-                                '<td id="' + data[i][j]['ship_ids'] + '-last">' + lastSeeShip + '</td>' +
-                                '<td id="' + data[i][j]['ship_ids'] + '-speed">' + speed + '</td></tr>';
+                        getDataShip = getDataShip + '<tr class="header"><td style="padding-left: 10px"><input type="checkbox" id="top' + topKing + '" name="' + king + '" checked="checked"/></td> <td colspan="3" style="padding-left: 10px">' + damaskus + '</td> </tr>';
+                        getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td style="padding-left: 10px"></td><td style="padding-left: 10px">' + damaskus + '</td></tr>';
+                        for (const k in data[i][j]) {
+                            if (data[i][j][k]['ship_history_ships_latest']) {
+                                timeShip = Date.parse(data[i][j][k]['ship_history_ships_latest']['message_utc']) + 7 * 60 * 60 * 1000;
+                                lastSeeShip = getTimeDifference(timeShip);
 
-                            getDataHistoryShip = getDataHistoryShip +
-                                '<tr class="row">' +
-                                '<td><input type="checkbox" name="' + i + '" value="' + data[i][j]['ship_ids'] + '"/></td>' +
-                                '<td>' + data[i][j]['name'] + '</td>' +
-                                '</tr>';
+                                jsonParse = JSON.parse(data[i][j][k]['ship_history_ships_latest']['payload']);
+                                for (const l in jsonParse['Fields']) {
+                                    if (jsonParse['Fields'][l]['Name'].toLowerCase() === 'speed') {
+                                        speed = (jsonParse['Fields'][l]['Value'] * 1).toFixed(1);
+                                    }
+
+                                    if (jsonParse['Fields'][l]['Name'].toLowerCase() === 'latitude') {
+                                        latitude = (jsonParse['Fields'][l]['Value'] * 1).toFixed(4);
+                                    }
+
+                                    if (jsonParse['Fields'][l]['Name'].toLowerCase() === 'longitude') {
+                                        longitude = (jsonParse['Fields'][l]['Value'] * 1).toFixed(4);
+                                    }
+
+                                    if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'heading') {
+                                        heading = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
+                                    }
+                                }
+                                key = data[i][j][k]['ship_ids'];
+                                locations[key] = {};
+                                locations[key]['id'] = data[i][j][k]['id'];
+                                locations[key]['name'] = data[i][j][k]['name'];
+                                locations[key]['eventTime'] = timeShip;
+                                locations[key]['heading'] = heading ? heading : 0;
+                                locations[key]['speed'] = speed ? speed : 0;
+                                locations[key]['latitude'] = latitude;
+                                locations[key]['longitude'] = longitude;
+                            } else {
+                                lastSeeShip = '-';
+                                speed = 0;
+                            }
+
+                            speed = speed === undefined ? 0 : speed;
+                            let checkbox = lastSeeShip == '-' ? '' : '<input type="checkbox" id="top' + topKing + '" name="' + king + '" value="' + data[i][j][k]['ship_ids'] + '" checked="checked"/>';
+                            if (data[i][j][k]['name'] != null) {
+                                getDataShip = getDataShip + '<tr class="row">' +
+                                    '<td><span style="padding-left: 20px">' + checkbox + '</span></td>' +
+                                    '<td><span style="padding-left: 20px">' + data[i][j][k]['name'] + ' </span></td>' +
+                                    '<td style="padding-right: 20px" id="' + data[i][j][k]['ship_ids'] + '-last">' + lastSeeShip + '</td>' +
+                                    '<td id="' + data[i][j][k]['ship_ids'] + '-speed">' + speed + '</td></tr>';
+
+                                getDataHistoryShip = getDataHistoryShip +
+                                    '<tr class="row">' +
+                                    '<td style="padding-left: 20px"><input type="checkbox" name="' + i + '" value="' + data[i][j][k]['ship_ids'] + '"/></td>' +
+                                    '<td style="padding-left: 20px">' + data[i][j][k]['name'] + '</td>' +
+                                    '</tr>';
+                            }
                         }
+                        king++;
                     }
-                    k++;
+                    topKing++;
                 }
 
                 $('#shipData').html(getDataShip);
@@ -278,9 +288,7 @@ $(document).ready(function () {
                 marker.on('click', function (e) {
                     this.openPopup();
                 });
-                // marker.on('mouseout', function (e) {
-                //     this.closePopup();
-                // });
+
                 filterMarkers[terminalId] = marker;
                 markers.addLayer(marker);
             }
@@ -328,7 +336,7 @@ $(document).ready(function () {
         $("#tracking_table thead  input:checkbox[id=checkAll]").prop("disabled", false);
 
         $('#tracking_table tbody tr.header input:checkbox').prop('disabled', false);
-
+        $('#tracking_table tbody tr.header2 input:checkbox').prop('disabled', false);
         $(".startPoint").show();
         $(".stopDrawing").hide();
         drawPolylineStart = 0;
@@ -344,6 +352,7 @@ $(document).ready(function () {
         $("#tracking_table tbody tr.row input:checkbox").trigger("change");
 
         $('#tracking_table tbody tr.header input:checkbox').prop('disabled', true);
+        $('#tracking_table tbody tr.header2 input:checkbox').prop('disabled', true);
 
         $(".startPoint").hide();
         $(".stopDrawing").show();
@@ -475,6 +484,24 @@ $(document).ready(function () {
             getTerminalId.push($(this).val());
 
         });
+        getTerminalId.indexOf('on') !== -1 && getTerminalId.splice(getTerminalId.indexOf('on'), 1);
+        if ($(checkbox_selector).prop("checked") === true) {
+            getMarkerWithIds(getTerminalId);
+        } else {
+            deleteMarkerWithIds(getTerminalId);
+        }
+    });
+
+    $(document).on("click", "#tracking_table tbody tr.header2 input:checkbox", function () {
+        let checkbox_selector = "#tracking_table input[id='" + $(this).attr("id") + "']";
+        $(checkbox_selector).not(this).prop("checked", this.checked);
+        $(checkbox_selector).trigger("change");
+
+        let getTerminalId = [];
+        $.each($("#tracking_table input[id='" + $(this).attr("id") + "']"), function () {
+            getTerminalId.push($(this).val());
+        });
+
         getTerminalId.indexOf('on') !== -1 && getTerminalId.splice(getTerminalId.indexOf('on'), 1);
         if ($(checkbox_selector).prop("checked") === true) {
             getMarkerWithIds(getTerminalId);

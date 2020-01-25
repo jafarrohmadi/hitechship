@@ -105,6 +105,9 @@
                                 <button class="startPoint">Start Point</button>
                                 <button class="stopDrawing" style="display: none">Stop Drawing</button>
                             </td>
+                            <td>
+                                <button class="resetPoint">Reset Point</button>
+                            </td>
                         </tr>
 
                         <tr>
