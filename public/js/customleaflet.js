@@ -183,6 +183,7 @@ $(document).ready(function () {
             type: 'get',
             url: "/admin/getDataShip",
             success: function (data) {
+                console.log(data);
                 let getDataShip = '';
                 let getDataHistoryShip = '';
                 let damask, jsonParse, lastSeeShip = '';
@@ -190,7 +191,8 @@ $(document).ready(function () {
                 let k = 0;
                 for (let i in data) {
                     if (i === "") {
-                        damask = 'Unassigned terminals';
+//                        damask = 'Unassigned terminals';
+                        damask = 'Unassigned Manager';
                     } else {
                         damask = i;
                     }
