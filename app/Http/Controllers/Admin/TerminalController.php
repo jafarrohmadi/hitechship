@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\EmailAlertTerminal;
 use App\EmailTerminal;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyTerminalRequest;
@@ -19,7 +20,7 @@ class TerminalController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = Terminal::with([ 'ships', 'email' ])->select(sprintf('%s.*', (new Terminal)->table));
+            $query = Terminal::with([ 'ships', 'email', 'alertEmail' ])->select(sprintf('%s.*', (new Terminal)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -67,6 +68,14 @@ class TerminalController extends Controller
             $table->editColumn('email', function ($row) {
                 $labels = [];
                 foreach ($row->email as $email) {
+                    $labels[] = $email->email;
+                }
+                return implode(', ', $labels);
+            }
+            );
+            $table->editColumn('alertEmail', function ($row) {
+                $labels = [];
+                foreach ($row->alertEmail as $email) {
                     $labels[] = $email->email;
                 }
                 return implode(', ', $labels);
@@ -141,6 +150,16 @@ class TerminalController extends Controller
                 }
             }
         }
+        if ($request->alertEmail) {
+            foreach ($request->alertEmail as $email) {
+                if ($email) {
+                    $emailUser              = new EmailAlertTerminal();
+                    $emailUser->email       = $email;
+                    $emailUser->terminal_id = $terminal->id;
+                    $emailUser->save();
+                }
+            }
+        }
         $terminal->ships()->sync($request->input('ships', []));
 
         return redirect()->route('admin.terminals.index');
@@ -177,6 +196,19 @@ class TerminalController extends Controller
                 }
             }
         }
+
+        if ($request->alertEmail) {
+            EmailAlertTerminal::where('terminal_id', $terminal->id)->delete();
+            foreach ($request->alertEmail as $email) {
+                if ($email) {
+                    $emailUser              = new EmailAlertTerminal();
+                    $emailUser->email       = $email;
+                    $emailUser->terminal_id = $terminal->id;
+                    $emailUser->save();
+                }
+            }
+        }
+
         return redirect()->route('admin.terminals.index');
     }
 

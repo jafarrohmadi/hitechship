@@ -84,8 +84,14 @@ class getHistoryShipData extends Command
                         $historyShip->ship_id = $ship->id;
                         $historyShip->save();
 
-                        if ($ship->call_sign && $ship->call_sign !== null) {
-                            dispatch(new SendEmailPertamina($historyShip, $ship));
+                        if ($ship->call_sign && $ship->call_sign !== null && count($ship->shipTerminals) > 0) {
+                            foreach ($ship->shipTerminals as $terminals) {
+                                if(count($terminals->email) > 0) {
+                                    foreach ($terminals->email as $emailTerminal) {
+                                        dispatch(new SendEmailPertamina($historyShip, $ship, $emailTerminal));
+                                    }
+                                }
+                            }
                         }
                         $findHistoryShip = HistoryShip::where('ship_id', $ship->id)->count();
                         $setSendEmail = Setting::find(1);

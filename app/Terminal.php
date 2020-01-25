@@ -50,4 +50,9 @@ class Terminal extends Model
         return $this->hasMany(EmailTerminal::class);
     }
 
+    public function alertEmail()
+    {
+        return $this->hasMany(EmailAlertTerminal::class);
+    }
+
 }

@@ -80,59 +80,110 @@ class HomeController extends BaseController
         $user = User::find(Auth::id());
 
         if (Auth::id() !== 1) {
-            $ship = Ship::with('shipHistoryShipsLatest')
-                ->join('ship_terminal', 'ships.id', '=', 'ship_terminal.ship_id')
-                ->join('terminals', 'ship_terminal.terminal_id', '=', 'terminals.id')
-                ->join('terminal_user', 'terminals.id', '=', 'terminal_user.terminal_id')
-                ->join('users', 'terminal_user.user_id', '=', 'users.id')
-                ->where('users.id', Auth::id())
-                ->select('ships.*' )
-                ->orderBy('owner', 'asc')
-                ->get()->groupBy('owner');
-        } else {
-            $ship = Ship::with('shipHistoryShipsLatest')
-                ->orderBy('owner', 'asc')
-                ->get()->groupBy('owner');
+            $manager = Manager::all()->pluck('manager_id')->toArray();
             $shiptwo = Ship::with('shipHistoryShipsLatest')
                 ->rightjoin('ship_terminal', 'ships.id', '=', 'ship_terminal.ship_id')
                 ->rightjoin('terminals', 'ship_terminal.terminal_id', '=', 'terminals.id')
                 ->rightJoin('terminal_user', 'terminals.id', '=', 'terminal_user.terminal_id')
                 ->rightJoin('users', 'terminal_user.user_id', '=', 'users.id')
-              //  ->leftJoin('manager_user', 'users.id', '=', 'manager_user.user_id')
-                //->leftJoin('managers', 'manager_user.manager_id', '=', 'managers.id')
-                ->select('ships.*', 'terminals.name As name', 'users.name As owner')
-               // ->orderBy('manager_id', 'asc')
-                ;
+                ->select('ships.*', 'terminals.name As name', 'users.name As owner', 'users.id As userId')
+                ->whereNotIn('users.id', $manager)
+                ->where('users.id', '!=', 1)
+                ->where('users.id', Auth::id());
 
-            $ship = Ship::with('shipHistoryShipsLatest')
+            $shipOne = Ship::with('shipHistoryShipsLatest')
                 ->rightjoin('ship_terminal', 'ships.id', '=', 'ship_terminal.ship_id')
                 ->rightjoin('terminals', 'ship_terminal.terminal_id', '=', 'terminals.id')
                 ->leftjoin('terminal_user', 'terminals.id', '=', 'terminal_user.terminal_id')
                 ->leftJoin('users', 'terminal_user.user_id', '=', 'users.id')
-            //    ->rightjoin('manager_user', 'users.id', '=', 'manager_user.user_id')
-          //      ->rightjoin('managers', 'manager_user.manager_id', '=', 'managers.id')
-                ->select('ships.*', 'terminals.name As name', 'users.name As owner')
-                // ->orderBy('manager_id', 'asc')
+                ->select('ships.*', 'terminals.name As name', 'users.name As owner', 'users.id As userId')
                 ->union($shiptwo)
-                ->get()->groupBy('owner');
+                ->whereNotIn('users.id', $manager)
+                ->where('users.id', '!=', 1)
+                ->where('users.id', Auth::id())
+                ->get();
 
+            $ship = $shipOne
+                ->map(function ($query) use ($manager) {
+                    $user = User::join('manager_user', 'users.id', '=', 'manager_user.user_id')
+                        ->join('managers', 'manager_user.manager_id', '=', 'managers.id')
+                        ->select('managers.manager_id As managerId')
+                        ->where('users.id', $query->userId)->first();
+                    if ($user) {
+                        $managerName           = User::where('id', $user->managerId)->first();
+                        $query['manager_id']   = $user->managerId;
+                        $query['manager_name'] = $managerName->name;
+                    } else {
+                        $query['manager_id']   = 0;
+                        $query['manager_name'] = '';
+                    }
+                    return $query;
+                });
 
-//            $ship = Manager::leftjoin('manager_user', 'managers.id', '=', 'manager_user.manager_id')
-//                ->rightjoin('users', 'manager_user.user_id', '=', 'users.id')
-//                ->leftjoin('terminal_user', 'users.id', '=', 'terminal_user.user_id')
-//                ->leftJoin('terminals', 'terminal_user.terminal_id', '=', 'terminals.id')
-//                ->where('users.id' ,'!=', 1)
-//                ->select('managers.id As managers', 'users.name as owner', 'terminals.name As name')
-//                ->get();
-//            $ship = User::rightjoin('managers', 'managers.manager_id', '=', 'users.id')
-//
-//                ->rightjoin('terminals', 'terminal_user.terminal_id', '=', 'terminals.id')
-//                ->rightjoin('ship_terminal', 'terminals.id', '=', 'ship_terminal.terminal_id')
-//                ->rightjoin('ships',  'ship_terminal.ship_id', '=','ships.id')
-//                ->select('users.name As user_name', 'managers.id As manager_id', 'terminals.name As terminal_name')
-//                ->get();
+            $manager            = $ship->pluck('manager_id')->toArray();
+            $usersManagerNotUse = [];
+            $notUseManager      = Manager::whereNotIn('manager_id', $manager)->get()->pluck('manager_id')->toArray();
+            foreach ($notUseManager as $notUseManagers) {
+                $userss                             = User::where('id', $notUseManagers)->first();
+                $usersManagerNotUse['manager_id']   = $notUseManagers;
+                $usersManagerNotUse['manager_name'] = $userss->name;
+            }
+            $ship->push($usersManagerNotUse);
 
+            $ship = $ship->groupBy('manager_name')->map(function ($query) {
+                return $query->groupBy('owner');
+            });
+        } else {
+            $manager = Manager::all()->pluck('manager_id')->toArray();
+            $shiptwo = Ship::with('shipHistoryShipsLatest')
+                ->rightjoin('ship_terminal', 'ships.id', '=', 'ship_terminal.ship_id')
+                ->rightjoin('terminals', 'ship_terminal.terminal_id', '=', 'terminals.id')
+                ->rightJoin('terminal_user', 'terminals.id', '=', 'terminal_user.terminal_id')
+                ->rightJoin('users', 'terminal_user.user_id', '=', 'users.id')
+                ->select('ships.*', 'terminals.name As name', 'users.name As owner', 'users.id As userId')
+                ->whereNotIn('users.id', $manager)
+                ->where('users.id', '!=', 1);
 
+            $shipOne = Ship::with('shipHistoryShipsLatest')
+                ->rightjoin('ship_terminal', 'ships.id', '=', 'ship_terminal.ship_id')
+                ->rightjoin('terminals', 'ship_terminal.terminal_id', '=', 'terminals.id')
+                ->leftjoin('terminal_user', 'terminals.id', '=', 'terminal_user.terminal_id')
+                ->leftJoin('users', 'terminal_user.user_id', '=', 'users.id')
+                ->select('ships.*', 'terminals.name As name', 'users.name As owner', 'users.id As userId')
+                ->union($shiptwo)
+                ->whereNotIn('users.id', $manager)
+                ->where('users.id', '!=', 1)
+                ->get();
+
+            $ship               = $shipOne
+                ->map(function ($query) use ($manager) {
+                    $user = User::join('manager_user', 'users.id', '=', 'manager_user.user_id')
+                        ->join('managers', 'manager_user.manager_id', '=', 'managers.id')
+                        ->select('managers.manager_id As managerId')
+                        ->where('users.id', $query->userId)->first();
+                    if ($user) {
+                        $managerName           = User::where('id', $user->managerId)->first();
+                        $query['manager_id']   = $user->managerId;
+                        $query['manager_name'] = $managerName->name;
+                    } else {
+                        $query['manager_id']   = 0;
+                        $query['manager_name'] = '';
+                    }
+                    return $query;
+                });
+            $manager            = $ship->pluck('manager_id')->toArray();
+            $usersManagerNotUse = [];
+            $notUseManager      = Manager::whereNotIn('manager_id', $manager)->get()->pluck('manager_id')->toArray();
+            foreach ($notUseManager as $notUseManagers) {
+                $userss                             = User::where('id', $notUseManagers)->first();
+                $usersManagerNotUse['manager_id']   = $notUseManagers;
+                $usersManagerNotUse['manager_name'] = $userss->name;
+            }
+            $ship->push($usersManagerNotUse);
+
+            $ship = $ship->groupBy('manager_name')->map(function ($query) {
+                return $query->groupBy('owner');
+            });
         }
 
         return $ship;

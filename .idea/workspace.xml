@@ -2,8 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jafarrohmadi/hitechship&#10;&#10;# Conflicts:&#10;#&#9;public/images/bg.jpg&#10;#&#9;resources/views/auth/login.blade.php&#10;#&#9;resources/views/layouts/app.blade.php">
+      <change afterPath="$PROJECT_DIR$/app/EmailAlertTerminal.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/getHistoryShipData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/getHistoryShipData.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/TerminalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/TerminalController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/SendEmailPertamina.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/SendEmailPertamina.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Terminal.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Terminal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/cruds.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/cruds.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/id/cruds.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/id/cruds.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/terminals/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/terminals/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/terminals/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/terminals/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/terminals/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/terminals/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/terminals/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/terminals/show.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -254,7 +265,8 @@
       <workItem from="1579171868604" duration="1325000" />
       <workItem from="1579547188131" duration="7267000" />
       <workItem from="1579706915520" duration="11613000" />
-      <workItem from="1579745640920" duration="289000" />
+      <workItem from="1579745640920" duration="5532000" />
+      <workItem from="1579935054706" duration="4572000" />
     </task>
     <servers />
   </component>
@@ -287,9 +299,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="261" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1576847952999" />
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1579573508716">
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1579751195043">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1579751195043" />
     <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1579573508716" />
     <state x="129" y="54" key="MergeDialog" timestamp="1576847919954">
       <screen x="0" y="0" width="1366" height="728" />
@@ -299,18 +312,18 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="395" y="79" key="MultipleFileMergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1576847924977" />
-    <state x="517" y="287" key="NewPhpFileDialog" timestamp="1578222985545">
+    <state x="517" y="287" key="NewPhpFileDialog" timestamp="1579936159098">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="517" y="287" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1578222985545" />
+    <state x="517" y="287" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1579936159098" />
     <state x="530" y="74" key="RollbackChangesDialog" timestamp="1576883892143">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="530" y="74" key="RollbackChangesDialog/0.0.1366.728@0.0.1366.728" timestamp="1576883892143" />
-    <state x="184" y="6" key="SettingsEditor" timestamp="1578076130196">
+    <state x="184" y="6" key="SettingsEditor" timestamp="1579935253955">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="184" y="6" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1578076130196" />
+    <state x="184" y="6" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1579935253955" />
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1578305574437">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -331,10 +344,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1577556314263" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1579719816870">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1579965429462">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1579719816870" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1579965429462" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -211,17 +211,39 @@
                     <span class="help-block">{{ trans('cruds.terminal.fields.destinasion_email_helper') }}</span>
                 </div>
                 <div class="form-group">
-                    <label class="required" for="email">{{ trans('cruds.terminal.fields.destinasion_email_list') }}</label>
+                    <label class="required"
+                           for="email">{{ trans('cruds.terminal.fields.destinasion_email_list') }}</label>
                     <?php $i = 0; ?>
-                    @foreach($terminal->email as $email)
+                    @if(count($terminal->email) > 0)
+                        @foreach($terminal->email as $email)
+                            <div class="clone-email">
+                                <div class="form-inline">
+                                    <input class="form-control col-md-8 {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                                           type="email" name="email[]" id="email"
+                                           value="{{ old('email[]', $email->email) }}">
+                                    <span class="col-md-1"></span>
+                                    <div class="btn btn-warning col-md-2 delete-clone-email"
+                                         @if($i == 0) style="display: none" @endif>- Delete Email
+                                    </div>
+                                </div>
+                                @if($errors->has('email'))
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('email') }}
+                                    </div>
+                                @endif
+                                <span class="help-block">{{ trans('cruds.user.fields.roles_helper') }}</span>
+                                <br>
+                            </div>
+                            <?php $i++;?>
+                        @endforeach
+                    @else
                         <div class="clone-email">
                             <div class="form-inline">
                                 <input class="form-control col-md-8 {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                                       type="email" name="email[]" id="email"
-                                       value="{{ old('email[]', $email->email) }}" required>
+                                       type="email" name="email[]" id="email">
                                 <span class="col-md-1"></span>
                                 <div class="btn btn-warning col-md-2 delete-clone-email"
-                                     @if($i == 0) style="display: none" @endif>- Delete Email
+                                     style="display: none">- Delete Email
                                 </div>
                             </div>
                             @if($errors->has('email'))
@@ -232,13 +254,68 @@
                             <span class="help-block">{{ trans('cruds.user.fields.roles_helper') }}</span>
                             <br>
                         </div>
-                        <?php $i++;?>
-                    @endforeach
+                    @endif
                     <span class="clone-last"></span>
                 </div>
                 <div class="form-group">
                     <div class="btn btn-info add-clone-email">+ Add New Email</div>
                 </div>
+
+                <div class="form-group">
+                    <label class="required"
+                           for="alert-email">{{ trans('cruds.terminal.fields.alert_email_list') }}</label>
+                    <?php $j = 0; ?>
+                    @if(count($terminal->alertEmail) > 0)
+                        @foreach($terminal->alertEmail as $emails)
+                            <div class="clone-alert-email">
+                                <div class="form-inline">
+                                    <input
+                                        class="form-control col-md-8 {{ $errors->has('alertEmail') ? 'is-invalid' : '' }}"
+                                        type="email" name="alertEmail[]" id="alertEmail"
+                                        value="{{ old('alertEmail[]', $emails->email) }}">
+                                    <span class="col-md-1"></span>
+                                    <div class="btn btn-warning col-md-2 delete-clone-alert-email"
+                                         @if($j == 0) style="display: none" @endif>- Delete
+                                        Email
+                                    </div>
+                                </div>
+                                @if($errors->has('alertEmail'))
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('alertEmail') }}
+                                    </div>
+                                @endif
+                                <span class="help-block">{{ trans('cruds.user.fields.roles_helper') }}</span>
+                                <br>
+                            </div>
+                            <?php $j++;?>
+                            <span class="clone-alert-last"></span>
+                        @endforeach
+                    @else
+                        <div class="clone-alert-email">
+                            <div class="form-inline">
+                                <input
+                                    class="form-control col-md-8 {{ $errors->has('alertEmail') ? 'is-invalid' : '' }}"
+                                    type="email" name="alertEmail[]" id="alertEmail">
+                                <span class="col-md-1"></span>
+                                <div class="btn btn-warning col-md-2 delete-clone-alert-email"
+                                     style="display: none">- Delete Email
+                                </div>
+                            </div>
+                            @if($errors->has('alertEmail'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('alertEmail') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.user.fields.roles_helper') }}</span>
+                            <br>
+                        </div>
+                        <span class="clone-alert-last"></span>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <div class="btn btn-info add-clone-alert-email">+ Add New Alert Email</div>
+                </div>
+
                 <div class="form-group">
                     <button class="btn btn-danger" type="submit">
                         {{ trans('global.save') }}
@@ -270,6 +347,27 @@
 
         $(document).on('click', ".delete-clone-email", function () {
             $(this).closest(".clone-email").remove();
+            count--;
+        });
+        var countAlert = {{ $j ? $j : 1 }};
+        $(document).ready(function () {
+            $(".add-clone-alert-email").on('click', function () {
+                if (count >= 9) {
+                    $(".add-clone-alert-email").hide();
+                }
+
+                var clone = $('.clone-alert-email:last').clone();
+                // clone.removeClass('clone-email').addClass('clone-email'+count);
+                clone.find("#alertEmail").attr({name: "alertEmail[]"});
+                clone.find("#alertEmail").val("");
+                clone.find(".delete-clone-alert-email").show();
+                clone.appendTo('.clone-alert-last');
+                count++;
+            });
+        });
+
+        $(document).on('click', ".delete-clone-alert-email", function () {
+            $(this).closest(".clone-alert-email").remove();
             count--;
         });
     </script>
