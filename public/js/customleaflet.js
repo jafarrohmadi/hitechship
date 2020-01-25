@@ -227,7 +227,7 @@ $(document).ready(function () {
                                         longitude = (jsonParse['Fields'][l]['Value'] * 1).toFixed(4);
                                     }
 
-                                    if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'heading') {
+                                    if (jsonParse['Fields'][l]['Name'].toLowerCase() === 'heading') {
                                         heading = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
                                     }
                                 }
