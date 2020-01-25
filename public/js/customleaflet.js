@@ -228,7 +228,7 @@ $(document).ready(function () {
                                     }
 
                                     if (jsonParse['Fields'][l]['Name'].toLowerCase() === 'heading') {
-                                        heading = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
+                                        heading = (jsonParse['Fields'][l]['Value'] * 1).toFixed(1);
                                     }
                                 }
                                 key = data[i][j][k]['ship_ids'];
