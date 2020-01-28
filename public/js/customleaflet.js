@@ -177,8 +177,12 @@ $(document).ready(function () {
     }
 
     function centerLeafletMapHistoriesOnMarker(lat, lng) {
-        mapHistory.flyTo(new L.LatLng(lat, lng), 5);
+        mapHistory.flyTo(new L.LatLng(lat, lng), 9);
     }
+
+    // function centerLeafletMapHistoriesOnMarker(lat, lng) {
+    //     mapHistory.flyTo(new L.LatLng(lat, lng), 13);
+    // }
 
 //TRACK
     function getDataShip() {
@@ -877,7 +881,19 @@ $(document).ready(function () {
         if (selectedMessage) {
             if (selectedMessage.path) {
                 if (checked) {
-                    centerLeafletMapHistoriesOnMarker(locations[id].latitude, locations[id].longitude);
+                    let latitude, longitude;
+                    let jsonParse = JSON.parse(selectedMessage.histories[name].payload);
+                    for (const k in jsonParse['Fields']) {
+                        if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'latitude') {
+                            latitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                        }
+
+                        if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'longitude') {
+                            longitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                        }
+                    }
+
+                    centerLeafletMapHistoriesOnMarker(latitude, longitude);
                     average_speed.push([name, selectedMessage.histories[name].id, selectedMessage.histories[name].message_utc]);
                     selectedMessage.historiesMarkers[name].openPopup();
                 } else {
@@ -887,7 +903,9 @@ $(document).ready(function () {
                 }
             }
         }
-
+        if(average_speed.length == 0){
+            $('#averageSpeedTime').hide();
+        }
         if (average_speed.length > 1 && average_speed.length % 2 === 0) {
             $.ajax({
                 type: 'get',
