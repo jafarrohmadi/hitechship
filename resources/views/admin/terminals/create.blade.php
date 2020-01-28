@@ -21,7 +21,7 @@
                     <span class="help-block">{{ trans('cruds.terminal.fields.name_helper') }}</span>
                 </div>
                 <div class="form-group">
-                    <label class="required" for="ships">{{ trans('cruds.terminal.fields.ship') }}</label>
+                    <label for="ships">{{ trans('cruds.terminal.fields.ship') }}</label>
                     <div style="padding-bottom: 4px">
                         <span class="btn btn-info btn-xs select-all"
                               style="border-radius: 0">{{ trans('global.select_all') }}</span>
@@ -209,7 +209,7 @@
                     <span class="help-block">{{ trans('cruds.terminal.fields.destinasion_email_helper') }}</span>
                 </div>
                 <div class="form-group">
-                    <label class="required" for="email">{{ trans('cruds.terminal.fields.destinasion_email_list') }}</label>
+                    <label for="email">{{ trans('cruds.terminal.fields.destinasion_email_list') }}</label>
                     <div class="clone-email">
                         <div class="form-inline">
                             <input class="form-control col-md-8 {{ $errors->has('email') ? 'is-invalid' : '' }}"
@@ -234,7 +234,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="required" for="alert-email">{{ trans('cruds.terminal.fields.alert_email_list') }}</label>
+                    <label for="alert-email">{{ trans('cruds.terminal.fields.alert_email_list') }}</label>
                     <div class="clone-alert-email">
                         <div class="form-inline">
                             <input class="form-control col-md-8 {{ $errors->has('alertEmail') ? 'is-invalid' : '' }}"

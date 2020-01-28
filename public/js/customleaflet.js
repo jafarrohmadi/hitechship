@@ -191,23 +191,25 @@ $(document).ready(function () {
                 let topKing = 0;
 
                 for (let i in data) {
-                    if (i === "") {
-                        damask = 'Unassigned Manager';
-                    } else {
-                        damask = i;
+                    damask = i;
+                    if(i !== '') {
+                        getDataShip = getDataShip + '<tr class="header2" style="background-color: #aad3df"><td><input type="checkbox" id="top' + topKing + '" name="top' + topKing + '" checked="checked"/></td> <td colspan="3">' + damask + '</td> </tr>';
+
+                        getDataHistoryShip = getDataHistoryShip + '<tr class="header2" style="background-color: #aad3df"><td></td><td>' + damask + '</td></tr>';
                     }
-
-                    getDataShip = getDataShip + '<tr class="header2" style="background-color: #aad3df"><td><input type="checkbox" id="top' + topKing + '" name="top' + topKing + '" checked="checked"/></td> <td colspan="3">' + damask + '</td> </tr>';
-
-                    getDataHistoryShip = getDataHistoryShip + '<tr class="header2" style="background-color: #aad3df"><td></td><td>' + damask + '</td></tr>';
                     for (const j in data[i]) {
                         if (j === "") {
                             damaskus = 'Unassigned terminals';
                         } else {
                             damaskus = j;
                         }
-                        getDataShip = getDataShip + '<tr class="header"><td style="padding-left: 10px"><input type="checkbox" id="top' + topKing + '" name="' + king + '" checked="checked"/></td> <td colspan="3" style="padding-left: 10px">' + damaskus + '</td> </tr>';
-                        getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td style="padding-left: 10px"></td><td style="padding-left: 10px">' + damaskus + '</td></tr>';
+                        if(i !== '') {
+                            getDataShip = getDataShip + '<tr class="header"><td style="padding-left: 10px"><input type="checkbox" id="top' + topKing + '" name="' + king + '" checked="checked"/></td> <td colspan="3" style="padding-left: 10px">' + damaskus + '</td> </tr>';
+                            getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td style="padding-left: 10px"></td><td style="padding-left: 10px">' + damaskus + '</td></tr>';
+                        }else {
+                            getDataShip = getDataShip + '<tr class="header"><td><input type="checkbox" id="top' + topKing + '" name="' + king + '" checked="checked"/></td> <td colspan="3">' + damaskus + '</td> </tr>';
+                            getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td></td><td>' + damaskus + '</td></tr>';
+                        }
                         for (const k in data[i][j]) {
                             if (data[i][j][k]['ship_history_ships_latest']) {
                                 timeShip = Date.parse(data[i][j][k]['ship_history_ships_latest']['message_utc']) + 7 * 60 * 60 * 1000;
@@ -248,17 +250,31 @@ $(document).ready(function () {
                             speed = speed === undefined ? 0 : speed;
                             let checkbox = lastSeeShip == '-' ? '' : '<input type="checkbox" id="top' + topKing + '" name="' + king + '" value="' + data[i][j][k]['ship_ids'] + '" checked="checked"/>';
                             if (data[i][j][k]['name'] != null) {
-                                getDataShip = getDataShip + '<tr class="row">' +
-                                    '<td><span style="padding-left: 20px">' + checkbox + '</span></td>' +
-                                    '<td><span style="padding-left: 20px">' + data[i][j][k]['name'] + ' </span></td>' +
-                                    '<td style="padding-right: 20px" id="' + data[i][j][k]['ship_ids'] + '-last">' + lastSeeShip + '</td>' +
-                                    '<td id="' + data[i][j][k]['ship_ids'] + '-speed">' + speed + '</td></tr>';
+                                if(i !== '') {
+                                    getDataShip = getDataShip + '<tr class="row">' +
+                                        '<td><span style="padding-left: 20px">' + checkbox + '</span></td>' +
+                                        '<td><span style="padding-left: 20px">' + data[i][j][k]['name'] + ' </span></td>' +
+                                        '<td style="padding-right: 20px" id="' + data[i][j][k]['ship_ids'] + '-last">' + lastSeeShip + '</td>' +
+                                        '<td id="' + data[i][j][k]['ship_ids'] + '-speed">' + speed + '</td></tr>';
 
-                                getDataHistoryShip = getDataHistoryShip +
-                                    '<tr class="row">' +
-                                    '<td style="padding-left: 20px"><input type="checkbox" name="' + i + '" value="' + data[i][j][k]['ship_ids'] + '"/></td>' +
-                                    '<td style="padding-left: 20px">' + data[i][j][k]['name'] + '</td>' +
-                                    '</tr>';
+                                    getDataHistoryShip = getDataHistoryShip +
+                                        '<tr class="row">' +
+                                        '<td style="padding-left: 20px"><input type="checkbox" name="' + i + '" value="' + data[i][j][k]['ship_ids'] + '"/></td>' +
+                                        '<td style="padding-left: 20px">' + data[i][j][k]['name'] + '</td>' +
+                                        '</tr>';
+                                }else {
+                                    getDataShip = getDataShip + '<tr class="row">' +
+                                        '<td><span style="padding-left: 10px">' + checkbox + '</span></td>' +
+                                        '<td><span style="padding-left: 10px">' + data[i][j][k]['name'] + ' </span></td>' +
+                                        '<td style="padding-right: 10px" id="' + data[i][j][k]['ship_ids'] + '-last">' + lastSeeShip + '</td>' +
+                                        '<td id="' + data[i][j][k]['ship_ids'] + '-speed">' + speed + '</td></tr>';
+
+                                    getDataHistoryShip = getDataHistoryShip +
+                                        '<tr class="row">' +
+                                        '<td style="padding-left: 10px"><input type="checkbox" name="' + i + '" value="' + data[i][j][k]['ship_ids'] + '"/></td>' +
+                                        '<td style="padding-left: 10px">' + data[i][j][k]['name'] + '</td>' +
+                                        '</tr>';
+                                }
                             }
                         }
                         king++;
@@ -752,17 +768,14 @@ $(document).ready(function () {
                     markerHistory.on('click', function (e) {
                         this.openPopup();
                     });
-                    // markerHistory.on('mouseout', function (e) {
-                    //     this.closePopup();
-                    // });
+
                     markersHistory.addLayer(markerHistory);
-                    historiesMarkers[historiesMarkers.length] = markerHistory;
+                    historiesMarkers[i] = markerHistory;
                 } else {
-                    historiesMarkers[historiesMarkers.length] = {};
+                    historiesMarkers[i] = {};
                 }
             }
         });
-
         locations[terminalId].historiesMarkers = historiesMarkers;
         locations[terminalId].path = new L.polyline(poliline, {
             color: "#0000FF",
@@ -848,7 +861,6 @@ $(document).ready(function () {
         let name = $(this).attr("name");
         let selectedMessage = locations[id];
         let checked = $(this).is(":checked");
-
         if (selectedMessage) {
             if (selectedMessage.path) {
                 if (checked) {

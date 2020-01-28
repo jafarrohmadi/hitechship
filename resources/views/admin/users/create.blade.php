@@ -83,7 +83,7 @@
                     <span class="help-block">{{ trans('cruds.user.fields.terminal_helper') }}</span>
                 </div>
                 <div class="form-group">
-                    <label class="required" for="email">{{ trans('cruds.user.fields.destinasion-email') }}</label>
+                    <label for="email">{{ trans('cruds.user.fields.destinasion-email') }}</label>
                     <div class="clone-email">
                         <div class="form-inline">
                             <input class="form-control col-md-8 {{ $errors->has('email') ? 'is-invalid' : '' }}"

@@ -111,9 +111,6 @@ p { margin:0; padding:0}
     margin: 0 5px 5px;
     overflow: auto;
 }
-.inner-table-row {
-    border-bottom: 1px solid #ccc;
-}
 .inner-table-icon-cell {
     width: 20px;
     float: left;
