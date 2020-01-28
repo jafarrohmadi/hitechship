@@ -21,6 +21,7 @@ $(document).ready(function () {
     let drawSpeedValue;
     let drawLatLng = [];
     let drawCountDistanceStartEndPoint = 0;
+    let lastDrawPoint;
 
 //Set Awal
     (function () {
@@ -32,11 +33,13 @@ $(document).ready(function () {
     $("#tab-track").click(function () {
         $("#googleMap").show();
         $("#googleMapHistory").hide();
+        $("#averageSpeedTime").hide();
     });
 
     $("#tab-history").click(function () {
         $("#googleMapHistory").show();
         $("#googleMap").hide();
+        $("#box").hide();
         getDataMapHistory();
     });
 
@@ -356,6 +359,10 @@ $(document).ready(function () {
         $(".startPoint").show();
         $(".stopDrawing").hide();
         drawPolylineStart = 0;
+        if(lastDrawPoint) {
+            deleteMarkerWithIds(lastDrawPoint);
+            getMarkerWithIds(lastDrawPoint);
+        }
     });
 
     $(".startPoint").click(function () {
@@ -397,14 +404,17 @@ $(document).ready(function () {
         }
 
         let totalTime = convertDecimalToDate(drawCountDistanceStartEndPoint / drawSpeedValue);
-        let html = 'Total distance ' + (drawCountDistanceStartEndPoint * 1).toFixed(4) + ' Nautical Miles <br> <br> ETA ' + totalTime;
-
-        Swal.fire({
-            title: '<h3>Expected Time Remaining</h3>',
-            icon: 'info',
-            html: html,
-            confirmButtonText: 'Close',
-        });
+        let totalDistance = (drawCountDistanceStartEndPoint * 1).toFixed(4) + ' Nautical Miles';
+        //let html = 'Total distance ' + (drawCountDistanceStartEndPoint * 1).toFixed(4) + ' Nautical Miles <br> <br> ETA ' + totalTime;
+        $('#totalTime').html(totalTime);
+        $('#totalDistance').html(totalDistance);
+        $('#box').show();
+        // Swal.fire({
+        //     title: '<h3>Expected Time Remaining</h3>',
+        //     icon: 'info',
+        //     html: html,
+        //     confirmButtonText: 'Close',
+        // });
     }
 
     function getDistance(lat1, lon1, lat2, lon2, unit) {
@@ -539,6 +549,7 @@ $(document).ready(function () {
     $(document).on("click", "#tracking_table tbody tr.row input:checkbox", function () {
         let id = $(this).val();
         let checked = $(this).is(":checked");
+        lastDrawPoint = id;
         if (checked) {
             getMarkerWithIds(id);
             if (drawPolylineStart === 1) {
@@ -549,7 +560,9 @@ $(document).ready(function () {
                 drawLatLngInitial = L.latLng(locations[id].latitude, locations[id].longitude);
             }
         } else {
+            $('#box').hide();
             deleteMarkerWithIds(id);
+
             if (drawPolylineStart === 1) {
                 $('#tracking_table tbody tr.row input:checkbox').prop('disabled', false);
             }
@@ -655,7 +668,7 @@ $(document).ready(function () {
         }
 
         selectedTR.addClass("checked");
-        let histories_html = "<tr><td></td><td><div class=\"inner-table\">";
+        let histories_html = "<tr><td></td><td><div class=\"inner-table\" style='line-height: 23px;'>";
         $.each(locations[terminalId].histories, function (i, history) {
             let nextDay = new Date(endDate);
             nextDay.setDate(endDate.getDate() + 1);
@@ -887,12 +900,15 @@ $(document).ready(function () {
                             html = html + '<tr><td>' + data[i].name + '</td><td>' + data[i].speed + ' knots</td></tr>';
                         }
                         html = html + '</tbody>' + '</table>';
+                        $('#titleAverage').html('Average Speed Of The Ship');
+                        $('#totalAverage').html(html);
+                        $('#averageSpeedTime').show();
 
-                        Swal.fire({
-                            title: '<h3>Average Speed Of The Ship</h3>',
-                            html: html,
-                            confirmButtonText: 'Close',
-                        });
+                        // Swal.fire({
+                        //     title: '<h3>Average Speed Of The Ship</h3>',
+                        //     html: html,
+                        //     confirmButtonText: 'Close',
+                        // });
                     }
                 }
             });

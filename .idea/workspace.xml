@@ -4,14 +4,8 @@
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jafarrohmadi/hitechship&#10;&#10;# Conflicts:&#10;#&#9;public/images/bg.jpg&#10;#&#9;resources/views/auth/login.blade.php&#10;#&#9;resources/views/layouts/app.blade.php">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/skysatu.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/skysatu.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/tabs.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/tabs.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/customleaflet.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/customleaflet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/managers/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/managers/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/managers/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/managers/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/terminals/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/terminals/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/terminals/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/terminals/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/dashboard/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/dashboard/index.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -268,7 +262,7 @@
       <workItem from="1580054572263" duration="2384000" />
       <workItem from="1580176791282" duration="635000" />
       <workItem from="1580217668432" duration="3127000" />
-      <workItem from="1580245900047" duration="749000" />
+      <workItem from="1580245900047" duration="6305000" />
     </task>
     <servers />
   </component>
