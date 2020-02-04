@@ -127,7 +127,7 @@ class TerminalController extends Controller
     {
         abort_if(Gate::denies('terminal_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $ships = Ship::all()->pluck('name', 'id');
+        $ships = Ship::all();
 //        $ships = Ship::whereNotIn('id',function($query) {
 //
 //                $query->select('ship_id')->from('ship_terminal');
@@ -168,7 +168,7 @@ class TerminalController extends Controller
     public function edit(Terminal $terminal)
     {
         abort_if(Gate::denies('terminal_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $ships = Ship::all()->pluck('name', 'id');
+        $ships = Ship::all();
 //        $ships = Ship::whereNotIn('id',function($query) use ($terminal){
 //
 //            $query->select('ship_id')->from('ship_terminal')->where('terminal_id','!=', $terminal->id);

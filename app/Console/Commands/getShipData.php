@@ -46,9 +46,11 @@ class getShipData extends Command
                     if ($countShip === 0) {
                         if (Ship::where('ship_ids', $mobile->ID)->count() > 0) {
                             $ship = Ship::where('ship_ids', $mobile->ID)->first();
+                            echo 'Edit Ship Id ' . $mobile->ID ."\n";
                         }
                         else {
                             $ship = new Ship();
+                            echo 'Insert Ship Id ' . $mobile->ID ."\n";
                         }
                         $ship->ship_ids              = $mobile->ID ?? '';
                         $ship->region_name           = $mobile->RegionName ?? '';
@@ -65,7 +67,7 @@ class getShipData extends Command
                         }
                         $ship->save();
 
-                        echo 'Insert Ship Id ' . $mobile->ID ."\n";
+
                     }
                 }
             }

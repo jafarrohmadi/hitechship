@@ -32,9 +32,9 @@
                     </div>
                     <select class="form-control select2 {{ $errors->has('ships') ? 'is-invalid' : '' }}" name="ships[]"
                             id="ships" multiple>
-                        @foreach($ships as $id => $ship)
+                        @foreach($ships as $ship)
                             <option
-                                value="{{ $id }}" {{ (in_array($id, old('ships', [])) || $terminal->ships->contains($id)) ? 'selected' : '' }}>{{ $ship }}</option>
+                                value="{{ $ship->id }}" {{ (in_array($ship->id, old('ships', [])) || $terminal->ships->contains($ship->id)) ? 'selected' : '' }}>{{ $ship->ship_ids.' - '.$ship->name }}</option>
                         @endforeach
                     </select>
                     @if($errors->has('ships'))
