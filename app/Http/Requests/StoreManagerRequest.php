@@ -32,11 +32,7 @@ class StoreManagerRequest extends FormRequest
             ],
             'users.*' => [
                 'integer',
-            ],
-            'users'   => [
-                'required',
-                'array',
-            ],
+            ]
         ];
     }
 }

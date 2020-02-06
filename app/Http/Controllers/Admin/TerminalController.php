@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\EmailAlertTerminal;
 use App\EmailTerminal;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyTerminalRequest;
@@ -19,7 +20,7 @@ class TerminalController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = Terminal::with(['ships', 'email'])->select(sprintf('%s.*', (new Terminal)->table));
+            $query = Terminal::with([ 'ships', 'email', 'alertEmail' ])->select(sprintf('%s.*', (new Terminal)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -72,6 +73,14 @@ class TerminalController extends Controller
                 return implode(', ', $labels);
             }
             );
+            $table->editColumn('alertEmail', function ($row) {
+                $labels = [];
+                foreach ($row->alertEmail as $email) {
+                    $labels[] = $email->email;
+                }
+                return implode(', ', $labels);
+            }
+            );
             $table->editColumn('air_comm_blocked', function ($row) {
                 return '<input type="checkbox" disabled ' . ($row->air_comm_blocked ? 'checked' : null) . '>';
             });
@@ -106,7 +115,7 @@ class TerminalController extends Controller
                 return '<input type="checkbox" disabled ' . ($row->email_destination ? 'checked' : null) . '>';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'ship', 'ship_id', 'air_comm_blocked', 'power_backup', 'power_main', 'sleep_schedule', 'battery_low', 'speeding_start', 'speeding_end', 'modem_registration', 'geofence_in', 'geofence_out', 'email_destination']);
+            $table->rawColumns([ 'actions', 'placeholder', 'ship', 'ship_id', 'air_comm_blocked', 'power_backup', 'power_main', 'sleep_schedule', 'battery_low', 'speeding_start', 'speeding_end', 'modem_registration', 'geofence_in', 'geofence_out', 'email_destination' ]);
 
             return $table->make(true);
         }
@@ -118,7 +127,7 @@ class TerminalController extends Controller
     {
         abort_if(Gate::denies('terminal_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $ships = Ship::all()->pluck('name', 'id');
+        $ships = Ship::all();
 //        $ships = Ship::whereNotIn('id',function($query) {
 //
 //                $query->select('ship_id')->from('ship_terminal');
@@ -133,10 +142,22 @@ class TerminalController extends Controller
         $terminal = Terminal::create($request->all());
         if ($request->email) {
             foreach ($request->email as $email) {
-                $emailUser          = new EmailTerminal();
-                $emailUser->email   = $email;
-                $emailUser->terminal_id = $terminal->id;
-                $emailUser->save();
+                if ($email) {
+                    $emailUser              = new EmailTerminal();
+                    $emailUser->email       = $email;
+                    $emailUser->terminal_id = $terminal->id;
+                    $emailUser->save();
+                }
+            }
+        }
+        if ($request->alertEmail) {
+            foreach ($request->alertEmail as $email) {
+                if ($email) {
+                    $emailUser              = new EmailAlertTerminal();
+                    $emailUser->email       = $email;
+                    $emailUser->terminal_id = $terminal->id;
+                    $emailUser->save();
+                }
             }
         }
         $terminal->ships()->sync($request->input('ships', []));
@@ -147,7 +168,7 @@ class TerminalController extends Controller
     public function edit(Terminal $terminal)
     {
         abort_if(Gate::denies('terminal_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $ships = Ship::all()->pluck('name', 'id');
+        $ships = Ship::all();
 //        $ships = Ship::whereNotIn('id',function($query) use ($terminal){
 //
 //            $query->select('ship_id')->from('ship_terminal')->where('terminal_id','!=', $terminal->id);
@@ -167,12 +188,27 @@ class TerminalController extends Controller
         if ($request->email) {
             EmailTerminal::where('terminal_id', $terminal->id)->delete();
             foreach ($request->email as $email) {
-                $emailUser          = new EmailTerminal();
-                $emailUser->email   = $email;
-                $emailUser->terminal_id = $terminal->id;
-                $emailUser->save();
+                if ($email) {
+                    $emailUser              = new EmailTerminal();
+                    $emailUser->email       = $email;
+                    $emailUser->terminal_id = $terminal->id;
+                    $emailUser->save();
+                }
             }
         }
+
+        if ($request->alertEmail) {
+            EmailAlertTerminal::where('terminal_id', $terminal->id)->delete();
+            foreach ($request->alertEmail as $email) {
+                if ($email) {
+                    $emailUser              = new EmailAlertTerminal();
+                    $emailUser->email       = $email;
+                    $emailUser->terminal_id = $terminal->id;
+                    $emailUser->save();
+                }
+            }
+        }
+
         return redirect()->route('admin.terminals.index');
     }
 

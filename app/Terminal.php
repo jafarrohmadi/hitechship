@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Terminal extends Model
 {
-    use SoftDeletes;
-
     public $table = 'terminals';
 
     protected $dates = [
@@ -48,6 +46,11 @@ class Terminal extends Model
     public function email ()
     {
         return $this->hasMany(EmailTerminal::class);
+    }
+
+    public function alertEmail()
+    {
+        return $this->hasMany(EmailAlertTerminal::class);
     }
 
 }

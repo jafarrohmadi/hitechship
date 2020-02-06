@@ -17,16 +17,16 @@ class UpdateUserRequest extends FormRequest
         return true;
     }
 
-    public function rules(Request $request, $id)
+    public function rules(Request $request)
     {
         return [
             'name'    => [
                 'required',
-                'unique:users,name,'.$id.',id,deleted_at,NULL',
+                'unique:users,name,'.$request->segment(3).',id,deleted_at,NULL',
             ],
             'username'   => [
                 'required',
-                'unique:users,username,'.$id.',id,deleted_at,NULL',
+                'unique:users,username,'.$request->segment(3).',id,deleted_at,NULL',
             ],
             'roles.*' => [
                 'integer',

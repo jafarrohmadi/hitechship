@@ -25,7 +25,6 @@ class StoreTerminalRequest extends FormRequest
                 'integer',
             ],
             'ships' => [
-                'required',
                 'array',
             ],
         ];

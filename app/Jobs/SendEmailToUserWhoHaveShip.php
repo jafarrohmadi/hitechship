@@ -27,6 +27,8 @@ class SendEmailToUserWhoHaveShip implements ShouldQueue
      *
      * @param HistoryShip $historyShip
      * @param Ship $ship
+     * @param $sendEmail
+     * @param $userName
      */
     public function __construct(HistoryShip $historyShip, Ship $ship , $sendEmail, $userName)
     {

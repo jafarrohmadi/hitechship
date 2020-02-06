@@ -70,6 +70,9 @@
                         {{ trans('cruds.terminal.fields.destinasion_email_list') }}
                     </th>
                     <th>
+                        {{ trans('cruds.terminal.fields.alert_email_list') }}
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -144,6 +147,7 @@
                         {data: 'geofence_out', name: 'geofence_out'},
                         {data: 'email_destination', name: 'email_destination'},
                         {data: 'email', name: 'email.email'},
+                        {data: 'alertEmail', name: 'alertEmail.email'},
                         {data: 'actions', name: '{{ trans('global.actions') }}'}
                     ],
                     order: [[1, 'desc']],

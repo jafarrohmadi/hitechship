@@ -43,12 +43,12 @@
                 <span class="help-block">{{ trans('cruds.user.fields.password_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="users">{{ trans('cruds.manager.fields.user') }}</label>
+                <label for="users">{{ trans('cruds.manager.fields.user') }}</label>
                 <div style="padding-bottom: 4px">
                     <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
                     <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
                 </div>
-                <select class="form-control select2 {{ $errors->has('users') ? 'is-invalid' : '' }}" name="users[]" id="users" multiple required>
+                <select class="form-control select2 {{ $errors->has('users') ? 'is-invalid' : '' }}" name="users[]" id="users" multiple>
                     @foreach($users as $id => $user)
                         <option value="{{ $id }}" {{ in_array($id, old('users', [])) ? 'selected' : '' }}> {{ $id .' - '.$user  }}</option>
                     @endforeach

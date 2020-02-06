@@ -17,12 +17,12 @@ class UpdateRoleRequest extends FormRequest
         return true;
     }
 
-    public function rules(Request $request , $id)
+    public function rules(Request $request)
     {
         return [
             'title'         => [
                 'required',
-                'unique:roles,title,'.$id.',id,deleted_at,NULL'
+                'unique:roles,title,'.$request->segment(3).',id,deleted_at,NULL'
             ],
             'permissions.*' => [
                 'integer',

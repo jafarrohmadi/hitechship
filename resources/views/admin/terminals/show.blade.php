@@ -139,6 +139,16 @@
                             @endforeach
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.terminal.fields.alert_email_list') }}
+                        </th>
+                        <td>
+                            @foreach($terminal->alertEmail as $keys => $emails)
+                                <span class="label label-info">{{ $emails->email }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

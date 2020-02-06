@@ -17,23 +17,21 @@ class UpdateManagerRequest extends FormRequest
         return true;
     }
 
-    public function rules(Request $request, $id)
+    public function rules(Request $request)
     {
+        $manager = Manager::find($request->segment(3));
+
         return [
             'name' => [
                 'required',
-                'unique:users,name,'.$id.',id,deleted_at,NULL'
+                'unique:users,name,'.$manager->manager_id.',id,deleted_at,NULL'
             ],
             'username' => [
                 'required',
-                'unique:users,username,'.$id.',id,deleted_at,NULL'
+                'unique:users,username,'.$manager->manager_id.',id,deleted_at,NULL'
             ],
             'users.*' => [
                 'integer',
-            ],
-            'users'   => [
-                'required',
-                'array',
             ],
         ];
     }

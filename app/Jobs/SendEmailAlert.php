@@ -2,9 +2,9 @@
 
 namespace App\Jobs;
 
-use App\EmailTerminal;
+use App\EmailAlertTerminal;
 use App\HistoryShip;
-use App\Mail\PertaminaShipped;
+use App\Mail\AlertShipped;
 use App\Ship;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,7 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 
-class SendEmailPertamina implements ShouldQueue
+class SendEmailAlert implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     protected $historyShip;
@@ -25,12 +25,12 @@ class SendEmailPertamina implements ShouldQueue
      *
      * @param HistoryShip $historyShip
      * @param Ship $ship
-     * @param EmailTerminal $emailTerminal
+     * @param EmailAlertTerminal $emailTerminal
      */
-    public function __construct(HistoryShip $historyShip, Ship $ship, EmailTerminal $emailTerminal)
+    public function __construct(HistoryShip $historyShip, Ship $ship, EmailAlertTerminal $emailTerminal)
     {
-        $this->historyShip = $historyShip;
-        $this->ship = $ship;
+        $this->historyShip   = $historyShip;
+        $this->ship          = $ship;
         $this->emailTerminal = $emailTerminal;
     }
 
@@ -41,6 +41,6 @@ class SendEmailPertamina implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->emailTerminal)->send(new PertaminaShipped($this->historyShip, $this->ship));
+        Mail::to($this->emailTerminal)->send(new AlertShipped($this->historyShip, $this->ship, $this->emailTerminal));
     }
 }

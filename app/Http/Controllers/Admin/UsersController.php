@@ -86,7 +86,7 @@ class UsersController extends Controller
     public function create ()
     {
         abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $roles     = Role::where('id', '!=', 2)->get()->pluck('title', 'id');
+        $roles     = Role::where('id', '!=', 2)->where('id', '!=', 1)->get()->pluck('title', 'id');
         $terminals = Terminal::all()->pluck('name', 'id');
 //        $terminals = Terminal::whereNotIn('id',function($query) {
 //
@@ -101,10 +101,12 @@ class UsersController extends Controller
         $user = User::create($request->all());
         if ($request->email) {
             foreach ($request->email as $email) {
-                $emailUser          = new EmailUser();
-                $emailUser->email   = $email;
-                $emailUser->user_id = $user->id;
-                $emailUser->save();
+                if($email) {
+                    $emailUser          = new EmailUser();
+                    $emailUser->email   = $email;
+                    $emailUser->user_id = $user->id;
+                    $emailUser->save();
+                }
             }
         }
         $user->roles()->sync($request->input('roles', []));
@@ -115,7 +117,7 @@ class UsersController extends Controller
     public function edit (User $user)
     {
         abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $roles     = Role::where('id', '!=', 2)->get()->pluck('title', 'id');
+        $roles     = Role::where('id', '!=', 2)->where('id', '!=', 1)->get()->pluck('title', 'id');
 
 //        $terminals = Terminal::whereNotIn('id',function($query) use ($user){
 //            $query->select('terminal_id')->from('terminal_user')->where('user_id', '!=',$user->id);

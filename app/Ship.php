@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Ship extends Model
 {
-    use SoftDeletes;
-
     public $table = 'ships';
 
     public static $searchable = [

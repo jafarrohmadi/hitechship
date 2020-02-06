@@ -77,7 +77,7 @@
                 <span class="help-block">{{ trans('cruds.user.fields.terminal_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="email">{{ trans('cruds.user.fields.destinasion-email') }}</label>
+                <label for="email">{{ trans('cruds.user.fields.destinasion-email') }}</label>
                 <?php $i = 0; ?>
                 @foreach($user->email as $email)
                 <div class="clone-email">

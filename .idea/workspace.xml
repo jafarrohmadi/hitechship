@@ -3,12 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="Merge branch 'master' of https://github.com/jafarrohmadi/hitechship&#10;&#10;# Conflicts:&#10;#&#9;public/images/bg.jpg&#10;#&#9;resources/views/auth/login.blade.php&#10;#&#9;resources/views/layouts/app.blade.php">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/0.05green-ship.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/0.05green-ship.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/0.05orange-ship.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/0.05orange-ship.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/0.05red-ship.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/0.05red-ship.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/0.5green-ship.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/0.5green-ship.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/0.5orange-ship.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/0.5orange-ship.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/0.5red-ship.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/0.5red-ship.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/customleaflet.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/customleaflet.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -254,7 +248,19 @@
       <workItem from="1578216745895" duration="16914000" />
       <workItem from="1578276503495" duration="660000" />
       <workItem from="1578305089049" duration="1096000" />
-      <workItem from="1578414213278" duration="1605000" />
+      <workItem from="1578414213278" duration="2204000" />
+      <workItem from="1578450440591" duration="804000" />
+      <workItem from="1578544607338" duration="1307000" />
+      <workItem from="1579171868604" duration="1325000" />
+      <workItem from="1579547188131" duration="7267000" />
+      <workItem from="1579706915520" duration="11613000" />
+      <workItem from="1579745640920" duration="5532000" />
+      <workItem from="1579935054706" duration="19117000" />
+      <workItem from="1580048773427" duration="684000" />
+      <workItem from="1580054572263" duration="2384000" />
+      <workItem from="1580176791282" duration="635000" />
+      <workItem from="1580217668432" duration="3127000" />
+      <workItem from="1580245900047" duration="7407000" />
     </task>
     <servers />
   </component>
@@ -279,18 +285,19 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="426" y="166" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728@0.0.1366.728" timestamp="1576608775406" />
-    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1578305406329">
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1579973118820">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1578305406329" />
-    <state x="261" y="0" key="CommitChangelistDialog2" timestamp="1576847952999">
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1579973118820" />
+    <state x="261" y="0" key="CommitChangelistDialog2" timestamp="1579980399068">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="261" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1576847952999" />
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1578276565011">
+    <state x="261" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1579980399068" />
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1580176828586">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1578276565011" />
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1579751195043" />
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1580176828586" />
     <state x="129" y="54" key="MergeDialog" timestamp="1576847919954">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -299,42 +306,42 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="395" y="79" key="MultipleFileMergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1576847924977" />
-    <state x="517" y="287" key="NewPhpFileDialog" timestamp="1578222985545">
+    <state x="517" y="287" key="NewPhpFileDialog" timestamp="1579967184530">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="517" y="287" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1578222985545" />
+    <state x="517" y="287" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1579967184530" />
     <state x="530" y="74" key="RollbackChangesDialog" timestamp="1576883892143">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="530" y="74" key="RollbackChangesDialog/0.0.1366.728@0.0.1366.728" timestamp="1576883892143" />
-    <state x="184" y="6" key="SettingsEditor" timestamp="1578076130196">
+    <state x="184" y="6" key="SettingsEditor" timestamp="1579935253955">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="184" y="6" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1578076130196" />
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1578305574437">
+    <state x="184" y="6" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1579935253955" />
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1579981036795">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1578305574437" />
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1579981036795" />
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog" timestamp="1577374157611">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1577374157611" />
-    <state x="384" y="187" key="com.intellij.ide.util.TipDialog" timestamp="1578276512632">
+    <state x="384" y="187" key="com.intellij.ide.util.TipDialog" timestamp="1580245984351">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="384" y="187" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1578276512632" />
-    <state x="379" y="101" width="607" height="526" key="find.popup" timestamp="1578240188673">
+    <state x="384" y="187" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1580245984351" />
+    <state x="379" y="101" width="607" height="526" key="find.popup" timestamp="1580055104586">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="379" y="101" width="607" height="526" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1578240188673" />
+    <state x="379" y="101" width="607" height="526" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1580055104586" />
     <state x="339" y="162" key="run.anything.popup" timestamp="1577556314263">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1577556314263" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1578226384533">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1579981960221">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1578226384533" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1579981960221" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

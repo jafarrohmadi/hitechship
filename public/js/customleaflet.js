@@ -21,6 +21,7 @@ $(document).ready(function () {
     let drawSpeedValue;
     let drawLatLng = [];
     let drawCountDistanceStartEndPoint = 0;
+    let lastDrawPoint;
 
 //Set Awal
     (function () {
@@ -32,11 +33,13 @@ $(document).ready(function () {
     $("#tab-track").click(function () {
         $("#googleMap").show();
         $("#googleMapHistory").hide();
+        $("#averageSpeedTime").hide();
     });
 
     $("#tab-history").click(function () {
         $("#googleMapHistory").show();
         $("#googleMap").hide();
+        $("#box").hide();
         getDataMapHistory();
     });
 
@@ -151,7 +154,7 @@ $(document).ready(function () {
         }).addTo(map);
 
         L.control.zoom({
-            position:'bottomright'
+            position: 'bottomright'
         }).addTo(map);
     }
 
@@ -169,13 +172,17 @@ $(document).ready(function () {
         }).addTo(mapHistory);
 
         L.control.zoom({
-            position:'bottomright'
-        }).addTo(map);
+            position: 'bottomright'
+        }).addTo(mapHistory);
     }
 
     function centerLeafletMapHistoriesOnMarker(lat, lng) {
-        mapHistory.flyTo(new L.LatLng(lat, lng), 5);
+        mapHistory.flyTo(new L.LatLng(lat, lng), 9);
     }
+
+    // function centerLeafletMapHistoriesOnMarker(lat, lng) {
+    //     mapHistory.flyTo(new L.LatLng(lat, lng), 13);
+    // }
 
 //TRACK
     function getDataShip() {
@@ -185,70 +192,101 @@ $(document).ready(function () {
             success: function (data) {
                 let getDataShip = '';
                 let getDataHistoryShip = '';
-                let damask, jsonParse, lastSeeShip = '';
-                let timeShip, speed, latitude, longitude, key , heading= '';
-                let k = 0;
+                let damask, jsonParse, lastSeeShip, damaskus = '';
+                let timeShip, speed, latitude, longitude, key, heading = '';
+                let king = 0;
+                let topKing = 0;
+
                 for (let i in data) {
-                    if (i === "") {
-                        damask = 'Unassigned terminals';
-                    } else {
-                        damask = i;
+                    damask = i;
+                    if(i !== '') {
+                        getDataShip = getDataShip + '<tr class="header2" style="background-color: #aad3df"><td><input type="checkbox" id="top' + topKing + '" name="top' + topKing + '" checked="checked"/></td> <td colspan="3">' + damask + '</td> </tr>';
+
+                        getDataHistoryShip = getDataHistoryShip + '<tr class="header2" style="background-color: #aad3df"><td></td><td>' + damask + '</td></tr>';
                     }
-
-                    getDataShip = getDataShip + '<tr class="header"><td><input type="checkbox" name="' + k + '" checked="checked"/></td> <td colspan="3">' + damask + '</td> </tr>';
-
-                    getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td></td><td>' + damask + '</td></tr>';
-
                     for (const j in data[i]) {
-                        if (data[i][j]['ship_history_ships_latest']) {
-                            timeShip = Date.parse(data[i][j]['ship_history_ships_latest']['message_utc']) + 7 * 60 * 60 * 1000;
-                            lastSeeShip = getTimeDifference(timeShip);
+                        if (j === "") {
+                            damaskus = 'Unassigned terminals';
+                        } else {
+                            damaskus = j;
+                        }
+                        if(i !== '') {
+                            getDataShip = getDataShip + '<tr class="header"><td style="padding-left: 10px"><input type="checkbox" id="top' + topKing + '" name="' + king + '" checked="checked"/></td> <td colspan="3" style="padding-left: 10px">' + damaskus + '</td> </tr>';
+                            getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td style="padding-left: 10px"></td><td style="padding-left: 10px">' + damaskus + '</td></tr>';
+                        }else {
+                            getDataShip = getDataShip + '<tr class="header"><td><input type="checkbox" id="top' + topKing + '" name="' + king + '" checked="checked"/></td> <td colspan="3">' + damaskus + '</td> </tr>';
+                            getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td></td><td>' + damaskus + '</td></tr>';
+                        }
+                        for (const k in data[i][j]) {
+                            if (data[i][j][k]['ship_history_ships_latest']) {
+                                timeShip = Date.parse(data[i][j][k]['ship_history_ships_latest']['message_utc']) + 7 * 60 * 60 * 1000;
+                                lastSeeShip = getTimeDifference(timeShip);
 
-                            jsonParse = JSON.parse(data[i][j]['ship_history_ships_latest']['payload']);
-                            for (const k in jsonParse['Fields']) {
-                                if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'speed') {
-                                    speed = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
+                                jsonParse = JSON.parse(data[i][j][k]['ship_history_ships_latest']['payload']);
+                                for (const l in jsonParse['Fields']) {
+                                    if (jsonParse['Fields'][l]['Name'].toLowerCase() === 'speed') {
+                                        speed = (jsonParse['Fields'][l]['Value'] * 1).toFixed(1);
+                                    }
+
+                                    if (jsonParse['Fields'][l]['Name'].toLowerCase() === 'latitude') {
+                                        latitude = (jsonParse['Fields'][l]['Value'] * 1).toFixed(4);
+                                    }
+
+                                    if (jsonParse['Fields'][l]['Name'].toLowerCase() === 'longitude') {
+                                        longitude = (jsonParse['Fields'][l]['Value'] * 1).toFixed(4);
+                                    }
+
+                                    if (jsonParse['Fields'][l]['Name'].toLowerCase() === 'heading') {
+                                        heading = (jsonParse['Fields'][l]['Value'] * 1).toFixed(1);
+                                    }
                                 }
+                                key = data[i][j][k]['ship_ids'];
+                                locations[key] = {};
+                                locations[key]['id'] = data[i][j][k]['id'];
+                                locations[key]['name'] = data[i][j][k]['name'];
+                                locations[key]['eventTime'] = timeShip;
+                                locations[key]['heading'] = heading ? heading : 0;
+                                locations[key]['speed'] = speed ? speed : 0;
+                                locations[key]['latitude'] = latitude;
+                                locations[key]['longitude'] = longitude;
+                            } else {
+                                lastSeeShip = '-';
+                                speed = 0;
+                            }
 
-                                if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'latitude') {
-                                    latitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
-                                }
+                            speed = speed === undefined ? 0 : speed;
+                            let checkbox = lastSeeShip == '-' ? '' : '<input type="checkbox" id="top' + topKing + '" name="' + king + '" value="' + data[i][j][k]['ship_ids'] + '" checked="checked"/>';
+                            if (data[i][j][k]['name'] != null) {
+                                if(i !== '') {
+                                    getDataShip = getDataShip + '<tr class="row">' +
+                                        '<td><span style="padding-left: 20px">' + checkbox + '</span></td>' +
+                                        '<td><span style="padding-left: 20px">' + data[i][j][k]['name'] + ' </span></td>' +
+                                        '<td style="padding-right: 20px" id="' + data[i][j][k]['ship_ids'] + '-last">' + lastSeeShip + '</td>' +
+                                        '<td id="' + data[i][j][k]['ship_ids'] + '-speed">' + speed + '</td></tr>';
 
-                                if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'longitude') {
-                                    longitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
-                                }
+                                    getDataHistoryShip = getDataHistoryShip +
+                                        '<tr class="row">' +
+                                        '<td style="padding-left: 20px"><input type="checkbox" name="' + i + '" value="' + data[i][j][k]['ship_ids'] + '"/></td>' +
+                                        '<td style="padding-left: 20px">' + data[i][j][k]['name'] + '</td>' +
+                                        '</tr>';
+                                }else {
+                                    getDataShip = getDataShip + '<tr class="row">' +
+                                        '<td><span style="padding-left: 10px">' + checkbox + '</span></td>' +
+                                        '<td><span style="padding-left: 10px">' + data[i][j][k]['name'] + ' </span></td>' +
+                                        '<td style="padding-right: 10px" id="' + data[i][j][k]['ship_ids'] + '-last">' + lastSeeShip + '</td>' +
+                                        '<td id="' + data[i][j][k]['ship_ids'] + '-speed">' + speed + '</td></tr>';
 
-                                if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'heading') {
-                                    heading = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
+                                    getDataHistoryShip = getDataHistoryShip +
+                                        '<tr class="row">' +
+                                        '<td style="padding-left: 10px"><input type="checkbox" name="' + i + '" value="' + data[i][j][k]['ship_ids'] + '"/></td>' +
+                                        '<td style="padding-left: 10px">' + data[i][j][k]['name'] + '</td>' +
+                                        '</tr>';
                                 }
                             }
-                            key = data[i][j]['ship_ids'];
-                            locations[key] = {};
-                            locations[key]['id'] = data[i][j]['id'];
-                            locations[key]['name'] = data[i][j]['name'];
-                            locations[key]['eventTime'] = timeShip;
-                            locations[key]['heading'] = heading ? heading : 0;
-                            locations[key]['speed'] = speed ? speed : 0;
-                            locations[key]['latitude'] = latitude;
-                            locations[key]['longitude'] = longitude;
-                        } else {
-                            lastSeeShip = '-';
-                            speed = 0;
                         }
-                        speed = speed === undefined ? 0 : speed;
-                        let checkbox = lastSeeShip == '-' ? '' :'<input type="checkbox" name="' + k + '" value="' + data[i][j]['ship_ids'] + '" checked="checked"/>';
-                        getDataShip = getDataShip + '<tr class="row">' +
-                            '<td>'+ checkbox +'</td>' +
-                            '<td>' + data[i][j]['name'] + ' </td>' +
-                            '<td id="' + data[i][j]['ship_ids'] + '-last">' + lastSeeShip + '</td>' +
-                            '<td id="' + data[i][j]['ship_ids'] + '-speed">' + speed + '</td></tr>';
-                        getDataHistoryShip = getDataHistoryShip +
-                            '<tr class="row">' +
-                            '<td><input type="checkbox" name="' + i + '" value="' + data[i][j]['ship_ids'] + '"/></td>' +
-                            '<td>' + data[i][j]['name'] + '</td>' +
-                            '</tr>';
+                        king++;
                     }
-                    k++;
+                    topKing++;
                 }
 
                 $('#shipData').html(getDataShip);
@@ -263,9 +301,9 @@ $(document).ready(function () {
         map.addLayer(markers);
         for (let terminalId in locations) {
             let message = locations[terminalId];
-            if(message.latitude != undefined && message.longitude != undefined) {
+            if (message.latitude != undefined && message.longitude != undefined) {
                 let greenIcon = new LeafIcon({iconUrl: getIcon(message)});
-                let rotation = message.speed > 0.49 ? Math.round(message.heading *1) : 0;
+                let rotation = message.speed > 0.49 ? Math.round(message.heading * 1) : 0;
                 let popup = showInfoPopUp(message);
                 let marker = L.marker([message.latitude, message.longitude],
                     {rotationAngle: rotation, icon: greenIcon});
@@ -273,9 +311,7 @@ $(document).ready(function () {
                 marker.on('click', function (e) {
                     this.openPopup();
                 });
-                // marker.on('mouseout', function (e) {
-                //     this.closePopup();
-                // });
+
                 filterMarkers[terminalId] = marker;
                 markers.addLayer(marker);
             }
@@ -323,10 +359,14 @@ $(document).ready(function () {
         $("#tracking_table thead  input:checkbox[id=checkAll]").prop("disabled", false);
 
         $('#tracking_table tbody tr.header input:checkbox').prop('disabled', false);
-
+        $('#tracking_table tbody tr.header2 input:checkbox').prop('disabled', false);
         $(".startPoint").show();
         $(".stopDrawing").hide();
         drawPolylineStart = 0;
+        if(lastDrawPoint) {
+            deleteMarkerWithIds(lastDrawPoint);
+            getMarkerWithIds(lastDrawPoint);
+        }
     });
 
     $(".startPoint").click(function () {
@@ -339,6 +379,7 @@ $(document).ready(function () {
         $("#tracking_table tbody tr.row input:checkbox").trigger("change");
 
         $('#tracking_table tbody tr.header input:checkbox').prop('disabled', true);
+        $('#tracking_table tbody tr.header2 input:checkbox').prop('disabled', true);
 
         $(".startPoint").hide();
         $(".stopDrawing").show();
@@ -367,14 +408,17 @@ $(document).ready(function () {
         }
 
         let totalTime = convertDecimalToDate(drawCountDistanceStartEndPoint / drawSpeedValue);
-        let html = 'Total distance ' + (drawCountDistanceStartEndPoint * 1).toFixed(4) + ' Nautical Miles <br> <br> ETA ' + totalTime;
-
-        Swal.fire({
-            title: '<h3>Expected Time Remaining</h3>',
-            icon: 'info',
-            html: html,
-            confirmButtonText: 'Close',
-        });
+        let totalDistance = (drawCountDistanceStartEndPoint * 1).toFixed(4) + ' Nautical Miles';
+        //let html = 'Total distance ' + (drawCountDistanceStartEndPoint * 1).toFixed(4) + ' Nautical Miles <br> <br> ETA ' + totalTime;
+        $('#totalTime').html(totalTime);
+        $('#totalDistance').html(totalDistance);
+        $('#box').show();
+        // Swal.fire({
+        //     title: '<h3>Expected Time Remaining</h3>',
+        //     icon: 'info',
+        //     html: html,
+        //     confirmButtonText: 'Close',
+        // });
     }
 
     function getDistance(lat1, lon1, lat2, lon2, unit) {
@@ -478,6 +522,24 @@ $(document).ready(function () {
         }
     });
 
+    $(document).on("click", "#tracking_table tbody tr.header2 input:checkbox", function () {
+        let checkbox_selector = "#tracking_table input[id='" + $(this).attr("id") + "']";
+        $(checkbox_selector).not(this).prop("checked", this.checked);
+        $(checkbox_selector).trigger("change");
+
+        let getTerminalId = [];
+        $.each($("#tracking_table input[id='" + $(this).attr("id") + "']"), function () {
+            getTerminalId.push($(this).val());
+        });
+
+        getTerminalId.indexOf('on') !== -1 && getTerminalId.splice(getTerminalId.indexOf('on'), 1);
+        if ($(checkbox_selector).prop("checked") === true) {
+            getMarkerWithIds(getTerminalId);
+        } else {
+            deleteMarkerWithIds(getTerminalId);
+        }
+    });
+
     $(document).on("click", "#tracking_table tbody tr.row", function () {
         let id = $("input:checkbox", this).val();
         if (typeof locations[id] != "undefined") {
@@ -491,6 +553,7 @@ $(document).ready(function () {
     $(document).on("click", "#tracking_table tbody tr.row input:checkbox", function () {
         let id = $(this).val();
         let checked = $(this).is(":checked");
+        lastDrawPoint = id;
         if (checked) {
             getMarkerWithIds(id);
             if (drawPolylineStart === 1) {
@@ -501,7 +564,9 @@ $(document).ready(function () {
                 drawLatLngInitial = L.latLng(locations[id].latitude, locations[id].longitude);
             }
         } else {
+            $('#box').hide();
             deleteMarkerWithIds(id);
+
             if (drawPolylineStart === 1) {
                 $('#tracking_table tbody tr.row input:checkbox').prop('disabled', false);
             }
@@ -607,7 +672,7 @@ $(document).ready(function () {
         }
 
         selectedTR.addClass("checked");
-        let histories_html = "<tr><td></td><td><div class=\"inner-table\">";
+        let histories_html = "<tr><td></td><td><div class=\"inner-table\" style='line-height: 23px;'>";
         $.each(locations[terminalId].histories, function (i, history) {
             let nextDay = new Date(endDate);
             nextDay.setDate(endDate.getDate() + 1);
@@ -701,38 +766,33 @@ $(document).ready(function () {
                             color: '#000000',
                             fillColor: '#0000FF',
                             fillOpacity: 1,
-                            radius: 30000
+                            radius: 500
                         });
                     } else if (histories.length > 1 && histories.length === i + 1) {
                         markerHistory = L.marker([latitude, longitude], {
                             rotationAngle: rotation, icon: greenIcon
                         });
                     } else {
-
                         markerHistory = L.circle([latitude, longitude], {
                             color: '#000000',
                             fillColor: '#ff0000',
                             fillOpacity: 1,
-                            radius: 30000
+                            radius: 500
                         });
-
                     }
 
                     markerHistory.bindPopup(popup, {"closeOnClick": null});
                     markerHistory.on('click', function (e) {
                         this.openPopup();
                     });
-                    // markerHistory.on('mouseout', function (e) {
-                    //     this.closePopup();
-                    // });
+
                     markersHistory.addLayer(markerHistory);
-                    historiesMarkers[historiesMarkers.length] = markerHistory;
+                    historiesMarkers[i] = markerHistory;
                 } else {
-                    historiesMarkers[historiesMarkers.length] = {};
+                    historiesMarkers[i] = {};
                 }
             }
         });
-
         locations[terminalId].historiesMarkers = historiesMarkers;
         locations[terminalId].path = new L.polyline(poliline, {
             color: "#0000FF",
@@ -818,11 +878,22 @@ $(document).ready(function () {
         let name = $(this).attr("name");
         let selectedMessage = locations[id];
         let checked = $(this).is(":checked");
-
         if (selectedMessage) {
             if (selectedMessage.path) {
                 if (checked) {
-                    centerLeafletMapHistoriesOnMarker(locations[id].latitude, locations[id].longitude);
+                    let latitude, longitude;
+                    let jsonParse = JSON.parse(selectedMessage.histories[name].payload);
+                    for (const k in jsonParse['Fields']) {
+                        if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'latitude') {
+                            latitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                        }
+
+                        if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'longitude') {
+                            longitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                        }
+                    }
+
+                    centerLeafletMapHistoriesOnMarker(latitude, longitude);
                     average_speed.push([name, selectedMessage.histories[name].id, selectedMessage.histories[name].message_utc]);
                     selectedMessage.historiesMarkers[name].openPopup();
                 } else {
@@ -832,7 +903,9 @@ $(document).ready(function () {
                 }
             }
         }
-
+        if(average_speed.length == 0){
+            $('#averageSpeedTime').hide();
+        }
         if (average_speed.length > 1 && average_speed.length % 2 === 0) {
             $.ajax({
                 type: 'get',
@@ -845,12 +918,15 @@ $(document).ready(function () {
                             html = html + '<tr><td>' + data[i].name + '</td><td>' + data[i].speed + ' knots</td></tr>';
                         }
                         html = html + '</tbody>' + '</table>';
+                        $('#titleAverage').html('Average Speed Of The Ship');
+                        $('#totalAverage').html(html);
+                        $('#averageSpeedTime').show();
 
-                        Swal.fire({
-                            title: '<h3>Average Speed Of The Ship</h3>',
-                            html: html,
-                            confirmButtonText: 'Close',
-                        });
+                        // Swal.fire({
+                        //     title: '<h3>Average Speed Of The Ship</h3>',
+                        //     html: html,
+                        //     confirmButtonText: 'Close',
+                        // });
                     }
                 }
             });
@@ -914,7 +990,7 @@ $(document).ready(function () {
 
                             let marker = L.marker([latitude, longitude],
                                 {rotationAngle: rotation, icon: greenIcon});
-                            marker.bindPopup(popup , {"autoClose": false, "closeOnClick": null});
+                            marker.bindPopup(popup, {"autoClose": false, "closeOnClick": null});
                             filterMarkers[data[i][j].ship_ids] = marker;
                             let checked = [];
                             $('#tracking_table tbody tr.row input:checkbox:checked').each(function () {
