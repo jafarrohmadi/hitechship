@@ -100,7 +100,7 @@ p { margin:0; padding:0}
 .fixed_headers tbody {
     display: block;
     overflow: auto;
-    height: 90px;
+    height: 590px;
 }
 .inner-table {
     font-size: 12px;
