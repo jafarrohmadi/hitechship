@@ -260,14 +260,14 @@ $(document).ready(function () {
                                 if(i !== '') {
                                     getDataShip = getDataShip + '<tr class="row">' +
                                         '<td><span style="padding-left: 20px">' + checkbox + '</span></td>' +
-                                        '<td><span style="padding-left: 20px">' + data[i][j][k]['name'] + ' </span></td>' +
-                                        '<td style="padding-right: 20px" id="' + data[i][j][k]['ship_ids'] + '-last">' + lastSeeShip + '</td>' +
+                                        '<td><span style="padding-left: 0px">' + data[i][j][k]['name'] + ' </span></td>' +
+                                        '<td style="padding-right: 0px" id="' + data[i][j][k]['ship_ids'] + '-last">' + lastSeeShip + '</td>' +
                                         '<td id="' + data[i][j][k]['ship_ids'] + '-speed">' + speed + '</td></tr>';
 
                                     getDataHistoryShip = getDataHistoryShip +
                                         '<tr class="row">' +
-                                        '<td style="padding-left: 20px"><input type="checkbox" name="' + i + '" value="' + data[i][j][k]['ship_ids'] + '"/></td>' +
-                                        '<td style="padding-left: 20px">' + data[i][j][k]['name'] + '</td>' +
+                                        '<td style="padding-left: 11px"><input type="checkbox" name="' + i + '" value="' + data[i][j][k]['ship_ids'] + '"/></td>' +
+                                        '<td style="padding-left: 0px">' + data[i][j][k]['name'] + '</td>' +
                                         '</tr>';
                                 }else {
                                     getDataShip = getDataShip + '<tr class="row">' +
