@@ -64,7 +64,7 @@
 <div>
 {{--    @include('partials.menu')--}}
     <main class="main">
-        <div style="padding-top: 20px" class="container-fluid">
+        <div class="container-fluid">
             @if(session('message'))
                 <div class="row mb-2">
                     <div class="col-lg-12">

@@ -82,7 +82,7 @@
         }
     </style>
 </head>
-<body style="height: inherit !important;">
+<body>
 <div id="googleMap"></div>
 <div id="googleMapHistory" style="display: none"></div>
 <div id="speedCount" class="modal fade" role="dialog">
@@ -167,7 +167,7 @@
                     </table>
                 </section>
                 <section id="section-linebox-2">
-                    <div style="text-align: right;">
+                    <div style="text-align: center;">
                         <input type="text" class="datepicker startDate">&nbsp;
                         <input type="text" class="datepicker endDate">
                         <button id="setDate"><i class="fa fa-search"></i>&nbsp;Search</button>

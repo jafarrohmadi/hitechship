@@ -64,6 +64,10 @@ table.dataTable thead .sorting_desc {
     cursor: pointer;
 }
 
+.navbar {
+    height: 21px;
+}
+
 .btn-default {
     color: #23282c;
     background-color: #f0f3f5;

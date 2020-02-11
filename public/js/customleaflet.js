@@ -136,7 +136,7 @@ $(document).ready(function () {
             $('#floating-panel div.close i').addClass("fa-angle-double-left");
         } else {
             $this.animate({
-                left: '-425px'
+                left: '-285px'
             }).addClass('open');
             $('#floating-panel div.close i').removeClass("fa-angle-double-left");
             $('#floating-panel div.close i').addClass("fa-angle-double-right");
@@ -146,7 +146,7 @@ $(document).ready(function () {
     function getDataMap() {
         map = L.map('googleMap', {
             zoomControl: false,
-            center: [0, 118.8230631], zoom: 5
+            center: [0, 118.8230631], zoom: 5 
         });
 
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -154,7 +154,7 @@ $(document).ready(function () {
         }).addTo(map);
 
         L.control.zoom({
-            position: 'bottomright'
+            position: 'topright'
         }).addTo(map);
     }
 
@@ -172,7 +172,7 @@ $(document).ready(function () {
         }).addTo(mapHistory);
 
         L.control.zoom({
-            position: 'bottomright'
+            position: 'topright'
         }).addTo(mapHistory);
     }
 
@@ -272,14 +272,14 @@ $(document).ready(function () {
                                 }else {
                                     getDataShip = getDataShip + '<tr class="row">' +
                                         '<td><span style="padding-left: 10px">' + checkbox + '</span></td>' +
-                                        '<td><span style="padding-left: 10px">' + data[i][j][k]['name'] + ' </span></td>' +
+                                        '<td><span style="padding-left: 0px">' + data[i][j][k]['name'] + ' </span></td>' +
                                         '<td style="padding-right: 10px" id="' + data[i][j][k]['ship_ids'] + '-last">' + lastSeeShip + '</td>' +
                                         '<td id="' + data[i][j][k]['ship_ids'] + '-speed">' + speed + '</td></tr>';
 
                                     getDataHistoryShip = getDataHistoryShip +
                                         '<tr class="row">' +
                                         '<td style="padding-left: 10px"><input type="checkbox" name="' + i + '" value="' + data[i][j][k]['ship_ids'] + '"/></td>' +
-                                        '<td style="padding-left: 10px">' + data[i][j][k]['name'] + '</td>' +
+                                        '<td style="padding-left: 0px">' + data[i][j][k]['name'] + '</td>' +
                                         '</tr>';
                                 }
                             }
