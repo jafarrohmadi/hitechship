@@ -77,8 +77,8 @@ class HomeController extends BaseController
 
     public function getDataShip()
     {
+        ini_set('memory_limit','-1');
         $user = User::find(Auth::id());
-
         if (Auth::id() !== 1) {
             $manager = Manager::all()->pluck('manager_id')->toArray();
             $shiptwo = Ship::with('shipHistoryShipsLatest')
