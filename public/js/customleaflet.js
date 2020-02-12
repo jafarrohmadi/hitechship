@@ -170,11 +170,12 @@ $(document).ready(function () {
                     $("#floating-panel .close").trigger('click');
                     closeModal = 1
                 }
+                drawPolylineStart = 1;
                 startPoint(popLocation);
             }
         });
 
-        drawPolylineStart = 1;
+
     }
 
     function centerLeafletMapOnMarker(lat, lng) {
@@ -445,6 +446,7 @@ $(document).ready(function () {
         html = html + '</tbody>' + '</table>';
         $('#totalETR').html(html);
         $('#box').show();
+        drawPolylineStart = 0;
     }
 
     function getDistance(lat1, lon1, lat2, lon2, unit) {
