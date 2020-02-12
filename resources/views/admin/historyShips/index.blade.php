@@ -24,6 +24,9 @@
                     <th>
                         {{ trans('cruds.historyShip.fields.id') }}
                     </th>
+                    <th style="min-width: 95px;">
+                        &nbsp;
+                    </th>
                     <th>
                         {{ trans('cruds.historyShip.fields.history_ids') }}
                     </th>
@@ -53,9 +56,6 @@
                     </th>
                     <th>
                         {{ trans('cruds.historyShip.fields.ota_message_size') }}
-                    </th>
-                    <th>
-                        &nbsp;
                     </th>
                 </tr>
                 </thead>
@@ -114,6 +114,7 @@
                     columns: [
                         {data: 'placeholder', name: 'placeholder'},
                         {data: 'id', name: 'id'},
+                        {data: 'actions', name: '{{ trans('global.actions') }}'},
                         {data: 'history_ids', name: 'history_ids'},
                         {data: 'sin', name: 'sin'},
                         {data: 'min', name: 'min'},
@@ -123,8 +124,7 @@
                         {data: 'ship_ship_ids', name: 'ship.ship_ids'},
                         {data: 'ship.name', name: 'ship.name'},
                         {data: 'payload', name: 'payload'},
-                        {data: 'ota_message_size', name: 'ota_message_size'},
-                        {data: 'actions', name: '{{ trans('global.actions') }}'}
+                        {data: 'ota_message_size', name: 'ota_message_size'}
                     ],
                     order: [[1, 'desc']],
                     pageLength: 10,

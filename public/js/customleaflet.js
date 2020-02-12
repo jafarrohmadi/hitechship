@@ -200,9 +200,9 @@ $(document).ready(function () {
                 for (let i in data) {
                     damask = i;
                     if(i !== '') {
-                        getDataShip = getDataShip + '<tr class="header2" style="background-color: #aad3df"><td><input type="checkbox" id="top' + topKing + '" name="top' + topKing + '" checked="checked"/></td> <td colspan="3">' + damask + '</td> </tr>';
+                        getDataShip = getDataShip + '<tr class="header2" style="background-color: #023342; color:#fff;"><td><input type="checkbox" id="top' + topKing + '" name="top' + topKing + '" checked="checked"/></td> <td colspan="3">' + damask + '</td> </tr>';
 
-                        getDataHistoryShip = getDataHistoryShip + '<tr class="header2" style="background-color: #aad3df"><td></td><td>' + damask + '</td></tr>';
+                        getDataHistoryShip = getDataHistoryShip + '<tr class="header2" style="background-color: #023342; color:#fff;"><td></td><td style ="height:19px;">' + damask + '</td></tr>';
                     }
                     for (const j in data[i]) {
                         if (j === "") {
@@ -212,10 +212,10 @@ $(document).ready(function () {
                         }
                         if(i !== '') {
                             getDataShip = getDataShip + '<tr class="header"><td style="padding-left: 10px"><input type="checkbox" id="top' + topKing + '" name="' + king + '" checked="checked"/></td> <td colspan="3" style="padding-left: 10px">' + damaskus + '</td> </tr>';
-                            getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td style="padding-left: 10px"></td><td style="padding-left: 10px">' + damaskus + '</td></tr>';
+                            getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td style="padding-left: 10px"></td><td style="padding-left: 10px; height:18px;">' + damaskus + '</td></tr>';
                         }else {
                             getDataShip = getDataShip + '<tr class="header"><td><input type="checkbox" id="top' + topKing + '" name="' + king + '" checked="checked"/></td> <td colspan="3">' + damaskus + '</td> </tr>';
-                            getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td></td><td>' + damaskus + '</td></tr>';
+                            getDataHistoryShip = getDataHistoryShip + '<tr class="header" style="height:20px;"><td></td><td>' + damaskus + '</td>/tr>';
                         }
                         for (const k in data[i][j]) {
                             if (data[i][j][k]['ship_history_ships_latest']) {
@@ -267,7 +267,7 @@ $(document).ready(function () {
                                     getDataHistoryShip = getDataHistoryShip +
                                         '<tr class="row">' +
                                         '<td style="padding-left: 11px"><input type="checkbox" name="' + i + '" value="' + data[i][j][k]['ship_ids'] + '"/></td>' +
-                                        '<td style="padding-left: 0px">' + data[i][j][k]['name'] + '</td>' +
+                                        '<td style="padding-left: 0px;">' + data[i][j][k]['name'] + '</td>' +
                                         '</tr>';
                                 }else {
                                     getDataShip = getDataShip + '<tr class="row">' +
@@ -696,7 +696,7 @@ $(document).ready(function () {
                 && typeof (longitude) !== 'undefined') {
                 histories_html += "<div class=\"inner-table-row\">";
                 histories_html += '<div class="inner-table-icon-cell"><input type="checkbox" name="' + i + '" value="' + history['ship_ids'] + '"/></div>';
-                histories_html += "<div class=\"inner-table-icon-cell\"><i class=\"fa fa-compass\"></i></div>";
+                histories_html += "<div class=\"inner-table-icon-cell\"></div>";
                 histories_html += "<div class=\"inner-table-date-cell\">" + $.format.date(new Date(timeShip), "dd.MM.yyyy HH:mm:ss") + "</div>";
                 histories_html += "<div>" + (speed * 0.1).toFixed(1) + " knots</div>";
                 histories_html += "</div>";

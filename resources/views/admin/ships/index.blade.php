@@ -25,6 +25,9 @@
                         <th>
                             {{ trans('cruds.ship.fields.id') }}
                         </th>
+                        <th style="min-width: 95px;">
+                            &nbsp;
+                        </th>
                         <th>
                             {{ trans('cruds.ship.fields.ship_ids') }}
                         </th>
@@ -49,9 +52,6 @@
                         <th>
                             {{ trans('cruds.ship.fields.type') }}
                         </th>
-                        <th>
-                            &nbsp;
-                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -62,30 +62,6 @@
                             </td>
                             <td>
                                 {{ $ship->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $ship->ship_ids ?? '' }}
-                            </td>
-                            <td>
-                                {{ $ship->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $ship->call_sign ?? '' }}
-                            </td>
-                            <td>
-                                {{ $ship->owner ?? '' }}
-                            </td>
-                            <td>
-                                {{ $ship->region_name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $ship->last_registration_utc ?? '' }}
-                            </td>
-                            <td>
-                                {{ $ship->long ?? '' }}
-                            </td>
-                            <td>
-                                {{ App\Ship::TYPE_SELECT[$ship->type] ?? '' }}
                             </td>
                             <td>
                                 @can('ship_show')
@@ -110,6 +86,30 @@
                                                value="{{ trans('global.delete') }}">
                                     </form>
                                 @endcan
+                            </td>
+                            <td>
+                                {{ $ship->ship_ids ?? '' }}
+                            </td>
+                            <td>
+                                {{ $ship->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $ship->call_sign ?? '' }}
+                            </td>
+                            <td>
+                                {{ $ship->owner ?? '' }}
+                            </td>
+                            <td>
+                                {{ $ship->region_name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $ship->last_registration_utc ?? '' }}
+                            </td>
+                            <td>
+                                {{ $ship->long ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Ship::TYPE_SELECT[$ship->type] ?? '' }}
                             </td>
                         </tr>
                     @endforeach

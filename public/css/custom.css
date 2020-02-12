@@ -66,6 +66,7 @@ table.dataTable thead .sorting_desc {
 
 .navbar {
     height: 21px;
+    font-size: small;
 }
 
 .btn-default {

@@ -24,10 +24,13 @@
                     <th>
                         {{ trans('cruds.terminal.fields.id') }}
                     </th>
-                    <th>
+                    <th style="min-width: 95px;">
+                        &nbsp;
+                    </th>
+                    <th style="min-width: 100px">
                         {{ trans('cruds.terminal.fields.name') }}
                     </th>
-                    <th>
+                    <th style="min-width: 100px;">
                         {{ trans('cruds.terminal.fields.ship') }}
                     </th>
                     <th>
@@ -71,9 +74,6 @@
                     </th>
                     <th>
                         {{ trans('cruds.terminal.fields.alert_email_list') }}
-                    </th>
-                    <th>
-                        &nbsp;
                     </th>
                 </tr>
                 </thead>
@@ -132,6 +132,7 @@
                     columns: [
                         {data: 'placeholder', name: 'placeholder'},
                         {data: 'id', name: 'id'},
+                        {data: 'actions', name: '{{ trans('global.actions') }}'},
                         {data: 'name', name: 'name'},
                         {data: 'ship', name: 'ships.name'},
                         {data: 'ship_id', name: 'ships.id'},
@@ -147,8 +148,7 @@
                         {data: 'geofence_out', name: 'geofence_out'},
                         {data: 'email_destination', name: 'email_destination'},
                         {data: 'email', name: 'email.email'},
-                        {data: 'alertEmail', name: 'alertEmail.email'},
-                        {data: 'actions', name: '{{ trans('global.actions') }}'}
+                        {data: 'alertEmail', name: 'alertEmail.email'}
                     ],
                     order: [[1, 'desc']],
                     pageLength: 10,
