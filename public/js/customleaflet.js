@@ -146,7 +146,7 @@ $(document).ready(function () {
     function getDataMap() {
         map = L.map('googleMap', {
             zoomControl: false,
-            center: [0, 118.8230631], zoom: 5 
+            center: [0, 118.8230631], zoom: 5
         });
 
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -156,6 +156,19 @@ $(document).ready(function () {
         L.control.zoom({
             position: 'topright'
         }).addTo(map);
+
+        map.on('click', function (e) {
+            if (whileDrawPolyline == 0) {
+                var popLocation = e.latlng;
+                $('#speedCount').modal('toggle');
+                if (closeModal == 0) {
+                    $("#floating-panel .close").trigger('click');
+                    closeModal = 1
+                }
+                drawPolylineStart = 1;
+                startPoint(popLocation);
+            }
+        });
     }
 
     function centerLeafletMapOnMarker(lat, lng) {
@@ -413,12 +426,8 @@ $(document).ready(function () {
         $('#totalTime').html(totalTime);
         $('#totalDistance').html(totalDistance);
         $('#box').show();
-        // Swal.fire({
-        //     title: '<h3>Expected Time Remaining</h3>',
-        //     icon: 'info',
-        //     html: html,
-        //     confirmButtonText: 'Close',
-        // });
+        drawPolylineStart = 0;
+
     }
 
     function getDistance(lat1, lon1, lat2, lon2, unit) {
