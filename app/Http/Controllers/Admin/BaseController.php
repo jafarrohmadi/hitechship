@@ -98,7 +98,7 @@ class BaseController extends Controller
                 for ($i = 0, $iMax = count($subAccount); $i < $iMax; $i++) {
                     $response = $this->client->request('GET', 'get_mobiles_paged.json/', [
                             'query' => [
-                                'access_id' => $this->accessId, 'password' => $this->passw, 'page_size' => $this->pageSize,
+                                'access_id' => $this->accessId, 'password' => $this->passw,
                                 'subaccount_id' => $subAccount[$i],
                             ],
                         ]

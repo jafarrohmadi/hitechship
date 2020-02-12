@@ -82,7 +82,7 @@
         }
     </style>
 </head>
-<body>
+<body style="height: inherit !important;">
 <div id="googleMap"></div>
 <div id="googleMapHistory" style="display: none"></div>
 <div id="speedCount" class="modal fade" role="dialog">
@@ -110,10 +110,8 @@
 <div  class="leaflet-top leaflet-right" id="box" style="display: none">
     <div class="leaflet-control-measure leaflet-bar leaflet-control" aria-haspopup="true">
         <div class="leaflet-control-measure-interaction js-interaction">
-            <div class="js-measuringprompt"><h3>Expected Time Remaining</h3>
-                <div class="js-results results">
-                    <div class="group"><p><span class="heading">ETA</span><span id="totalTime"></span></p></div>
-                    <div class="group"><p><span class="heading">Total distance</span><span id="totalDistance"></span></p></div>
+            <div class="js-measuringprompt"><h3 style="font-size: 11px">Expected Time Remaining</h3>
+                <div class="js-results results" id="totalETR">
                 </div>
             </div>
         </div>
@@ -122,7 +120,7 @@
 <div  class="leaflet-top leaflet-right" id="averageSpeedTime" style="display: none">
     <div class="leaflet-control-measure leaflet-bar leaflet-control" aria-haspopup="true">
         <div class="leaflet-control-measure-interaction js-interaction">
-            <div class="js-measuringprompt"><h3 id="titleAverage"></h3>
+            <div class="js-measuringprompt"><h3 style="font-size: 11px" id="titleAverage"></h3>
                 <div class="js-results results" id="totalAverage">
                 </div>
             </div>
@@ -148,7 +146,7 @@
                         <tr>
                             <td>
                                 <button class="startPoint">Start Point</button>
-                                <button class="stopDrawing" style="display: none">Stop Drawing</button>
+                                <button class="stopDrawing" >Stop Drawing</button>
                             </td>
 {{--                            <td>--}}
 {{--                                <button class="resetPoint">Reset Point</button>--}}
