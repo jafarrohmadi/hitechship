@@ -382,7 +382,8 @@ $(document).ready(function () {
 
         deleteMarkerWithIds(lastDrawPoint);
         getMarkerWithIds(lastDrawPoint);
-
+        $('#box').hide();
+        totalETR = [];
     });
 
     $(".startPoint").click(function () {
