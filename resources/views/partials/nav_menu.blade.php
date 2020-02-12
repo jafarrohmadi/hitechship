@@ -2,8 +2,6 @@
     <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
             <a href="{{ route("admin.home") }}" class="nav-link">
-                <i class="nav-icon fa fa-tachometer">
-                </i>
                 {{ trans('global.dashboard') }}
             </a>
         </li>
@@ -11,9 +9,6 @@
             <li class="nav-item">
                 <a href="{{ route("admin.ships.index") }}"
                    class="nav-link {{ request()->is('admin/ships') || request()->is('admin/ships/*') ? 'active' : '' }}">
-                    <i class="fa fa-cogs nav-icon">
-
-                    </i>
                     {{ trans('cruds.ship.title') }}
                 </a>
             </li>
@@ -22,9 +17,6 @@
             <li class="nav-item">
                 <a href="{{ route("admin.history-ships.index") }}"
                    class="nav-link {{ request()->is('admin/history-ships') || request()->is('admin/history-ships/*') ? 'active' : '' }}">
-                    <i class="fa fa-cogs nav-icon">
-
-                    </i>
                     {{ trans('cruds.historyShip.title') }}
                 </a>
             </li>
@@ -33,9 +25,6 @@
             <li class="nav-item">
                 <a href="{{ route("admin.terminals.index") }}"
                    class="nav-link {{ request()->is('admin/terminals') || request()->is('admin/terminals/*') ? 'active' : '' }}">
-                    <i class="fa fa-cogs nav-icon">
-
-                    </i>
                     {{ trans('cruds.terminal.title') }}
                 </a>
             </li>
@@ -44,9 +33,6 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-expanded="false">
-                    <i class="fa fa-users nav-icon">
-
-                    </i>
                     {{ trans('cruds.userManagement.title') }}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -106,9 +92,6 @@
             <li class="nav-item">
                 <a href="{{ route("admin.settings.index") }}"
                    class="nav-link {{ request()->is('admin/settings') || request()->is('admin/settings/*') ? 'active' : '' }}">
-                    <i class="fa fa-cogs nav-icon">
-
-                    </i>
                     {{ trans('cruds.setting.title') }}
                 </a>
             </li>
@@ -116,9 +99,6 @@
         <li class="nav-item">
             <a href="#" class="nav-link"
                onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
-                <i class="nav-icon fa fa-sign-out">
-
-                </i>
                 {{ trans('global.logout') }}
             </a>
         </li>

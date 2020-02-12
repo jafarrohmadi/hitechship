@@ -100,12 +100,13 @@
                         <br>
                     </div>
                     <span class="clone-last"></span>
-                </div>
-                <div class="form-group">
                     <div class="btn btn-info add-clone-email">+ Add New Email</div>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-danger pull-right" type="submit">
+                    
+                </div><br>
+                <div class="form-group">
+                    <button class="btn btn-danger pull-left" type="submit">
                         {{ trans('global.save') }}
                     </button>
                 </div>

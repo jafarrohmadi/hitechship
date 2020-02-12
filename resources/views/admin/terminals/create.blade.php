@@ -43,7 +43,7 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.terminal.fields.ship_helper') }}</span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom: 0rem;">
                     <div class="form-check {{ $errors->has('air_comm_blocked') ? 'is-invalid' : '' }}">
                         <input type="hidden" name="air_comm_blocked" value="0">
                         <input class="form-check-input" type="checkbox" name="air_comm_blocked" id="air_comm_blocked"
@@ -58,7 +58,7 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.terminal.fields.air_comm_blocked_helper') }}</span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom: 0rem;">
                     <div class="form-check {{ $errors->has('power_backup') ? 'is-invalid' : '' }}">
                         <input type="hidden" name="power_backup" value="0">
                         <input class="form-check-input" type="checkbox" name="power_backup" id="power_backup"
@@ -73,7 +73,7 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.terminal.fields.power_backup_helper') }}</span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom: 0rem;">
                     <div class="form-check {{ $errors->has('power_main') ? 'is-invalid' : '' }}">
                         <input type="hidden" name="power_main" value="0">
                         <input class="form-check-input" type="checkbox" name="power_main" id="power_main"
@@ -88,7 +88,7 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.terminal.fields.power_main_helper') }}</span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom: 0rem;">
                     <div class="form-check {{ $errors->has('sleep_schedule') ? 'is-invalid' : '' }}">
                         <input type="hidden" name="sleep_schedule" value="0">
                         <input class="form-check-input" type="checkbox" name="sleep_schedule" id="sleep_schedule"
@@ -103,7 +103,7 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.terminal.fields.sleep_schedule_helper') }}</span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom: 0rem;">
                     <div class="form-check {{ $errors->has('battery_low') ? 'is-invalid' : '' }}">
                         <input type="hidden" name="battery_low" value="0">
                         <input class="form-check-input" type="checkbox" name="battery_low" id="battery_low"
@@ -118,7 +118,7 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.terminal.fields.battery_low_helper') }}</span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom: 0rem;">
                     <div class="form-check {{ $errors->has('speeding_start') ? 'is-invalid' : '' }}">
                         <input type="hidden" name="speeding_start" value="0">
                         <input class="form-check-input" type="checkbox" name="speeding_start" id="speeding_start"
@@ -133,7 +133,7 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.terminal.fields.speeding_start_helper') }}</span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom: 0rem;">
                     <div class="form-check {{ $errors->has('speeding_end') ? 'is-invalid' : '' }}">
                         <input type="hidden" name="speeding_end" value="0">
                         <input class="form-check-input" type="checkbox" name="speeding_end" id="speeding_end"
@@ -148,7 +148,7 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.terminal.fields.speeding_end_helper') }}</span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom: 0rem;">
                     <div class="form-check {{ $errors->has('modem_registration') ? 'is-invalid' : '' }}">
                         <input type="hidden" name="modem_registration" value="0">
                         <input class="form-check-input" type="checkbox" name="modem_registration"
@@ -164,7 +164,7 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.terminal.fields.modem_registration_helper') }}</span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom: 0rem;">
                     <div class="form-check {{ $errors->has('geofence_in') ? 'is-invalid' : '' }}">
                         <input type="hidden" name="geofence_in" value="0">
                         <input class="form-check-input" type="checkbox" name="geofence_in" id="geofence_in"
@@ -179,7 +179,7 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.terminal.fields.geofence_in_helper') }}</span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom: 0rem;">
                     <div class="form-check {{ $errors->has('geofence_out') ? 'is-invalid' : '' }}">
                         <input type="hidden" name="geofence_out" value="0">
                         <input class="form-check-input" type="checkbox" name="geofence_out" id="geofence_out"
@@ -209,7 +209,7 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.terminal.fields.destinasion_email_helper') }}</span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom: 0rem">
                     <label for="email">{{ trans('cruds.terminal.fields.destinasion_email_list') }}</label>
                     <div class="clone-email">
                         <div class="form-inline">
@@ -229,12 +229,13 @@
                         <br>
                     </div>
                     <span class="clone-last"></span>
+                     
                 </div>
                 <div class="form-group">
                     <div class="btn btn-info add-clone-email">+ Add New Email</div>
-                </div>
+                </div><br><br>
 
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom: 0rem">
                     <label for="alert-email">{{ trans('cruds.terminal.fields.alert_email_list') }}</label>
                     <div class="clone-alert-email">
                         <div class="form-inline">
@@ -254,10 +255,11 @@
                         <br>
                     </div>
                     <span class="clone-alert-last"></span>
+                    
                 </div>
                 <div class="form-group">
                     <div class="btn btn-info add-clone-alert-email">+ Add New Alert Email</div>
-                </div>
+                </div><br>
                 <div class="form-group">
                     <button class="btn btn-danger" type="submit">
                         {{ trans('global.save') }}

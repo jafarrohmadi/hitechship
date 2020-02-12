@@ -16,16 +16,13 @@ $(document).ready(function () {
     let markersHistory = new L.FeatureGroup();
     let filterMarkers = [];
     let average_speed = [];
-    let lastCountDraw = 0;
-    let totalETR = [];
     let drawPolylineStart = 0;
     let drawLatLngInitial;
     let drawSpeedValue;
     let drawLatLng = [];
     let drawCountDistanceStartEndPoint = 0;
     let lastDrawPoint;
-    let whileDrawPolyline = 0;
-    let closeModal = 0;
+
 //Set Awal
     (function () {
         [].slice.call(document.querySelectorAll('.tabs')).forEach(function (el) {
@@ -137,14 +134,12 @@ $(document).ready(function () {
             }).removeClass('open');
             $('#floating-panel div.close i').removeClass("fa-angle-double-right");
             $('#floating-panel div.close i').addClass("fa-angle-double-left");
-            closeModal = 0;
         } else {
             $this.animate({
                 left: '-285px'
             }).addClass('open');
             $('#floating-panel div.close i').removeClass("fa-angle-double-left");
             $('#floating-panel div.close i').addClass("fa-angle-double-right");
-            closeModal = 1;
         }
     });
 
@@ -174,8 +169,6 @@ $(document).ready(function () {
                 startPoint(popLocation);
             }
         });
-
-
     }
 
     function centerLeafletMapOnMarker(lat, lng) {
@@ -219,10 +212,10 @@ $(document).ready(function () {
 
                 for (let i in data) {
                     damask = i;
-                    if (i !== '') {
-                        getDataShip = getDataShip + '<tr class="header2" style="background-color: #aad3df"><td><input type="checkbox" id="top' + topKing + '" name="top' + topKing + '" checked="checked"/></td> <td colspan="3">' + damask + '</td> </tr>';
+                    if(i !== '') {
+                        getDataShip = getDataShip + '<tr class="header2" style="background-color: #023342; color:#fff;"><td><input type="checkbox" id="top' + topKing + '" name="top' + topKing + '" checked="checked"/></td> <td colspan="3">' + damask + '</td> </tr>';
 
-                        getDataHistoryShip = getDataHistoryShip + '<tr class="header2" style="background-color: #aad3df"><td></td><td>' + damask + '</td></tr>';
+                        getDataHistoryShip = getDataHistoryShip + '<tr class="header2" style="background-color: #023342; color:#fff;"><td></td><td style ="height:19px;">' + damask + '</td></tr>';
                     }
                     for (const j in data[i]) {
                         if (j === "") {
@@ -230,12 +223,12 @@ $(document).ready(function () {
                         } else {
                             damaskus = j;
                         }
-                        if (i !== '') {
+                        if(i !== '') {
                             getDataShip = getDataShip + '<tr class="header"><td style="padding-left: 10px"><input type="checkbox" id="top' + topKing + '" name="' + king + '" checked="checked"/></td> <td colspan="3" style="padding-left: 10px">' + damaskus + '</td> </tr>';
-                            getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td style="padding-left: 10px"></td><td style="padding-left: 10px">' + damaskus + '</td></tr>';
-                        } else {
+                            getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td style="padding-left: 10px"></td><td style="padding-left: 10px; height:18px;">' + damaskus + '</td></tr>';
+                        }else {
                             getDataShip = getDataShip + '<tr class="header"><td><input type="checkbox" id="top' + topKing + '" name="' + king + '" checked="checked"/></td> <td colspan="3">' + damaskus + '</td> </tr>';
-                            getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td></td><td>' + damaskus + '</td></tr>';
+                            getDataHistoryShip = getDataHistoryShip + '<tr class="header" style="height:20px;"><td></td><td>' + damaskus + '</td>/tr>';
                         }
                         for (const k in data[i][j]) {
                             if (data[i][j][k]['ship_history_ships_latest']) {
@@ -277,7 +270,7 @@ $(document).ready(function () {
                             speed = speed === undefined ? 0 : speed;
                             let checkbox = lastSeeShip == '-' ? '' : '<input type="checkbox" id="top' + topKing + '" name="' + king + '" value="' + data[i][j][k]['ship_ids'] + '" checked="checked"/>';
                             if (data[i][j][k]['name'] != null) {
-                                if (i !== '') {
+                                if(i !== '') {
                                     getDataShip = getDataShip + '<tr class="row">' +
                                         '<td><span style="padding-left: 20px">' + checkbox + '</span></td>' +
                                         '<td><span style="padding-left: 0px">' + data[i][j][k]['name'] + ' </span></td>' +
@@ -287,9 +280,9 @@ $(document).ready(function () {
                                     getDataHistoryShip = getDataHistoryShip +
                                         '<tr class="row">' +
                                         '<td style="padding-left: 11px"><input type="checkbox" name="' + i + '" value="' + data[i][j][k]['ship_ids'] + '"/></td>' +
-                                        '<td style="padding-left: 0px">' + data[i][j][k]['name'] + '</td>' +
+                                        '<td style="padding-left: 0px;">' + data[i][j][k]['name'] + '</td>' +
                                         '</tr>';
-                                } else {
+                                }else {
                                     getDataShip = getDataShip + '<tr class="row">' +
                                         '<td><span style="padding-left: 10px">' + checkbox + '</span></td>' +
                                         '<td><span style="padding-left: 0px">' + data[i][j][k]['name'] + ' </span></td>' +
@@ -380,14 +373,19 @@ $(document).ready(function () {
 
         $('#tracking_table tbody tr.header input:checkbox').prop('disabled', false);
         $('#tracking_table tbody tr.header2 input:checkbox').prop('disabled', false);
-
-        deleteMarkerWithIds(lastDrawPoint);
-        getMarkerWithIds(lastDrawPoint);
-        $('#box').hide();
-        totalETR = [];
+        $(".startPoint").show();
+        $(".stopDrawing").hide();
+        drawPolylineStart = 0;
+        if(lastDrawPoint) {
+            deleteMarkerWithIds(lastDrawPoint);
+            getMarkerWithIds(lastDrawPoint);
+        }
     });
 
     $(".startPoint").click(function () {
+        if ($('#checkAll').is(':checked')) {
+            $("#tracking_table thead  input:checkbox[id=checkAll]").trigger("click");
+        }
         $("#tracking_table thead  input:checkbox[id=checkAll]").prop("disabled", true);
 
         $("#tracking_table input:checkbox").not(this).prop("checked", false);
@@ -396,16 +394,12 @@ $(document).ready(function () {
         $('#tracking_table tbody tr.header input:checkbox').prop('disabled', true);
         $('#tracking_table tbody tr.header2 input:checkbox').prop('disabled', true);
 
+        $(".startPoint").hide();
+        $(".stopDrawing").show();
         drawPolylineStart = 1;
     });
 
     function startPoint(e) {
-        lastCountDraw++;
-        whileDrawPolyline = 1;
-        if (e) {
-            drawLatLngInitial = L.latLng(e.lat, e.lng);
-        }
-
         map.addLayer(savePolyline);
         let polygonDrawer = new L.Draw.Polyline(map);
         map.on('draw:created', function (e) {
@@ -414,8 +408,10 @@ $(document).ready(function () {
             drawLatLng[drawLatLng.length] = layer.getLatLngs();
             showPopUpSpeed();
         });
+
         polygonDrawer.enable();
         polygonDrawer.addVertex(drawLatLngInitial);
+
     }
 
     function showPopUpSpeed() {
@@ -426,27 +422,12 @@ $(document).ready(function () {
 
         let totalTime = convertDecimalToDate(drawCountDistanceStartEndPoint / drawSpeedValue);
         let totalDistance = (drawCountDistanceStartEndPoint * 1).toFixed(4) + ' Nautical Miles';
-
-        whileDrawPolyline = 0;
-        totalETR[lastCountDraw] = { 'time': totalTime, 'distance': totalDistance};
-        totalEtrs();
-    }
-
-    function totalEtrs() {
-        let j = 0;
-        let html = '<table class="table" align="center" style="text-align: left; font-size: 11px; min-width: 200px"><thead> ' +
-            '<tr> <th width="10%">No</th>' +
-            '<th width="45%">ETA</th>' +
-            '<th width="45%">Total distance</th></tr></thead><tbody>';
-        for(let i in totalETR){
-            if(totalETR[i] != 'undefined'){
-                    html = html + '<tr><td>'+ ++j +'</td><td>' + totalETR[i].time + '</td><td>' + totalETR[i].distance + '</td></tr>';
-            }
-        }
-        html = html + '</tbody>' + '</table>';
-        $('#totalETR').html(html);
+        //let html = 'Total distance ' + (drawCountDistanceStartEndPoint * 1).toFixed(4) + ' Nautical Miles <br> <br> ETA ' + totalTime;
+        $('#totalTime').html(totalTime);
+        $('#totalDistance').html(totalDistance);
         $('#box').show();
         drawPolylineStart = 0;
+
     }
 
     function getDistance(lat1, lon1, lat2, lon2, unit) {
@@ -585,6 +566,7 @@ $(document).ready(function () {
         if (checked) {
             getMarkerWithIds(id);
             if (drawPolylineStart === 1) {
+                $('#tracking_table tbody tr.row input:checkbox').prop('disabled', true);
                 $('#tracking_table tbody tr.row input:checkbox[value="' + id + '"]').prop('disabled', false);
                 $("#floating-panel .close").trigger("click");
                 $('#speedCount').modal('toggle');
@@ -723,7 +705,7 @@ $(document).ready(function () {
                 && typeof (longitude) !== 'undefined') {
                 histories_html += "<div class=\"inner-table-row\">";
                 histories_html += '<div class="inner-table-icon-cell"><input type="checkbox" name="' + i + '" value="' + history['ship_ids'] + '"/></div>';
-                histories_html += "<div class=\"inner-table-icon-cell\"><i class=\"fa fa-compass\"></i></div>";
+                histories_html += "<div class=\"inner-table-icon-cell\"></div>";
                 histories_html += "<div class=\"inner-table-date-cell\">" + $.format.date(new Date(timeShip), "dd.MM.yyyy HH:mm:ss") + "</div>";
                 histories_html += "<div>" + (speed * 0.1).toFixed(1) + " knots</div>";
                 histories_html += "</div>";
@@ -930,7 +912,7 @@ $(document).ready(function () {
                 }
             }
         }
-        if (average_speed.length == 0) {
+        if(average_speed.length == 0){
             $('#averageSpeedTime').hide();
         }
         if (average_speed.length > 1 && average_speed.length % 2 === 0) {
@@ -939,7 +921,7 @@ $(document).ready(function () {
                 url: "/admin/getAverageSpeed/" + JSON.stringify(average_speed),
                 success: function (data) {
                     if (data) {
-                        let html = '<table class="table" align="center" style="text-align: left; font-size: 11px; min-width: 200px"><thead> <tr> <th width="50%">Name</th>' +
+                        let html = '<table class="table" align="center" style="text-align: left; font-size: 1em; min-width: 200px"><thead> <tr> <th width="50%">Name</th>' +
                             '<th width="50%">Speed</th></tr></thead><tbody>';
                         for (let i in data) {
                             html = html + '<tr><td>' + data[i].name + '</td><td>' + data[i].speed + ' knots</td></tr>';
