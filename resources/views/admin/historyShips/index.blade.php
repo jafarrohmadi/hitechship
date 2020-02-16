@@ -48,10 +48,10 @@
                     <th>
                         {{ trans('cruds.historyShip.fields.ship') }}
                     </th>
-                    <th>
+                    <th style="min-width: 80px;">
                         {{ trans('cruds.ship.fields.name') }}
                     </th>
-                    <th>
+                    <th style="min-width:750px;">
                         {{ trans('cruds.historyShip.fields.payload') }}
                     </th>
                     <th>

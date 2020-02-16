@@ -59,23 +59,23 @@ p { margin:0; padding:0}
 
 .fixed_headers td:nth-child(1),
 .fixed_headers th:nth-child(1) {
-    min-width: 25px;
+    min-width: 20px;
 }
 .fixed_headers td:nth-child(2),
 .fixed_headers th:nth-child(2) {
-    min-width: 136px;
+    min-width: 110px;
 }
 .history td:nth-child(2),
 .history th:nth-child(2) {
-    width: 370px;
+    width: 232px;
 }
 .fixed_headers td:nth-child(3),
 .fixed_headers th:nth-child(3) {
-    min-width: 33px;
+    min-width: 42px;
 }
 .fixed_headers td:nth-child(4),
 .fixed_headers th:nth-child(4) {
-    width: 42px;
+    width: 65px;
 }
 .fixed_headers tr.header {
     border-bottom: 1px solid #CCC;
