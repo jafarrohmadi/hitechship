@@ -120,3 +120,11 @@ table.dataTable thead .sorting_desc {
 .form-check.is-invalid ~ .invalid-feedback {
     display: block;
 }
+
+thead {
+    font-size: 11px;
+    text-align: center;
+}
+tbody{
+    font-size: 11px;
+}

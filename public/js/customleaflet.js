@@ -2,7 +2,7 @@ $(document).ready(function () {
     let locations = {};
     let LeafIcon = L.Icon.extend({
         options: {
-            iconSize: [6, 10],
+            //iconSize: [6, 10],
             shadowSize: [10, 12],
             shadowAnchor: [4, 62],
             iconAnchor: [10, 10],//changed marker icon position
@@ -592,8 +592,8 @@ $(document).ready(function () {
         let notActivityMoreThan24h = message.eventTime <= yesterday.getTime();
         let notActivityMoreThan1h = message.eventTime <= oneHoursBefore.getTime();
 
-        let speedMoreThen05 = notActivityMoreThan24h ? '/images/0.5red-ship.png' : notActivityMoreThan1h ? '/images/0.5orange-ship.png' : '/images/0.5green-ship.png';
-        let speedLessThen05 = notActivityMoreThan24h ? '/images/0.05red-ship.png' : notActivityMoreThan1h ? '/images/0.05orange-ship.png' : '/images/0.05green-ship.png';
+        let speedMoreThen05 = notActivityMoreThan24h ? '/images/kapal-go-red.png' : notActivityMoreThan1h ? '/images/kapal-go-orange.png' : '/images/kapal-go-green.png';
+        let speedLessThen05 = notActivityMoreThan24h ? '/images/kapal-stop-red.png' : notActivityMoreThan1h ? '/images/kapal-stop-orange.png' : '/images/kapal-stop-green.png';
 
         return message.speed > 0.5 ? speedMoreThen05 : speedLessThen05;
     }
