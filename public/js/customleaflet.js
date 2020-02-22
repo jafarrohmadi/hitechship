@@ -2,7 +2,7 @@ $(document).ready(function () {
     let locations = {};
     let LeafIcon = L.Icon.extend({
         options: {
-            iconSize: [6, 10],
+            //iconSize: [6, 10],
             shadowSize: [10, 12],
             shadowAnchor: [4, 62],
             iconAnchor: [10, 10],//changed marker icon position
@@ -213,9 +213,9 @@ $(document).ready(function () {
                 for (let i in data) {
                     damask = i;
                     if(i !== '') {
-                        getDataShip = getDataShip + '<tr class="header2" style="background-color: #023342; color:#fff;"><td><input type="checkbox" id="top' + topKing + '" name="top' + topKing + '" checked="checked"/></td> <td colspan="3">' + damask + '</td> </tr>';
+                        getDataShip = getDataShip + '<tr class="header2" style="background-color: #023342; color:#fff;"><td colspan="4"><input type="checkbox" id="top' + topKing + '" name="top' + topKing + '" checked="checked"/>&nbsp;' + damask + '</td> </tr>';
 
-                        getDataHistoryShip = getDataHistoryShip + '<tr class="header2" style="background-color: #023342; color:#fff;"><td></td><td style ="height:19px;">' + damask + '</td></tr>';
+                        getDataHistoryShip = getDataHistoryShip + '<tr class="header2" style="background-color: #023342; color:#fff;"><td colspan="2" style ="height:19px; padding-left:5px;">' + damask + '</td></tr>';
                     }
                     for (const j in data[i]) {
                         if (j === "") {
@@ -224,11 +224,11 @@ $(document).ready(function () {
                             damaskus = j;
                         }
                         if(i !== '') {
-                            getDataShip = getDataShip + '<tr class="header"><td style="padding-left: 10px"><input type="checkbox" id="top' + topKing + '" name="' + king + '" checked="checked"/></td> <td colspan="3" style="padding-left: 10px">' + damaskus + '</td> </tr>';
-                            getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td style="padding-left: 10px"></td><td style="padding-left: 10px; height:18px;">' + damaskus + '</td></tr>';
+                            getDataShip = getDataShip + '<tr class="header"><td colspan="4" style="padding-left: 7px"><input type="checkbox" id="top' + topKing + '" name="' + king + '" checked="checked"/>&nbsp;' + damaskus + '</td> </tr>';
+                            getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td colspan="2" style="padding-left: 10px" height:18px;>' + damaskus + '</td></tr>';
                         }else {
-                            getDataShip = getDataShip + '<tr class="header"><td><input type="checkbox" id="top' + topKing + '" name="' + king + '" checked="checked"/></td> <td colspan="3">' + damaskus + '</td> </tr>';
-                            getDataHistoryShip = getDataHistoryShip + '<tr class="header" style="height:20px;"><td></td><td>' + damaskus + '</td>/tr>';
+                            getDataShip = getDataShip + '<tr class="header"><td colspan="4" style="padding-left: 7px"><input type="checkbox" id="top' + topKing + '" name="' + king + '" checked="checked"/>&nbsp;' + damaskus + '</td> </tr>';
+                            getDataHistoryShip = getDataHistoryShip + '<tr class="header" style="height:20px;"><td colspan="2" style="padding-left: 10px">' + damaskus + '</td>/tr>';
                         }
                         for (const k in data[i][j]) {
                             if (data[i][j][k]['ship_history_ships_latest']) {
@@ -272,14 +272,14 @@ $(document).ready(function () {
                             if (data[i][j][k]['name'] != null) {
                                 if(i !== '') {
                                     getDataShip = getDataShip + '<tr class="row">' +
-                                        '<td><span style="padding-left: 20px">' + checkbox + '</span></td>' +
+                                        '<td><span style="padding-left: 12px">' + checkbox + '</span></td>' +
                                         '<td><span style="padding-left: 0px">' + data[i][j][k]['name'] + ' </span></td>' +
                                         '<td style="padding-right: 0px" id="' + data[i][j][k]['ship_ids'] + '-last">' + lastSeeShip + '</td>' +
                                         '<td id="' + data[i][j][k]['ship_ids'] + '-speed">' + speed + '</td></tr>';
 
                                     getDataHistoryShip = getDataHistoryShip +
                                         '<tr class="row">' +
-                                        '<td style="padding-left: 11px"><input type="checkbox" name="' + i + '" value="' + data[i][j][k]['ship_ids'] + '"/></td>' +
+                                        '<td style="padding-left: 6px"><input type="checkbox" name="' + i + '" value="' + data[i][j][k]['ship_ids'] + '"/></td>' +
                                         '<td style="padding-left: 0px;">' + data[i][j][k]['name'] + '</td>' +
                                         '</tr>';
                                 }else {
@@ -291,7 +291,7 @@ $(document).ready(function () {
 
                                     getDataHistoryShip = getDataHistoryShip +
                                         '<tr class="row">' +
-                                        '<td style="padding-left: 10px"><input type="checkbox" name="' + i + '" value="' + data[i][j][k]['ship_ids'] + '"/></td>' +
+                                        '<td style="padding-left: 6px"><input type="checkbox" name="' + i + '" value="' + data[i][j][k]['ship_ids'] + '"/></td>' +
                                         '<td style="padding-left: 0px">' + data[i][j][k]['name'] + '</td>' +
                                         '</tr>';
                                 }
@@ -592,8 +592,8 @@ $(document).ready(function () {
         let notActivityMoreThan24h = message.eventTime <= yesterday.getTime();
         let notActivityMoreThan1h = message.eventTime <= oneHoursBefore.getTime();
 
-        let speedMoreThen05 = notActivityMoreThan24h ? '/images/0.5red-ship.png' : notActivityMoreThan1h ? '/images/0.5orange-ship.png' : '/images/0.5green-ship.png';
-        let speedLessThen05 = notActivityMoreThan24h ? '/images/0.05red-ship.png' : notActivityMoreThan1h ? '/images/0.05orange-ship.png' : '/images/0.05green-ship.png';
+        let speedMoreThen05 = notActivityMoreThan24h ? '/images/kapal-go-red.png' : notActivityMoreThan1h ? '/images/kapal-go-orange.png' : '/images/kapal-go-green.png';
+        let speedLessThen05 = notActivityMoreThan24h ? '/images/kapal-stop-red.png' : notActivityMoreThan1h ? '/images/kapal-stop-orange.png' : '/images/kapal-stop-green.png';
 
         return message.speed > 0.5 ? speedMoreThen05 : speedLessThen05;
     }

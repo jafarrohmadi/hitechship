@@ -171,8 +171,8 @@ return [
         ],
     ],
     'historyShip'    => [
-        'title'          => 'Form Mobile',
-        'title_singular' => 'Form Mobile',
+        'title'          => 'From Mobile',
+        'title_singular' => 'From Mobile',
         'fields'         => [
             'id'                      => 'ID',
             'id_helper'               => '',

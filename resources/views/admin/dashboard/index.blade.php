@@ -80,6 +80,11 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        .content-wrap {
+            font-family: Tahoma, Geneva, sans-serif;
+            text-transform: capitalize;
+        }
     </style>
 </head>
 <body style="height: inherit !important;">
@@ -154,7 +159,7 @@
                         </tr>
 
                         <tr>
-                            <td style="min-width: 41px;"><input id="checkAll" type="checkbox" checked="checked"/></td>
+                            <td style="min-width: 30px;"><input id="checkAll" type="checkbox" checked="checked"/></td>
                             <td>Name</td>
                             <td>Last Update</td>
                             <td>Speed (knots)</td>
