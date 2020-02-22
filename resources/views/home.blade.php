@@ -1,30 +1,30 @@
 <style>
-    
-.main .container-fluid {
-    padding: 0px !important;
-}
 
-.row {
-    margin-right: 0 !important;
-    margin-left: 0 !important;
-}
+    .main .container-fluid {
+        padding: 0px !important;
+    }
 
-.col-lg-12 {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
+    .row {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    .col-lg-12 {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
 
 </style>
 @extends('layouts.admin')
 @section('content')
     <div class="content">
         <div class="row">
-            <div class="col-lg-12"> 
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="{{URL::to('/admin/getDashboard')}}"
-                                allowfullscreen></iframe>
-                </div>
-            </div>
+
+
+                <iframe class="embed-responsive-item" src="{{URL::to('/admin/getDashboard')}}"
+                        style="position:absolute;top:20px;left:0;width:100%;height:97%; border: 0"
+                        allowfullscreen></iframe>
+
         </div>
     </div>
 @endsection
