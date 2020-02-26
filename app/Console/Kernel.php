@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\fixMoving;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -16,6 +17,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\DropTables::class,
         \App\Console\Commands\getShipData::class,
         \App\Console\Commands\getHistoryShipData::class,
+        fixMoving::class
     ];
 
     /**
