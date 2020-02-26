@@ -212,7 +212,7 @@ $(document).ready(function () {
 
                 for (let i in data) {
                     damask = i;
-                    if(i !== '') {
+                    if (i !== '') {
                         getDataShip = getDataShip + '<tr class="header2" style="background-color: #023342; color:#fff;"><td colspan="4"><input type="checkbox" id="top' + topKing + '" name="top' + topKing + '" checked="checked"/>&nbsp;' + damask + '</td> </tr>';
 
                         getDataHistoryShip = getDataHistoryShip + '<tr class="header2" style="background-color: #023342; color:#fff;"><td colspan="2" style ="height:19px; padding-left:5px;">' + damask + '</td></tr>';
@@ -223,10 +223,10 @@ $(document).ready(function () {
                         } else {
                             damaskus = j;
                         }
-                        if(i !== '') {
+                        if (i !== '') {
                             getDataShip = getDataShip + '<tr class="header"><td colspan="4" style="padding-left: 7px"><input type="checkbox" id="top' + topKing + '" name="' + king + '" checked="checked"/>&nbsp;' + damaskus + '</td> </tr>';
                             getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td colspan="2" style="padding-left: 10px" height:18px;>' + damaskus + '</td></tr>';
-                        }else {
+                        } else {
                             getDataShip = getDataShip + '<tr class="header"><td colspan="4" style="padding-left: 7px"><input type="checkbox" id="top' + topKing + '" name="' + king + '" checked="checked"/>&nbsp;' + damaskus + '</td> </tr>';
                             getDataHistoryShip = getDataHistoryShip + '<tr class="header" style="height:20px;"><td colspan="2" style="padding-left: 10px">' + damaskus + '</td>/tr>';
                         }
@@ -253,17 +253,16 @@ $(document).ready(function () {
                                         heading = (jsonParse['Fields'][l]['Value'] * 1).toFixed(1);
                                     }
                                 }
-                                if(parseInt(longitude) < parseInt(1000)) {
-                                    key = data[i][j][k]['ship_ids'];
-                                    locations[key] = {};
-                                    locations[key]['id'] = data[i][j][k]['id'];
-                                    locations[key]['name'] = data[i][j][k]['name'];
-                                    locations[key]['eventTime'] = timeShip;
-                                    locations[key]['heading'] = heading ? heading : 0;
-                                    locations[key]['speed'] = speed ? speed : 0;
-                                    locations[key]['latitude'] = latitude;
-                                    locations[key]['longitude'] = longitude;
-                                }
+                                key = data[i][j][k]['ship_ids'];
+                                locations[key] = {};
+                                locations[key]['id'] = data[i][j][k]['id'];
+                                locations[key]['name'] = data[i][j][k]['name'];
+                                locations[key]['eventTime'] = timeShip;
+                                locations[key]['heading'] = heading ? heading : 0;
+                                locations[key]['speed'] = speed ? speed : 0;
+                                locations[key]['latitude'] = latitude;
+                                locations[key]['longitude'] = longitude;
+
                             } else {
                                 lastSeeShip = '-';
                                 speed = 0;
@@ -272,7 +271,7 @@ $(document).ready(function () {
                             speed = speed === undefined ? 0 : speed;
                             let checkbox = lastSeeShip == '-' ? '' : '<input type="checkbox" id="top' + topKing + '" name="' + king + '" value="' + data[i][j][k]['ship_ids'] + '" checked="checked"/>';
                             if (data[i][j][k]['name'] != null) {
-                                if(i !== '') {
+                                if (i !== '') {
                                     getDataShip = getDataShip + '<tr class="row">' +
                                         '<td><span style="padding-left: 12px">' + checkbox + '</span></td>' +
                                         '<td><span style="padding-left: 0px">' + data[i][j][k]['name'] + ' </span></td>' +
@@ -284,7 +283,7 @@ $(document).ready(function () {
                                         '<td style="padding-left: 6px"><input type="checkbox" name="' + i + '" value="' + data[i][j][k]['ship_ids'] + '"/></td>' +
                                         '<td style="padding-left: 0px;">' + data[i][j][k]['name'] + '</td>' +
                                         '</tr>';
-                                }else {
+                                } else {
                                     getDataShip = getDataShip + '<tr class="row">' +
                                         '<td><span style="padding-left: 10px">' + checkbox + '</span></td>' +
                                         '<td><span style="padding-left: 0px">' + data[i][j][k]['name'] + ' </span></td>' +
@@ -318,7 +317,7 @@ $(document).ready(function () {
             let message = locations[terminalId];
             if (message.latitude != undefined && message.longitude != undefined) {
                 let greenIcon = new LeafIcon({iconUrl: getIcon(message)});
-                let rotation = Math.round(message.heading * 1) ;
+                let rotation = Math.round(message.heading * 1);
                 let popup = showInfoPopUp(message);
                 let marker = L.marker([message.latitude, message.longitude],
                     {rotationAngle: rotation, icon: greenIcon});
@@ -378,7 +377,7 @@ $(document).ready(function () {
         $(".startPoint").show();
         $(".stopDrawing").hide();
         drawPolylineStart = 0;
-        if(lastDrawPoint) {
+        if (lastDrawPoint) {
             deleteMarkerWithIds(lastDrawPoint);
             getMarkerWithIds(lastDrawPoint);
         }
@@ -642,17 +641,16 @@ $(document).ready(function () {
                                 heading = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
                             }
                         }
-                        if(parseInt(longitude) < parseInt(1000)) {
-                            data.push([history['id'],
-                                '"' + $.format.date(new Date(timeShip), "dd.MM.yyyy HH:mm:ss") + '"',
-                                '"' + history['ship_ids'] + '"',
-                                '"' + (history['name'] ? history['name'] : '') + '"',
-                                latitude,
-                                longitude,
-                                speed,
-                                heading
-                            ]);
-                        }
+                        data.push([history['id'],
+                            '"' + $.format.date(new Date(timeShip), "dd.MM.yyyy HH:mm:ss") + '"',
+                            '"' + history['ship_ids'] + '"',
+                            '"' + (history['name'] ? history['name'] : '') + '"',
+                            latitude,
+                            longitude,
+                            speed,
+                            heading
+                        ]);
+
                     }
                 });
             }
@@ -707,14 +705,12 @@ $(document).ready(function () {
 
             if (timeShip > startDate.getTime() && timeShip < nextDay.getTime() && typeof (latitude) !== 'undefined'
                 && typeof (longitude) !== 'undefined') {
-                if(parseInt(longitude) < parseInt(1000)) {
-                    histories_html += "<div class=\"inner-table-row\">";
-                    histories_html += '<div class="inner-table-icon-cell"><input type="checkbox" name="' + i + '" value="' + history['ship_ids'] + '"/></div>';
-                    histories_html += "<div class=\"inner-table-icon-cell\"></div>";
-                    histories_html += "<div class=\"inner-table-date-cell\">" + $.format.date(new Date(timeShip), "dd.MM.yyyy HH:mm:ss") + "</div>";
-                    histories_html += "<div>" + (speed * 0.1).toFixed(1) + " knots</div>";
-                    histories_html += "</div>";
-                }
+                histories_html += "<div class=\"inner-table-row\">";
+                histories_html += '<div class="inner-table-icon-cell"><input type="checkbox" name="' + i + '" value="' + history['ship_ids'] + '"/></div>';
+                histories_html += "<div class=\"inner-table-icon-cell\"></div>";
+                histories_html += "<div class=\"inner-table-date-cell\">" + $.format.date(new Date(timeShip), "dd.MM.yyyy HH:mm:ss") + "</div>";
+                histories_html += "<div>" + (speed * 0.1).toFixed(1) + " knots</div>";
+                histories_html += "</div>";
             }
         });
         histories_html += "</div></td></tr>";
@@ -760,7 +756,6 @@ $(document).ready(function () {
 
                 if (typeof (latitude) !== 'undefined' && typeof (longitude) !== 'undefined') {
                     path = {};
-                    if(parseInt(longitude) < parseInt(1000)) {
                         path['id'] = history['id'];
                         path['name'] = history['name'];
                         path['eventTime'] = timeShip;
@@ -768,7 +763,6 @@ $(document).ready(function () {
                         path['speed'] = speed;
                         path['latitude'] = latitude;
                         path['longitude'] = longitude;
-                    }
                 }
 
                 let greenIcon = new LeafIcon({iconUrl: getIcon(path)});
@@ -920,7 +914,7 @@ $(document).ready(function () {
                 }
             }
         }
-        if(average_speed.length == 0){
+        if (average_speed.length == 0) {
             $('#averageSpeedTime').hide();
         }
         if (average_speed.length > 1 && average_speed.length % 2 === 0) {
@@ -990,16 +984,15 @@ $(document).ready(function () {
                                 }
                             }
 
-                            if(parseInt(longitude) < parseInt(1000)) {
-                                if (location['id'] != data[i][j]['id']) {
-                                    location['id'] = data[i][j]['id'];
-                                    location['name'] = data[i][j]['name'];
-                                    location['eventTime'] = timeShip;
-                                    location['heading'] = heading ? heading : 0;
-                                    location['speed'] = speed;
-                                    location['latitude'] = latitude;
-                                    location['longitude'] = longitude;
-                                }
+
+                            if (location['id'] != data[i][j]['id']) {
+                                location['id'] = data[i][j]['id'];
+                                location['name'] = data[i][j]['name'];
+                                location['eventTime'] = timeShip;
+                                location['heading'] = heading ? heading : 0;
+                                location['speed'] = speed;
+                                location['latitude'] = latitude;
+                                location['longitude'] = longitude;
                             }
                             let getChecked = $('#checkAll:checked').length;
 
