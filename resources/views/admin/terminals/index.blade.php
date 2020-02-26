@@ -132,7 +132,7 @@
                     columns: [
                         {data: 'placeholder', name: 'placeholder'},
                         {data: 'id', name: 'id'},
-                        {data: 'actions', name: '{{ trans('global.actions') }}'},
+                        {data: 'actions', name: '{{ trans('global.actions') }}', searchable:false, orderable:false},
                         {data: 'name', name: 'name'},
                         {data: 'ship', name: 'ships.name'},
                         {data: 'ship_id', name: 'ships.id'},

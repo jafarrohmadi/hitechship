@@ -114,7 +114,7 @@
                     columns: [
                         {data: 'placeholder', name: 'placeholder'},
                         {data: 'id', name: 'id'},
-                        {data: 'actions', name: '{{ trans('global.actions') }}'},
+                        {data: 'actions', name: '{{ trans('global.actions') }}', searchable:false, orderable:false},
                         {data: 'history_ids', name: 'history_ids'},
                         {data: 'sin', name: 'sin'},
                         {data: 'min', name: 'min'},
@@ -124,8 +124,11 @@
                         {data: 'ship_ship_ids', name: 'ship.ship_ids'},
                         {data: 'ship.name', name: 'ship.name'},
                         {data: 'payload', name: 'payload'},
-                        {data: 'ota_message_size', name: 'ota_message_size'}
-                    ],
+                        {data: 'ota_message_size', name: 'ota_message_size'},
+
+                    ], colReorder: {
+                        order: [4, 3, 2, 1, 0, 5, 6, 7, 8, 9, 10, 11, 12]
+                    },
                     order: [[1, 'desc']],
                     pageLength: 10,
                 };
