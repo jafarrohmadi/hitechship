@@ -58,6 +58,9 @@ class getHistoryShipData extends Command
                             $field->Name = strtolower($field->Name);
                             if ($field->Name === 'latitude' || $field->Name === 'longitude') {
                                 $field->Value = ($field->Value / 6) * 0.0001;
+                                if($field->Value <= 1000){
+                                    $field->Value = ($field->Value) * 0.000001;
+                                }
                             }
 
                             if ($field->Name === 'speed') {

@@ -253,15 +253,17 @@ $(document).ready(function () {
                                         heading = (jsonParse['Fields'][l]['Value'] * 1).toFixed(1);
                                     }
                                 }
-                                key = data[i][j][k]['ship_ids'];
-                                locations[key] = {};
-                                locations[key]['id'] = data[i][j][k]['id'];
-                                locations[key]['name'] = data[i][j][k]['name'];
-                                locations[key]['eventTime'] = timeShip;
-                                locations[key]['heading'] = heading ? heading : 0;
-                                locations[key]['speed'] = speed ? speed : 0;
-                                locations[key]['latitude'] = latitude;
-                                locations[key]['longitude'] = longitude;
+                                if(parseInt(longitude) < parseInt(1000)) {
+                                    key = data[i][j][k]['ship_ids'];
+                                    locations[key] = {};
+                                    locations[key]['id'] = data[i][j][k]['id'];
+                                    locations[key]['name'] = data[i][j][k]['name'];
+                                    locations[key]['eventTime'] = timeShip;
+                                    locations[key]['heading'] = heading ? heading : 0;
+                                    locations[key]['speed'] = speed ? speed : 0;
+                                    locations[key]['latitude'] = latitude;
+                                    locations[key]['longitude'] = longitude;
+                                }
                             } else {
                                 lastSeeShip = '-';
                                 speed = 0;
@@ -316,7 +318,7 @@ $(document).ready(function () {
             let message = locations[terminalId];
             if (message.latitude != undefined && message.longitude != undefined) {
                 let greenIcon = new LeafIcon({iconUrl: getIcon(message)});
-                let rotation = message.speed > 0.49 ? Math.round(message.heading * 1) : 0;
+                let rotation = Math.round(message.heading * 1) ;
                 let popup = showInfoPopUp(message);
                 let marker = L.marker([message.latitude, message.longitude],
                     {rotationAngle: rotation, icon: greenIcon});
@@ -640,15 +642,17 @@ $(document).ready(function () {
                                 heading = (jsonParse['Fields'][k]['Value'] * 1).toFixed(1);
                             }
                         }
-                        data.push([history['id'],
-                            '"' + $.format.date(new Date(timeShip), "dd.MM.yyyy HH:mm:ss") + '"',
-                            '"' + history['ship_ids'] + '"',
-                            '"' + (history['name'] ? history['name'] : '') + '"',
-                            latitude,
-                            longitude,
-                            speed,
-                            heading
-                        ]);
+                        if(parseInt(longitude) < parseInt(1000)) {
+                            data.push([history['id'],
+                                '"' + $.format.date(new Date(timeShip), "dd.MM.yyyy HH:mm:ss") + '"',
+                                '"' + history['ship_ids'] + '"',
+                                '"' + (history['name'] ? history['name'] : '') + '"',
+                                latitude,
+                                longitude,
+                                speed,
+                                heading
+                            ]);
+                        }
                     }
                 });
             }
@@ -703,12 +707,14 @@ $(document).ready(function () {
 
             if (timeShip > startDate.getTime() && timeShip < nextDay.getTime() && typeof (latitude) !== 'undefined'
                 && typeof (longitude) !== 'undefined') {
-                histories_html += "<div class=\"inner-table-row\">";
-                histories_html += '<div class="inner-table-icon-cell"><input type="checkbox" name="' + i + '" value="' + history['ship_ids'] + '"/></div>';
-                histories_html += "<div class=\"inner-table-icon-cell\"></div>";
-                histories_html += "<div class=\"inner-table-date-cell\">" + $.format.date(new Date(timeShip), "dd.MM.yyyy HH:mm:ss") + "</div>";
-                histories_html += "<div>" + (speed * 0.1).toFixed(1) + " knots</div>";
-                histories_html += "</div>";
+                if(parseInt(longitude) < parseInt(1000)) {
+                    histories_html += "<div class=\"inner-table-row\">";
+                    histories_html += '<div class="inner-table-icon-cell"><input type="checkbox" name="' + i + '" value="' + history['ship_ids'] + '"/></div>';
+                    histories_html += "<div class=\"inner-table-icon-cell\"></div>";
+                    histories_html += "<div class=\"inner-table-date-cell\">" + $.format.date(new Date(timeShip), "dd.MM.yyyy HH:mm:ss") + "</div>";
+                    histories_html += "<div>" + (speed * 0.1).toFixed(1) + " knots</div>";
+                    histories_html += "</div>";
+                }
             }
         });
         histories_html += "</div></td></tr>";
@@ -754,17 +760,19 @@ $(document).ready(function () {
 
                 if (typeof (latitude) !== 'undefined' && typeof (longitude) !== 'undefined') {
                     path = {};
-                    path['id'] = history['id'];
-                    path['name'] = history['name'];
-                    path['eventTime'] = timeShip;
-                    path['heading'] = heading ? heading : 0;
-                    path['speed'] = speed;
-                    path['latitude'] = latitude;
-                    path['longitude'] = longitude;
+                    if(parseInt(longitude) < parseInt(1000)) {
+                        path['id'] = history['id'];
+                        path['name'] = history['name'];
+                        path['eventTime'] = timeShip;
+                        path['heading'] = heading ? heading : 0;
+                        path['speed'] = speed;
+                        path['latitude'] = latitude;
+                        path['longitude'] = longitude;
+                    }
                 }
 
                 let greenIcon = new LeafIcon({iconUrl: getIcon(path)});
-                let rotation = speed > 0.5 ? Math.round(heading * 0.7) : 0;
+                let rotation = Math.round(heading * 0.7);
                 let popup = showInfoPopUp(path);
                 let markerHistory;
                 if (typeof (latitude) !== 'undefined' && typeof (longitude) !== 'undefined') {
@@ -982,19 +990,21 @@ $(document).ready(function () {
                                 }
                             }
 
-                            if (location['id'] != data[i][j]['id']) {
-                                location['id'] = data[i][j]['id'];
-                                location['name'] = data[i][j]['name'];
-                                location['eventTime'] = timeShip;
-                                location['heading'] = heading ? heading : 0;
-                                location['speed'] = speed;
-                                location['latitude'] = latitude;
-                                location['longitude'] = longitude;
+                            if(parseInt(longitude) < parseInt(1000)) {
+                                if (location['id'] != data[i][j]['id']) {
+                                    location['id'] = data[i][j]['id'];
+                                    location['name'] = data[i][j]['name'];
+                                    location['eventTime'] = timeShip;
+                                    location['heading'] = heading ? heading : 0;
+                                    location['speed'] = speed;
+                                    location['latitude'] = latitude;
+                                    location['longitude'] = longitude;
+                                }
                             }
                             let getChecked = $('#checkAll:checked').length;
 
                             let greenIcon = new LeafIcon({iconUrl: getIcon(locations[data[i][j].ship_ids])});
-                            let rotation = speed > 0.5 ? Math.round(heading * 0.7) : 0;
+                            let rotation = Math.round(heading * 0.7);
                             let popup = showInfoPopUp(location);
 
                             let marker = L.marker([latitude, longitude],
