@@ -53,14 +53,11 @@ class getHistoryShipData extends Command
                         HistoryShip::where([ 'history_ids' => $message->ID, 'message_utc' => $message->MessageUTC, 'receive_utc' => $message->ReceiveUTC ])->count();
                     $ship      = Ship::where('ship_ids', $message->MobileID)->first();
                     $payload   = [];
-                    if ($message->Payload->Name === 'simpleReport') {
+                    if ($message->Payload->Name === 'simpleReport' || $message->Payload->Name ===  'MovingEnd' || $message->Payload->Name === 'MovingStart') {
                         foreach ($message->Payload->Fields as $field) {
                             $field->Name = strtolower($field->Name);
                             if ($field->Name === 'latitude' || $field->Name === 'longitude') {
                                 $field->Value = ($field->Value / 6) * 0.0001;
-                                if($field->Value >= 1000){
-                                    $field->Value = ($field->Value) * 0.000001;
-                                }
                             }
 
                             if ($field->Name === 'speed') {
