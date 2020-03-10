@@ -1,18 +1,18 @@
 <style>
-    
-.main .container-fluid {
-    padding: 0px !important;
-}
 
-.row {
-    margin-right: 0 !important;
-    margin-left: 0 !important;
-}
+    .main .container-fluid {
+        padding: 0px !important;
+    }
 
-.col-lg-12 {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
+    .row {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    .col-lg-12 {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
 
 </style>
 @extends('layouts.admin')
