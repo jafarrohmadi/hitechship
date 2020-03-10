@@ -19,12 +19,8 @@
 @section('content')
     <div class="content">
         <div class="row">
-            <div class="col-lg-12"> 
-                    <div class="embed-responsive embed-responsive-16by9">
                         <iframe class="embed-responsive-item" src="{{URL::to('/admin/getDashboard')}}"
-                                allowfullscreen></iframe>
-                </div>
-            </div>
+                                style="position:absolute;top:20px;left:0;width:100%;height:96.7%; border: 0" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
         </div>
     </div>
 @endsection

@@ -154,7 +154,7 @@ $(document).ready(function () {
         }).addTo(map);
 
         L.control.zoom({
-            position: 'topright'
+            position: 'bottomright'
         }).addTo(map);
 
         map.on('click', function (e) {
@@ -185,7 +185,7 @@ $(document).ready(function () {
         }).addTo(mapHistory);
 
         L.control.zoom({
-            position: 'topright'
+            position: 'bottomright'
         }).addTo(mapHistory);
     }
 

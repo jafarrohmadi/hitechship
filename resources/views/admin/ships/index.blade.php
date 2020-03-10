@@ -25,7 +25,7 @@
                         <th>
                             {{ trans('cruds.ship.fields.id') }}
                         </th>
-                        <th style="min-width: 95px;">
+                        <th style="min-width: 100px;">
                             &nbsp;
                         </th>
                         <th>

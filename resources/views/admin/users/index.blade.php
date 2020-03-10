@@ -39,7 +39,7 @@
                     <th>
                         {{ trans('cruds.user.fields.destinasion-email') }}
                     </th>
-                    <th>
+                    <th style="min-width: 160px">
                         &nbsp;
                     </th>
                 </tr>
