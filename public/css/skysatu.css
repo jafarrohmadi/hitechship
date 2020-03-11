@@ -110,7 +110,7 @@ p { margin:0; padding:0}
     padding: 0 0px;
     margin: 0 0px 5px;
     overflow: auto;
-    line-height: 25px !important;
+    line-height: 24px !important;
 }
 .inner-table-icon-cell {
     width: 21px;
@@ -120,6 +120,6 @@ p { margin:0; padding:0}
     color: #2cc185
 }
 .inner-table-date-cell {
-    width: 113px;
+    width: 110px;
     float: left;
 }

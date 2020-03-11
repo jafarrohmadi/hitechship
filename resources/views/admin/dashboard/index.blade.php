@@ -15,6 +15,7 @@
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
+            background: #a1cded !important;
         }
 
         .input-modal {
