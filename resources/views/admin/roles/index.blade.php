@@ -30,7 +30,7 @@
                     <th>
                         {{ trans('cruds.role.fields.permissions') }}
                     </th>
-                    <th>
+                    <th style="min-width: 150px">
                         &nbsp;
                     </th>
                 </tr>

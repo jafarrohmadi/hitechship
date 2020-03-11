@@ -101,10 +101,10 @@ p { margin:0; padding:0}
 .fixed_headers tbody {
     display: block;
     overflow: auto;
-    height: 513px;
+    height: 410px;
 }
 .inner-table {
-    font-size: 12px;
+    font-size: 11px;
     max-height: 120px;
     border: 2px solid #ccc;
     padding: 0 0px;
@@ -120,6 +120,6 @@ p { margin:0; padding:0}
     color: #2cc185
 }
 .inner-table-date-cell {
-    width: 125px;
+    width: 113px;
     float: left;
 }
