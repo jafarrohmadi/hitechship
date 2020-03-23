@@ -105,16 +105,17 @@ p { margin:0; padding:0}
 }
 .inner-table {
     font-size: 11px;
-    max-height: 120px;
+    max-height: 300px;
     border: 2px solid #ccc;
     padding: 0 0px;
     margin: 0 0px 5px;
     overflow: auto;
-    line-height: 24px !important;
+    line-height: 17px !important;
 }
 .inner-table-icon-cell {
-    width: 21px;
+    width: 11px;
     float: left;
+    height: 1px;
 }
 .inner-table-icon-cell i.fa-compass {
     color: #2cc185
