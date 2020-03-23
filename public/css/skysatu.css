@@ -44,7 +44,6 @@ p { margin:0; padding:0}
     border-collapse: collapse;
     text-align: left;
     font-size: 11px;
-    font-weight: bold;
 }
 .fixed_headers td,
 .fixed_headers th {
