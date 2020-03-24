@@ -24,14 +24,14 @@
                     <th>
                         {{ trans('cruds.role.fields.id') }}
                     </th>
+                    <th style="min-width: 150px">
+                        &nbsp;
+                    </th>
                     <th>
                         {{ trans('cruds.role.fields.title') }}
                     </th>
                     <th>
                         {{ trans('cruds.role.fields.permissions') }}
-                    </th>
-                    <th style="min-width: 150px">
-                        &nbsp;
                     </th>
                 </tr>
             </thead>
@@ -86,9 +86,9 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
+{ data: 'actions', name: '{{ trans('global.actions') }}' },
 { data: 'title', name: 'title' },
-{ data: 'permissions', name: 'permissions.title' },
-{ data: 'actions', name: '{{ trans('global.actions') }}' }
+{ data: 'permissions', name: 'permissions.title' }
     ],
     order: [[ 1, 'desc' ]],
     pageLength: 100,

@@ -21,17 +21,17 @@
                     <th width="10">
 
                     </th>
-                    <th>
+                    <th style="min-width: 100px">
                         {{ trans('cruds.manager.fields.id') }}
+                    </th>
+                    <th style="min-width: 150px">
+                        &nbsp;
                     </th>
                     <th>
                         {{ trans('cruds.user.fields.name') }}
                     </th>
                     <th>
                         {{ trans('cruds.manager.fields.user') }}
-                    </th>
-                    <th>
-                        &nbsp;
                     </th>
                 </tr>
             </thead>
@@ -87,9 +87,9 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
+{ data: 'actions', name: '{{ trans('global.actions') }}' },
 { data: 'manager_name', name: 'manager.name' },
-{ data: 'user', name: 'users.name' },
-{ data: 'actions', name: '{{ trans('global.actions') }}' }
+{ data: 'user', name: 'users.name' }
     ],
     order: [[ 1, 'desc' ]],
     pageLength: 10,

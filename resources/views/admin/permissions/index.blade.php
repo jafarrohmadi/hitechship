@@ -21,14 +21,14 @@
                     <th width="10">
 
                     </th>
-                    <th>
+                    <th style="min-width: 100px">
                         {{ trans('cruds.permission.fields.id') }}
+                    </th>
+                    <th style="min-width: 150px">
+                        &nbsp;
                     </th>
                     <th>
                         {{ trans('cruds.permission.fields.title') }}
-                    </th>
-                    <th>
-                        &nbsp;
                     </th>
                 </tr>
             </thead>
@@ -83,8 +83,8 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
-{ data: 'title', name: 'title' },
-{ data: 'actions', name: '{{ trans('global.actions') }}' }
+{ data: 'actions', name: '{{ trans('global.actions') }}' },
+{ data: 'title', name: 'title' }
     ],
     order: [[ 1, 'desc' ]],
     pageLength: 100,
