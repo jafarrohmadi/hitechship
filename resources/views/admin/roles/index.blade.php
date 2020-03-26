@@ -24,14 +24,14 @@
                     <th>
                         {{ trans('cruds.role.fields.id') }}
                     </th>
+                    <th style="min-width: 150px">
+                        &nbsp;
+                    </th>
                     <th>
                         {{ trans('cruds.role.fields.title') }}
                     </th>
                     <th>
                         {{ trans('cruds.role.fields.permissions') }}
-                    </th>
-                    <th style="min-width: 150px">
-                        &nbsp;
                     </th>
                 </tr>
                 </thead>
@@ -93,6 +93,7 @@
                         {data: 'permissions', name: 'permissions.title'},
                         {data: 'actions', name: '{{ trans('global.actions') }}', searchable: false, orderable: false},
 
+<<<<<<< HEAD
                     ],
                     order: [[1, 'desc']],
                     pageLength: 100,
@@ -103,6 +104,31 @@
                     .columns.adjust();
             });
         });
+=======
+  let dtOverrideGlobals = {
+    buttons: dtButtons,
+    processing: true,
+    serverSide: true,
+    retrieve: true,
+    aaSorting: [],
+    ajax: "{{ route('admin.roles.index') }}",
+    columns: [
+      { data: 'placeholder', name: 'placeholder' },
+{ data: 'id', name: 'id' },
+{ data: 'actions', name: '{{ trans('global.actions') }}' },
+{ data: 'title', name: 'title' },
+{ data: 'permissions', name: 'permissions.title' }
+    ],
+    order: [[ 1, 'desc' ]],
+    pageLength: 100,
+  };
+  $('.datatable-Role').DataTable(dtOverrideGlobals);
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+        $($.fn.dataTable.tables(true)).DataTable()
+            .columns.adjust();
+    });
+});
+>>>>>>> 4ca39beb05bd71efd0f1d7102f6598f01da1daf4
 
     </script>
 @endsection

@@ -21,17 +21,17 @@
                     <th width="10">
 
                     </th>
-                    <th>
+                    <th style="min-width: 100px">
                         {{ trans('cruds.manager.fields.id') }}
+                    </th>
+                    <th style="min-width: 150px">
+                        &nbsp;
                     </th>
                     <th>
                         {{ trans('cruds.user.fields.name') }}
                     </th>
                     <th>
                         {{ trans('cruds.manager.fields.user') }}
-                    </th>
-                    <th>
-                        &nbsp;
                     </th>
                 </tr>
                 </thead>
@@ -94,6 +94,7 @@
                         {data: 'user', name: 'users.name'},
                         {data: 'actions', name: '{{ trans('global.actions') }}', searchable: false, orderable: false},
 
+<<<<<<< HEAD
                     ],
                     order: [[1, 'desc']],
                     pageLength: 10,
@@ -104,6 +105,31 @@
                     .columns.adjust();
             });
         });
+=======
+  let dtOverrideGlobals = {
+    buttons: dtButtons,
+    processing: true,
+    serverSide: true,
+    retrieve: true,
+    aaSorting: [],
+    ajax: "{{ route('admin.managers.index') }}",
+    columns: [
+      { data: 'placeholder', name: 'placeholder' },
+{ data: 'id', name: 'id' },
+{ data: 'actions', name: '{{ trans('global.actions') }}' },
+{ data: 'manager_name', name: 'manager.name' },
+{ data: 'user', name: 'users.name' }
+    ],
+    order: [[ 1, 'desc' ]],
+    pageLength: 10,
+  };
+  $('.datatable-Manager').DataTable(dtOverrideGlobals);
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+        $($.fn.dataTable.tables(true)).DataTable()
+            .columns.adjust();
+    });
+});
+>>>>>>> 4ca39beb05bd71efd0f1d7102f6598f01da1daf4
 
     </script>
 @endsection

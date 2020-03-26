@@ -21,14 +21,14 @@
                     <th width="10">
 
                     </th>
-                    <th>
+                    <th style="min-width: 100px">
                         {{ trans('cruds.permission.fields.id') }}
+                    </th>
+                    <th style="min-width: 150px">
+                        &nbsp;
                     </th>
                     <th>
                         {{ trans('cruds.permission.fields.title') }}
-                    </th>
-                    <th>
-                        &nbsp;
                     </th>
                 </tr>
                 </thead>
@@ -76,6 +76,7 @@
             dtButtons.push(deleteButton)
                 @endcan
 
+<<<<<<< HEAD
             let dtOverrideGlobals = {
                     buttons: dtButtons,
                     processing: true,
@@ -98,6 +99,30 @@
                     .columns.adjust();
             });
         });
+=======
+  let dtOverrideGlobals = {
+    buttons: dtButtons,
+    processing: true,
+    serverSide: true,
+    retrieve: true,
+    aaSorting: [],
+    ajax: "{{ route('admin.permissions.index') }}",
+    columns: [
+      { data: 'placeholder', name: 'placeholder' },
+{ data: 'id', name: 'id' },
+{ data: 'actions', name: '{{ trans('global.actions') }}' },
+{ data: 'title', name: 'title' }
+    ],
+    order: [[ 1, 'desc' ]],
+    pageLength: 100,
+  };
+  $('.datatable-Permission').DataTable(dtOverrideGlobals);
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+        $($.fn.dataTable.tables(true)).DataTable()
+            .columns.adjust();
+    });
+});
+>>>>>>> 4ca39beb05bd71efd0f1d7102f6598f01da1daf4
 
     </script>
 @endsection

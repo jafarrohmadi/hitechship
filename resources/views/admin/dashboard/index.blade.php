@@ -15,6 +15,7 @@
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
+            background: #a1cded !important;
         }
 
         .input-modal {
@@ -147,7 +148,7 @@
             <div class="content-wrap">
                 <section id="section-linebox-1" class="content-current">
                     <table class="fixed_headers" id="tracking_table">
-                        <thead>
+                        <thead style="font-weight: bold;">
                         <tr>
                             <td>
                                 <button class="startPoint">Start Point</button>
@@ -165,7 +166,7 @@
                             <td>Speed (knots)</td>
                         </tr>
                         </thead>
-                        <tbody id="shipData">
+                        <tbody id="shipData" style="font-weight: bold;">
                         </tbody>
                     </table>
                 </section>
@@ -177,7 +178,7 @@
                         <button id="downloadCSV"><i class="fa fa-download"></i></button>
                     </div>
                     <table class="fixed_headers history" id="history_table">
-                        <thead>
+                        <thead style="font-weight: bold;">
                         <tr>
                             <td></td>
                             <td>Name</td>

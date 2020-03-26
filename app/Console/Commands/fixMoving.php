@@ -38,7 +38,7 @@ class fixMoving extends Command
      */
     public function handle()
     {
-        $histories = HistoryShip::where('payload', 'LIKE', '%Moving%')->get();
+        $histories = HistoryShip::get();
 //$histories = HistoryShip::where('history_ids', 5817968769)->get();
         foreach ($histories as $history) {
             $historySave = HistoryShip::find($history->id);
@@ -46,9 +46,10 @@ class fixMoving extends Command
             $newPayload  = [];
             foreach (json_decode($history->payload) as $key => $payloas) {
                 if ($key == 'Fields') {
+                    if($payloas != 'propertyValues'){
                     foreach ($payloas as $fields) {
                         if ($fields->Name == 'Latitude') {
-                            if ($fields->Value < -100) {
+                            if ($fields->Value < -100 || $fields->Value > 100) {
                                 $fields->Value = ($fields->Value / 6) * 0.0001;
                             }
                         }
@@ -68,12 +69,15 @@ class fixMoving extends Command
 
                         $payload[] = [
                             'Name'  => $fields->Name,
-                            'Value' => $fields->Value,
+                            'Value' => $fields->Value ?? '',
                         ];
 
                     }
                     echo "fix moving $history->id \n";
                     $newPayload[$key] = $payload;
+                    }else{
+                        $newPayload[$key] = $payloas;
+                    }
                 } else {
                     $newPayload[$key] = $payloas;
                 }

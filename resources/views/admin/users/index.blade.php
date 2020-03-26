@@ -24,6 +24,9 @@
                     <th>
                         {{ trans('cruds.user.fields.id') }}
                     </th>
+                    <th style="min-width: 160px">
+                        &nbsp;
+                    </th>
                     <th>
                         {{ trans('cruds.user.fields.name') }}
                     </th>
@@ -38,9 +41,6 @@
                     </th>
                     <th>
                         {{ trans('cruds.user.fields.destinasion-email') }}
-                    </th>
-                    <th style="min-width: 160px">
-                        &nbsp;
                     </th>
                 </tr>
                 </thead>
@@ -98,12 +98,12 @@
                     columns: [
                         {data: 'placeholder', name: 'placeholder'},
                         {data: 'id', name: 'id'},
+                        {data: 'actions', name: '{{ trans('global.actions') }}'},
                         {data: 'name', name: 'name'},
                         {data: 'username', name: 'username'},
                         {data: 'roles', name: 'roles.title'},
                         {data: 'terminal', name: 'terminals.name'},
-                        {data: 'email', name: 'email.email'},
-                        {data: 'actions', name: '{{ trans('global.actions') }}'}
+                        {data: 'email', name: 'email.email'}
                     ],
                     order: [[1, 'desc']],
                     pageLength: 100,
