@@ -12,9 +12,10 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/tabstyles.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/skysatu.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/leaflet-measure.css') }}"/>
+    <link href="//db.onlinewebfonts.com/c/860c3ec7bbc5da3e97233ccecafe512e?family=Circular+Std+Book" rel="stylesheet" type="text/css"/>
     <style>
         body {
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: "Circular Std Book";
             background: #a1cded !important;
         }
 
@@ -83,8 +84,12 @@
         }
 
         .content-wrap {
-            font-family: Tahoma, Geneva, sans-serif;
+            font-family: "Circular Std Book";
+            font-weight: bold; /*select family's bold font face*/
             text-transform: capitalize;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-width: 0.1px;
+            -moz-osx-font-smoothing: grayscale;
         }
     </style>
 </head>
@@ -141,8 +146,8 @@
         <div class="tabs tabs-style-linebox">
             <nav>
                 <ul>
-                    <li id="tab-track" class="tab-current"><a href="#section-linebox-1"><span>Track</span></a></li>
-                    <li id="tab-history"><a href="#section-linebox-2"><span>History</span></a></li>
+                    <li id="tab-track" class="tab-current"><a href="#section-linebox-1"><span style="font-family:Circular Std Book;">Track</span></a></li>
+                    <li id="tab-history"><a href="#section-linebox-2"><span style="font-family:Circular Std Book;">History</span></a></li>
                 </ul>
             </nav>
             <div class="content-wrap">
@@ -151,8 +156,8 @@
                         <thead style="font-weight: bold;">
                         <tr>
                             <td>
-                                <button class="startPoint">Start Point</button>
-                                <button class="stopDrawing" >Stop Drawing</button>
+                                <button class="startPoint" style="font-family:Circular Std Book;">Start Point</button>
+                                <button class="stopDrawing" style="font-family:Circular Std Book;" >Stop Drawing</button>
                             </td>
 {{--                            <td>--}}
 {{--                                <button class="resetPoint">Reset Point</button>--}}

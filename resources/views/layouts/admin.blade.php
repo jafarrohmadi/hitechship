@@ -21,11 +21,15 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href="{{ asset('css/dropzone.min.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet"/>
+    <link href="//db.onlinewebfonts.com/c/860c3ec7bbc5da3e97233ccecafe512e?family=Circular+Std+Book" rel="stylesheet" type="text/css"/>
 
     @yield('styles')
     <style>
         .select2-results__option[aria-selected=true] {
             display: none;
+        }
+        body {
+            font-family: "Circular Std Book" !important;
         }
     </style>
 </head>
@@ -279,6 +283,7 @@
     });
 </script>
 @yield('scripts')
+
 </body>
 
 </html>

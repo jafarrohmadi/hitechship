@@ -1,5 +1,14 @@
+@font-face {font-family: "Circular Std Book";
+  src: url("../fonts/860c3ec7bbc5da3e97233ccecafe512e.eot"); /* IE9*/
+  src: url("../fonts/860c3ec7bbc5da3e97233ccecafe512e.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+  url("../fonts/860c3ec7bbc5da3e97233ccecafe512e.woff2") format("woff2"), /* chrome、firefox */
+  url("../fonts/860c3ec7bbc5da3e97233ccecafe512e.woff") format("woff"), /* chrome、firefox */
+  url("../fonts/860c3ec7bbc5da3e97233ccecafe512e.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url("../fonts/860c3ec7bbc5da3e97233ccecafe512e.svg#Circular Std Book") format("svg"); /* iOS 4.1- */
+}
+
 html { height: 100%; }
-body { height: 100%; margin: 0px; padding: 0px; font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif"; font-size: 12px;}
+body { height: 100%; margin: 0px; padding: 0px; font-family: "Circular Std Book"; font-size: 12px;}
 p { margin:0; padding:0}
 #googleMap, #googleMapHistory { height: 100%; background: blue; z-index: 1}
 #menu {
@@ -43,7 +52,8 @@ p { margin:0; padding:0}
     width: 260px;
     border-collapse: collapse;
     text-align: left;
-    font-size: 11px;
+    font-size: 12px;
+    color: #000 !important
 }
 .fixed_headers td,
 .fixed_headers th {
