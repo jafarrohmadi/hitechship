@@ -80,32 +80,7 @@
             dtButtons.push(deleteButton)
                 @endcan
 
-            let dtOverrideGlobals = {
-                    buttons: dtButtons,
-                    processing: true,
-                    serverSide: true,
-                    retrieve: true,
-                    aaSorting: [],
-                    ajax: "{{ route('admin.managers.index') }}",
-                    columns: [
-                        {data: 'placeholder', name: 'placeholder'},
-                        {data: 'id', name: 'id'},
-                        {data: 'manager_name', name: 'manager.name'},
-                        {data: 'user', name: 'users.name'},
-                        {data: 'actions', name: '{{ trans('global.actions') }}', searchable: false, orderable: false},
-
-<<<<<<< HEAD
-                    ],
-                    order: [[1, 'desc']],
-                    pageLength: 10,
-                };
-            $('.datatable-Manager').DataTable(dtOverrideGlobals);
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                $($.fn.dataTable.tables(true)).DataTable()
-                    .columns.adjust();
-            });
-        });
-=======
+     
   let dtOverrideGlobals = {
     buttons: dtButtons,
     processing: true,
@@ -129,7 +104,6 @@
             .columns.adjust();
     });
 });
->>>>>>> 4ca39beb05bd71efd0f1d7102f6598f01da1daf4
 
     </script>
 @endsection
