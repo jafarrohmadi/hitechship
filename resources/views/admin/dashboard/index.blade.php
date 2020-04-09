@@ -88,7 +88,6 @@
             font-weight: bold; /*select family's bold font face*/
             text-transform: capitalize;
             -webkit-font-smoothing: antialiased;
-            -webkit-text-stroke-width: 0.1px;
             -moz-osx-font-smoothing: grayscale;
         }
     </style>
