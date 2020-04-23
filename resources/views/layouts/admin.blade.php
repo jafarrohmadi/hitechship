@@ -29,7 +29,7 @@
             display: none;
         }
         body {
-            font-family: "Circular Std Book" !important;
+            font-family: Roboto, 'Segoe UI', Tahoma, sans-serif !important;
         }
     </style>
 </head>

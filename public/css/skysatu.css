@@ -8,7 +8,7 @@
 }
 
 html { height: 100%; }
-body { height: 100%; margin: 0px; padding: 0px; font-family: "Circular Std Book"; font-size: 12px;}
+body { height: 100%; margin: 0px; padding: 0px; font-family: Roboto, 'Segoe UI', Tahoma, sans-serif; font-size: 12px;}
 p { margin:0; padding:0}
 #googleMap, #googleMapHistory { height: 100%; background: blue; z-index: 1}
 #menu {
