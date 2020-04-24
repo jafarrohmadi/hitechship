@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\HistoryShip;
 use Illuminate\Console\Command;
+use Carbon\Carbon;
 
 class fixMoving extends Command
 {
@@ -12,7 +13,7 @@ class fixMoving extends Command
      *
      * @var string
      */
-    protected $signature = 'fix:moving';
+    protected $signature = "fix:moving";
 
     /**
      * The console command description.
@@ -38,7 +39,7 @@ class fixMoving extends Command
      */
     public function handle()
     {
-        $histories = HistoryShip::get();
+        $histories = HistoryShip::where('created_at', '>=', Carbon::now()->subDays(2)->toDateTimeString())->get();
 //$histories = HistoryShip::where('history_ids', 5817968769)->get();
         foreach ($histories as $history) {
             $historySave = HistoryShip::find($history->id);

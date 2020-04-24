@@ -15,7 +15,7 @@
     <link href="//db.onlinewebfonts.com/c/860c3ec7bbc5da3e97233ccecafe512e?family=Circular+Std+Book" rel="stylesheet" type="text/css"/>
     <style>
         body {
-            font-family: "Circular Std Book";
+            font-family: Roboto, 'Segoe UI', Tahoma, sans-serif;
             background: #a1cded !important;
         }
 
@@ -84,7 +84,7 @@
         }
 
         .content-wrap {
-            font-family: "Circular Std Book";
+            font-family: Roboto, 'Segoe UI', Tahoma, sans-serif;
             font-weight: bold; /*select family's bold font face*/
             text-transform: capitalize;
             -webkit-font-smoothing: antialiased;
@@ -145,8 +145,8 @@
         <div class="tabs tabs-style-linebox">
             <nav>
                 <ul>
-                    <li id="tab-track" class="tab-current"><a href="#section-linebox-1"><span style="font-family:Circular Std Book;">Track</span></a></li>
-                    <li id="tab-history"><a href="#section-linebox-2"><span style="font-family:Circular Std Book;">History</span></a></li>
+                    <li id="tab-track" class="tab-current"><a href="#section-linebox-1"><span style="font-family:Roboto, 'Segoe UI', Tahoma, sans-serif;">Track</span></a></li>
+                    <li id="tab-history"><a href="#section-linebox-2"><span style="font-family:Roboto, 'Segoe UI', Tahoma, sans-serif;">History</span></a></li>
                 </ul>
             </nav>
             <div class="content-wrap">
@@ -155,8 +155,8 @@
                         <thead style="font-weight: bold;">
                         <tr>
                             <td>
-                                <button class="startPoint" style="font-family:Circular Std Book;">Start Point</button>
-                                <button class="stopDrawing" style="font-family:Circular Std Book;" >Stop Drawing</button>
+                                <button class="startPoint" style="font-family:Roboto, 'Segoe UI', Tahoma, sans-serif;">Start Point</button>
+                                <button class="stopDrawing" style="font-family:Roboto, 'Segoe UI', Tahoma, sans-serif;" >Stop Drawing</button>
                             </td>
 {{--                            <td>--}}
 {{--                                <button class="resetPoint">Reset Point</button>--}}
