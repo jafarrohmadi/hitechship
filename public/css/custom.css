@@ -70,6 +70,7 @@ table.dataTable thead .sorting_desc {
     z-index: 1;
 }
 
+
 .btn-default {
     color: #23282c;
     background-color: #f0f3f5;
@@ -123,9 +124,19 @@ table.dataTable thead .sorting_desc {
 }
 
 thead {
-    font-size: 11px;
+    font-size: 14px;
     text-align: center;
 }
 tbody{
-    font-size: 11px;
+    font-size: 13px;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #000 !important;
+}
+
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
+    color: rgba(0,0,0);
 }
