@@ -6,15 +6,15 @@
             </a>
         </li>
         @can('ship_access')
-            <li class="nav-item">
-                <a href="{{ route("admin.ships.index") }}"
+            <li class="nav-item active">
+                <a href="{{ route("admin.ships.index") }}" 
                    class="nav-link {{ request()->is('admin/ships') || request()->is('admin/ships/*') ? 'active' : '' }}">
                     {{ trans('cruds.ship.title') }}
                 </a>
             </li>
         @endcan
         @can('history_ship_access')
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a href="{{ route("admin.history-ships.index") }}"
                    class="nav-link {{ request()->is('admin/history-ships') || request()->is('admin/history-ships/*') ? 'active' : '' }}">
                     {{ trans('cruds.historyShip.title') }}
@@ -22,7 +22,7 @@
             </li>
         @endcan
         @can('terminal_access')
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a href="{{ route("admin.terminals.index") }}"
                    class="nav-link {{ request()->is('admin/terminals') || request()->is('admin/terminals/*') ? 'active' : '' }}">
                     {{ trans('cruds.terminal.title') }}
@@ -30,7 +30,7 @@
             </li>
         @endcan
         @can('user_management_access')
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-expanded="false">
                     {{ trans('cruds.userManagement.title') }}
@@ -89,14 +89,14 @@
             </li>
         @endcan
         @can('setting_access')
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a href="{{ route("admin.settings.index") }}"
                    class="nav-link {{ request()->is('admin/settings') || request()->is('admin/settings/*') ? 'active' : '' }}">
                     {{ trans('cruds.setting.title') }}
                 </a>
             </li>
         @endcan
-        <li class="nav-item">
+        <li class="nav-item active">
             <a href="#" class="nav-link"
                onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                 {{ trans('global.logout') }}
