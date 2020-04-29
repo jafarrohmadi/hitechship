@@ -53,7 +53,7 @@
                             <div class="form-check checkbox">
                                 <input class="form-check-input" name="remember" type="checkbox" id="remember"
                                        style="vertical-align: middle;"/>
-                                <label class="form-check-label" for="remember" style="vertical-align: middle;">
+                                <label class="form-check-label" for="remember" style="vertical-align: middle; font-weight: 500; color: #000;">
                                     {{ trans('global.remember_me') }}
                                 </label>
                             </div>

@@ -124,11 +124,14 @@ table.dataTable thead .sorting_desc {
 }
 
 thead {
-    font-size: 14px;
-    text-align: center;
+    font-size: 1.1em !important;
+    text-align: center !important;
+    font-weight: normal !important;
 }
-tbody{
-    font-size: 13px;
+
+tbody {
+    font-size: 1.0em !important;
+    font-weight: 500 !important;
 }
 
 .table {
@@ -138,5 +141,16 @@ tbody{
 }
 
 .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
-    color: rgba(0,0,0);
+    color: rgba(0,0,0) !important;
+    font-weight: 600 !important;
+    font-size: 1.1em !important;
+}
+
+.navbar-light .navbar-brand {
+    color: rgba(0,0,0) !important;
+    font-weight: 600 !important;
+}
+
+.dropdown-item {
+    font-weight: 600 !important;
 }
