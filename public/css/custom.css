@@ -131,7 +131,7 @@ thead {
 
 tbody {
     font-size: 1.0em !important;
-    font-weight: 500 !important;
+    font-weight: 480 !important;
 }
 
 .table {
@@ -142,15 +142,15 @@ tbody {
 
 .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
     color: rgba(0,0,0) !important;
-    font-weight: 600 !important;
+    font-weight: 495 !important;
     font-size: 1.1em !important;
 }
 
 .navbar-light .navbar-brand {
     color: rgba(0,0,0) !important;
-    font-weight: 600 !important;
+    font-weight: 495 !important;
 }
 
 .dropdown-item {
-    font-weight: 600 !important;
+    font-weight: 495 !important;
 }
