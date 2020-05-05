@@ -169,7 +169,7 @@
                             <td>Speed (knots)</td>
                         </tr>
                         </thead>
-                        <tbody id="shipData" style="font-weight: 500;">
+                        <tbody id="shipData" style="font-weight: 400;">
                         </tbody>
                     </table>
                 </section>
@@ -181,14 +181,14 @@
                         <button id="downloadCSV"><i class="fa fa-download"></i></button>
                     </div>
                     <table class="fixed_headers history" id="history_table">
-                        <thead style="font-weight: 500;">
+                        <thead style="font-weight: 400;">
                         <tr>
                             <td></td>
                             <td>Name</td>
                             <td></td>
                         </tr>
                         </thead>
-                        <tbody id='historyShipData' style="font-weight: 500;">
+                        <tbody id='historyShipData' style="font-weight: 400;">
                         </tbody>
                     </table>
                 </section>

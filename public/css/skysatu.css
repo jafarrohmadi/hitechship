@@ -90,7 +90,7 @@ p { margin:0; padding:0}
 .fixed_headers tr.header {
     border-bottom: 1px solid #CCC;
     background-color: #2CC185;
-    font-weight: 500;
+    font-weight: 400;
 }
 .fixed_headers td {
     border-bottom: 1px solid #CCC;
