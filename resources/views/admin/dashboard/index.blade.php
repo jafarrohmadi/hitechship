@@ -181,7 +181,7 @@
                         <button id="downloadCSV"><i class="fa fa-download"></i></button>
                     </div>
                     <table class="fixed_headers history" id="history_table">
-                        <thead style="font-weight: 400;">
+                        <thead style="font-weight: 500;">
                         <tr>
                             <td></td>
                             <td>Name</td>
