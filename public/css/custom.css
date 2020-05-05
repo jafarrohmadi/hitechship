@@ -147,8 +147,9 @@ tbody {
 }
 
 .navbar-light .navbar-brand {
+    font-size: 1.4em !important;
     color: rgba(0,0,0) !important;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
 }
 
 .dropdown-item {

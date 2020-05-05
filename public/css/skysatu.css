@@ -52,8 +52,9 @@ p { margin:0; padding:0}
     width: 260px;
     border-collapse: collapse;
     text-align: left;
-    font-size: 12px;
-    color: #000 !important
+    font-size: 0.8em !important;
+    color: #000 !important;
+    font-family: Roboto, 'Segoe UI', Tahoma, sans-serif;
 }
 .fixed_headers td,
 .fixed_headers th {
@@ -90,7 +91,8 @@ p { margin:0; padding:0}
 .fixed_headers tr.header {
     border-bottom: 1px solid #CCC;
     background-color: #2CC185;
-    font-weight: 400;
+    font-weight: 600 !important;
+    color :#000 !important;
 }
 .fixed_headers td {
     border-bottom: 1px solid #CCC;
