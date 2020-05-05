@@ -85,7 +85,6 @@
 
         .content-wrap {
             font-family: Roboto, 'Segoe UI', Tahoma, sans-serif;
-            font-weight: bold; /*select family's bold font face*/
             text-transform: capitalize;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -152,7 +151,7 @@
             <div class="content-wrap">
                 <section id="section-linebox-1" class="content-current">
                     <table class="fixed_headers" id="tracking_table">
-                        <thead style="font-weight: 700;">
+                        <thead style="font-weight: 500;">
                         <tr>
                             <td>
                                 <button class="startPoint" style="font-family:Roboto, 'Segoe UI', Tahoma, sans-serif;">Start Point</button>
@@ -170,7 +169,7 @@
                             <td>Speed (knots)</td>
                         </tr>
                         </thead>
-                        <tbody id="shipData" style="font-weight: 700;">
+                        <tbody id="shipData" style="font-weight: 500;">
                         </tbody>
                     </table>
                 </section>
@@ -182,14 +181,14 @@
                         <button id="downloadCSV"><i class="fa fa-download"></i></button>
                     </div>
                     <table class="fixed_headers history" id="history_table">
-                        <thead style="font-weight: 700;">
+                        <thead style="font-weight: 500;">
                         <tr>
                             <td></td>
                             <td>Name</td>
                             <td></td>
                         </tr>
                         </thead>
-                        <tbody id='historyShipData' style="font-weight: 700;">
+                        <tbody id='historyShipData' style="font-weight: 500;">
                         </tbody>
                     </table>
                 </section>
