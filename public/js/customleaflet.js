@@ -215,7 +215,7 @@ $(document).ready(function () {
                     if(i !== '') {
                         getDataShip = getDataShip + '<tr class="header2" style="background-color: #023342; color:#fff;"><td colspan="4"><input type="checkbox" id="top' + topKing + '" name="top' + topKing + '" checked="checked"/>&nbsp;' + damask + '</td> </tr>';
 
-                        getDataHistoryShip = getDataHistoryShip + '<tr class="header2" style="background-color: #023342; color:#fff;"><td colspan="2" style ="height:19px; padding-left:5px; font-weight: 600;">' + damask + '</td></tr>';
+                        getDataHistoryShip = getDataHistoryShip + '<tr class="header2" style="background-color: #023342; color:#fff;"><td colspan="2" style ="height:19px; padding-left:5px; font-weight: 660;">' + damask + '</td></tr>';
                     }
                     for (const j in data[i]) {
                         if (j === "") {
@@ -225,10 +225,10 @@ $(document).ready(function () {
                         }
                         if(i !== '') {
                             getDataShip = getDataShip + '<tr class="header"><td colspan="4" style="padding-left: 7px"><input type="checkbox" id="top' + topKing + '" name="' + king + '" checked="checked"/>&nbsp;' + damaskus + '</td> </tr>';
-                            getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td colspan="2" style="padding-left: 10px" height:18px; font-weight: 600;>' + damaskus + '</td></tr>';
+                            getDataHistoryShip = getDataHistoryShip + '<tr class="header"><td colspan="2" style="padding-left: 10px" height:18px; font-weight: 660;>' + damaskus + '</td></tr>';
                         }else {
                             getDataShip = getDataShip + '<tr class="header"><td colspan="4" style="padding-left: 7px"><input type="checkbox" id="top' + topKing + '" name="' + king + '" checked="checked"/>&nbsp;' + damaskus + '</td> </tr>';
-                            getDataHistoryShip = getDataHistoryShip + '<tr class="header" style="height:20px;"><td colspan="2" style="padding-left: 10px; font-weight: 600;">' + damaskus + '</td>/tr>';
+                            getDataHistoryShip = getDataHistoryShip + '<tr class="header" style="height:20px;"><td colspan="2" style="padding-left: 10px; font-weight: 660;">' + damaskus + '</td>/tr>';
                         }
                         for (const k in data[i][j]) {
                             if (data[i][j][k]['ship_history_ships_latest']) {
@@ -280,7 +280,7 @@ $(document).ready(function () {
                                     getDataHistoryShip = getDataHistoryShip +
                                         '<tr class="row">' +
                                         '<td style="padding-left: 6px"><input type="checkbox" name="' + i + '" value="' + data[i][j][k]['ship_ids'] + '"/></td>' +
-                                        '<td style="padding-left: 0px; font-weight: 600;">' + data[i][j][k]['name'] + '</td>' +
+                                        '<td style="padding-left: 0px; font-weight: 660;">' + data[i][j][k]['name'] + '</td>' +
                                         '</tr>';
                                 }else {
                                     getDataShip = getDataShip + '<tr class="row">' +
@@ -292,7 +292,7 @@ $(document).ready(function () {
                                     getDataHistoryShip = getDataHistoryShip +
                                         '<tr class="row">' +
                                         '<td style="padding-left: 6px"><input type="checkbox" name="' + i + '" value="' + data[i][j][k]['ship_ids'] + '"/></td>' +
-                                        '<td style="padding-left: 0px; font-weight: 600;">' + data[i][j][k]['name'] + '</td>' +
+                                        '<td style="padding-left: 0px; font-weight: 660;">' + data[i][j][k]['name'] + '</td>' +
                                         '</tr>';
                                 }
                             }

@@ -151,7 +151,7 @@
             <div class="content-wrap">
                 <section id="section-linebox-1" class="content-current">
                     <table class="fixed_headers" id="tracking_table">
-                        <thead style="font-weight: 600;">
+                        <thead style="font-weight: 660;">
                         <tr>
                             <td>
                                 <button class="startPoint" style="font-family:Roboto, 'Segoe UI', Tahoma, sans-serif;">Start Point</button>
@@ -169,7 +169,7 @@
                             <td>Speed (knots)</td>
                         </tr>
                         </thead>
-                        <tbody id="shipData" style="font-weight: 600;">
+                        <tbody id="shipData" style="font-weight: 660;">
                         </tbody>
                     </table>
                 </section>
@@ -181,14 +181,14 @@
                         <button id="downloadCSV"><i class="fa fa-download"></i></button>
                     </div>
                     <table class="fixed_headers history" id="history_table">
-                        <thead style="font-weight: 600;">
+                        <thead style="font-weight: 660;">
                         <tr>
                             <td></td>
                             <td>Name</td>
                             <td></td>
                         </tr>
                         </thead>
-                        <tbody id='historyShipData' style="font-weight: 600;">
+                        <tbody id='historyShipData' style="font-weight: 660;">
                         </tbody>
                     </table>
                 </section>
