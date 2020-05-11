@@ -480,13 +480,13 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .leaflet-popup-content p {
 	margin: 0;
     padding: 0;
-    font-weight: 600 !important;
+    font-weight: 650 !important;
     font-size: 1.0em !important;
     color: #000 !important;
     font-family: Roboto, 'Segoe UI', Tahoma, sans-serif;
 	}
 .leaflet-popup-content strong {
-    font-weight: 600 !important;
+    font-weight: 660 !important;
 }
 .leaflet-popup-tip-container {
 	width: 40px;
