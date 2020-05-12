@@ -65,7 +65,7 @@ table.dataTable thead .sorting_desc {
 }
 
 .navbar {
-    height: 21px;
+    height: 25px !important;
     font-size: small;
     z-index: 1;
 }
@@ -142,16 +142,16 @@ tbody {
 
 .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
     color: rgba(0,0,0) !important;
-    font-weight: 600 !important;
+    font-weight: 600 ;
     font-size: 1.1em !important;
 }
 
 .navbar-light .navbar-brand {
     font-size: 1.4em !important;
     color: rgba(0,0,0) !important;
-    font-weight: 500 !important;
+    font-weight: 500 ;
 }
 
 .dropdown-item {
-    font-weight: 600 !important;
+    font-weight: 600 ;
 }
