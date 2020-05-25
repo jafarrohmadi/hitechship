@@ -681,7 +681,7 @@ $(document).ready(function () {
         }
 
         selectedTR.addClass("checked");
-        let histories_html = "<tr><td></td><td><div class=\"inner-table\" style='line-height: 23px;'>";
+        let histories_html = "<tr><td></td><td><div class=\"inner-table\" id='" + terminalId + "' style='line-height: 23px;'>";
         $.each(locations[terminalId].histories, function (i, history) {
             let nextDay = new Date(endDate);
             nextDay.setDate(endDate.getDate() + 1);
@@ -703,8 +703,8 @@ $(document).ready(function () {
 
             if (timeShip > startDate.getTime() && timeShip < nextDay.getTime() && typeof (latitude) !== 'undefined'
                 && typeof (longitude) !== 'undefined') {
-                histories_html += "<div class=\"inner-table-row\">";
-                histories_html += '<div class="inner-table-icon-cell"><input type="checkbox" name="' + i + '" value="' + history['ship_ids'] + '"/></div>';
+                histories_html += "<div class=\"inner-table-row\" data-id='" + history['history_ids'] +  "' data-name='" + i  +  "' data-value='" + history['ship_ids'] + "'>";
+                // histories_html += '<div class="inner-table-icon-cell"><input type="checkbox" name="' + i + '" value="' + history['ship_ids'] + '"/></div>';
                 histories_html += "<div class=\"inner-table-icon-cell\"></div>";
                 histories_html += "<div class=\"inner-table-date-cell\">" + $.format.date(new Date(timeShip), "dd.MM.yyyy HH:mm:ss") + "</div>";
                 histories_html += "<div>" + (speed * 0.1).toFixed(1) + " knots</div>";
@@ -792,6 +792,8 @@ $(document).ready(function () {
 
                     markerHistory.bindPopup(popup, {"closeOnClick": null});
                     markerHistory.on('click', function (e) {
+                        $('.inner-table-row').removeClass('selected');
+                        $('.inner-table-row[data-id="' + history['history_ids']+ '"]').addClass('selected');
                         this.openPopup();
                     });
 
@@ -880,6 +882,149 @@ $(document).ready(function () {
             }
         }
         return null;
+    }
+
+    $(document).on("mouseover", "div.inner-table-row", function () {
+        $("div.inner-table-row").removeClass("selected");
+        $(this).addClass("selected");
+    }).on("click", 'div.inner-table-row', function(e) {
+        let id = $(this).data('value');
+        let name = $(this).data("name");
+        let selectedMessage = locations[id];
+        let checked = $(this).is(".selected");
+        showDetail(id, name, selectedMessage, checked);
+    });
+
+    $(document).on("keydown", function (e) {
+        var elems, id, name, selectedMessage, checked, prev, next, sibling;
+        elems = $('div.inner-table-row:first');
+
+        if (e.keyCode == 38 && elems.length > 0) {
+            if($('.selected').length == 0) {
+                console.log('kosong')
+                elems = $('div.inner-table-row:first');
+                id = elems.data('value');
+                name = elems.data("name");
+                selectedMessage = locations[id];
+                $("div.inner-table-row").removeClass("selected");
+                elems.addClass("selected");
+                checked = elems.is(".selected");
+                showDetail(id, name, selectedMessage, checked);
+            }
+
+            else {
+                console.log('ada')
+                elems = $(".selected");
+                prev = elems.prev();
+                sibling =  elems.siblings().last();
+                $("div.inner-table-row").removeClass("selected");
+                if (prev.length == 0) {
+                    id = sibling.data('value');
+                    name = sibling.data("name");
+                    selectedMessage = locations[id];
+                    sibling.addClass("selected");
+                    checked = sibling.is(".selected");
+                    showDetail(id, name, selectedMessage, checked);
+                } else {
+                    id = prev.data('value');
+                    name = prev.data("name");
+                    selectedMessage = locations[id];
+                    prev.addClass("selected");
+                    checked = prev.is(".selected");
+                    showDetail(id, name, selectedMessage, checked);
+                }
+            }
+        }
+
+        if (e.keyCode == 40 && elems.length > 0) {
+            if($('.selected').length == 0) {
+                elems = $('div.inner-table-row:last');
+                id = elems.data('value');
+                name = elems.data("name");
+                selectedMessage = locations[id];
+                $("div.inner-table-row").removeClass("selected");
+                elems.addClass("selected");
+                checked = elems.is(".selected");
+                showDetail(id, name, selectedMessage, checked);
+            }
+            else {
+                elems = $(".selected");
+                next = elems.next()
+                sibling = elems.siblings().first();
+                $("div.inner-table-row").removeClass("selected");
+                if (next.length == 0) {
+                    id = sibling.data('value');
+                    name = sibling.data("name");
+                    selectedMessage = locations[id];
+                    sibling.addClass("selected");
+                    checked = sibling.is(".selected");
+                    showDetail(id, name, selectedMessage, checked);
+                } else {
+                    id = next.data('value');
+                    name = next.data("name");
+                    selectedMessage = locations[id];
+                    next.addClass("selected");
+                    checked = next.is(".selected");
+                    showDetail(id, name, selectedMessage, checked);
+                }
+            }
+        }
+   });
+
+    function showDetail(id, name, selectedMessage, checked) {
+        if (selectedMessage) {
+            if (selectedMessage.path) {
+                if (checked) {
+                    let latitude, longitude;
+                    let jsonParse = JSON.parse(selectedMessage.histories[name].payload);
+                    for (const k in jsonParse['Fields']) {
+                        if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'latitude') {
+                            latitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                        }
+
+                        if (jsonParse['Fields'][k]['Name'].toLowerCase() === 'longitude') {
+                            longitude = (jsonParse['Fields'][k]['Value'] * 1).toFixed(4);
+                        }
+                    }
+
+                    centerLeafletMapHistoriesOnMarker(latitude, longitude);
+                    average_speed.push([name, selectedMessage.histories[name].id, selectedMessage.histories[name].message_utc]);
+                    selectedMessage.historiesMarkers[name].openPopup();
+                } else {
+                    let findId = searchForId(name, selectedMessage.histories[name].id, average_speed);
+                    average_speed.splice(findId, 1);
+                    selectedMessage.historiesMarkers[name].closePopup();
+                }
+            }
+        }
+        if(average_speed.length == 0){
+            $('#averageSpeedTime').hide();
+        }
+        if (average_speed.length > 1 && average_speed.length % 2 === 0) {
+            $.ajax({
+                type: 'get',
+                url: "/admin/getAverageSpeed/" + JSON.stringify(average_speed),
+                success: function (data) {
+                    if (data) {
+                        let html = '<table class="table" align="center" style="text-align: left; font-size: 1em; min-width: 200px"><thead> <tr> <th width="50%">Name</th>' +
+                            '<th width="50%">Speed</th></tr></thead><tbody>';
+                        for (let i in data) {
+                            html = html + '<tr><td>' + data[i].name + '</td><td>' + data[i].speed + ' knots</td></tr>';
+                        }
+                        html = html + '</tbody>' + '</table>';
+                        $('#titleAverage').html('Average Speed Of The Ship');
+                        $('#totalAverage').html(html);
+                        $('#averageSpeedTime').show();
+
+                        // Swal.fire({
+                        //     title: '<h3>Average Speed Of The Ship</h3>',
+                        //     html: html,
+                        //     confirmButtonText: 'Close',
+                        // });
+                    }
+                }
+            });
+        }
     }
 
     $(document).on("click", "#history_table tbody tr .inner-table .inner-table-row .inner-table-icon-cell input:checkbox", function () {

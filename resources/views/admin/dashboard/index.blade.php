@@ -89,6 +89,11 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
+
+        .inner-table-row.selected {
+            background-color: rgb(37, 96, 204);
+            color: #fff;
+        }
     </style>
 </head>
 <body style="height: inherit !important;">
@@ -204,13 +209,12 @@
 <script src="{{ asset('js/MeasureTool.min.js') }}"></script>
 <script src="{{ asset('js/cbpFWTabs.js') }}"></script>
 <script src="{{ asset('js/jquery-dateFormat.min.js') }}"></script>
-
 <script src="{{ asset('js/leaflet.js') }}"></script>
 <script src="{{ asset('js/leaflet.rotatedMarker.js') }}"></script>
 <script src="{{ asset('js/leaflet.contextmenu.js') }}"></script>
 <script src="{{ asset('js/leaflet.draw.js') }}"></script>
 <script src="{{ asset('js/leaflet-providers.js') }}"></script>
-<script src="{{ asset('js/customleaflet.js') }}"></script>
+<script src="{{ asset('js/customleaflet.js') }}?v={{  now()  }}"></script>
 
 
 </body>
