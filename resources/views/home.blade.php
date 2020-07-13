@@ -16,7 +16,18 @@
 
      body {
             background: #a1cded !important;
-        }
+    }
+    .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
+        font-weight: 628 !important;
+    }
+
+    .navbar-light .navbar-brand {
+        font-weight: 530 !important;
+    }
+
+    .dropdown-item {
+        font-weight: 628 !important;
+    }    
 
 </style>
 @extends('layouts.admin')

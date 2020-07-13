@@ -12,7 +12,6 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/tabstyles.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/skysatu.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/leaflet-measure.css') }}"/>
-    <link href="//db.onlinewebfonts.com/c/860c3ec7bbc5da3e97233ccecafe512e?family=Circular+Std+Book" rel="stylesheet" type="text/css"/>
     <style>
         body {
             font-family: Roboto, 'Segoe UI', Tahoma, sans-serif;
@@ -88,6 +87,11 @@
             text-transform: capitalize;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+        }
+
+        .inner-table-row.selected {
+            background-color: rgb(37, 96, 204);
+            color: #fff;
         }
     </style>
 </head>
@@ -204,13 +208,14 @@
 <script src="{{ asset('js/MeasureTool.min.js') }}"></script>
 <script src="{{ asset('js/cbpFWTabs.js') }}"></script>
 <script src="{{ asset('js/jquery-dateFormat.min.js') }}"></script>
-
 <script src="{{ asset('js/leaflet.js') }}"></script>
 <script src="{{ asset('js/leaflet.rotatedMarker.js') }}"></script>
 <script src="{{ asset('js/leaflet.contextmenu.js') }}"></script>
 <script src="{{ asset('js/leaflet.draw.js') }}"></script>
 <script src="{{ asset('js/leaflet-providers.js') }}"></script>
-<script src="{{ asset('js/customleaflet.js') }}"></script>
+<script src="{{ asset('js/customleaflet.js') }}?v={{  now()  }}"></script>
+
+<script src="https://kit.fontawesome.com/59ba4e0c1b.js"></script>
 
 
 </body>

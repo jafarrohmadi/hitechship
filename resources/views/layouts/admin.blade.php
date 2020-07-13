@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href="{{ asset('css/dropzone.min.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet"/>
-    <link href="//db.onlinewebfonts.com/c/860c3ec7bbc5da3e97233ccecafe512e?family=Circular+Std+Book" rel="stylesheet" type="text/css"/>
 
     @yield('styles')
     <style>
@@ -115,7 +114,7 @@
 <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
 <script src="{{ asset('js/select2.full.min.js') }}"></script>
 <script src="{{ asset('js/dropzone.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap-tagsinput.js') }}"></script>
+<!--<script src="{{ asset('js/bootstrap-tagsinput.js') }}"></script>-->
 <script src="{{ asset('js/main.js') }}"></script>
 <script>
     $(function () {
