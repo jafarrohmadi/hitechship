@@ -674,6 +674,13 @@ $(document).ready(function () {
     });
 
     function showHistories(terminalId) {
+        if($('#overlay-box').length > 0) {
+            $('#overlay-box').show()
+            setTimeout(function() {
+                $('#overlay-box').hide()
+            }, 1000)
+        }
+
         let selectedTR = $("#history_table tr.row").has("input:checkbox[value=" + terminalId + "]");
 
         if (selectedTR.next().length > 0 && !(selectedTR.next().hasClass("row") || selectedTR.next().hasClass("header"))) {
@@ -703,7 +710,7 @@ $(document).ready(function () {
 
             if (timeShip > startDate.getTime() && timeShip < nextDay.getTime() && typeof (latitude) !== 'undefined'
                 && typeof (longitude) !== 'undefined') {
-                histories_html += "<div class=\"inner-table-row\" data-id='" + history['history_ids'] +  "' data-name='" + i  +  "' data-value='" + history['ship_ids'] + "'>";
+                histories_html += "<div class=\"inner-table-row\" data-name='" + i  +  "' data-value='" + history['ship_ids'] + "'>";
                 // histories_html += '<div class="inner-table-icon-cell"><input type="checkbox" name="' + i + '" value="' + history['ship_ids'] + '"/></div>';
                 histories_html += "<div class=\"inner-table-icon-cell\"></div>";
                 histories_html += "<div class=\"inner-table-date-cell\">" + $.format.date(new Date(timeShip), "dd.MM.yyyy HH:mm:ss") + "</div>";
@@ -714,6 +721,7 @@ $(document).ready(function () {
         histories_html += "</div></td></tr>";
 
         selectedTR.after(histories_html);
+
     }
 
     function createPath(terminalId) {
@@ -792,8 +800,6 @@ $(document).ready(function () {
 
                     markerHistory.bindPopup(popup, {"closeOnClick": null});
                     markerHistory.on('click', function (e) {
-                        $('.inner-table-row').removeClass('selected');
-                        $('.inner-table-row[data-id="' + history['history_ids']+ '"]').addClass('selected');
                         this.openPopup();
                     });
 
@@ -900,6 +906,7 @@ $(document).ready(function () {
         elems = $('div.inner-table-row:first');
 
         if (e.keyCode == 38 && elems.length > 0) {
+            console.log('atas')
             if($('.selected').length == 0) {
                 console.log('kosong')
                 elems = $('div.inner-table-row:first');
@@ -972,6 +979,7 @@ $(document).ready(function () {
    });
 
     function showDetail(id, name, selectedMessage, checked) {
+        console.log(id, name, selectedMessage, checked)
         if (selectedMessage) {
             if (selectedMessage.path) {
                 if (checked) {
