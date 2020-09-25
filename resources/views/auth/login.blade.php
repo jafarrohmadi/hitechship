@@ -1,13 +1,11 @@
 @extends('layouts.app')
 @section('content')
     <div class="row justify-content-center">
-        <div class="col-md-6" style="padding: 40px 40px 100px 40px;">
-            <div class="card mx-4" style="background-color: gainsboro">
-                <div class="card-body p-4">
-                    <h1 style="text-align: center;">{{ trans('panel.site_title') }}</h1>
-                    <br>
-                    <p class="text-muted"></p>
-
+        <div class="col-md-3" style="padding: 0 0 40vh;">
+            <div class="card mx-4" style="background: rgba(220,220,220,0.7)">
+                <div class="card-body p-2">
+                    <h1 style="text-align: center; margin-bottom: 0">{{ trans('panel.site_title') }}</h1>
+                    <h5 style="text-align: center; font-weight: lighter; margin-bottom: 15px">{{ trans('panel.site_subtitle') }}</h5>
                     @if(session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -16,10 +14,10 @@
 
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-                        <div class="input-group mb-3">
+                        <div class="input-group">
                             <div class="input-group-prepend">
                             <span class="input-group-text">
-                                <i class="fa fa-user"></i>
+                                <i class="fa fa-user" style="width:  9px"></i>
                             </span>
                             </div>
                             <input id="username" name="username" type="text"
@@ -33,7 +31,7 @@
                             @endif
                         </div>
 
-                        <div class="input-group mb-3">
+                        <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-lock"></i></span>
                             </div>
@@ -49,7 +47,7 @@
                             @endif
                         </div>
 
-                        <div class="input-group mb-4">
+                        <div class="input-group mb-2">
                             <div class="form-check checkbox">
                                 <input class="form-check-input" name="remember" type="checkbox" id="remember"
                                        style="vertical-align: middle;"/>

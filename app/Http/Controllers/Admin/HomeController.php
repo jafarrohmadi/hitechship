@@ -77,9 +77,10 @@ class HomeController extends BaseController
 
     public function getDataShip()
     {
-        ini_set('memory_limit','-1');
+        ini_set('memory_limit', '-1');
         $user = User::find(Auth::id());
-        if (Auth::id() !== 1) {
+        #if (Auth::id() !== 1) {
+        if (1 != 1) {
             $manager = Manager::all()->pluck('manager_id')->toArray();
             $shiptwo = Ship::with('shipHistoryShipsLatest')
                 ->rightjoin('ship_terminal', 'ships.id', '=', 'ship_terminal.ship_id')
@@ -103,12 +104,14 @@ class HomeController extends BaseController
                 ->where('users.id', Auth::id())
                 ->get();
 
+
             $ship = $shipOne
                 ->map(function ($query) use ($manager) {
                     $user = User::join('manager_user', 'users.id', '=', 'manager_user.user_id')
                         ->join('managers', 'manager_user.manager_id', '=', 'managers.id')
                         ->select('managers.manager_id As managerId')
                         ->where('users.id', $query->userId)->first();
+                        dd($user);
                     if ($user) {
                         $managerName           = User::where('id', $user->managerId)->first();
                         $query['manager_id']   = $user->managerId;
@@ -133,6 +136,10 @@ class HomeController extends BaseController
             $ship = $ship->groupBy('manager_name')->map(function ($query) {
                 return $query->groupBy('owner');
             });
+
+            // if (request()->get('debug')) {
+            //     return response()->json(['tst',     $ship]);
+            // }
         } else {
             $manager = Manager::all()->pluck('manager_id')->toArray();
             $shiptwo = Ship::with('shipHistoryShipsLatest')
@@ -201,7 +208,16 @@ class HomeController extends BaseController
                 return $query->groupBy('owner');
             });
         }
+        
+         if(Auth::user()->roles()->first()->title == "Manager") {
+            foreach($ship as $key => $x) {
+                if($key != Auth::user()->username)
+                    unset($ship[$key]);
+            }
 
+            return $ship;
+        }
+        
         return $ship;
     }
 
@@ -239,12 +255,11 @@ class HomeController extends BaseController
                 ->pluck('payload');
 
             foreach ($shipHistory as $payload) {
-                foreach (json_decode($payload)->Fields as $fields)
-
+                foreach (json_decode($payload)->Fields as $fields) {
                     if (strtolower($fields->Name) === 'speed') {
                         $speed[] = $fields->Value * 0.1;
                     }
-
+                }
             }
 
             $speed      = array_sum($speed) / count($speed);

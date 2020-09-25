@@ -1,0 +1,2 @@
+[24-Jul-2020 16:00:11 UTC] Bugsnag Warning: Couldn't notify. cURL error 6: Could not resolve host: notify.bugsnag.com (see https://curl.haxx.se/libcurl/c/libcurl-errors.html)
+[24-Jul-2020 16:00:12 UTC] Bugsnag Warning: Couldn't notify. cURL error 6: Could not resolve host: notify.bugsnag.com (see https://curl.haxx.se/libcurl/c/libcurl-errors.html)

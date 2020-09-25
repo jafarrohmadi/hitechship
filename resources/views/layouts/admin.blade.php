@@ -46,6 +46,14 @@
 
     @include('partials.nav_menu')
     <ul class="nav navbar-nav ml-auto">
+        @auth
+        <li class="nav-item">
+            <a class="nav-link"href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                Welcome, {{ Auth::user()->name }} ({{  Auth::user()->roles()->first()->title }})
+            </a>
+        </li>
+        @endauth
+
         @if(count(config('panel.available_languages', [])) > 1)
             <li class="nav-item dropdown d-md-down-none">
                 <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
@@ -94,6 +102,7 @@
         {{ csrf_field() }}
     </form>
 </div>
+@include('partials.spinner')
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/popper.min.js') }}"></script>
@@ -279,6 +288,14 @@
             var url = $(this).attr('href');
             window.location = url;
         });
+    });
+
+    $(window).on('load', function(){
+        if($('#overlay-box').length > 0) {
+            $('#overlay-box').fadeOut('slow', function(){
+                $(this).hide()
+            });
+        }
     });
 </script>
 @yield('scripts')

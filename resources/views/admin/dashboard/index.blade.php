@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/tabstyles.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/skysatu.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('css/leaflet-measure.css') }}"/>
+    <link href="//db.onlinewebfonts.com/c/860c3ec7bbc5da3e97233ccecafe512e?family=Circular+Std+Book" rel="stylesheet" type="text/css"/>
     <style>
         body {
             font-family: Roboto, 'Segoe UI', Tahoma, sans-serif;
@@ -93,11 +94,85 @@
             background-color: rgb(37, 96, 204);
             color: #fff;
         }
+
+        #overlay-box {
+            display: none;
+    z-index: 6;
+    background: rgba(0,0,0,.5);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 1s; /* Firefox < 16 */
+        -ms-animation: fadein 1s; /* Internet Explorer */
+         -o-animation: fadein 1s; /* Opera < 12.1 */
+            animation: fadein 1s;
+}
+
+.overlay img {
+    display: block;
+    margin: auto;
+    width: 15%;
+}
+
+.overlay p {
+    display: block;
+    margin: auto;
+    color: #fff;
+    text-align:center;
+    text-transform: uppercase;
+    margin-top: -50px;
+    font-size: large;
+}
+.overlay-wrap {
+   display: table;
+   width: 100%;
+   height: 100%;
+}
+
+.overlay {
+    display: table-cell;
+    vertical-align: middle;
+ }
+
+ @keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
     </style>
 </head>
 <body style="height: inherit !important;">
+
 <div id="googleMap"></div>
 <div id="googleMapHistory" style="display: none"></div>
+@include('partials.spinner')
+
 <div id="speedCount" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
@@ -200,7 +275,6 @@
         </div><!-- /tabs -->
     </section>
 </div>
-
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{{ asset('js/bootstrap.min.js')}}"></script>
@@ -214,8 +288,6 @@
 <script src="{{ asset('js/leaflet.draw.js') }}"></script>
 <script src="{{ asset('js/leaflet-providers.js') }}"></script>
 <script src="{{ asset('js/customleaflet.js') }}?v={{  now()  }}"></script>
-
-<script src="https://kit.fontawesome.com/59ba4e0c1b.js"></script>
 
 
 </body>

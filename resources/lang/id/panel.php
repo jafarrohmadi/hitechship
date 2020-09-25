@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'site_title' => 'hiTechShip',
+    'site_title' => 'Sky1MAS',
+    'site_subtitle' => 'Monitoring & Alert System',
 ];

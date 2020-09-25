@@ -1,3 +1,12 @@
+@font-face {font-family: "Circular Std Book";
+  src: url("../fonts/860c3ec7bbc5da3e97233ccecafe512e.eot"); /* IE9*/
+  src: url("../fonts/860c3ec7bbc5da3e97233ccecafe512e.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+  url("../fonts/860c3ec7bbc5da3e97233ccecafe512e.woff2") format("woff2"), /* chrome、firefox */
+  url("../fonts/860c3ec7bbc5da3e97233ccecafe512e.woff") format("woff"), /* chrome、firefox */
+  url("../fonts/860c3ec7bbc5da3e97233ccecafe512e.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url("../fonts/860c3ec7bbc5da3e97233ccecafe512e.svg#Circular Std Book") format("svg"); /* iOS 4.1- */
+}
+
 html { height: 100%; }
 body { height: 100%; margin: 0px; padding: 0px; font-family: Roboto, 'Segoe UI', Tahoma, sans-serif; font-size: 12px;}
 p { margin:0; padding:0}
@@ -25,12 +34,10 @@ p { margin:0; padding:0}
     z-index: 5;
     background-color: #fff;
     text-align: center;
-    height: inherit;
-    overflow: auto;
 }
 #floating-panel div.close {
     background-color:#fff;
-    position: fixed;
+    position: absolute;
     margin-left: 285px;
     cursor: pointer;
     width: 30px;
@@ -106,6 +113,7 @@ p { margin:0; padding:0}
 .fixed_headers tbody {
     display: block;
     overflow: auto;
+    height: 380px;
 }
 .inner-table {
     font-size: 11px;
@@ -128,5 +136,3 @@ p { margin:0; padding:0}
     width: 110px;
     float: left;
 }
-
-
