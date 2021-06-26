@@ -47,6 +47,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     //Route::resource('terminals', 'TerminalController');
     // History Ships
     Route::delete('history-ships/destroy', 'HistoryShipController@massDestroy')->name('history-ships.massDestroy');
+    Route::get('change-display/{id}', 'HistoryShipController@display');
     Route::resource('history-ships', 'HistoryShipController');
     // Settings
     Route::resource('settings', 'SettingsController');

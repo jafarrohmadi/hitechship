@@ -40,6 +40,11 @@ class HistoryShipController extends Controller
                 return $row->id ? $row->id : "";
             }
             );
+
+            $table->editColumn('display_to_map', function ($row) {
+                return $row->display_to_map == 1 ? "<a class='btn btn-xs btn-primary' href='". url('/admin/change-display/'.$row->id)."'>Show</a>": "<a class='btn btn-xs btn-info' href='". url('/admin/change-display/'.$row->id)."'>Hide</a>";
+            }
+            );
             $table->editColumn('history_ids', function ($row) {
                 return $row->history_ids ? $row->history_ids : "";
             }
@@ -72,7 +77,7 @@ class HistoryShipController extends Controller
                 return $row->ota_message_size ? $row->ota_message_size : "";
             }
             );
-            $table->rawColumns(['actions', 'placeholder', 'ship']);
+            $table->rawColumns(['actions', 'placeholder', 'ship', 'display_to_map']);
             return $table->make(true);
         }
         return view('admin.historyShips.index');
@@ -123,6 +128,20 @@ class HistoryShipController extends Controller
     {
         HistoryShip::whereIn('id', request('ids'))->delete();
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function display($id)
+    {
+        $history = HistoryShip::find($id);
+        if($history->display_to_map == 1)
+        {
+            $history->display_to_map = 0;
+        }else{
+            $history->display_to_map = 1;
+        }
+        $history->save();
+
+        return back();
     }
 
 }

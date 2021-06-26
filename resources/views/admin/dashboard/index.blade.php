@@ -106,7 +106,7 @@
           background-color: #4CAF50;
         }
 
-        
+
     </style>
 </head>
 <body style="height: inherit !important;">
@@ -114,7 +114,6 @@
 <div id="googleMapHistory" style="display: none"></div>
 <div id="speedCount" class="modal fade" role="dialog">
     <div class="modal-dialog">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -158,7 +157,7 @@
 <div class="alert alert-success alert-dismissible" id="myDIV" style="position: absolute;
 top: 1%; width: 100%; height: 99%; z-index: 6; background-color: #000; opacity: 0.8; filter: alpha(opacity=80); text-align: center; display: none;">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-   <img src="/images/loder.gif" alt="loading" width="90" height="88" style="margin-top: 18%"> 
+   <img src="/images/loder.gif" alt="loading" width="90" height="88" style="margin-top: 18%">
 </div>
 
 <div id="floating-panel">
@@ -198,7 +197,7 @@ top: 1%; width: 100%; height: 99%; z-index: 6; background-color: #000; opacity: 
                         </tbody>
                     </table>
                 </section>
-    
+
                 <section id="section-linebox-2">
                     <!--<div id="myProgress">
   <div id="myBar">Loading</div>
@@ -210,7 +209,7 @@ top: 1%; width: 100%; height: 99%; z-index: 6; background-color: #000; opacity: 
                         <button id="setDate"><i class="fa fa-search"></i>&nbsp;Search</button>
                         <button id="downloadCSV"><i class="fa fa-download"></i></button>
                     </div>
-                    
+
                    <table class="fixed_headers history" id="history_table" style="margin-top: 60px;">
                         <thead style="font-weight: 660;">
                         <tr>

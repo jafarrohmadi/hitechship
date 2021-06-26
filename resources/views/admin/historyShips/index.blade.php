@@ -24,9 +24,12 @@
                     <th>
                         {{ trans('cruds.historyShip.fields.id') }}
                     </th>
-                   <!-- <th style="min-width: 100px;">
+                    <th style="min-width: 100px;">
                         &nbsp;
-                    </th>-->
+                    </th>
+                    <th>
+                        Display To map
+                    </th>
                     <th>
                         {{ trans('cruds.historyShip.fields.history_ids') }}
                     </th>
@@ -114,7 +117,8 @@
                     columns: [
                         {data: 'placeholder', name: 'placeholder'},
                         {data: 'id', name: 'id'},
-                        //{data: 'actions', name: '{{ trans('global.actions') }}'},
+                        {data: 'actions', name: '{{ trans('global.actions') }}' ,"searchable": false,"orderable": false,},
+                        {data: 'display_to_map', name:'display_to_map'},
                         {data: 'history_ids', name: 'history_ids'},
                         {data: 'sin', name: 'sin'},
                         {data: 'min', name: 'min'},

@@ -24,14 +24,14 @@
             </li>
         @endcan
 
-        @can('terminal_access')
-            <li class="nav-item active">
-                <a href="{{ route("admin.history-ships.index") }}"
-                   class="nav-link {{ request()->is('admin/terminals') || request()->is('admin/terminals/*') ? 'active' : '' }}">
-                    {{ trans('cruds.terminal.title') }}
-                </a>
-            </li>
-        @endcan
+{{--        @can('terminal_access')--}}
+{{--            <li class="nav-item active">--}}
+{{--                <a href="{{ route("admin.history-ships.index") }}"--}}
+{{--                   class="nav-link {{ request()->is('admin/terminals') || request()->is('admin/terminals/*') ? 'active' : '' }}">--}}
+{{--                    {{ trans('cruds.terminal.title') }}--}}
+{{--                </a>--}}
+{{--            </li>--}}
+{{--        @endcan--}}
         @can('user_management_access')
             <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"

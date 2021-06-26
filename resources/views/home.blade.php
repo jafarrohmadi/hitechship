@@ -28,15 +28,16 @@
 
     .dropdown-item {
         font-weight: 625 !important;
-    }    
+    }
 
 </style>
 @extends('layouts.admin')
 @section('content')
     <div class="content">
         <div class="row">
-                        <iframe class="embed-responsive-item" src="{{URL::to('/admin/getDashboard')}}"
-                                style="position:absolute;top:19px;left:0;width:100%;height:96.7%; border: 0" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+            <iframe class="embed-responsive-item" src="{{URL::to('/admin/getDashboard')}}"
+                    style="position:absolute;top:19px;left:0;width:100%;height:96.7%; border: 0"
+                    allowfullscreen="allowfullscreen" frameborder="0"></iframe>
         </div>
     </div>
 @endsection

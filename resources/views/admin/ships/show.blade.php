@@ -124,10 +124,10 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="ship_history_ships">
-            @includeIf('admin.ships.relationships.shipHistoryShips', ['historyShips' => $ship->shipHistoryShips])
+            @include('admin.ships.relationships.shipHistoryShips', ['historyShips' => $ship->shipHistoryShips])
         </div>
         <div class="tab-pane" role="tabpanel" id="ship_users">
-            @includeIf('admin.ships.relationships.shipUsers', ['users' => $ship->shipUsers])
+            @include('admin.ships.relationships.shipUsers', ['users' => $ship->shipUsers])
         </div>
     </div>
 </div>

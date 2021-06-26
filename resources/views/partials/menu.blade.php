@@ -35,7 +35,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
+<!--                <li class="nav-item">
                     <a href="{{ route("admin.history-ships.index") }}"
                        class="nav-link {{ request()->is('admin/history-ships') || request()->is('admin/history-ships/*') ? 'active' : '' }}">
                         <i class="fa fa-cogs nav-icon">
@@ -43,7 +43,7 @@
                         </i>
                         {{ trans('cruds.historyShip.title') }}
                     </a>
-                </li>
+                </li>-->
 
                 <li class="nav-item">
                     <a href="{{ route("admin.terminals.index") }}"

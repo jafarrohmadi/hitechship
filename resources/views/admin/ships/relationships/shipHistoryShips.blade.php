@@ -25,7 +25,13 @@
                             {{ trans('cruds.historyShip.fields.id') }}
                         </th>
                         <th>
+                                Display To Map
+                        </th>
+                        <th>
                             {{ trans('cruds.historyShip.fields.history_ids') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.historyShip.fields.min') }}
                         </th>
                         <th>
                             {{ trans('cruds.historyShip.fields.sin') }}
@@ -66,7 +72,13 @@
                                 {{ $historyShip->id ?? '' }}
                             </td>
                             <td>
+                                {!! $historyShip->display_to_map == 1 ? "<a class='btn btn-xs btn-primary' href='". url('/admin/change-display/'.$historyShip->id)."'>Show</a>": "<a class='btn btn-xs btn-info' href='". url('/admin/change-display/'.$historyShip->id)."'>Hide</a>" !!}
+                            </td>
+                            <td>
                                 {{ $historyShip->history_ids ?? '' }}
+                            </td>
+                            <td>
+                                {{ $historyShip->min ?? '' }}
                             </td>
                             <td>
                                 {{ $historyShip->sin ?? '' }}
