@@ -1,0 +1,1281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="GatewayInterface" targetNamespace="IGWS" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+                  xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex"
+                  xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy"
+                  xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract"
+                  xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="IGWS"
+                  xmlns:wsa10="http://www.w3.org/2005/08/addressing"
+                  xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+                  xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+    <wsp:Policy wsu:Id="IGWS_policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken RequireClientCertificate="false"/>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <sp:Basic256/>
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsdl:types>
+        <xs:schema elementFormDefault="qualified" targetNamespace="IGWS" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:element name="GetReturnMessages">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="accessID" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="password" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="filter" type="tns:ReturnMessageFilter"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="ReturnMessageFilter">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="StartUTC" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="EndUTC" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="MobileID" type="xs:string"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="IncludeRawPayload" type="xs:boolean"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="SubAccountID" type="xs:string"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="StartMessageID" type="xs:long"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="IncludeType" nillable="true" type="xs:boolean"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="IncludeAllSubaccounts" nillable="true"
+                                type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="GetReturnMessagesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="GetReturnMessagesResult"
+                                    type="tns:GetReturnMessagesResult"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="GetReturnMessagesResult">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorID" type="xs:int"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="More" type="xs:boolean"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="NextStartUTC" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Messages" type="tns:ArrayOfReturnMessage"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="NextStartID" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ArrayOfReturnMessage">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="ReturnMessage" nillable="true"
+                                type="tns:ReturnMessage"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ReturnMessage">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ID" type="xs:long"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="MessageUTC" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="ReceiveUTC" type="xs:string"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="SIN" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="MobileID" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="RawPayload" type="xs:base64Binary"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Payload" type="tns:Message"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="RegionName" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="StreamHandle" nillable="true" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="OTAMessageSize" nillable="true" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Message">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Fields" type="tns:ArrayOfField"/>
+                </xs:sequence>
+                <xs:attribute name="Name" type="xs:string"/>
+                <xs:attribute name="SIN" type="xs:int" use="required"/>
+                <xs:attribute name="MIN" type="xs:int" use="required"/>
+                <xs:attribute name="IsForward" type="xs:string"/>
+            </xs:complexType>
+            <xs:complexType name="ArrayOfField">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="Field" nillable="true" type="tns:Field"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Field">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Elements" type="tns:ArrayOfElement"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Message" type="tns:Message"/>
+                </xs:sequence>
+                <xs:attribute name="Name" type="xs:string"/>
+                <xs:attribute name="Value" type="xs:string"/>
+                <xs:attribute name="Type" type="xs:string"/>
+            </xs:complexType>
+            <xs:complexType name="ArrayOfElement">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="Element" nillable="true" type="tns:Element"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Element">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Fields" type="tns:ArrayOfField"/>
+                </xs:sequence>
+                <xs:attribute default="-1" name="Index" type="xs:int"/>
+            </xs:complexType>
+            <xs:element name="GetStreamInformation">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="accessID" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="password" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="streamInfos" type="tns:ArrayOfStreamInfo"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="ArrayOfStreamInfo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="StreamInfo" nillable="true"
+                                type="tns:StreamInfo"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="StreamInfo">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="Handle" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="DestinationID" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="State" nillable="true" type="tns:StreamStateEnum"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="LastMessageUTC" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="ErrorID" nillable="true" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="LastSequenceID" nillable="true" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:simpleType name="StreamStateEnum">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="CLOSED"/>
+                    <xs:enumeration value="OPEN"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="GetStreamInformationResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="GetStreamInformationResult"
+                                    type="tns:GetStreamInformationResult"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="GetStreamInformationResult">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorID" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Streams" type="tns:ArrayOfStreamInfo"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="GetStreamedData">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="accessID" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="password" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="subAccountID" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="dataID" type="xs:string"/>
+                        <xs:element minOccurs="1" maxOccurs="1" name="includeRawPayload" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetStreamedDataResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="GetStreamedDataResult"
+                                    type="tns:GetStreamedDataResult"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="GetStreamedDataResult">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorID" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="RawPayload" type="xs:base64Binary"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Payload" type="tns:Message"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="SubmitForwardMessages">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="accessID" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="password" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="messages" type="tns:ArrayOfForwardMessage"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="ArrayOfForwardMessage">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="ForwardMessage" nillable="true"
+                                type="tns:ForwardMessage"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ForwardMessage">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="DestinationID" type="xs:string"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="UserMessageID" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="RawPayload" type="xs:base64Binary"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Payload" type="tns:Message"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="StreamHandle" nillable="true" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="SubmitForwardMessagesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="SubmitForwardMessagesResult"
+                                    type="tns:SubmitMessagesResult"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="SubmitMessagesResult">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorID" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Submissions" type="tns:ArrayOfForwardSubmission"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ArrayOfForwardSubmission">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="ForwardSubmission" nillable="true"
+                                type="tns:ForwardSubmission"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ForwardSubmission">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ForwardMessageID" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="DestinationID" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="StateUTC" type="xs:string"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorID" type="xs:int"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="UserMessageID" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="ScheduledSendUTC" type="xs:string"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="TerminalWakeupPeriod" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="OTAMessageSize" nillable="true" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="StreamHandle" nillable="true" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="SubmitForwardMessageToMultipleDestinations">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="accessID" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="password" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="message" type="tns:ForwardMessage"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="destinations" type="tns:ArrayOfString"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="ArrayOfString">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="SubmitForwardMessageToMultipleDestinationsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="SubmitForwardMessageToMultipleDestinationsResult"
+                                    type="tns:SubmitMessagesResult"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SubmitMessageCancelations">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="accessID" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="password" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="fwMessageIDs" type="tns:ArrayOfInt"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="ArrayOfInt">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="int" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="SubmitMessageCancelationsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="SubmitMessageCancelationsResult"
+                                    type="tns:SubmitMessagesResult"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="StreamOpen">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="accessID" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="password" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="streamInfoList" type="tns:ArrayOfStreamRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="ArrayOfStreamRequest">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="StreamRequest" nillable="true"
+                                type="tns:StreamRequest"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="StreamRequest">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="DestinationID" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="StreamOpenResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="StreamOpenResult" type="tns:StreamOpenResult"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="StreamOpenResult">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorID" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Streams" type="tns:ArrayOfStreamInfo"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="StreamClose">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="accessID" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="password" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="streamHandles" type="tns:ArrayOfStreamInfo"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="StreamCloseResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="StreamCloseResult" type="tns:StreamCloseResult"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="StreamCloseResult">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorID" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Streams" type="tns:ArrayOfStreamInfo"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="SubmitStreamMessages">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="accessID" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="password" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="messages" type="tns:ArrayOfForwardMessage"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SubmitStreamMessagesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="SubmitStreamMessagesResult"
+                                    type="tns:SubmitMessagesResult"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetForwardStatuses">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="accessID" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="password" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="filter" type="tns:ForwardStatusFilter"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="ForwardStatusFilter">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="ForwardMessageIDs" type="tns:ArrayOfInt"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="StartUTC" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="EndUTC" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="SubaccountID" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="GetForwardStatusesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="GetForwardStatusesResult"
+                                    type="tns:GetForwardStatusesResult"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="GetForwardStatusesResult">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorID" type="xs:int"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="More" type="xs:boolean"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="NextStartUTC" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Statuses" type="tns:ArrayOfForwardStatus"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ArrayOfForwardStatus">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="ForwardStatus" nillable="true"
+                                type="tns:ForwardStatus"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ForwardStatus">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ForwardMessageID" type="xs:int"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="IsClosed" type="xs:boolean"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="State" type="tns:ForwardStateEnum"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorID" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="StateUTC" type="xs:string"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ReferenceNumber" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="StreamHandle" nillable="true" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:simpleType name="ForwardStateEnum">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="SUBMITTED"/>
+                    <xs:enumeration value="RECEIVED"/>
+                    <xs:enumeration value="ERROR"/>
+                    <xs:enumeration value="DELIVERY_FAILED"/>
+                    <xs:enumeration value="TIMED_OUT"/>
+                    <xs:enumeration value="CANCELLED"/>
+                    <xs:enumeration value="WAITING"/>
+                    <xs:enumeration value="NA"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="GetForwardMessages">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="accessID" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="password" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="fwMessageIDs" type="tns:ArrayOfInt"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="subaccountID" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetForwardMessagesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="GetForwardMessagesResult"
+                                    type="tns:GetForwardMessagesResult"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="GetForwardMessagesResult">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorID" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Messages" type="tns:ArrayOfForwardMessageRecord"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ArrayOfForwardMessageRecord">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="ForwardMessageRecord" nillable="true"
+                                type="tns:ForwardMessageRecord"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ForwardMessageRecord">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ID" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="StatusUTC" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="CreateUTC" type="xs:string"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="IsClosed" type="xs:boolean"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="State" type="tns:ForwardStateEnum"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="DestinationID" type="xs:string"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorID" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="RawPayload" type="xs:base64Binary"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Payload" type="tns:Message"/>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ReferenceNumber" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="StreamHandle" nillable="true" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="InfoUTC">
+                <xs:complexType/>
+            </xs:element>
+            <xs:element name="InfoUTCResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="InfoUTCResult" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="InfoVersion">
+                <xs:complexType/>
+            </xs:element>
+            <xs:element name="InfoVersionResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="InfoVersionResult" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="InfoErrorInfos">
+                <xs:complexType/>
+            </xs:element>
+            <xs:element name="InfoErrorInfosResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="InfoErrorInfosResult"
+                                    type="tns:ArrayOfErrorInfo"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="ArrayOfErrorInfo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="ErrorInfo" nillable="true"
+                                type="tns:ErrorInfo"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ErrorInfo">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ID" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="GetMobileInfos">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="accessID" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="password" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="subaccountID" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetMobileInfosResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="GetMobileInfosResult"
+                                    type="tns:GetMobileInfosResult"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="GetMobileInfosResult">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorID" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Mobiles" type="tns:ArrayOfMobileInfo"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ArrayOfMobileInfo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="MobileInfo" nillable="true"
+                                type="tns:MobileInfo"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="MobileInfo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="ID" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="GetMobilesPaged">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="accessID" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="password" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="subaccountID" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="sinceMobile" type="xs:string"/>
+                        <xs:element minOccurs="1" maxOccurs="1" name="pageSize" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetMobilesPagedResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="GetMobilesPagedResult"
+                                    type="tns:GetMobilesPagedResult"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="GetMobilesPagedResult">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorID" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Mobiles" type="tns:ArrayOfMobileExInfo"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ArrayOfMobileExInfo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="MobileExInfo" nillable="true"
+                                type="tns:MobileExInfo"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="MobileExInfo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="ID" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="LastRegistrationUTC" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="RegionName" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="GetBroadcastIDs">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="accessID" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="password" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="subaccountID" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetBroadcastIDsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="GetBroadcastIDsResult"
+                                    type="tns:GetBroadcastIDsResult"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="GetBroadcastIDsResult">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorID" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="BroadcastIDs" type="tns:ArrayOfString"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="GetBroadcastInfos">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="accessID" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="password" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="subaccountID" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetBroadcastInfosResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="GetBroadcastInfosResult"
+                                    type="tns:GetBroadcastInfosResult"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="GetBroadcastInfosResult">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorID" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="BroadcastInfos" type="tns:ArrayOfBroadcastInfo"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ArrayOfBroadcastInfo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="BroadcastInfo" nillable="true"
+                                type="tns:BroadcastInfo"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="BroadcastInfo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="ID" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="GetSubaccountInfos">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="accessID" type="xs:string"/>
+                        <xs:element minOccurs="0" maxOccurs="1" name="password" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetSubaccountInfosResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="GetSubaccountInfosResult"
+                                    type="tns:GetSubaccountInfosResult"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="GetSubaccountInfosResult">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ErrorID" type="xs:int"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Subaccounts" type="tns:ArrayOfSubaccountInfo"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ArrayOfSubaccountInfo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="SubaccountInfo" nillable="true"
+                                type="tns:SubaccountInfo"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="SubaccountInfo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="AccountID" type="xs:string"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="IMessages_GetReturnMessages_InputMessage">
+        <wsdl:part name="parameters" element="tns:GetReturnMessages"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetReturnMessages_OutputMessage">
+        <wsdl:part name="parameters" element="tns:GetReturnMessagesResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetStreamInformation_InputMessage">
+        <wsdl:part name="parameters" element="tns:GetStreamInformation"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetStreamInformation_OutputMessage">
+        <wsdl:part name="parameters" element="tns:GetStreamInformationResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetStreamedData_InputMessage">
+        <wsdl:part name="parameters" element="tns:GetStreamedData"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetStreamedData_OutputMessage">
+        <wsdl:part name="parameters" element="tns:GetStreamedDataResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_SubmitForwardMessages_InputMessage">
+        <wsdl:part name="parameters" element="tns:SubmitForwardMessages"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_SubmitForwardMessages_OutputMessage">
+        <wsdl:part name="parameters" element="tns:SubmitForwardMessagesResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_SubmitForwardMessageToMultipleDestinations_InputMessage">
+        <wsdl:part name="parameters" element="tns:SubmitForwardMessageToMultipleDestinations"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_SubmitForwardMessageToMultipleDestinations_OutputMessage">
+        <wsdl:part name="parameters" element="tns:SubmitForwardMessageToMultipleDestinationsResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_SubmitMessageCancelations_InputMessage">
+        <wsdl:part name="parameters" element="tns:SubmitMessageCancelations"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_SubmitMessageCancelations_OutputMessage">
+        <wsdl:part name="parameters" element="tns:SubmitMessageCancelationsResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_StreamOpen_InputMessage">
+        <wsdl:part name="parameters" element="tns:StreamOpen"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_StreamOpen_OutputMessage">
+        <wsdl:part name="parameters" element="tns:StreamOpenResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_StreamClose_InputMessage">
+        <wsdl:part name="parameters" element="tns:StreamClose"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_StreamClose_OutputMessage">
+        <wsdl:part name="parameters" element="tns:StreamCloseResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_SubmitStreamMessages_InputMessage">
+        <wsdl:part name="parameters" element="tns:SubmitStreamMessages"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_SubmitStreamMessages_OutputMessage">
+        <wsdl:part name="parameters" element="tns:SubmitStreamMessagesResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetForwardStatuses_InputMessage">
+        <wsdl:part name="parameters" element="tns:GetForwardStatuses"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetForwardStatuses_OutputMessage">
+        <wsdl:part name="parameters" element="tns:GetForwardStatusesResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetForwardMessages_InputMessage">
+        <wsdl:part name="parameters" element="tns:GetForwardMessages"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetForwardMessages_OutputMessage">
+        <wsdl:part name="parameters" element="tns:GetForwardMessagesResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_InfoUTC_InputMessage">
+        <wsdl:part name="parameters" element="tns:InfoUTC"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_InfoUTC_OutputMessage">
+        <wsdl:part name="parameters" element="tns:InfoUTCResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_InfoVersion_InputMessage">
+        <wsdl:part name="parameters" element="tns:InfoVersion"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_InfoVersion_OutputMessage">
+        <wsdl:part name="parameters" element="tns:InfoVersionResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_InfoErrorInfos_InputMessage">
+        <wsdl:part name="parameters" element="tns:InfoErrorInfos"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_InfoErrorInfos_OutputMessage">
+        <wsdl:part name="parameters" element="tns:InfoErrorInfosResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetMobileInfos_InputMessage">
+        <wsdl:part name="parameters" element="tns:GetMobileInfos"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetMobileInfos_OutputMessage">
+        <wsdl:part name="parameters" element="tns:GetMobileInfosResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetMobilesPaged_InputMessage">
+        <wsdl:part name="parameters" element="tns:GetMobilesPaged"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetMobilesPaged_OutputMessage">
+        <wsdl:part name="parameters" element="tns:GetMobilesPagedResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetBroadcastIDs_InputMessage">
+        <wsdl:part name="parameters" element="tns:GetBroadcastIDs"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetBroadcastIDs_OutputMessage">
+        <wsdl:part name="parameters" element="tns:GetBroadcastIDsResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetBroadcastInfos_InputMessage">
+        <wsdl:part name="parameters" element="tns:GetBroadcastInfos"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetBroadcastInfos_OutputMessage">
+        <wsdl:part name="parameters" element="tns:GetBroadcastInfosResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetSubaccountInfos_InputMessage">
+        <wsdl:part name="parameters" element="tns:GetSubaccountInfos"/>
+    </wsdl:message>
+    <wsdl:message name="IMessages_GetSubaccountInfos_OutputMessage">
+        <wsdl:part name="parameters" element="tns:GetSubaccountInfosResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="IMessages">
+        <wsdl:operation name="GetReturnMessages">
+            <wsdl:input wsaw:Action="IGWS/IMessages/GetReturnMessages"
+                        message="tns:IMessages_GetReturnMessages_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/GetReturnMessagesResponse"
+                         message="tns:IMessages_GetReturnMessages_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetStreamInformation">
+            <wsdl:input wsaw:Action="IGWS/IMessages/GetStreamInformation"
+                        message="tns:IMessages_GetStreamInformation_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/GetStreamInformationResponse"
+                         message="tns:IMessages_GetStreamInformation_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetStreamedData">
+            <wsdl:input wsaw:Action="IGWS/IMessages/GetStreamedData"
+                        message="tns:IMessages_GetStreamedData_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/GetStreamedDataResponse"
+                         message="tns:IMessages_GetStreamedData_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="SubmitForwardMessages">
+            <wsdl:input wsaw:Action="IGWS/IMessages/SubmitForwardMessages"
+                        message="tns:IMessages_SubmitForwardMessages_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/SubmitForwardMessagesResponse"
+                         message="tns:IMessages_SubmitForwardMessages_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="SubmitForwardMessageToMultipleDestinations">
+            <wsdl:input wsaw:Action="IGWS/IMessages/SubmitForwardMessageToMultipleDestinations"
+                        message="tns:IMessages_SubmitForwardMessageToMultipleDestinations_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/SubmitForwardMessageToMultipleDestinationsResponse"
+                         message="tns:IMessages_SubmitForwardMessageToMultipleDestinations_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="SubmitMessageCancelations">
+            <wsdl:input wsaw:Action="IGWS/IMessages/SubmitMessageCancelations"
+                        message="tns:IMessages_SubmitMessageCancelations_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/SubmitMessageCancelationsResponse"
+                         message="tns:IMessages_SubmitMessageCancelations_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="StreamOpen">
+            <wsdl:input wsaw:Action="IGWS/IMessages/StreamOpen" message="tns:IMessages_StreamOpen_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/StreamOpenResponse"
+                         message="tns:IMessages_StreamOpen_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="StreamClose">
+            <wsdl:input wsaw:Action="IGWS/IMessages/StreamClose" message="tns:IMessages_StreamClose_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/StreamCloseResponse"
+                         message="tns:IMessages_StreamClose_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="SubmitStreamMessages">
+            <wsdl:input wsaw:Action="IGWS/IMessages/SubmitStreamMessages"
+                        message="tns:IMessages_SubmitStreamMessages_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/SubmitStreamMessagesResponse"
+                         message="tns:IMessages_SubmitStreamMessages_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetForwardStatuses">
+            <wsdl:input wsaw:Action="IGWS/IMessages/GetForwardStatuses"
+                        message="tns:IMessages_GetForwardStatuses_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/GetForwardStatusesResponse"
+                         message="tns:IMessages_GetForwardStatuses_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetForwardMessages">
+            <wsdl:input wsaw:Action="IGWS/IMessages/GetForwardMessages"
+                        message="tns:IMessages_GetForwardMessages_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/GetForwardMessagesResponse"
+                         message="tns:IMessages_GetForwardMessages_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="InfoUTC">
+            <wsdl:input wsaw:Action="IGWS/IMessages/InfoUTC" message="tns:IMessages_InfoUTC_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/InfoUTCResponse" message="tns:IMessages_InfoUTC_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="InfoVersion">
+            <wsdl:input wsaw:Action="IGWS/IMessages/InfoVersion" message="tns:IMessages_InfoVersion_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/InfoVersionResponse"
+                         message="tns:IMessages_InfoVersion_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="InfoErrorInfos">
+            <wsdl:input wsaw:Action="IGWS/IMessages/InfoErrorInfos"
+                        message="tns:IMessages_InfoErrorInfos_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/InfoErrorInfosResponse"
+                         message="tns:IMessages_InfoErrorInfos_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetMobileInfos">
+            <wsdl:input wsaw:Action="IGWS/IMessages/GetMobileInfos"
+                        message="tns:IMessages_GetMobileInfos_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/GetMobileInfosResponse"
+                         message="tns:IMessages_GetMobileInfos_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetMobilesPaged">
+            <wsdl:input wsaw:Action="IGWS/IMessages/GetMobilesPaged"
+                        message="tns:IMessages_GetMobilesPaged_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/GetMobilesPagedResponse"
+                         message="tns:IMessages_GetMobilesPaged_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetBroadcastIDs">
+            <wsdl:input wsaw:Action="IGWS/IMessages/GetBroadcastIDs"
+                        message="tns:IMessages_GetBroadcastIDs_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/GetBroadcastIDsResponse"
+                         message="tns:IMessages_GetBroadcastIDs_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetBroadcastInfos">
+            <wsdl:input wsaw:Action="IGWS/IMessages/GetBroadcastInfos"
+                        message="tns:IMessages_GetBroadcastInfos_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/GetBroadcastInfosResponse"
+                         message="tns:IMessages_GetBroadcastInfos_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetSubaccountInfos">
+            <wsdl:input wsaw:Action="IGWS/IMessages/GetSubaccountInfos"
+                        message="tns:IMessages_GetSubaccountInfos_InputMessage"/>
+            <wsdl:output wsaw:Action="IGWS/IMessages/GetSubaccountInfosResponse"
+                         message="tns:IMessages_GetSubaccountInfos_OutputMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="IGWS" type="tns:IMessages">
+        <wsp:PolicyReference URI="#IGWS_policy"/>
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetReturnMessages">
+            <soap:operation soapAction="IGWS/IMessages/GetReturnMessages" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetStreamInformation">
+            <soap:operation soapAction="IGWS/IMessages/GetStreamInformation" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetStreamedData">
+            <soap:operation soapAction="IGWS/IMessages/GetStreamedData" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="SubmitForwardMessages">
+            <soap:operation soapAction="IGWS/IMessages/SubmitForwardMessages" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="SubmitForwardMessageToMultipleDestinations">
+            <soap:operation soapAction="IGWS/IMessages/SubmitForwardMessageToMultipleDestinations" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="SubmitMessageCancelations">
+            <soap:operation soapAction="IGWS/IMessages/SubmitMessageCancelations" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="StreamOpen">
+            <soap:operation soapAction="IGWS/IMessages/StreamOpen" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="StreamClose">
+            <soap:operation soapAction="IGWS/IMessages/StreamClose" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="SubmitStreamMessages">
+            <soap:operation soapAction="IGWS/IMessages/SubmitStreamMessages" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetForwardStatuses">
+            <soap:operation soapAction="IGWS/IMessages/GetForwardStatuses" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetForwardMessages">
+            <soap:operation soapAction="IGWS/IMessages/GetForwardMessages" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="InfoUTC">
+            <soap:operation soapAction="IGWS/IMessages/InfoUTC" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="InfoVersion">
+            <soap:operation soapAction="IGWS/IMessages/InfoVersion" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="InfoErrorInfos">
+            <soap:operation soapAction="IGWS/IMessages/InfoErrorInfos" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetMobileInfos">
+            <soap:operation soapAction="IGWS/IMessages/GetMobileInfos" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetMobilesPaged">
+            <soap:operation soapAction="IGWS/IMessages/GetMobilesPaged" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetBroadcastIDs">
+            <soap:operation soapAction="IGWS/IMessages/GetBroadcastIDs" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetBroadcastInfos">
+            <soap:operation soapAction="IGWS/IMessages/GetBroadcastInfos" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetSubaccountInfos">
+            <soap:operation soapAction="IGWS/IMessages/GetSubaccountInfos" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="IGWS1" type="tns:IMessages">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetReturnMessages">
+            <soap:operation soapAction="IGWS/IMessages/GetReturnMessages" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetStreamInformation">
+            <soap:operation soapAction="IGWS/IMessages/GetStreamInformation" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetStreamedData">
+            <soap:operation soapAction="IGWS/IMessages/GetStreamedData" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="SubmitForwardMessages">
+            <soap:operation soapAction="IGWS/IMessages/SubmitForwardMessages" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="SubmitForwardMessageToMultipleDestinations">
+            <soap:operation soapAction="IGWS/IMessages/SubmitForwardMessageToMultipleDestinations" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="SubmitMessageCancelations">
+            <soap:operation soapAction="IGWS/IMessages/SubmitMessageCancelations" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="StreamOpen">
+            <soap:operation soapAction="IGWS/IMessages/StreamOpen" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="StreamClose">
+            <soap:operation soapAction="IGWS/IMessages/StreamClose" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="SubmitStreamMessages">
+            <soap:operation soapAction="IGWS/IMessages/SubmitStreamMessages" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetForwardStatuses">
+            <soap:operation soapAction="IGWS/IMessages/GetForwardStatuses" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetForwardMessages">
+            <soap:operation soapAction="IGWS/IMessages/GetForwardMessages" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="InfoUTC">
+            <soap:operation soapAction="IGWS/IMessages/InfoUTC" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="InfoVersion">
+            <soap:operation soapAction="IGWS/IMessages/InfoVersion" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="InfoErrorInfos">
+            <soap:operation soapAction="IGWS/IMessages/InfoErrorInfos" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetMobileInfos">
+            <soap:operation soapAction="IGWS/IMessages/GetMobileInfos" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetMobilesPaged">
+            <soap:operation soapAction="IGWS/IMessages/GetMobilesPaged" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetBroadcastIDs">
+            <soap:operation soapAction="IGWS/IMessages/GetBroadcastIDs" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetBroadcastInfos">
+            <soap:operation soapAction="IGWS/IMessages/GetBroadcastInfos" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetSubaccountInfos">
+            <soap:operation soapAction="IGWS/IMessages/GetSubaccountInfos" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="GatewayInterface">
+        <wsdl:port name="IGWS" binding="tns:IGWS">
+            <soap:address location="https://isatdatapro.skywave.com/GLGW/GWServices_v1/Messages.svc"/>
+        </wsdl:port>
+        <wsdl:port name="IGWS1" binding="tns:IGWS1">
+            <soap:address location="http://isatdatapro.skywave.com/GLGW/GWServices_v1/Messages.svc"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
