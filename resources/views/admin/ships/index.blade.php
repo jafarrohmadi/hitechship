@@ -34,9 +34,12 @@
                         <th>
                             {{ trans('cruds.ship.fields.name') }}
                         </th>
-                        <!--<th>
+                        <th>
                             {{ trans('cruds.ship.fields.call_sign') }}
-                        </th>-->
+                        </th>
+                        <th>
+                            Send To Pertamina
+                        </th>
                         <th width="150">
                             {{ trans('cruds.ship.fields.owner') }}
                         </th>
@@ -49,7 +52,7 @@
                         <th style="min-width: 120px;">
                             {{ trans('cruds.ship.fields.last_registration_utc') }}
                         </th>
-                        
+
                         <!--<th>
                             {{ trans('cruds.ship.fields.type') }}
                         </th>-->
@@ -94,9 +97,12 @@
                             <td>
                                 {{ $ship->name ?? '' }}
                             </td>
-                            <!--<td>
+                            <td>
                                 {{ $ship->call_sign ?? '' }}
-                            </td>-->
+                            </td>
+                            <td>
+                                {{ $ship->call_sign ?? '' }}
+                            </td>
                             <td>
                                 {{ $ship->owner ?? '' }}
                             </td>
@@ -109,7 +115,7 @@
                             <td>
                                 {{ $ship->last_registration_utc ?? '' }}
                             </td>
-                            
+
                             <!--<td>
                                 {{ App\Ship::TYPE_SELECT[$ship->type] ?? '' }}
                             </td>-->

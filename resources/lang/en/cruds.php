@@ -82,7 +82,7 @@ return [
             'terminal_helper'          => '',
             'ship'                     => 'Terminal',
             'ship_helper'            => '',
-            'ship_id'            => 'Terminla Id',
+            'ship_id'            => 'Antenna Id',
         ],
     ],
     'manager'        => [
@@ -125,7 +125,7 @@ return [
             'updated_at_helper'            => '',
             'deleted_at'                   => 'Deleted at',
             'deleted_at_helper'            => '',
-            'ship_ids'                     => 'Terminal Id',
+            'ship_ids'                     => 'Antenna Id',
             'ship_ids_helper'              => '',
             'region_name'                  => 'Region Name',
             'region_name_helper'           => '',
@@ -133,7 +133,7 @@ return [
             'last_registration_utc_helper' => '',
         ],
     ],
-    
+
     'terminal'       => [
         'title'          => 'Terminal',
         'title_singular' => 'Terminal',
