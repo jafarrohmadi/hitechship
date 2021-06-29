@@ -2,14 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/EmailController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/MassDestroyEmailDestinationRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/StoreEmailDestinationRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/email-destination/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/email-destination/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b2cf6f56-8ed5-47e2-b9a3-040668f6fe0b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/b2cf6f56-8ed5-47e2-b9a3-040668f6fe0b.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/cruds.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/cruds.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/ships/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ships/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/EmailController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/EmailController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/StoreEmailDestinationRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/StoreEmailDestinationRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/PermissionsTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/PermissionsTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/email-destination/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/email-destination/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/email-destination/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/email-destination/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/email-destination/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/email-destination/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partials/menu.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/menu.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partials/nav_menu.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/nav_menu.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -307,7 +310,8 @@
       <workItem from="1624721942839" duration="4282000" />
       <workItem from="1624815384285" duration="264000" />
       <workItem from="1624847450159" duration="53000" />
-      <workItem from="1624899950011" duration="2082000" />
+      <workItem from="1624899950011" duration="2323000" />
+      <workItem from="1624989973543" duration="1726000" />
     </task>
     <task id="LOCAL-00001" summary="merge">
       <created>1580830625488</created>
@@ -323,7 +327,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624726492634</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="email destination">
+      <created>1624902270936</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1624902270936</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -344,7 +355,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Change Terminal Antena with Antena Id" />
     <MESSAGE value="display_to_map" />
-    <option name="LAST_COMMIT_MESSAGE" value="display_to_map" />
+    <MESSAGE value="email destination" />
+    <option name="LAST_COMMIT_MESSAGE" value="email destination" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

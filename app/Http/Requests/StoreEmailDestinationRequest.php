@@ -11,8 +11,6 @@ class StoreEmailDestinationRequest extends FormRequest
 {
     public function authorize()
     {
-     //   abort_if(Gate::denies('history_ship_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         return true;
     }
 

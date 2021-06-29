@@ -65,6 +65,17 @@
                     </a>
                 </li>
             @endcan
+
+            @can('email_destination_access')
+                <li class="nav-item">
+                    <a href="{{ route("admin.email-destination.index") }}" class="nav-link {{ request()->is('admin/email-destinatio') || request()->is('admin/email-destinatio/*') ? 'active' : '' }}">
+                        <i class="fa fa-cogs nav-icon">
+
+                        </i>
+                        Email Destination
+                    </a>
+                </li>
+            @endcan
             @can('user_management_access')
                 <li class="nav-item nav-dropdown">
                     <a class="nav-link  nav-dropdown-toggle" href="#">

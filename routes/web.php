@@ -58,5 +58,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('getDataShipById/{id}', 'HomeController@getDataShipById');
     Route::get('getDataHistoryShipById/{id}', 'HomeController@getDataHistoryShipById');
     Route::get('getAverageSpeed/{data}', 'HomeController@getAverageSpeed');
+
+    Route::delete('email-destination/destroy', 'EmailController@massDestroy')->name('email-destination.massDestroy');
+    Route::resource('email-destination', 'EmailController');
 }
 );

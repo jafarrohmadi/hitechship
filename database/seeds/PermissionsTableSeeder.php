@@ -119,6 +119,18 @@ class PermissionsTableSeeder extends Seeder
             [
                 'title' => 'setting_access',
             ],
+            [
+                'title' => 'email_destination_create',
+            ],
+            [
+                'title' => 'email_destination_edit',
+            ],
+            [
+                'title' => 'email_destination_delete',
+            ],
+            [
+                'title' => 'email_destination_access',
+            ],
         ];
         Permission::insert($permissions);
     }

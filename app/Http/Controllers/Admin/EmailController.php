@@ -13,7 +13,7 @@ class EmailController extends Controller
 {
     public function index()
     {
-     //   abort_if(Gate::denies('email_destination_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('email_destination_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $email = EmailDestination::all();
 
@@ -22,7 +22,7 @@ class EmailController extends Controller
 
     public function create()
     {
-       // abort_if(Gate::denies('terminal_ship_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('email_destination_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $email = EmailDestination::all()->pluck('email', 'id');
 
@@ -36,17 +36,16 @@ class EmailController extends Controller
         return redirect()->route('admin.email-destination.index');
     }
 
-    public function edit(EmailDestination $emailDestination)
+    public function edit($email)
     {
-       // abort_if(Gate::denies('terminal_ship_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $email = EmailDestination::all();
-
+        abort_if(Gate::denies('email_destination_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $email = EmailDestination::find($email);
         return view('admin.email-destination.edit', compact('email'));
     }
 
-    public function update(StoreEmailDestinationRequest $request, EmailDestination $email)
+    public function update(StoreEmailDestinationRequest $request, $email)
     {
+        $email = EmailDestination::find($email);
         $email->update($request->all());
 
         return redirect()->route('admin.email-destination.index');
@@ -55,7 +54,7 @@ class EmailController extends Controller
 
     public function destroy(EmailDestination $emailDestination)
     {
-    //    abort_if(Gate::denies('terminal_ship_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+       abort_if(Gate::denies('email_destination_access_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $emailDestination->delete();
 

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-
+    @can('email_destination_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
             <a class="btn btn-success" href="{{ route("admin.email-destination.create") }}">
@@ -8,6 +8,8 @@
             </a>
         </div>
     </div>
+    @endcan
+
     <br>
     <div class="card">
         <div class="card-header">
@@ -19,49 +21,63 @@
                 <thead>
                 <tr>
                     <th width="10">
-
-                    </th>
-                    <th>
-                        {{ trans('cruds.historyShip.fields.id') }}
+                        No
                     </th>
                     <th style="min-width: 100px;">
                         &nbsp;
                     </th>
-                    <th>
-                        Display To map
+                    <th style="min-width: 100px;">
+                        &nbsp;Email
                     </th>
-                    <th>
-                        {{ trans('cruds.historyShip.fields.history_ids') }}
+                    <th style="min-width: 100px;">
+                        &nbsp;Created
                     </th>
-                    <th>
-                        {{ trans('cruds.historyShip.fields.sin') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.historyShip.fields.min') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.historyShip.fields.region_name') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.historyShip.fields.receive_utc') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.historyShip.fields.message_utc') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.historyShip.fields.ship') }}
-                    </th>
-                    <th style="min-width: 80px;">
-                        {{ trans('cruds.ship.fields.name') }}
-                    </th>
-                    <th style="min-width:750px;">
-                        {{ trans('cruds.historyShip.fields.payload') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.historyShip.fields.ota_message_size') }}
+                    <th style="min-width: 100px;">
+                        &nbsp;Updated
                     </th>
                 </tr>
                 </thead>
+                <tbody>
+                @forelse($email as $key => $emails)
+                    <tr>
+                        <td>
+                            {{$key + 1}}
+                        </td>
+                        <td>
+
+                            @can('email_destination_edit')
+                                <a class="btn btn-xs btn-info" href="{{ route('admin.email-destination.edit', $emails->id) }}">
+                                    {{ trans('global.edit') }}
+                                </a>
+                            @endcan
+
+                            @can('email_destination_delete')
+                                <form action="{{ route('admin.email-destination.destroy', $emails->id) }}" method="POST"
+                                      onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
+                                      style="display: inline-block;">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <input type="submit" class="btn btn-xs btn-danger"
+                                           value="{{ trans('global.delete') }}">
+                                </form>
+                            @endcan
+                        </td>
+                        <td>
+                            {{$emails->email}}
+                        </td>
+                        <td>
+                            {{$emails->created_at}}
+                        </td>
+                        <td>
+                            {{$emails->updated_at}}
+                        </td>
+                    </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5"> No Data Found</td>
+                        </tr>
+                @endforelse
+                </tbody>
             </table>
         </div>
     </div>
@@ -74,11 +90,11 @@
     <script>
         $(function () {
             let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-            @can('history_ship_delete')
+            @can('email_destination_delete')
             let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
             let deleteButton = {
                 text: deleteButtonTrans,
-                url: "{{ route('admin.history-ships.massDestroy') }}",
+                url: "{{ route('admin.email-destination.massDestroy') }}",
                 className: 'btn-danger',
                 action: function (e, dt, node, config) {
                     var ids = $.map(dt.rows({selected: true}).data(), function (entry) {
@@ -106,38 +122,6 @@
             }
             dtButtons.push(deleteButton)
             @endcan
-
-            let dtOverrideGlobals = {
-                buttons: dtButtons,
-                processing: true,
-                serverSide: true,
-                retrieve: true,
-                aaSorting: [],
-                ajax: "{{ route('admin.history-ships.index') }}",
-                columns: [
-                    {data: 'placeholder', name: 'placeholder'},
-                    {data: 'id', name: 'id'},
-                    {data: 'actions', name: '{{ trans('global.actions') }}', "searchable": false, "orderable": false,},
-                    {data: 'display_to_map', name: 'display_to_map'},
-                    {data: 'history_ids', name: 'history_ids'},
-                    {data: 'sin', name: 'sin'},
-                    {data: 'min', name: 'min'},
-                    {data: 'region_name', name: 'region_name'},
-                    {data: 'receive_utc', name: 'receive_utc'},
-                    {data: 'message_utc', name: 'message_utc'},
-                    {data: 'ship_ship_ids', name: 'ship.ship_ids'},
-                    {data: 'ship.name', name: 'ship.name'},
-                    {data: 'payload', name: 'payload'},
-                    {data: 'ota_message_size', name: 'ota_message_size'}
-                ],
-                order: [[1, 'desc']],
-                pageLength: 100,
-            };
-            $('.datatable-HistoryShip').DataTable(dtOverrideGlobals);
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                $($.fn.dataTable.tables(true)).DataTable()
-                    .columns.adjust();
-            });
         });
 
     </script>
