@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\EmailDestination;
 use App\EmailUser;
 use App\HistoryShip;
 use App\Jobs\SendEmailAlert;
@@ -45,26 +46,39 @@ class getHistoryShipData extends Command
     public function handle()
     {
         $historyShip = (new \App\Helpers\CronData)->getReturnMessages();
-        foreach ($historyShip as $key => $data) {
+        $emailSend = EmailDestination::select('email')->get()->toArray();
+        foreach ($historyShip as $key => $data)
+        {
             $data = json_decode($data);
-            if ($data->ErrorID === 0) {
-                foreach ($data->Messages as $message) {
-                    $countShip =
-                        HistoryShip::where([ 'history_ids' => $message->ID, 'message_utc' => $message->MessageUTC, 'receive_utc' => $message->ReceiveUTC ])->count();
-                    $ship      = Ship::where('ship_ids', $message->MobileID)->first();
-                    $payload   = [];
-                    if ($message->Payload->Name === 'simpleReport') {
-                        foreach ($message->Payload->Fields as $field) {
+            if ($data->ErrorID === 0)
+            {
+                foreach ($data->Messages as $message)
+                {
+                    $countShip
+                             = HistoryShip::where([
+                        'history_ids' => $message->ID,
+                        'message_utc' => $message->MessageUTC,
+                        'receive_utc' => $message->ReceiveUTC
+                    ])->count();
+                    $ship    = Ship::where('ship_ids', $message->MobileID)->first();
+                    $payload = [];
+                    if ($message->Payload->Name === 'simpleReport')
+                    {
+                        foreach ($message->Payload->Fields as $field)
+                        {
                             $field->Name = strtolower($field->Name);
-                            if ($field->Name === 'latitude' || $field->Name === 'longitude') {
+                            if ($field->Name === 'latitude' || $field->Name === 'longitude')
+                            {
                                 $field->Value = ($field->Value / 6) * 0.0001;
                             }
 
-                            if ($field->Name === 'speed') {
+                            if ($field->Name === 'speed')
+                            {
                                 $field->Value = ($field->Value) * 0.1;
                             }
 
-                            if ($field->Name === 'heading') {
+                            if ($field->Name === 'heading')
+                            {
                                 $field->Value = ($field->Value) * 0.1;
                             }
 
@@ -76,7 +90,8 @@ class getHistoryShipData extends Command
                         $message->Payload->Fields = $payload;
 
 
-                        if ($countShip === 0 && !empty($ship)) {
+                        if ($countShip === 0 && !empty($ship))
+                        {
                             $historyShip                   = new HistoryShip();
                             $historyShip->history_ids      = $message->ID;
                             $historyShip->sin              = $message->SIN;
@@ -89,19 +104,15 @@ class getHistoryShipData extends Command
                             $historyShip->ship_id          = $ship->id;
                             $historyShip->save();
 
-                            if ($ship->call_sign && $ship->call_sign !== null && count($ship->shipTerminals) > 0) {
-                                foreach ($ship->shipTerminals as $terminals) {
-                                    if (count($terminals->email) > 0) {
-                                        foreach ($terminals->email as $emailTerminal) {
-                                            dispatch(new SendEmailPertamina($historyShip, $ship, $emailTerminal));
-                                        }
-                                    }
-                                }
+                            if ($ship->call_sign && $ship->call_sign !== null && $ship->send_to_pertamina == 1)
+                            {
+                                dispatch(new SendEmailPertamina($historyShip, $ship, $emailSend));
                             }
 
                             $findHistoryShip = HistoryShip::where('ship_id', $ship->id)->count();
                             $setSendEmail    = Setting::find(1);
-                            if (isset($setSendEmail) && $findHistoryShip % $setSendEmail->simple_report === 0) {
+                            if (isset($setSendEmail) && $findHistoryShip % $setSendEmail->simple_report === 0)
+                            {
                                 $email = EmailUser::join('users', 'email_user.user_id', '=', 'users.id')
                                     ->join('terminal_user', 'users.id', '=', 'terminal_user.user_id')
                                     ->join('terminals', 'terminal_user.terminal_id', '=', 'terminals.id')
@@ -109,15 +120,19 @@ class getHistoryShipData extends Command
                                     ->join('ships', 'ship_terminal.ship_id', '=', 'ships.id')
                                     ->where('ships.id', $ship->id)->get();
 
-                                foreach ($email as $datas) {
-                                    dispatch(new SendEmailToUserWhoHaveShip($historyShip, $ship, $datas->email, $datas->username));
+                                foreach ($email as $datas)
+                                {
+                                    dispatch(new SendEmailToUserWhoHaveShip($historyShip, $ship, $datas->email,
+                                        $datas->username));
                                 }
                             }
 
                             echo 'Insert History Ship Id ' . $message->ID . "\n";
                         }
-                    } else {
-                        if ($countShip === 0 && !empty($ship)) {
+                    } else
+                    {
+                        if ($countShip === 0 && !empty($ship))
+                        {
                             $historyShip                   = new HistoryShip();
                             $historyShip->history_ids      = $message->ID;
                             $historyShip->sin              = $message->SIN;
@@ -130,10 +145,14 @@ class getHistoryShipData extends Command
                             $historyShip->ship_id          = $ship->id;
                             $historyShip->save();
 
-                            if (count($ship->shipTerminals) > 0) {
-                                foreach ($ship->shipTerminals as $terminals) {
-                                    if (count($terminals->alertEmail) > 0) {
-                                        foreach ($terminals->alertEmail as $emailAlert) {
+                            if (count($ship->shipTerminals) > 0)
+                            {
+                                foreach ($ship->shipTerminals as $terminals)
+                                {
+                                    if (count($terminals->alertEmail) > 0)
+                                    {
+                                        foreach ($terminals->alertEmail as $emailAlert)
+                                        {
                                             dispatch(new SendEmailAlert($historyShip, $ship, $emailAlert));
                                         }
                                     }

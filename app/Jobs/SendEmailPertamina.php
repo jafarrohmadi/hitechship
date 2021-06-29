@@ -41,6 +41,9 @@ class SendEmailPertamina implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->emailTerminal)->send(new PertaminaShipped($this->historyShip, $this->ship));
+        foreach ($this->emailTerminal as $email)
+        {
+            Mail::to($email)->send(new PertaminaShipped($this->historyShip, $this->ship));
+        }
     }
 }

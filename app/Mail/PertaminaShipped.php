@@ -15,7 +15,6 @@ class PertaminaShipped extends Mailable
     use Queueable, SerializesModels;
 
     public $ship, $historyShip;
-
     /**
      * Create a new message instance.
      *
@@ -30,8 +29,9 @@ class PertaminaShipped extends Mailable
 
     private function getSubject()
     {
-        return 'GPS Hourly Report - '.date('ymdhis').'AIMS1';
+        return $this->ship->name.date('dMY-Hi');
     }
+
     private function setFormatPertamina(): string
     {
         foreach (json_decode($this->historyShip->payload)->Fields as $field) {
@@ -55,7 +55,7 @@ class PertaminaShipped extends Mailable
         $latitude  = (new CronData())->DDtoNme($latitude).',S';
         $longitude = (new CronData())->DDtoNme($longitude).',E';
         $callSign = $this->ship->call_sign ?? 'null';
-        return  '"'.$callSign.'","'.$this->ship->name.'","$aims1,'.date('His', strtotime($this->historyShip->message_utc)).',A,'.$latitude.','.$longitude.','.$speed.','.$heading.','.date('dmy').',000.0,E*68"' ;
+        return  '"'.$callSign.'","'.$this->ship->name.'","$SKYSATU,'.date('His', strtotime($this->historyShip->message_utc)).',A,'.$latitude.','.$longitude.','.$speed.','.$heading.','.date('dmy').',000.0,E*68"' ;
     }
 
     /**
@@ -65,7 +65,7 @@ class PertaminaShipped extends Mailable
      */
     public function build()
     {
-        return $this->subject($this->getSubject())->view([])->attachData($this->setFormatPertamina(), 'attachment.chr', [
+        return $this->subject($this->getSubject())->view([])->attachData($this->setFormatPertamina(), $this->ship->name.date('dMY-Hi').'.chr', [
             'mime' => 'text/plain',
         ]);
     }
