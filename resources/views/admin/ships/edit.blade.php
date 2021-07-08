@@ -11,11 +11,11 @@
             @method('PUT')
             @csrf
             <div class="form-group">
-                <label class="required" for="ship_ids">{{ trans('cruds.ship.fields.ship_ids') }}</label>  
+                <label class="required" for="ship_ids">{{ trans('cruds.ship.fields.ship_ids') }}</label>
             <div class="form-group">
             @if(strpos($ship->ship_ids, "-"))
                 <input class="form-control {{ $errors->has('ship_ids') ? 'is-invalid' : '' }}" type="text" name="ship_ids" id="ship_ids" value="{{ old('ship_ids', $ship->ship_ids) }}" required style="width: 30%;" readonly="true">
-            @else 
+            @else
                 <input class="form-control {{ $errors->has('ship_ids') ? 'is-invalid' : '' }}" type="text" name="ship_ids" id="ship_ids" value="{{ old('ship_ids', $ship->ship_ids) }}" required style="width: 30%; float: left;" readonly="true">
                 <select name="ship_ids" class="form-control" value="{{ old('ship_ids', $ship->ship_ids) }}" style="width: 10%;">
                       <option selected disabled>ADD ID</option>
@@ -56,11 +56,11 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.ship.fields.ship_ids_helper') }}</span>
             </div>
-            
+
             <div class="form-group">
                 <!--<label class="required" for="name">{{ trans('cruds.ship.fields.name') }}</label>-->
                 <label  for="name">{{ trans('cruds.ship.fields.name') }}</label>
-                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $ship->name) }}">
+                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $ship->name) }}" DISABLED>
                 @if($errors->has('name'))
                     <div class="invalid-feedback">
                         {{ $errors->first('name') }}
@@ -133,6 +133,40 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.ship.fields.type_helper') }}</span>
             </div>-->
+
+            <div class="form-group">
+                <label for="last_registration_utc">Call Sign</label>
+                <input class="form-control {{ $errors->has('call_sign') ? 'is-invalid' : '' }}" type="text" name="call_sign" id="call_sign" value="{{ old('call_sign', $ship->call_sign) }}">
+                @if($errors->has('call_sign'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('call_sign') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.ship.fields.last_registration_utc_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="last_registration_utc">Send To Pertamina</label>
+                <input class="{{ $errors->has('send_to_pertamina') ? 'is-invalid' : '' }}" type="radio" name="send_to_pertamina" value="1" @if($ship->send_to_pertamina == 1) checked @endif> Enable
+                <input class="{{ $errors->has('send_to_pertamina') ? 'is-invalid' : '' }}" type="radio" name="send_to_pertamina" value="0" @if($ship->send_to_pertamina == 0) checked @endif> Disable
+                @if($errors->has('call_sign'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('call_sign') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.ship.fields.last_registration_utc_helper') }}</span>
+            </div>
+
+            <div class="form-group">
+                <label for="last_registration_utc">Additional Email Ship</label>
+                <input class="form-control {{ $errors->has('additional_email_ship') ? 'is-invalid' : '' }}" type="text" name="additional_email_ship" id="call_sign" value="{{ $ship->additional_email_ship ?? str_replace(',', ";",str_replace('"', "",str_replace("]", "",str_replace("[", "",json_encode(\App\EmailDestination::pluck('email')->toArray()))))) }}">
+                <span>Gunakan ; untuk menambah email</span>
+                @if($errors->has('call_sign'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('call_sign') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.ship.fields.last_registration_utc_helper') }}</span>
+            </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}

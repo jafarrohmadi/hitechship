@@ -43,9 +43,19 @@
                         <th width="150">
                             {{ trans('cruds.ship.fields.owner') }}
                         </th>
-                        <th width="100">
-                            {{ trans('cruds.ship.fields.updated_at') }}
+
+                        <th width="150">
+                            Last Seen Time
                         </th>
+
+                        <th width="150">
+                            Last Seen Destination
+                        </th>
+
+                        <th width="150">
+                            Last Seen Status
+                        </th>
+
                         <th width="40">
                             {{ trans('cruds.ship.fields.region_name') }}
                         </th>
@@ -101,13 +111,19 @@
                                 {{ $ship->call_sign ?? '' }}
                             </td>
                             <td>
-                                {{ $ship->call_sign ?? '' }}
+                                {{ $ship->send_to_pertamina == 1 ?  'Enabled' : 'Disabled' }}
                             </td>
                             <td>
                                 {{ $ship->owner ?? '' }}
                             </td>
                             <td>
-                                {{ $ship->updated_at->format('Y-m-d H:i:s') ?? '' }}
+                                {{ $ship->emailSendPertaminaLast()->last_seen_time ?? '' }}
+                            </td>
+                            <td>
+                                {{ $ship->emailSendPertaminaLast()->last_sent_destination ?? '' }}
+                            </td>
+                            <td>
+                                {{ $ship->emailSendPertaminaLast()->last_sent_status ?? '' }}
                             </td>
                             <td>
                                 {{ $ship->region_name ?? '' }}

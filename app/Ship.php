@@ -40,6 +40,7 @@ class Ship extends Model
         'deleted_at',
         'region_name',
         'last_registration_utc',
+        'additional_email_ship'
     ];
 
     public function shipHistoryShips()
@@ -70,5 +71,15 @@ class Ship extends Model
     public function setLastRegistrationUtcAttribute($value)
     {
         $this->attributes['last_registration_utc'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
+    }
+
+    public function emailSendPertamina()
+    {
+        return $this->hasMany(EmailSendPertamina::class, 'ship_id', 'id');
+    }
+
+    public function emailSendPertaminaLast()
+    {
+        return $this->emailSendPertamina->sortByDesc('id')->first() ?? '';
     }
 }
