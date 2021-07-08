@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/LogSendPertaminaController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/getHistoryShipData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/getHistoryShipData.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Jobs/SendEmailPertamina.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/SendEmailPertamina.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Mail/PertaminaShipped.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Mail/PertaminaShipped.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/ships/relationships/shipHistoryShips.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ships/relationships/shipHistoryShips.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -304,7 +303,10 @@
       <workItem from="1624815384285" duration="264000" />
       <workItem from="1624847450159" duration="53000" />
       <workItem from="1624899950011" duration="2323000" />
-      <workItem from="1624989973543" duration="2962000" />
+      <workItem from="1624989973543" duration="3054000" />
+      <workItem from="1624995592105" duration="66000" />
+      <workItem from="1625334091383" duration="656000" />
+      <workItem from="1625732667308" duration="323000" />
     </task>
     <task id="LOCAL-00001" summary="merge">
       <created>1580830625488</created>
@@ -334,7 +336,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624991737533</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fix email shipped">
+      <created>1624992955842</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1624992955842</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -357,7 +366,8 @@
     <MESSAGE value="display_to_map" />
     <MESSAGE value="email destination" />
     <MESSAGE value="fix email destination to send mail" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix email destination to send mail" />
+    <MESSAGE value="fix email shipped" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix email shipped" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

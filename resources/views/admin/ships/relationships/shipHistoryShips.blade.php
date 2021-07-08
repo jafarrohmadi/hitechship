@@ -18,12 +18,11 @@
             <table class=" table table-bordered table-striped table-hover datatable datatable-HistoryShip">
                 <thead>
                     <tr>
-                        <th width="10">
-
-                        </th>
+<th></th>
                         <th>
                             {{ trans('cruds.historyShip.fields.id') }}
                         </th>
+                        <th>Action</th>
                         <th>
                                 Display To Map
                         </th>
@@ -65,11 +64,12 @@
                 <tbody>
                     @foreach($historyShips as $key => $historyShip)
                         <tr data-entry-id="{{ $historyShip->id }}">
-                            <td>
-
-                            </td>
+                            <td></td>
                             <td>
                                 {{ $historyShip->id ?? '' }}
+                            </td>
+                            <td>
+                                <a class='btn btn-xs btn-primary' href="{{url('admin/history-ships/'. $historyShip->id .'/edit')}}">Edit</a>
                             </td>
                             <td>
                                 {!! $historyShip->display_to_map == 1 ? "<a class='btn btn-xs btn-primary' href='". url('/admin/change-display/'.$historyShip->id)."'>Show</a>": "<a class='btn btn-xs btn-info' href='". url('/admin/change-display/'.$historyShip->id)."'>Hide</a>" !!}
