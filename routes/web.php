@@ -40,6 +40,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('managers', 'ManagerController');
     // Ships
     Route::delete('ships/destroy', 'ShipController@massDestroy')->name('ships.massDestroy');
+    Route::get('ships/{id}/logs', 'ShipLogsController@index')->name('ships.logs');
     Route::resource('ships', 'ShipController');
     Route::get('our-table', 'ShipController@ourTable')->name('our-table');
     // Terminals

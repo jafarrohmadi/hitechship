@@ -46,11 +46,12 @@ class getHistoryShipData extends Command
     public function handle()
     {
         $historyShip = (new \App\Helpers\CronData)->getReturnMessages();
+
         $emailSend = EmailDestination::select('email')->get()->toArray();
         foreach ($historyShip as $key => $data)
         {
             $data = json_decode($data);
-            if ($data->ErrorID === 0)
+            if ($data->ErrorID === 0 && $data->Messages != null)
             {
                 foreach ($data->Messages as $message)
                 {
@@ -61,6 +62,7 @@ class getHistoryShipData extends Command
                         'receive_utc' => $message->ReceiveUTC
                     ])->count();
                     $ship    = Ship::where('ship_ids', $message->MobileID)->first();
+
                     $payload = [];
                     if ($message->Payload->Name === 'simpleReport')
                     {
@@ -104,8 +106,9 @@ class getHistoryShipData extends Command
                             $historyShip->ship_id          = $ship->id;
                             $historyShip->save();
 
-                            if ($ship->call_sign && $ship->call_sign !== null && $ship->send_to_pertamina == 1)
+                            if ($ship->call_sign  != '' && $ship->call_sign != null && $ship->send_to_pertamina == 1)
                             {
+
                                 dispatch(new SendEmailPertamina($historyShip, $ship, $emailSend));
                             }
 

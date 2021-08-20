@@ -25,7 +25,7 @@
                         <th>
                             {{ trans('cruds.ship.fields.id') }}
                         </th>
-                        <th style="min-width: 100px;">
+                        <th style="min-width: 150px;">
                             &nbsp;
                         </th>
                         <th>
@@ -100,6 +100,12 @@
                                                value="{{ trans('global.delete') }}">
                                     </form>
                                 @endcan
+
+                                    @can('ship_logs')
+                                        <a class="btn btn-xs btn-warning" href="{{ route('admin.ships.logs', $ship->id) }}">
+                                            Logs
+                                        </a>
+                                    @endcan
                             </td>
                             <td>
                                 {{ $ship->ship_ids ?? '' }}
@@ -117,7 +123,7 @@
                                 {{ $ship->owner ?? '' }}
                             </td>
                             <td>
-                                {{ $ship->emailSendPertaminaLast()->last_seen_time ?? '' }}
+                                {{ $ship->emailSendPertaminaLast()->created_at ?? '' }}
                             </td>
                             <td>
                                 {{ $ship->emailSendPertaminaLast()->last_sent_destination ?? '' }}

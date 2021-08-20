@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ShipLogsController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/ships/logs.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b2cf6f56-8ed5-47e2-b9a3-040668f6fe0b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/b2cf6f56-8ed5-47e2-b9a3-040668f6fe0b.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ship.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ship.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/ships/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ships/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/getHistoryShipData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/getHistoryShipData.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/SendEmailPertamina.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/SendEmailPertamina.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_06_29_002656_create_email_send_pertaminas_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_06_29_002656_create_email_send_pertaminas_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/ships/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ships/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -307,7 +312,14 @@
       <workItem from="1624989973543" duration="3054000" />
       <workItem from="1624995592105" duration="66000" />
       <workItem from="1625334091383" duration="656000" />
-      <workItem from="1625732667308" duration="4426000" />
+      <workItem from="1625732667308" duration="7157000" />
+      <workItem from="1626620778022" duration="281000" />
+      <workItem from="1626659343798" duration="464000" />
+      <workItem from="1628010047415" duration="3236000" />
+      <workItem from="1628041870849" duration="502000" />
+      <workItem from="1629137016200" duration="6521000" />
+      <workItem from="1629212690890" duration="54000" />
+      <workItem from="1629397742076" duration="1991000" />
     </task>
     <task id="LOCAL-00001" summary="merge">
       <created>1580830625488</created>
@@ -351,7 +363,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625733010004</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="fix additional email">
+      <created>1625740440825</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1625740440825</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -376,7 +395,8 @@
     <MESSAGE value="fix email destination to send mail" />
     <MESSAGE value="fix email shipped" />
     <MESSAGE value="add edit on history ship" />
-    <option name="LAST_COMMIT_MESSAGE" value="add edit on history ship" />
+    <MESSAGE value="fix additional email" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix additional email" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -388,7 +408,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Console/Commands/getHistoryShipData.php</url>
-          <line>138</line>
+          <line>141</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

@@ -17,7 +17,7 @@ class CreateEmailSendPertaminasTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('ship_id');
             $table->bigInteger('history_ship_id');
-            $table->date('last_seen_time');
+            $table->dateTime('last_seen_time');
             $table->json('last_sent_destination');
             $table->string('last_sent_status');
             $table->string('subject');
