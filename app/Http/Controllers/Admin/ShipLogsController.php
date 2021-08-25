@@ -4,15 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\EmailSendPertamina;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyShipRequest;
-use App\Http\Requests\StoreShipRequest;
-use App\Http\Requests\UpdateShipRequest;
-use App\Ship;
+
+use App\Jobs\SendEmailPertaminaManual;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ShipLogsController extends Controller
+class ShipLogsController extends
+    Controller
 {
     public function index($id)
     {
@@ -23,8 +22,16 @@ class ShipLogsController extends Controller
         return view('admin.ships.logs', compact('ships'));
     }
 
-    public function storeResend()
+    public function sendManual(Request $request)
     {
+        $email = EmailSendPertamina::find($request->id);
+
+        $emailTerminal = explode(';', $request->last_seen_destination);
+
+        dispatch(new SendEmailPertaminaManual($email, array_filter($emailTerminal), $request->subject, $request->filename_chr,
+            $request->content));
+sleep(20);
+        return redirect()->back();
 
     }
 
