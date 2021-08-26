@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Jobs\SendEmailPertaminaManual;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Symfony\Component\HttpFoundation\Response;
 
 class ShipLogsController extends
@@ -30,7 +31,10 @@ class ShipLogsController extends
 
         dispatch(new SendEmailPertaminaManual($email, array_filter($emailTerminal), $request->subject, $request->filename_chr,
             $request->content));
-sleep(20);
+        Artisan::command('queue:work --stop-when-empty', function ($user) {
+            $this->info("Sending email to: {$user}!");
+        });
+        sleep(20);
         return redirect()->back();
 
     }
