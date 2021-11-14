@@ -29,7 +29,14 @@ class PertaminaShipped extends Mailable
 
     private function getSubject()
     {
-        return $this->ship->name.date('dMY-Hi');
+        return $this->ship->name.'-'.date('dmY-Hi');
+    }
+
+    public function printFloatWithLeadingZeros($num, $precision = 1, $leadingZeros = 3){
+        $decimalSeperator = ".";
+        $adjustedLeadingZeros = $leadingZeros + mb_strlen($decimalSeperator) + $precision;
+        $pattern = "%0{$adjustedLeadingZeros}{$decimalSeperator}{$precision}f";
+        return sprintf($pattern,$num);
     }
 
     private function setFormatPertamina(): string
@@ -55,7 +62,7 @@ class PertaminaShipped extends Mailable
         $latitude  = (new CronData())->DDtoNme($latitude).',S';
         $longitude = (new CronData())->DDtoNme($longitude).',E';
         $callSign = $this->ship->call_sign ?? 'null';
-        return  '"'.$callSign.'","'.$this->ship->name.'","$SKYSATU,'.date('His', strtotime($this->historyShip->message_utc)).',A,'.$latitude.','.$longitude.','.$speed.','.$heading.','.date('dmy').',000.0,E*68"' ;
+        return  '"'.$callSign.'","'.$this->ship->name.'","$SKYSATU,'.date('His', strtotime($this->historyShip->message_utc)).',A,'.$latitude.','.$longitude.','.$this->printFloatWithLeadingZeros($speed).','.$this->printFloatWithLeadingZeros($heading).','.date('dmy').',000.0,E*68"' ;
     }
 
     /**
@@ -65,7 +72,7 @@ class PertaminaShipped extends Mailable
      */
     public function build()
     {
-        return $this->subject($this->getSubject())->view([])->attachData($this->setFormatPertamina(), $this->ship->name.date('dMY-Hi').'.chr', [
+        return $this->subject($this->getSubject())->view([])->attachData($this->setFormatPertamina(), $this->ship->name.'-'.date('dmY-Hi').'.chr', [
             'mime' => 'text/plain',
         ]);
     }

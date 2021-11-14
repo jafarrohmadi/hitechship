@@ -49,7 +49,7 @@
                                         data-target="#exampleModal"
                                         data-id={{$ship->id}} data-destination="{{$ship->last_sent_destination}}"
                                         data-subject="{{$ship->subject}}" data-filename="{{$ship->filename_chr}}"
-                                        data-content="{{$ship->content}}">
+                                        data-content="{{$ship->content}}" data-backdrop="static" data-keyboard="false">
                                     Send Manual
                                 </button>
                             </td>
@@ -94,9 +94,10 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="POST" action="{{ url('admin/ships/logs') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ url('admin/ships/logs') }}" enctype="multipart/form-data" id="idForm">
                     @csrf
                     <div class="modal-body">
+                        <span id="noClose"></span>
                         <input type="hidden" name="id" id="id">
                         <div class="form-group">
                             <label for="sin">Last Seen Destination</label>
@@ -191,6 +192,30 @@
             $('#subject').val(subject)
             $('#filename_chr').val(filename)
             $('#content').val(content)
+        });
+
+        $("#idForm").submit(function(e) {
+
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+            alert('Jangan di close, data lagi dalam proses pengiriman');
+            var form = $(this);
+            var url = form.attr('action');
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(),
+                success: function(data)
+                {
+                    $('#exampleModal').modal('hide')
+                    console.log(data)
+
+                    if(!alert('Data Sudah Terkirim')){window.location.reload();}
+                    $('#noClose').html('');
+                }
+            });
+
+
         });
 
 

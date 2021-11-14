@@ -41,6 +41,13 @@ class SendEmailPertamina implements
         $this->emailTerminal = $emailTerminal;
     }
 
+    public function printFloatWithLeadingZeros($num, $precision = 1, $leadingZeros = 3){
+        $decimalSeperator = ".";
+        $adjustedLeadingZeros = $leadingZeros + mb_strlen($decimalSeperator) + $precision;
+        $pattern = "%0{$adjustedLeadingZeros}{$decimalSeperator}{$precision}f";
+        return sprintf($pattern,$num);
+    }
+
     private function setFormatPertamina(): string
     {
         foreach (json_decode($this->historyShip->payload)->Fields as $field) {
@@ -61,11 +68,11 @@ class SendEmailPertamina implements
 
         }
 
-        $latitude  = (new CronData())->DDtoNme($latitude).',S';
-        $longitude = (new CronData())->DDtoNme($longitude).',E';
+        $latitude  = abs((new CronData())->DDtoNme($latitude)).',S';
+        $longitude = abs((new CronData())->DDtoNme($longitude)).',E';
         $callSign  = $this->ship->call_sign ?? 'null';
         return '"'.$callSign.'","'.$this->ship->name.'","$SKYSATU,'.date('His',
-                strtotime($this->historyShip->message_utc)).',A,'.$latitude.','.$longitude.','.$speed.','.$heading.','.date('dmy').',000.0,E*68"';
+                strtotime($this->historyShip->message_utc)).',A,'.$latitude.','.$longitude.','.$this->printFloatWithLeadingZeros($speed).','.$this->printFloatWithLeadingZeros($heading).','.date('dmy').',000.0,E*68"';
     }
 
     /**
@@ -88,8 +95,8 @@ class SendEmailPertamina implements
         $data->last_seen_time        = date('Y-m-d H:i:s');
         $data->last_sent_destination = json_encode($this->emailTerminal);
         $data->last_sent_status      = 'Delivered';
-        $data->subject               = $this->ship->name.date('dMY-Hi');
-        $data->filename_chr          = $this->ship->name.date('dMY-Hi').'.chr';
+        $data->subject               = $this->ship->name.'-'.date('dmY-Hi');
+        $data->filename_chr          = $this->ship->name.'-'.date('dmY-Hi').'.chr';
         $data->content               = $this->setFormatPertamina();
 
         // check for failures

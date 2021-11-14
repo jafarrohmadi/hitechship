@@ -136,7 +136,7 @@
 
             <div class="form-group">
                 <label for="last_registration_utc">Call Sign</label>
-                <input class="form-control {{ $errors->has('call_sign') ? 'is-invalid' : '' }}" type="text" name="call_sign" id="call_sign" value="{{ old('call_sign', $ship->call_sign) }}">
+                <input class="form-control {{ $errors->has('call_sign') ? 'is-invalid' : '' }}" type="text" name="call_sign" id="call_sign" value="{{ old('call_sign', $ship->call_sign) }}" required>
                 @if($errors->has('call_sign'))
                     <div class="invalid-feedback">
                         {{ $errors->first('call_sign') }}

@@ -33,6 +33,7 @@
     </style>
 </head>
 
+
 {{--<body class="app header-fixed sidebar-fixed aside-menu-fixed pace-done sidebar-lg-show ">--}}
 <body class="app header-fixed aside-menu-fixed pace-done sidebar-hidden">
 
