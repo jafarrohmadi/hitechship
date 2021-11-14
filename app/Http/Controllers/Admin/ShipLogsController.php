@@ -35,7 +35,7 @@ class ShipLogsController extends
             $this->info("Sending email to: {$user}!");
         });
         sleep(20);
-        return redirect()->back();
+        return $email;
 
     }
 

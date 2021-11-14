@@ -2,15 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b72d2a6-bf91-465e-b190-d9d0a960b587" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ShipLogsController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/ships/logs.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b2cf6f56-8ed5-47e2-b9a3-040668f6fe0b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/b2cf6f56-8ed5-47e2-b9a3-040668f6fe0b.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/getHistoryShipData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/getHistoryShipData.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ShipLogsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ShipLogsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Jobs/SendEmailPertamina.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/SendEmailPertamina.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_06_29_002656_create_email_send_pertaminas_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_06_29_002656_create_email_send_pertaminas_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Mail/PertaminaShipped.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Mail/PertaminaShipped.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/ships/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ships/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/ships/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ships/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/ships/logs.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ships/logs.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -319,7 +318,11 @@
       <workItem from="1628041870849" duration="502000" />
       <workItem from="1629137016200" duration="6521000" />
       <workItem from="1629212690890" duration="54000" />
-      <workItem from="1629397742076" duration="1991000" />
+      <workItem from="1629397742076" duration="2613000" />
+      <workItem from="1629825813968" duration="8932000" />
+      <workItem from="1629999109604" duration="1400000" />
+      <workItem from="1633408398015" duration="229000" />
+      <workItem from="1636873203654" duration="2945000" />
     </task>
     <task id="LOCAL-00001" summary="merge">
       <created>1580830625488</created>
@@ -370,7 +373,28 @@
       <option name="project" value="LOCAL" />
       <updated>1625740440825</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="not fixed table send pertamina">
+      <created>1629424584986</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1629424584986</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fixed send manual data">
+      <created>1629857380720</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1629857380720</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fixed ship logs">
+      <created>1630000221554</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1630000221554</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -396,7 +420,10 @@
     <MESSAGE value="fix email shipped" />
     <MESSAGE value="add edit on history ship" />
     <MESSAGE value="fix additional email" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix additional email" />
+    <MESSAGE value="not fixed table send pertamina" />
+    <MESSAGE value="fixed send manual data" />
+    <MESSAGE value="fixed ship logs" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed ship logs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
