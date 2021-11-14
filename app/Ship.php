@@ -40,7 +40,8 @@ class Ship extends Model
         'deleted_at',
         'region_name',
         'last_registration_utc',
-        'additional_email_ship'
+        'additional_email_ship',
+        'send_to_pertamina',
     ];
 
     public function shipHistoryShips()

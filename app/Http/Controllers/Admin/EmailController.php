@@ -54,7 +54,7 @@ class EmailController extends Controller
 
     public function destroy(EmailDestination $emailDestination)
     {
-       abort_if(Gate::denies('email_destination_access_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+       abort_if(Gate::denies('email_destination_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $emailDestination->delete();
 

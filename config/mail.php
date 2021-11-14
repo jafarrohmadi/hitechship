@@ -56,7 +56,11 @@ return [
     */
 
     'from' => [
+<<<<<<< Updated upstream
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+=======
+        'address' => env('MAIL_FROM_ADDRESS', 'sinagaeben88@gmail.com'),
+>>>>>>> Stashed changes
         'name' => env('MAIL_FROM_NAME', 'Skysatu'),
     ],
 
