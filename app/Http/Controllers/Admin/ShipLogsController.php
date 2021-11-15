@@ -35,12 +35,7 @@ class ShipLogsController extends
             $this->info("Sending email to: {$user}!");
         });
         sleep(20);
-<<<<<<< Updated upstream
         return $email;
-=======
-        return redirect()->back();
->>>>>>> Stashed changes
-
     }
 
 
