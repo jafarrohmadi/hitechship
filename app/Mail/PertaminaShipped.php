@@ -59,10 +59,10 @@ class PertaminaShipped extends Mailable
 
         }
 
-        $latitude  = (new CronData())->DDtoNme($latitude).',S';
-        $longitude = (new CronData())->DDtoNme($longitude).',E';
+        $latitude  = abs((new CronData())->DDtoNme($latitude)).',S';
+        $longitude = abs((new CronData())->DDtoNme($longitude)).',E';
         $callSign = $this->ship->call_sign ?? 'null';
-        return  '"'.$callSign.'","'.$this->ship->name.'","$SKYSATU,'.date('His', strtotime($this->historyShip->message_utc)).',A,'.abs($latitude).','.abs($longitude).','.$this->printFloatWithLeadingZeros($speed).','.$this->printFloatWithLeadingZeros($heading).','.date('dmy').',000.0,E*68"' ;
+        return  '"'.$callSign.'","'.$this->ship->name.'","$SKYSATU,'.date('His', strtotime($this->historyShip->message_utc)).',A,'.$latitude.','.$longitude.','.$this->printFloatWithLeadingZeros($speed).','.$this->printFloatWithLeadingZeros($heading).','.date('dmy').',000.0,E*68"' ;
     }
 
     /**
