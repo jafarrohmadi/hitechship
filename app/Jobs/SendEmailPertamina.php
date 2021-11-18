@@ -41,12 +41,13 @@ class SendEmailPertamina implements
         $this->emailTerminal = $emailTerminal;
     }
 
-    public function printFloatWithLeadingZeros($num, $precision = 1, $leadingZeros = 3){
+    public function printFloatWithLeadingZeros($num, $precision = 4, $leadingZeros = 4){
         $decimalSeperator = ".";
         $adjustedLeadingZeros = $leadingZeros + mb_strlen($decimalSeperator) + $precision;
         $pattern = "%0{$adjustedLeadingZeros}{$decimalSeperator}{$precision}f";
         return sprintf($pattern,$num);
     }
+
 
     private function setFormatPertamina(): string
     {

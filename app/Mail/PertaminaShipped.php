@@ -32,7 +32,7 @@ class PertaminaShipped extends Mailable
         return $this->ship->name.'-'.date('dmY-Hi');
     }
 
-    public function printFloatWithLeadingZeros($num, $precision = 1, $leadingZeros = 3){
+    public function printFloatWithLeadingZeros($num, $precision = 4, $leadingZeros = 4){
         $decimalSeperator = ".";
         $adjustedLeadingZeros = $leadingZeros + mb_strlen($decimalSeperator) + $precision;
         $pattern = "%0{$adjustedLeadingZeros}{$decimalSeperator}{$precision}f";
