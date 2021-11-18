@@ -41,13 +41,12 @@ class SendEmailPertamina implements
         $this->emailTerminal = $emailTerminal;
     }
 
-    public function printFloatWithLeadingZeros($num, $precision = 4, $leadingZeros = 4){
+    public function printFloatWithLeadingZeros($num, $precision = 1, $leadingZeros = 3){
         $decimalSeperator = ".";
         $adjustedLeadingZeros = $leadingZeros + mb_strlen($decimalSeperator) + $precision;
         $pattern = "%0{$adjustedLeadingZeros}{$decimalSeperator}{$precision}f";
         return sprintf($pattern,$num);
     }
-
 
     private function setFormatPertamina(): string
     {
@@ -69,8 +68,8 @@ class SendEmailPertamina implements
 
         }
 
-        $latitude  = abs((new CronData())->DDtoNme($latitude)).',S';
-        $longitude = abs((new CronData())->DDtoNme($longitude)).',E';
+        $latitude  = $this->printFloatWithLeadingZeros(abs((new CronData())->DDtoNme($latitude)), 4, 4).',S';
+        $longitude = $this->printFloatWithLeadingZeros(abs((new CronData())->DDtoNme($longitude)), 4, 4).',E';
         $callSign  = $this->ship->call_sign ?? 'null';
         return '"'.$callSign.'","'.$this->ship->name.'","$SKYSATU,'.date('His',
                 strtotime($this->historyShip->message_utc)).',A,'.$latitude.','.$longitude.','.$this->printFloatWithLeadingZeros($speed).','.$this->printFloatWithLeadingZeros($heading).','.date('dmy').',000.0,E*68"';
