@@ -219,13 +219,21 @@ class CronData
 
         return $degrees + $minutes/60;
     }
+
+    function printFloatWithLeadingZeros($num, $precision = 1, $leadingZeros = 3){
+        $decimalSeperator = ".";
+        $adjustedLeadingZeros = $leadingZeros + mb_strlen($decimalSeperator) + $precision;
+        $pattern = "%0{$adjustedLeadingZeros}{$decimalSeperator}{$precision}f";
+        return sprintf($pattern,$num);
+    }
+
     function DDtoNme($lng)
     {
         $brk = strpos($lng,".");
         if($brk < 0){ $brk = 0; }
         $minus = $lng < 0 ? '-' : '';
         $minutes = substr($lng, $brk) *60;
-        $minutes = number_format((float)$minutes, 3, '.', '');
+        $minutes = $this->printFloatWithLeadingZeros($minutes, 4, 2);
         $degrees = str_pad( abs(substr($lng, 0,$brk)), 2, "0", STR_PAD_LEFT );
         return $minus.$degrees.$minutes;
     }
