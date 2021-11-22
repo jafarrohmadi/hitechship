@@ -234,7 +234,7 @@ class CronData
         $minus = $lng < 0 ? '-' : '';
         $minutes = substr($lng, $brk) *60;
         $minutes = $this->printFloatWithLeadingZeros($minutes, 4, 2);
-        $degrees = str_pad(substr($lng, 0,$brk), 2, "0", STR_PAD_LEFT);
+        $degrees = str_pad( abs(substr($lng, 0,$brk)), 2, "0", STR_PAD_LEFT );
         return $minus.$degrees.$minutes;
     }
 }
