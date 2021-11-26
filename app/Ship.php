@@ -46,12 +46,12 @@ class Ship extends Model
 
     public function shipHistoryShips()
     {
-        return $this->hasMany(HistoryShip::class, 'ship_id', 'id');
+        return $this->hasMany(HistoryShip::class, 'ship_id', 'id')->where('display_to_map', 1)->where('sin', 19)->where('min', 1);
     }
 
     public function shipHistoryShipsLatest()
     {
-        return $this->hasOne(HistoryShip::class, 'ship_id', 'id')->whereDate('created_at', '>=', date('Y-m-d', strtotime('-1 year')))->latest();
+        return $this->hasOne(HistoryShip::class, 'ship_id', 'id')->whereDate('created_at', '>=', date('Y-m-d', strtotime('-1 year')))->where('display_to_map', 1)->where('sin', 19)->where('min', 1)->latest();
     }
 
     public function shipTerminals()

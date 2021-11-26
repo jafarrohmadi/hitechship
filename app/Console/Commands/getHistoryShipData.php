@@ -104,6 +104,7 @@ class getHistoryShipData extends Command
                             $historyShip->payload          = json_encode($message->Payload);
                             $historyShip->ota_message_size = $message->OTAMessageSize;
                             $historyShip->ship_id          = $ship->id;
+                            $historyShip->display_to_map   = ($message->Payload->MIN == 1 && $message->SIN == 19) ? 1 : 0;
                             $historyShip->save();
 
                             if ($ship->call_sign  != '' && $ship->call_sign != null && $ship->send_to_pertamina == 1)

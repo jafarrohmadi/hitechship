@@ -81,9 +81,9 @@ class HomeController extends BaseController
     {
         ini_set('max_execution_time', 300);
         ini_set('memory_limit', '-1');
-        
+
         $user = User::join('role_user', 'users.id', '=', 'role_user.user_id')->where('users.id', Auth::id())->first();
-        
+
         if ($user->role_id == 3) {
             $manager = Manager::all()->pluck('manager_id')->toArray();
 
@@ -195,9 +195,6 @@ class HomeController extends BaseController
                 });
 
 
-
-
-
             $manager     = $ship->pluck('manager_id')->filter()->toArray();
             $terminalUse = $ship->pluck('userId')->filter()->toArray();
             // dd($terminalUse);
@@ -298,7 +295,7 @@ class HomeController extends BaseController
                 $usersManagerNotUse['manager_name'] = $userss->name;
             }
             $ship->push($usersManagerNotUse);
-           
+
             // dd($ship->groupBy('manager_name'));
             $ship = $ship->groupBy('manager_name')->map(function ($query) {
 
@@ -316,7 +313,7 @@ class HomeController extends BaseController
 
         return $ship;
     }
-    
+
 
     public function getDataHistoryShipById($id)
     {

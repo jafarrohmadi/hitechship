@@ -33,6 +33,7 @@ class HistoryShip extends Model
         'receive_utc',
         'message_utc',
         'ota_message_size',
+        'display_to_map'
     ];
 
     public function getReceiveUtcAttribute($value)
